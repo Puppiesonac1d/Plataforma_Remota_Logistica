@@ -41,10 +41,10 @@ import net.proteanit.sql.DbUtils;
  * @author The_S
  */
 public class Ingreso extends javax.swing.JFrame {
-    
+
     Conexion con = new Conexion();
     Connection cn = con.conecta();
-    
+
     public Ingreso() {
         initComponents();
     }
@@ -59,7 +59,7 @@ public class Ingreso extends javax.swing.JFrame {
         MatrixToImageWriter.writeToFile(matrix, filePath.substring(filePath
                 .lastIndexOf('.') + 1), new File(filePath));
     }
-    
+
     public static String readQRCode(String filePath, String charset, Map hintMap)
             throws FileNotFoundException, IOException, NotFoundException {
         BinaryBitmap binaryBitmap = new BinaryBitmap(new HybridBinarizer(
@@ -69,9 +69,9 @@ public class Ingreso extends javax.swing.JFrame {
                 hintMap);
         return qrCodeResult.getText();
     }
-    
+
     private static final String ALPHA_NUMERIC_STRING = "0123456789";
-    
+
     public static String randomAlphaNumeric(int count) {
         StringBuilder builder = new StringBuilder();
         while (count-- != 0) {
@@ -582,7 +582,7 @@ public class Ingreso extends javax.swing.JFrame {
                 row[3] = txtStockIngresado.getText();
                 modeloNuevo.addRow(row);
             }
-            
+
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex.getMessage());
         }
@@ -603,9 +603,9 @@ public class Ingreso extends javax.swing.JFrame {
             String nombre = "Acima Group - " + idBodega + randomAlphaNumeric(4);
             JFileChooser dlg = new JFileChooser();
             dlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-            
+
             int option = dlg.showOpenDialog(this);
-            
+
             if (option == JFileChooser.APPROVE_OPTION) {
                 File f = dlg.getSelectedFile();
                 ruta = f.toString() + "\\" + nombre + ".png";
@@ -663,7 +663,7 @@ public class Ingreso extends javax.swing.JFrame {
                     pst2.setString(10, model.getValueAt(i, 3).toString());
                     pst2.setString(11, "Ingreso realizado por 'Ingreso de Mercadería'");
                     int up = pst2.executeUpdate();
-                    String queryINV = "UPDATE INVENTARIO SET STOCK = stock + ? WHERE SKU = ?";
+                    String queryINV = "UPDATE INVENTARIO SET STOCK = stock + ? WHERE IDPRODUCTO = ?";
                     PreparedStatement pstINV = cn.prepareStatement(queryINV);
                     pstINV.setInt(1, Integer.parseInt(tblProductosEnNC.getValueAt(i, 3).toString()));
                     pstINV.setString(2, tblProductosEnNC.getValueAt(i, 1).toString());
@@ -686,6 +686,13 @@ public class Ingreso extends javax.swing.JFrame {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex.getMessage());
         }
+
+        int index_borrar = tblProductosEnNC.getRowCount();
+        DefaultTableModel modelo_paso = (DefaultTableModel) tblProductosEnNC.getModel();
+        for (int i = index_borrar - 1; i >= 0; i--) {
+            modelo_paso.removeRow(i);
+        }
+
         txtNumeroNotaCompra.setText("");
         txtIDproductoIngreso.setText("");
         txtSKUIngreso.setText("");
@@ -724,7 +731,7 @@ public class Ingreso extends javax.swing.JFrame {
             panelIngresoProducto.setVisible(true);
             DefaultTableModel model = (DefaultTableModel) tblProductosAIngresar.getModel();
             int selectedRow = tblProductosAIngresar.getSelectedRow();
-            String query = "Select * FROM inventario where sku = ?";
+            String query = "Select * FROM inventario where idProducto = ?";
             String param = model.getValueAt(selectedRow, 1).toString();
             PreparedStatement pst = cn.prepareStatement(query);
             pst.setString(1, param);

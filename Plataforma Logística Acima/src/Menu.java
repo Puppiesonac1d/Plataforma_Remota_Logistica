@@ -69,7 +69,7 @@ public class Menu extends javax.swing.JFrame {
         panelRojo = new javax.swing.JPanel();
         btnNotaCompra = new javax.swing.JButton();
         btnIngreso = new javax.swing.JButton();
-        btnOrdenRetiro = new javax.swing.JButton();
+        btnNotaVenta = new javax.swing.JButton();
         btnInventarioProductos = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         btnMantenedorBodegas = new javax.swing.JButton();
@@ -117,16 +117,16 @@ public class Menu extends javax.swing.JFrame {
         });
         panelRojo.add(btnIngreso);
 
-        btnOrdenRetiro.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        btnOrdenRetiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/4f49eabd611eb(1).png"))); // NOI18N
-        btnOrdenRetiro.setText("Nota de Venta");
-        btnOrdenRetiro.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnOrdenRetiro.addActionListener(new java.awt.event.ActionListener() {
+        btnNotaVenta.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        btnNotaVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/4f49eabd611eb(1).png"))); // NOI18N
+        btnNotaVenta.setText("Nota de Venta");
+        btnNotaVenta.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnNotaVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOrdenRetiroActionPerformed(evt);
+                btnNotaVentaActionPerformed(evt);
             }
         });
-        panelRojo.add(btnOrdenRetiro);
+        panelRojo.add(btnNotaVenta);
 
         btnInventarioProductos.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         btnInventarioProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/7af6ee279c(1).png"))); // NOI18N
@@ -204,7 +204,7 @@ public class Menu extends javax.swing.JFrame {
             contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contenedorLayout.createSequentialGroup()
                 .addGap(5, 5, 5)
-                .addComponent(panelRojo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelRojo, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
                 .addGap(5, 5, 5))
         );
 
@@ -225,9 +225,9 @@ public class Menu extends javax.swing.JFrame {
             jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                .addGap(244, 244, 244)
-                .addComponent(contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(130, 130, 130))
+                .addGap(171, 171, 171)
+                .addComponent(contenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jLayeredPane2.setLayer(contenedor, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(lblFondo, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -275,8 +275,12 @@ public class Menu extends javax.swing.JFrame {
         try {
             NotaCompra nota = new NotaCompra();
             nota.setVisible(true);
-            String queryActualizar = "select idabastecimiento as 'ID de Cotización',numeroCotizacion as 'Número de Cotización', codigoOrdenCompra as 'Código de Orden de Compra', distribuidor as 'Distribuidor', fecha as 'Fecha',\n"
-                    + "proveedor as 'Proveedor', contacto as 'Contacto', estado as 'Estado' from abastecimiento where estado='Cotización Validada';";
+            String queryActualizar = "select da.idOrden ,a.idabastecimiento as 'ID de Cotización',a.numeroCotizacion as 'Número de Cotización', \n"
+                    + "a.codigoOrdenCompra as 'Código de Orden de Compra', a.distribuidor as 'Distribuidor', a.fecha as 'Fecha',\n"
+                    + "a.proveedor as 'Proveedor', a.contacto as 'Contacto', a.estado as 'Estado' \n"
+                    + "from abastecimiento a join detalle_abastecimiento da  on a.codigoOrdenCompra= da.codigoOrdenCompra\n"
+                    + "where da.idOrden  is not null\n"
+                    + "and a.Estado = 'Cotización Validada';";
             PreparedStatement pst = cn.prepareStatement(queryActualizar);
             ResultSet rs = pst.executeQuery();
             nota.tblNC.setModel(DbUtils.resultSetToTableModel(rs));
@@ -285,14 +289,14 @@ public class Menu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnNotaCompraActionPerformed
 
-    private void btnOrdenRetiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenRetiroActionPerformed
+    private void btnNotaVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNotaVentaActionPerformed
         try {
             //JOptionPane.showMessageDialog(null, "Cargando Información");
             HistorialNV nota = new HistorialNV();
             nota.setVisible(true);
             nota.lblCodigo.setText(codigoAutorizacionMenuTag.getText());
 
-            String query = "Select codigoOrdenCompra as 'Código de Orden de Compra', nombre_proveedor as 'Proveedor',rutCliente as 'Rut de Cliente', contactoOC as 'Nombre de Cliente'\n"
+            String query = "select idOrden as 'N° de nota de venta', codigoOrdenCompra as 'Código de Orden de Compra', nombre_Proveedor as 'Empresa', fechaEnvioOC as 'Fecha de OC'\n"
                     + "from ordenTrabajo;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
@@ -301,7 +305,7 @@ public class Menu extends javax.swing.JFrame {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
-    }//GEN-LAST:event_btnOrdenRetiroActionPerformed
+    }//GEN-LAST:event_btnNotaVentaActionPerformed
 
     private void btnIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresoActionPerformed
         IngresoSalida ing = new IngresoSalida();
@@ -423,7 +427,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton btnInventarioProductos;
     private javax.swing.JButton btnMantenedorBodegas;
     private javax.swing.JButton btnNotaCompra;
-    private javax.swing.JButton btnOrdenRetiro;
+    private javax.swing.JButton btnNotaVenta;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnSeguimiento;
     public javax.swing.JMenu codigoAutorizacionMenuTag;

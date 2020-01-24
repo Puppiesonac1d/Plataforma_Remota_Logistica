@@ -216,6 +216,11 @@ public class HistorialNV extends javax.swing.JFrame {
 
         jButton6.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jButton6.setText("Reiniciar Filtros");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel43Layout = new javax.swing.GroupLayout(jPanel43);
         jPanel43.setLayout(jPanel43Layout);
@@ -309,7 +314,7 @@ public class HistorialNV extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
             int index = tblHistorialNV.getSelectedRow();
-            String oc = tblHistorialNV.getValueAt(index, 0).toString();
+            String oc = tblHistorialNV.getValueAt(index, 1).toString();
             DetalleNotaVenta nv = new DetalleNotaVenta();
             nv.txtConsultarOC.setText(oc);
             nv.setVisible(true);
@@ -349,7 +354,7 @@ public class HistorialNV extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try {
 
-            String query = "Select codigoOrdenCompra as 'Código de Orden de Compra', nombre_proveedor as 'Proveedor',rutCliente as 'Rut de Cliente', contactoOC as 'Nombre de Cliente'\n"
+            String query = "select idOrden as 'N° de nota de venta', codigoOrdenCompra as 'Código de Orden de Compra', nombre_Proveedor as 'Empresa', fechaEnvioOC as 'Fecha de OC'\n"
                     + "from ordenTrabajo where codigoOrdenCompra = ?;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
@@ -369,8 +374,8 @@ public class HistorialNV extends javax.swing.JFrame {
             String anio = txtFechaOC.getText().substring(6, 10);
             String fecha = anio + "-" + mes + "-" + dia;
             System.out.println(fecha);
-            String query = "Select codigoOrdenCompra as 'Código de Orden de Compra', nombre_proveedor as 'Proveedor',rutCliente as 'Rut de Cliente', contactoOC as 'Nombre de Cliente' "
-                    + " from ordenTrabajo where LEFT(fechaEnvioOC, 10) RLIKE ? ";
+            String query = "select idOrden as 'N° de nota de venta', codigoOrdenCompra as 'Código de Orden de Compra', nombre_Proveedor as 'Empresa', fechaEnvioOC as 'Fecha de OC'\n"
+                    + "from ordenTrabajo where LEFT(fechaEnvioOC, 10) RLIKE ? ";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             pst.setString(1, fecha);
@@ -380,6 +385,19 @@ public class HistorialNV extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        try {
+            String query = "select idOrden as 'N° de nota de venta', codigoOrdenCompra as 'Código de Orden de Compra', nombre_Proveedor as 'Empresa', fechaEnvioOC as 'Fecha de OC'\n"
+                    + "from ordenTrabajo;";
+            PreparedStatement pst;
+            pst = cn.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
+            tblHistorialNV.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -1145,7 +1145,7 @@ public class Salida extends javax.swing.JFrame {
         try {
             String tipoOrden = "";
             //  int seleccion = Integer.parseInt(model.getValueAt(index, 0).toString());
-            String query = "SELECT * from ordenTrabajo where codigoOrdenCompra = ?;";
+            String query = "SELECT * from ordenTrabajo where idOrden = ?;";
             PreparedStatement pst = cn.prepareStatement(query);
             pst.setString(1, txtCodigoOTSalida.getText());
             ResultSet rs = pst.executeQuery();
@@ -1174,7 +1174,7 @@ public class Salida extends javax.swing.JFrame {
                     + "oc.moneda,doc.precioUnitario as 'Precio Unitario', doc.descuento as 'Descuento',\n"
                     + "doc.cargos as 'Cargos', doc.valorTotal as 'Valor Total' from detalleordentrabajo doc\n"
                     + "join ordentrabajo oc on doc.codigoordencompra = oc.codigoordencompra\n"
-                    + "where oc.codigoOrdenCompra = ?;";
+                    + "where oc.idOrden = ?;";
             PreparedStatement pstProd = cn.prepareStatement(queryProducto);
             pstProd.setString(1, txtCodigoOTSalida.getText());
             ResultSet rsProd = pstProd.executeQuery();

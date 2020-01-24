@@ -247,7 +247,7 @@ public class NotaCompra extends javax.swing.JFrame {
             }
             int index = tblNC.getSelectedRow();
             //seleccionarComuna(jComboBox1, jComboBox1);
-            ingreso.txtNumeroNotaCompra.setText(tblNC.getValueAt(index, 2).toString());
+            ingreso.txtNumeroNotaCompra.setText(tblNC.getValueAt(index, 0).toString());
             ingreso.setVisible(true);
             this.dispose();
 

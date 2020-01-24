@@ -343,7 +343,7 @@ public class Ingreso extends javax.swing.JFrame {
         jLabel55.setText("Sección de Bodega:");
 
         jLabel59.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel59.setText("Código de Nota de Venta:");
+        jLabel59.setText("Número de Nota de Venta:");
 
         txtNumeroNotaCompra.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         txtNumeroNotaCompra.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -572,16 +572,15 @@ public class Ingreso extends javax.swing.JFrame {
     private void btnConfirmarInfoProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarInfoProdActionPerformed
         try {
             //Agregar los productos a la lista
-            int indexs = tblProductosEnNC.getRowCount() + 1;
+            int indexs = tblProductosAIngresar.getRowCount();
             Object[] row = new Object[4];
             DefaultTableModel modeloNuevo = (DefaultTableModel) tblProductosEnNC.getModel();
-            for (int i = 0; i < indexs; i++) {
-                row[0] = txtIDproductoIngreso.getText();
-                row[1] = txtSKUIngreso.getText();
-                row[2] = txtNombreProductoIngreso.getText();
-                row[3] = txtStockIngresado.getText();
-                modeloNuevo.addRow(row);
-            }
+
+            row[0] = txtIDproductoIngreso.getText();
+            row[1] = txtSKUIngreso.getText();
+            row[2] = txtNombreProductoIngreso.getText();
+            row[3] = txtStockIngresado.getText();
+            modeloNuevo.addRow(row);
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex.getMessage());
@@ -709,7 +708,7 @@ public class Ingreso extends javax.swing.JFrame {
             String query = "SELECT SKU, CODIGOPRODUCTO AS 'CODIGO DE PRODUCTO', CATEGORIA AS 'CATEGORÍA', NOMBRE AS 'NOMBRE DE PRODUCTO',CANTIDAD AS 'CANTIDAD',\n"
                     + "PRECIOUNITARIO AS 'PRECIOUNITARIO',PRECIOTOTALNETO AS 'PRECIO TOTAL NETO'\n"
                     + "FROM detalle_abastecimiento da join abastecimiento a on da.numeroCotizacion = a.numeroCotizacion\n"
-                    + "WHERE a.codigoOrdenCompra = ?";
+                    + "WHERE da.idOrden = ?";
             String param = txtNumeroNotaCompra.getText();
             PreparedStatement pst = cn.prepareStatement(query);
             pst.setString(1, param);

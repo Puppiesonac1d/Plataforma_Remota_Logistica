@@ -43,11 +43,15 @@ public class NotaCompra extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox();
+        cmbDistribuidor = new javax.swing.JComboBox();
         jPanel7 = new javax.swing.JPanel();
         jLabel27 = new javax.swing.JLabel();
         txtCodigoOrdenCompra = new javax.swing.JTextField();
         btnBuscarOC = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        txtNumNV = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
         lblFondoNotaCompra = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -130,11 +134,11 @@ public class NotaCompra extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSalir3)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -146,11 +150,11 @@ public class NotaCompra extends javax.swing.JFrame {
 
         jTabbedPane1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jComboBox1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Acima Global SPA", "Acima Soluciones", "Importadora Vive Mas" }));
-        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+        cmbDistribuidor.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        cmbDistribuidor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Acima Global SPA", "Acima Soluciones", "Importadora Vive Mas" }));
+        cmbDistribuidor.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox1ItemStateChanged(evt);
+                cmbDistribuidorItemStateChanged(evt);
             }
         });
 
@@ -160,14 +164,14 @@ public class NotaCompra extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(641, Short.MAX_VALUE))
+                .addComponent(cmbDistribuidor, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(573, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmbDistribuidor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -212,7 +216,46 @@ public class NotaCompra extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Buscar por Código de Orden de Compra", jPanel7);
 
-        jLayeredPane17.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(286, 30, 980, -1));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jLabel1.setText("N° de nota de venta:");
+
+        txtNumNV.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jButton2.setText("Buscar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtNumNV, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addContainerGap(461, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtNumNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Buscar por N° de nota de venta", jPanel1);
+
+        jLayeredPane17.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(286, 30, 980, 130));
 
         lblFondoNotaCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/menuTest.png"))); // NOI18N
         jLayeredPane17.add(lblFondoNotaCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -248,6 +291,7 @@ public class NotaCompra extends javax.swing.JFrame {
             int index = tblNC.getSelectedRow();
             //seleccionarComuna(jComboBox1, jComboBox1);
             ingreso.txtNumeroNotaCompra.setText(tblNC.getValueAt(index, 0).toString());
+            ingreso.lblNV.setText(tblNC.getValueAt(index, 1).toString());
             ingreso.setVisible(true);
             this.dispose();
 
@@ -297,8 +341,22 @@ public class NotaCompra extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
-            String queryActualizar = "select idabastecimiento as 'ID de Cotización',numeroCotizacion as 'Número de Cotización', codigoOrdenCompra as 'Código de Orden de Compra', distribuidor as 'Distribuidor', fecha as 'Fecha',\n"
-                    + "proveedor as 'Proveedor', contacto as 'Contacto', estado as 'Estado' from abastecimiento where estado='Cotización Validada';";
+            String queryActualizar = "SELECT \n"
+                    + "    da.idOrden AS 'N° de nota de venta',\n"
+                    + "    a.numeroCotizacion AS 'N° de Cotización',\n"
+                    + "    a.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
+                    + "    a.distribuidor AS 'Distribuidor',\n"
+                    + "    a.fecha AS 'Fecha',\n"
+                    + "    a.proveedor AS 'Proveedor',\n"
+                    + "    a.contacto AS 'Contacto',\n"
+                    + "    a.estado AS 'Estado'\n"
+                    + "FROM\n"
+                    + "    abastecimiento a\n"
+                    + "        JOIN\n"
+                    + "    detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
+                    + "WHERE\n"
+                    + "    da.idOrden IS NOT NULL\n"
+                    + "        AND a.Estado BETWEEN 'Cotización Validada' AND 'Nota de compra ingresada con productos faltantes';";
             PreparedStatement pst = cn.prepareStatement(queryActualizar);
             ResultSet rs = pst.executeQuery();
             tblNC.setModel(DbUtils.resultSetToTableModel(rs));
@@ -307,14 +365,28 @@ public class NotaCompra extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+    private void cmbDistribuidorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDistribuidorItemStateChanged
 
         try {
-            String query = "select idabastecimiento as 'ID de Cotización',numeroCotizacion as 'Número de Cotización', codigoOrdenCompra as 'Código de Orden de Compra', distribuidor as 'Distribuidor', fecha as 'Fecha',\n"
-                    + "proveedor as 'Proveedor', contacto as 'Contacto', estado as 'Estado' from abastecimiento where estado='Cotización Validada' and distribuidor RLIKE ?;";
+            String query = "SELECT \n"
+                    + "    da.idOrden AS 'N° de nota de venta',\n"
+                    + "    a.numeroCotizacion AS 'N° de Cotización',\n"
+                    + "    a.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
+                    + "    a.distribuidor AS 'Distribuidor',\n"
+                    + "    a.fecha AS 'Fecha',\n"
+                    + "    a.proveedor AS 'Proveedor',\n"
+                    + "    a.contacto AS 'Contacto',\n"
+                    + "    a.estado AS 'Estado'\n"
+                    + "FROM\n"
+                    + "    abastecimiento a\n"
+                    + "        JOIN\n"
+                    + "    detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
+                    + "WHERE\n"
+                    + "    da.idOrden IS NOT NULL\n"
+                    + "        AND a.Estado BETWEEN 'Cotización Validada' AND 'Nota de compra ingresada con productos faltantes' and a.distribuidor RLIKE ? ";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
-            pst.setString(1, jComboBox1.getSelectedItem().toString());
+            pst.setString(1, cmbDistribuidor.getSelectedItem().toString());
             ResultSet rs = pst.executeQuery();
             tblNC.setModel(DbUtils.resultSetToTableModel(rs));
 
@@ -323,14 +395,26 @@ public class NotaCompra extends javax.swing.JFrame {
                     .getName()).log(Level.SEVERE, null, ex);
         }
 
-    }//GEN-LAST:event_jComboBox1ItemStateChanged
+    }//GEN-LAST:event_cmbDistribuidorItemStateChanged
 
     private void btnBuscarOCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarOCActionPerformed
         try {
-            String query = "select idabastecimiento as 'ID de Cotización',numeroCotizacion as 'Número de Cotización', codigoOrdenCompra as 'Código de Orden de Compra',\n"
-                    + "distribuidor as 'Distribuidor', fecha as 'Fecha',\n"
-                    + "proveedor as 'Proveedor', contacto as 'Contacto', estado as 'Estado'\n"
-                    + "from abastecimiento where estado='Cotización Validada' and codigoOrdenCompra RLIKE ?;";
+            String query = "SELECT \n"
+                    + "    da.idOrden AS 'N° de nota de venta',\n"
+                    + "    a.numeroCotizacion AS 'N° de Cotización',\n"
+                    + "    a.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
+                    + "    a.distribuidor AS 'Distribuidor',\n"
+                    + "    a.fecha AS 'Fecha',\n"
+                    + "    a.proveedor AS 'Proveedor',\n"
+                    + "    a.contacto AS 'Contacto',\n"
+                    + "    a.estado AS 'Estado'\n"
+                    + "FROM\n"
+                    + "    abastecimiento a\n"
+                    + "        JOIN\n"
+                    + "    detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
+                    + "WHERE\n"
+                    + "    da.idOrden IS NOT NULL\n"
+                    + "        AND a.Estado BETWEEN 'Cotización Validada' AND 'Nota de compra ingresada con productos faltantes' and a.codigoOrdenCompra RLIKE ?;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             pst.setString(1, txtCodigoOrdenCompra.getText());
@@ -342,6 +426,36 @@ public class NotaCompra extends javax.swing.JFrame {
                     .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnBuscarOCActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            String query = "SELECT \n"
+                    + "    da.idOrden AS 'N° de nota de venta',\n"
+                    + "    a.numeroCotizacion AS 'N° de Cotización',\n"
+                    + "    a.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
+                    + "    a.distribuidor AS 'Distribuidor',\n"
+                    + "    a.fecha AS 'Fecha',\n"
+                    + "    a.proveedor AS 'Proveedor',\n"
+                    + "    a.contacto AS 'Contacto',\n"
+                    + "    a.estado AS 'Estado'\n"
+                    + "FROM\n"
+                    + "    abastecimiento a\n"
+                    + "        JOIN\n"
+                    + "    detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
+                    + "WHERE\n"
+                    + "    da.idOrden IS NOT NULL\n"
+                    + "        AND a.Estado BETWEEN 'Cotización Validada' AND 'Nota de compra ingresada con productos faltantes' da.idOrden RLIKE ?;";
+            PreparedStatement pst;
+            pst = cn.prepareStatement(query);
+            pst.setInt(1, Integer.parseInt(txtNumNV.getText()));
+            ResultSet rs = pst.executeQuery();
+            tblNC.setModel(DbUtils.resultSetToTableModel(rs));
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Seguimiento.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -382,12 +496,15 @@ public class NotaCompra extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscarOC;
     private javax.swing.JButton btnSalir3;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox cmbDistribuidor;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLayeredPane jLayeredPane17;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel7;
@@ -396,5 +513,6 @@ public class NotaCompra extends javax.swing.JFrame {
     private javax.swing.JLabel lblFondoNotaCompra;
     public javax.swing.JTable tblNC;
     private javax.swing.JTextField txtCodigoOrdenCompra;
+    private javax.swing.JTextField txtNumNV;
     // End of variables declaration//GEN-END:variables
 }

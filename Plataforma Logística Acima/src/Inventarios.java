@@ -44,9 +44,16 @@ public class Inventarios extends javax.swing.JFrame {
         btnSalirInventarios = new javax.swing.JButton();
         lblFondoInventarios = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1280, 740));
+        setMinimumSize(new java.awt.Dimension(1280, 740));
+        setResizable(false);
 
-        jPanel3.setLayout(new java.awt.GridLayout());
+        panelInventarios.setMaximumSize(new java.awt.Dimension(1280, 740));
+        panelInventarios.setMinimumSize(new java.awt.Dimension(1280, 740));
+        panelInventarios.setName(""); // NOI18N
+
+        jPanel3.setLayout(new java.awt.GridLayout(1, 0));
 
         btnListadoBodegas.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         btnListadoBodegas.setIcon(new javax.swing.ImageIcon("D:\\Plataforma Logística Acima_11-06-2019\\Plataforma Logística Acima\\src\\imagenes\\907d27c649702(1).png")); // NOI18N
@@ -106,11 +113,11 @@ public class Inventarios extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelInventarios)
+            .addComponent(panelInventarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelInventarios)
+            .addComponent(panelInventarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -137,13 +144,14 @@ public class Inventarios extends javax.swing.JFrame {
             InventarioPorBodega inventario = new InventarioPorBodega();
             inventario.setVisible(true);
 
-            String query = "Select idProducto as 'ID producto', SKU, categoria as 'Categoría', nombreProducto as 'Producto', descripcion as 'Descripción' ,\n"
-                    + "Concat('$',precioVenta )as 'Precio Venta', precioCosto as 'Precio Costo', distribuidor as 'Nombre de Distribuidor', regiones as 'Regiones',\n"
-                    + "CondicionDespacho as 'Condición de Despacho', diasHabiles as 'Días Hábiles', StatusProducto as 'Estado', stock as 'Stock' \n"
-                    + "FROM inventario;";
+            String query = "Select idProducto as 'ID producto', SKU, categoria as 'Categoría', nombreProducto as 'Producto', descripcion as 'Descripción',\n"
+                    + "Concat('$',precioVenta )as 'Precio Venta', precioCosto as 'Precio Costo', d.nombreDistribuidor as 'Nombre de Distribuidor', regiones as 'Regiones',\n"
+                    + "CondicionDespacho as 'Condición de Despacho', diasHabiles as 'Días Hábiles', StatusProducto as 'Estado', stock as 'Stock'\n"
+                    + "FROM inventario r left join distribuidor d on r.IDDISTRIBUIDOR = d.idDistribuidor;";
             PreparedStatement pst = cn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
             inventario.tblProductoInventarioBodega.setModel(DbUtils.resultSetToTableModel(rs));
+
             String query2 = "select nombreBodega,seccion from bodega";
             PreparedStatement pst2 = cn.prepareStatement(query2);
             ResultSet rs2 = pst2.executeQuery();
@@ -151,7 +159,21 @@ public class Inventarios extends javax.swing.JFrame {
                 inventario.cmbBodega2.addItem(rs2.getString(1));
                 inventario.cmbSeccionBodega1.addItem(rs2.getString(2));
             }
-            //this.dispose();
+
+            String query3 = "select nombreConvenio FROM acimabasededatos.conveniomarco order by codigoConvenio desc;";
+            PreparedStatement pst3 = cn.prepareStatement(query3);
+            ResultSet rs3 = pst3.executeQuery();
+            while (rs3.next()) {
+                inventario.cmbConvenioMarco.addItem(rs3.getString(1));
+            }
+
+            String query4 = "select nombreDistribuidor from distribuidor order by idDistribuidor;";
+            PreparedStatement pst4 = cn.prepareStatement(query4);
+            ResultSet rs4 = pst4.executeQuery();
+            while (rs4.next()) {
+                inventario.cmbDistribuidor.addItem(rs4.getString(1));
+            }
+
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
@@ -199,34 +221,10 @@ public class Inventarios extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInventarioPorBodega;
-    private javax.swing.JButton btnInventarioPorBodega1;
-    private javax.swing.JButton btnInventarioPorBodega2;
-    private javax.swing.JButton btnInventarioPorBodega3;
-    private javax.swing.JButton btnInventarioPorBodega4;
     private javax.swing.JButton btnListadoBodegas;
-    private javax.swing.JButton btnListadoBodegas1;
-    private javax.swing.JButton btnListadoBodegas2;
-    private javax.swing.JButton btnListadoBodegas3;
-    private javax.swing.JButton btnListadoBodegas4;
     private javax.swing.JButton btnSalirInventarios;
-    private javax.swing.JButton btnSalirInventarios1;
-    private javax.swing.JButton btnSalirInventarios2;
-    private javax.swing.JButton btnSalirInventarios3;
-    private javax.swing.JButton btnSalirInventarios4;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JLabel lblFondoInventarios;
-    private javax.swing.JLabel lblFondoInventarios1;
-    private javax.swing.JLabel lblFondoInventarios2;
-    private javax.swing.JLabel lblFondoInventarios3;
-    private javax.swing.JLabel lblFondoInventarios4;
     private javax.swing.JLayeredPane panelInventarios;
-    private javax.swing.JLayeredPane panelInventarios1;
-    private javax.swing.JLayeredPane panelInventarios2;
-    private javax.swing.JLayeredPane panelInventarios3;
-    private javax.swing.JLayeredPane panelInventarios4;
     // End of variables declaration//GEN-END:variables
 }

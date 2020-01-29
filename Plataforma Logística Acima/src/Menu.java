@@ -275,12 +275,22 @@ public class Menu extends javax.swing.JFrame {
         try {
             NotaCompra nota = new NotaCompra();
             nota.setVisible(true);
-            String queryActualizar = "select da.idOrden ,a.idabastecimiento as 'ID de Cotización',a.numeroCotizacion as 'Número de Cotización', \n"
-                    + "a.codigoOrdenCompra as 'Código de Orden de Compra', a.distribuidor as 'Distribuidor', a.fecha as 'Fecha',\n"
-                    + "a.proveedor as 'Proveedor', a.contacto as 'Contacto', a.estado as 'Estado' \n"
-                    + "from abastecimiento a join detalle_abastecimiento da  on a.codigoOrdenCompra= da.codigoOrdenCompra\n"
-                    + "where da.idOrden  is not null\n"
-                    + "and a.Estado = 'Cotización Validada';";
+            String queryActualizar = "SELECT \n"
+                    + "    da.idOrden AS 'N° de nota de venta',\n"
+                    + "    a.numeroCotizacion AS 'N° de Cotización',\n"
+                    + "    a.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
+                    + "    a.distribuidor AS 'Distribuidor',\n"
+                    + "    a.fecha AS 'Fecha',\n"
+                    + "    a.proveedor AS 'Proveedor',\n"
+                    + "    a.contacto AS 'Contacto',\n"
+                    + "    a.estado AS 'Estado'\n"
+                    + "FROM\n"
+                    + "    abastecimiento a\n"
+                    + "        JOIN\n"
+                    + "    detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
+                    + "WHERE\n"
+                    + "    da.idOrden IS NOT NULL\n"
+                    + "        AND a.Estado BETWEEN 'Cotización Validada' AND 'Nota de compra ingresada con productos faltantes';";
             PreparedStatement pst = cn.prepareStatement(queryActualizar);
             ResultSet rs = pst.executeQuery();
             nota.tblNC.setModel(DbUtils.resultSetToTableModel(rs));

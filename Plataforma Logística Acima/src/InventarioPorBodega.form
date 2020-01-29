@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.9" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Container class="javax.swing.JLayeredPane" name="jLayeredPane1">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="100" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="100" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+    </Container>
+  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -71,7 +88,7 @@
                   <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="176" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel48" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -105,7 +122,7 @@
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="btnVolverMenu" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jTabbedPane2" pref="468" max="32767" attributes="0"/>
+                      <Component id="jTabbedPane2" pref="632" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -145,74 +162,64 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
+                              <Group type="102" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel148" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jLabel95" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel124" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel126" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel127" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel128" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel129" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel133" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel132" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel134" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel135" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel136" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel141" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel123" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="txtSKUIngreso1" alignment="0" max="32767" attributes="0"/>
-                                                      <Component id="txtNombreProductoIngreso1" alignment="0" max="32767" attributes="0"/>
-                                                      <Component id="txtPrecioVentaIngreso1" alignment="0" max="32767" attributes="0"/>
-                                                      <Component id="txtPrecioCostoIngreso1" alignment="0" max="32767" attributes="0"/>
-                                                      <Component id="txtDescripcionIngreso1" alignment="0" max="32767" attributes="0"/>
-                                                      <Component id="txtRegionesIngreso1" alignment="0" max="32767" attributes="0"/>
-                                                      <Component id="txtCondicionDespachoIngreso1" alignment="0" max="32767" attributes="0"/>
-                                                      <Component id="txtDiasHabilesIngreso1" alignment="0" max="32767" attributes="0"/>
-                                                      <Component id="cmbStatusProdIngreso1" alignment="0" max="32767" attributes="0"/>
-                                                      <Component id="txtStockIngresado1" alignment="0" max="32767" attributes="0"/>
-                                                      <Component id="cmbCategoriaIngreso" alignment="0" max="32767" attributes="0"/>
-                                                      <Group type="102" attributes="0">
-                                                          <Component id="txtIDproductoIngreso1" min="-2" pref="911" max="-2" attributes="0"/>
-                                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                                      </Group>
-                                                      <Component id="cmbDistribuidor" max="32767" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                              <Component id="btnConfirmarInfoProd1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel148" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel95" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel124" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel126" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel127" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel128" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel129" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel133" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel132" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel134" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel135" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel136" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel141" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel123" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel146" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel149" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                                  <Component id="jLabel146" min="-2" max="-2" attributes="0"/>
-                                              </Group>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="cmbTransporte1" alignment="0" min="-2" pref="271" max="-2" attributes="0"/>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="cmbBodega2" min="-2" pref="271" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="jLabel150" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="cmbSeccionBodega1" min="-2" pref="271" max="-2" attributes="0"/>
+                                              <Component id="txtSKUIngreso1" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="txtNombreProductoIngreso1" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="txtPrecioVentaIngreso1" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="txtPrecioCostoIngreso1" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="txtDescripcionIngreso1" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="txtRegionesIngreso1" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="txtCondicionDespachoIngreso1" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="txtDiasHabilesIngreso1" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="cmbStatusProdIngreso1" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="txtStockIngresado1" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="cmbDistribuidor" max="32767" attributes="0"/>
+                                              <Component id="cmbConvenioMarco" alignment="0" max="32767" attributes="0"/>
+                                              <Group type="102" attributes="0">
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Group type="102" attributes="0">
+                                                          <Component id="cmbBodega2" min="-2" pref="271" max="-2" attributes="0"/>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Component id="jLabel150" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Component id="cmbSeccionBodega1" min="-2" pref="271" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <Component id="txtIDproductoIngreso1" pref="911" max="32767" attributes="0"/>
+                                                      <Component id="cmbTransporte1" alignment="0" max="32767" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
-                                          <EmptySpace max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
+                                  <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="btnConfirmarInfoProd1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -221,19 +228,19 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel148" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel149" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="cmbTransporte1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel149" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel146" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="cmbBodega2" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel150" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="cmbSeccionBodega1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel146" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="txtIDproductoIngreso1" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel95" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -251,7 +258,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel127" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cmbCategoriaIngreso" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cmbConvenioMarco" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
@@ -298,7 +305,7 @@
                                       <Component id="jLabel123" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="txtStockIngresado1" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnConfirmarInfoProd1" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -634,41 +641,33 @@
                             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                           </AuxValues>
                         </Component>
-                        <Component class="javax.swing.JComboBox" name="cmbCategoriaIngreso">
-                          <Properties>
-                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Tahoma" size="20" style="1"/>
-                            </Property>
-                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="7">
-                                <StringItem index="0" value="Seleccionar Categor&#xed;a"/>
-                                <StringItem index="1" value="Ortesis, Pr&#xf3;tesis, Endopr&#xf3;tesis e insumos de Salud"/>
-                                <StringItem index="2" value="Material Did&#xe1;ctico, Implementos Deportivos E Instrumentos Musicales"/>
-                                <StringItem index="3" value="Neum&#xe1;ticos, lubricantes, accesorios para veh&#xed;culos y servicios complementarios"/>
-                                <StringItem index="4" value="Hardware, licencias de software y recursos educativos digitales"/>
-                                <StringItem index="5" value="Productos y Servicios para Emergencias"/>
-                                <StringItem index="6" value="Otro"/>
-                              </StringArray>
-                            </Property>
-                          </Properties>
-                          <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-                          </AuxValues>
-                        </Component>
                         <Component class="javax.swing.JComboBox" name="cmbDistribuidor">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="20" style="1"/>
                             </Property>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="4">
-                                <StringItem index="0" value="Seleccionar Distribuidor"/>
-                                <StringItem index="1" value="Acima Soluciones Integrales"/>
-                                <StringItem index="2" value="Acima Group SPA"/>
-                                <StringItem index="3" value="Importadora Vive M&#xe1;s"/>
+                              <StringArray count="0"/>
+                            </Property>
+                          </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                          </AuxValues>
+                        </Component>
+                        <Component class="javax.swing.JComboBox" name="cmbConvenioMarco">
+                          <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Tahoma" size="20" style="1"/>
+                            </Property>
+                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                              <StringArray count="1">
+                                <StringItem index="0" value="Seleccionar Convenio Marco"/>
                               </StringArray>
                             </Property>
                           </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                          </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -723,7 +722,7 @@
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Component id="jTabbedPane7" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
-                              <Component id="jScrollPane12" pref="238" max="32767" attributes="0"/>
+                              <Component id="jScrollPane12" pref="402" max="32767" attributes="0"/>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>

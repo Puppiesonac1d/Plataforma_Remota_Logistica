@@ -119,6 +119,7 @@ public class Ingreso extends javax.swing.JFrame {
         jLabel75 = new javax.swing.JLabel();
         jPanel16 = new javax.swing.JPanel();
         lblPreview = new javax.swing.JLabel();
+        btnBorrar = new javax.swing.JButton();
         cmbSeccionBodega = new javax.swing.JComboBox();
         jLabel55 = new javax.swing.JLabel();
         jLabel59 = new javax.swing.JLabel();
@@ -133,6 +134,7 @@ public class Ingreso extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtDistribuidor = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        lblNV = new javax.swing.JLabel();
         btnVolver5 = new javax.swing.JButton();
         lblIngresoFrame = new javax.swing.JLabel();
 
@@ -196,7 +198,8 @@ public class Ingreso extends javax.swing.JFrame {
         jLabel50.setText("Información del Producto:");
 
         btnConfirmarInfoProd.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        btnConfirmarInfoProd.setText("1-. Confirmar Información de Producto");
+        btnConfirmarInfoProd.setText("2-. Confirmar Información de Producto");
+        btnConfirmarInfoProd.setToolTipText("");
         btnConfirmarInfoProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConfirmarInfoProdActionPerformed(evt);
@@ -220,7 +223,7 @@ public class Ingreso extends javax.swing.JFrame {
 
         btnIngresarMercadería.setBackground(new java.awt.Color(51, 204, 0));
         btnIngresarMercadería.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        btnIngresarMercadería.setText("2-. Confirmar Ingreso de Productos");
+        btnIngresarMercadería.setText("3-. Confirmar Ingreso de Productos");
         btnIngresarMercadería.setToolTipText("");
         btnIngresarMercadería.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnIngresarMercadería.addActionListener(new java.awt.event.ActionListener() {
@@ -256,44 +259,49 @@ public class Ingreso extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
+        btnBorrar.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        btnBorrar.setText("Borrar producto");
+        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelIngresoProductoLayout = new javax.swing.GroupLayout(panelIngresoProducto);
         panelIngresoProducto.setLayout(panelIngresoProductoLayout);
         panelIngresoProductoLayout.setHorizontalGroup(
             panelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelIngresoProductoLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(panelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelIngresoProductoLayout.createSequentialGroup()
                         .addGroup(panelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelIngresoProductoLayout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(btnConfirmarInfoProd)
+                                .addComponent(btnBorrar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel75)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                .addComponent(jLabel75))
                             .addGroup(panelIngresoProductoLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnIngresarMercadería, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(btnIngresarMercadería)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel50, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel52, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel61, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelIngresoProductoLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(panelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel50, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel52, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(panelIngresoProductoLayout.createSequentialGroup()
-                                .addGroup(panelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel48)
-                                    .addComponent(jLabel40)
-                                    .addComponent(jLabel41)
-                                    .addComponent(jLabel68))
-                                .addGap(57, 57, 57)
-                                .addGroup(panelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtSKUIngreso)
-                                    .addComponent(txtIDproductoIngreso)
-                                    .addComponent(txtNombreProductoIngreso)
-                                    .addComponent(txtStockIngresado)))
-                            .addComponent(jScrollPane8)
-                            .addComponent(jLabel61, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jLabel48)
+                            .addComponent(jLabel40)
+                            .addComponent(jLabel41)
+                            .addComponent(jLabel68))
+                        .addGap(57, 57, 57)
+                        .addGroup(panelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtSKUIngreso)
+                            .addComponent(txtIDproductoIngreso)
+                            .addComponent(txtNombreProductoIngreso)
+                            .addComponent(txtStockIngresado)
+                            .addComponent(btnConfirmarInfoProd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         panelIngresoProductoLayout.setVerticalGroup(
@@ -319,7 +327,9 @@ public class Ingreso extends javax.swing.JFrame {
                 .addGroup(panelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel68)
                     .addComponent(txtStockIngresado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnConfirmarInfoProd)
+                .addGap(10, 10, 10)
                 .addComponent(jLabel52)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -330,8 +340,8 @@ public class Ingreso extends javax.swing.JFrame {
                         .addContainerGap(24, Short.MAX_VALUE))
                     .addGroup(panelIngresoProductoLayout.createSequentialGroup()
                         .addGroup(panelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnConfirmarInfoProd)
-                            .addComponent(jLabel75))
+                            .addComponent(jLabel75)
+                            .addComponent(btnBorrar))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnIngresarMercadería)
                         .addGap(23, 23, 23))))
@@ -353,7 +363,7 @@ public class Ingreso extends javax.swing.JFrame {
         });
 
         jButton6.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jButton6.setText("Buscar Nota de Venta - Compra");
+        jButton6.setText("1-. Buscar Nota de Venta - Compra");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -417,6 +427,9 @@ public class Ingreso extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Productos Solicitados");
 
+        lblNV.setVisible(false);
+        lblNV.setText("jLabel5");
+
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
@@ -440,17 +453,23 @@ public class Ingreso extends javax.swing.JFrame {
                                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtNumeroNotaCompra)
                                     .addComponent(txtDistribuidor)
-                                    .addComponent(cmbTransporte, 0, 423, Short.MAX_VALUE)
+                                    .addComponent(cmbTransporte, 0, 411, Short.MAX_VALUE)
                                     .addComponent(cmbBodega, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtNumFactura)
                                     .addComponent(txtGuiaDespacho))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel14Layout.createSequentialGroup()
-                                        .addComponent(jLabel55)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cmbSeccionBodega, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(0, 4, Short.MAX_VALUE)
+                                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel14Layout.createSequentialGroup()
+                                                .addComponent(jLabel55)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(cmbSeccionBodega, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel14Layout.createSequentialGroup()
+                                        .addComponent(lblNV)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
                             .addComponent(jScrollPane9)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(panelIngresoProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -469,7 +488,8 @@ public class Ingreso extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtDistribuidor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDistribuidor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNV))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel73)
@@ -488,13 +508,13 @@ public class Ingreso extends javax.swing.JFrame {
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtGuiaDespacho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(30, 30, 30)
+                .addGap(10, 10, 10)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(panelIngresoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(10, 10, 10))
         );
 
         jScrollPane10.setViewportView(jPanel14);
@@ -572,15 +592,25 @@ public class Ingreso extends javax.swing.JFrame {
     private void btnConfirmarInfoProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarInfoProdActionPerformed
         try {
             //Agregar los productos a la lista
-            int indexs = tblProductosAIngresar.getRowCount();
-            Object[] row = new Object[4];
-            DefaultTableModel modeloNuevo = (DefaultTableModel) tblProductosEnNC.getModel();
+            int i = tblProductosAIngresar.getSelectedRow();
+            int verificar = Integer.parseInt(tblProductosAIngresar.getValueAt(i, 4).toString());
 
-            row[0] = txtIDproductoIngreso.getText();
-            row[1] = txtSKUIngreso.getText();
-            row[2] = txtNombreProductoIngreso.getText();
-            row[3] = txtStockIngresado.getText();
-            modeloNuevo.addRow(row);
+            if (verificar <= 0) {
+                JOptionPane.showMessageDialog(null, "La cantidad de producto es 0, no puede restar mas de la lista");
+            } else {
+                int indexs = tblProductosAIngresar.getRowCount();
+                Object[] row = new Object[4];
+                DefaultTableModel modeloNuevo = (DefaultTableModel) tblProductosEnNC.getModel();
+
+                row[0] = txtIDproductoIngreso.getText();
+                row[1] = txtSKUIngreso.getText();
+                row[2] = txtNombreProductoIngreso.getText();
+                row[3] = txtStockIngresado.getText();
+                modeloNuevo.addRow(row);
+
+                tblProductosAIngresar.setValueAt((Integer.parseInt(tblProductosAIngresar.getValueAt(i, 4).toString()) - Integer.parseInt(txtStockIngresado.getText())), i, 4);
+
+            }
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex.getMessage());
@@ -588,115 +618,260 @@ public class Ingreso extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConfirmarInfoProdActionPerformed
 
     private void btnIngresarMercaderíaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarMercaderíaActionPerformed
-        try {
-            int idBodega = 0;
-            String query = "select * from bodega where nombreBodega = ?";
-            PreparedStatement pst3 = cn.prepareStatement(query);
-            pst3.setString(1, cmbBodega.getSelectedItem().toString());
-            ResultSet rs3 = pst3.executeQuery();
-            while (rs3.next()) {
-                idBodega = rs3.getInt("idBodega");
-            }
-            //Metodo para Escoger la ruta donde se guardara el reporte
-            String ruta = "";
-            String nombre = "Acima Group - " + idBodega + randomAlphaNumeric(4);
-            JFileChooser dlg = new JFileChooser();
-            dlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int totalCantidad = 0;
+        for (int i = 0; i < tblProductosAIngresar.getRowCount(); i++) {
+            totalCantidad = Integer.parseInt(tblProductosAIngresar.getValueAt(i, 4).toString()) + totalCantidad;
+        }
+        System.out.println("Cantidad " + totalCantidad);
+        if (totalCantidad > 0) {
+            //se estará ingresando con la cantidad faltante
 
-            int option = dlg.showOpenDialog(this);
+            String[] options = new String[]{"Confirmar", "Cancelar"};
 
-            if (option == JFileChooser.APPROVE_OPTION) {
-                File f = dlg.getSelectedFile();
-                ruta = f.toString() + "\\" + nombre + ".png";
-            }
-            String qrCodeData;
-            qrCodeData = nombre;
-            String charset = "UTF-8"; // or "ISO-8859-1"
-            Map hintMap = new HashMap();
-            hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
-            try {
-                createQRCode(qrCodeData, ruta, charset, hintMap, 800, 800);
-            } catch (WriterException | IOException ex) {
-                Logger.getLogger(Login.class
-                        .getName()).log(Level.SEVERE, null, ex);
-            }
-            System.out.println("Se ha creado Código QR con éxito");
-            try {
-                System.out.println("Datos obtenidos de Código QR: "
-                        + readQRCode(ruta, charset, hintMap));
-            } catch (IOException | NotFoundException ex) {
-                Logger.getLogger(Login.class
-                        .getName()).log(Level.SEVERE, null, ex);
-            }
-            JOptionPane.showMessageDialog(
-                    null, "Se ha Generado un Código QR con la siguiente información: " + qrCodeData);
-            //Cargar un preview del Código
-            try {
-                File FileToRead = new File(ruta);
-                Image Picture = ImageIO.read(FileToRead);
-                BufferedImage img = (BufferedImage) Picture;
-                Image dimg = img.getScaledInstance(lblPreview.getWidth(), lblPreview.getHeight(),
-                        Image.SCALE_SMOOTH);
-                ImageIcon icon = new ImageIcon(dimg);
-                lblPreview.setIcon(icon);
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
-            }
-            try {
-                DefaultTableModel model = (DefaultTableModel) tblProductosEnNC.getModel();
-                int rowcount = tblProductosEnNC.getRowCount();
-                for (int i = 0; i < rowcount; i++) {
-                    String query3 = "INSERT INTO ingreso(`numeroCotizacion`, `nombreDistribuidor`,numeroFactura,guiaDespachoProveedor, "
-                            + "`tipoTransporte`, `idBodega`,`IDProducto`,`SKU`,"
-                            + "`codigoGeneradoQR`,`StockIngresado`,`tipoIngreso`) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-                    PreparedStatement pst2 = cn.prepareStatement(query3);
-                    pst2.setString(1, txtNumeroNotaCompra.getText());
-                    pst2.setString(2, txtDistribuidor.getText());
-                    pst2.setString(3, txtNumFactura.getText());
-                    pst2.setString(4, txtGuiaDespacho.getText());
-                    pst2.setString(5, cmbTransporte.getSelectedItem().toString());
-                    pst2.setInt(6, cmbBodega.getSelectedIndex());
-                    pst2.setString(7, model.getValueAt(i, 0).toString());
-                    pst2.setString(8, model.getValueAt(i, 1).toString());
-                    pst2.setString(9, qrCodeData);
-                    pst2.setString(10, model.getValueAt(i, 3).toString());
-                    pst2.setString(11, "Ingreso realizado por 'Ingreso de Mercadería'");
-                    int up = pst2.executeUpdate();
-                    String queryINV = "UPDATE INVENTARIO SET STOCK = stock + ? WHERE IDPRODUCTO = ?";
-                    PreparedStatement pstINV = cn.prepareStatement(queryINV);
-                    pstINV.setInt(1, Integer.parseInt(tblProductosEnNC.getValueAt(i, 3).toString()));
-                    pstINV.setString(2, tblProductosEnNC.getValueAt(i, 1).toString());
-                    int upINV = pstINV.executeUpdate();
+            int resp = JOptionPane.showOptionDialog(null, "Se está realizando el ingreso de mercadería con productos faltantes", null,
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                    null, options, options[0]);
+
+            if (resp == 0) {
+                //En caso de confirmar...
+                try {
+                    int idBodega = 0;
+                    String query = "select * from bodega where nombreBodega = ?";
+                    PreparedStatement pst3 = cn.prepareStatement(query);
+                    pst3.setString(1, cmbBodega.getSelectedItem().toString());
+                    ResultSet rs3 = pst3.executeQuery();
+                    while (rs3.next()) {
+                        idBodega = rs3.getInt("idBodega");
+                    }
+                    //Metodo para Escoger la ruta donde se guardara el reporte
+                    String ruta = "";
+                    String nombre = "Acima Group - " + idBodega + randomAlphaNumeric(4);
+                    JFileChooser dlg = new JFileChooser();
+                    dlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+                    int option = dlg.showOpenDialog(this);
+
+                    if (option == JFileChooser.APPROVE_OPTION) {
+                        File f = dlg.getSelectedFile();
+                        ruta = f.toString() + "\\" + nombre + ".png";
+                    }
+                    String qrCodeData;
+                    qrCodeData = nombre;
+                    String charset = "UTF-8"; // or "ISO-8859-1"
+                    Map hintMap = new HashMap();
+                    hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
+                    try {
+                        createQRCode(qrCodeData, ruta, charset, hintMap, 800, 800);
+                    } catch (WriterException | IOException ex) {
+                        Logger.getLogger(Login.class
+                                .getName()).log(Level.SEVERE, null, ex);
+                    }
+                    System.out.println("Se ha creado Código QR con éxito");
+                    try {
+                        System.out.println("Datos obtenidos de Código QR: "
+                                + readQRCode(ruta, charset, hintMap));
+                    } catch (IOException | NotFoundException ex) {
+                        Logger.getLogger(Login.class
+                                .getName()).log(Level.SEVERE, null, ex);
+                    }
+                    JOptionPane.showMessageDialog(
+                            null, "Se ha Generado un Código QR con la siguiente información: " + qrCodeData);
+                    //Cargar un preview del Código
+                    try {
+                        File FileToRead = new File(ruta);
+                        Image Picture = ImageIO.read(FileToRead);
+                        BufferedImage img = (BufferedImage) Picture;
+                        Image dimg = img.getScaledInstance(lblPreview.getWidth(), lblPreview.getHeight(),
+                                Image.SCALE_SMOOTH);
+                        ImageIcon icon = new ImageIcon(dimg);
+                        lblPreview.setIcon(icon);
+                    } catch (IOException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                    }
+                    try {
+                        DefaultTableModel model = (DefaultTableModel) tblProductosEnNC.getModel();
+                        int rowcount = tblProductosEnNC.getRowCount();
+                        for (int i = 0; i < rowcount; i++) {
+                            String query3 = "INSERT INTO ingreso(`numeroCotizacion`, `nombreDistribuidor`,numeroFactura,guiaDespachoProveedor, "
+                                    + "`tipoTransporte`, `idBodega`,`IDProducto`,`SKU`,"
+                                    + "`codigoGeneradoQR`,`StockIngresado`,`tipoIngreso`) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+                            PreparedStatement pst2 = cn.prepareStatement(query3);
+                            pst2.setString(1, txtNumeroNotaCompra.getText());
+                            pst2.setString(2, txtDistribuidor.getText());
+                            pst2.setString(3, txtNumFactura.getText());
+                            pst2.setString(4, txtGuiaDespacho.getText());
+                            pst2.setString(5, cmbTransporte.getSelectedItem().toString());
+                            pst2.setInt(6, cmbBodega.getSelectedIndex());
+                            pst2.setString(7, model.getValueAt(i, 0).toString());
+                            pst2.setString(8, model.getValueAt(i, 1).toString());
+                            pst2.setString(9, qrCodeData);
+                            pst2.setString(10, model.getValueAt(i, 3).toString());
+                            pst2.setString(11, "Ingreso realizado por 'Ingreso de Mercadería'");
+                            int up = pst2.executeUpdate();
+                            String queryINV = "UPDATE INVENTARIO SET STOCK = stock + ? WHERE IDPRODUCTO = ?";
+                            PreparedStatement pstINV = cn.prepareStatement(queryINV);
+                            pstINV.setInt(1, Integer.parseInt(tblProductosEnNC.getValueAt(i, 3).toString()));
+                            pstINV.setString(2, tblProductosEnNC.getValueAt(i, 0).toString());
+                            int upINV = pstINV.executeUpdate();
+                        }
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "ERROR EN :" + ex.getMessage());
+                    }
+                } catch (NumberFormatException | SQLException | HeadlessException ex) {
+                    JOptionPane.showMessageDialog(null, "ERROR EN :" + ex.getMessage());
                 }
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "ERROR EN :" + ex.getMessage());
+                try {
+                    // create the java mysql update preparedstatement
+                    String query = "update abastecimiento set estado = 'Nota de compra ingresada con productos faltantes' where numerocotizacion = ?";
+                    PreparedStatement preparedStmt = cn.prepareStatement(query);
+                    preparedStmt.setString(1, lblNV.getText());
+                    // execute the java preparedstatement
+                    preparedStmt.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Cotización validada: " + txtNumeroNotaCompra.getText());
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex.getMessage());
+                }
+
+                int index_borrar = tblProductosEnNC.getRowCount();
+                DefaultTableModel modelo_paso = (DefaultTableModel) tblProductosEnNC.getModel();
+                for (int i = index_borrar - 1; i >= 0; i--) {
+                    modelo_paso.removeRow(i);
+                }
+
+                txtNumeroNotaCompra.setText("");
+                txtIDproductoIngreso.setText("");
+                txtSKUIngreso.setText("");
+                txtNombreProductoIngreso.setText("");
+                txtStockIngresado.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "Operación cancelada");
             }
-        } catch (NumberFormatException | SQLException | HeadlessException ex) {
-            JOptionPane.showMessageDialog(null, "ERROR EN :" + ex.getMessage());
-        }
-        try {
-            // create the java mysql update preparedstatement
-            String query = "update abastecimiento set estado = 'Cotización Validada' where numerocotizacion = ?";
-            PreparedStatement preparedStmt = cn.prepareStatement(query);
-            preparedStmt.setString(1, txtNumeroNotaCompra.getText());
-            // execute the java preparedstatement
-            preparedStmt.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Cotización validada: " + txtNumeroNotaCompra.getText());
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex.getMessage());
+        } else if (totalCantidad == 0) {
+            //se estará ingresando con la cantidad justa
+
+            String[] options = new String[]{"Confirmar", "Cancelar"};
+
+            int resp = JOptionPane.showOptionDialog(null, "Se está realizando el ingreso de mercadería con todos los productos", null,
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                    null, options, options[0]);
+
+            if (resp == 0) {
+                //En caso de confirmar...
+                try {
+                    int idBodega = 0;
+                    String query = "select * from bodega where nombreBodega = ?";
+                    PreparedStatement pst3 = cn.prepareStatement(query);
+                    pst3.setString(1, cmbBodega.getSelectedItem().toString());
+                    ResultSet rs3 = pst3.executeQuery();
+                    while (rs3.next()) {
+                        idBodega = rs3.getInt("idBodega");
+                    }
+                    //Metodo para Escoger la ruta donde se guardara el reporte
+                    String ruta = "";
+                    String nombre = "Acima Group - " + idBodega + randomAlphaNumeric(4);
+                    JFileChooser dlg = new JFileChooser();
+                    dlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+                    int option = dlg.showOpenDialog(this);
+
+                    if (option == JFileChooser.APPROVE_OPTION) {
+                        File f = dlg.getSelectedFile();
+                        ruta = f.toString() + "\\" + nombre + ".png";
+                    }
+                    String qrCodeData;
+                    qrCodeData = nombre;
+                    String charset = "UTF-8"; // or "ISO-8859-1"
+                    Map hintMap = new HashMap();
+                    hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
+                    try {
+                        createQRCode(qrCodeData, ruta, charset, hintMap, 800, 800);
+                    } catch (WriterException | IOException ex) {
+                        Logger.getLogger(Login.class
+                                .getName()).log(Level.SEVERE, null, ex);
+                    }
+                    System.out.println("Se ha creado Código QR con éxito");
+                    try {
+                        System.out.println("Datos obtenidos de Código QR: "
+                                + readQRCode(ruta, charset, hintMap));
+                    } catch (IOException | NotFoundException ex) {
+                        Logger.getLogger(Login.class
+                                .getName()).log(Level.SEVERE, null, ex);
+                    }
+                    JOptionPane.showMessageDialog(
+                            null, "Se ha Generado un Código QR con la siguiente información: " + qrCodeData);
+                    //Cargar un preview del Código
+                    try {
+                        File FileToRead = new File(ruta);
+                        Image Picture = ImageIO.read(FileToRead);
+                        BufferedImage img = (BufferedImage) Picture;
+                        Image dimg = img.getScaledInstance(lblPreview.getWidth(), lblPreview.getHeight(),
+                                Image.SCALE_SMOOTH);
+                        ImageIcon icon = new ImageIcon(dimg);
+                        lblPreview.setIcon(icon);
+                    } catch (IOException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                    }
+                    try {
+                        DefaultTableModel model = (DefaultTableModel) tblProductosEnNC.getModel();
+                        int rowcount = tblProductosEnNC.getRowCount();
+                        for (int i = 0; i < rowcount; i++) {
+                            String query3 = "INSERT INTO ingreso(`numeroCotizacion`, `nombreDistribuidor`,numeroFactura,guiaDespachoProveedor, "
+                                    + "`tipoTransporte`, `idBodega`,`IDProducto`,`SKU`,"
+                                    + "`codigoGeneradoQR`,`StockIngresado`,`tipoIngreso`) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+                            PreparedStatement pst2 = cn.prepareStatement(query3);
+                            pst2.setString(1, txtNumeroNotaCompra.getText());
+                            pst2.setString(2, txtDistribuidor.getText());
+                            pst2.setString(3, txtNumFactura.getText());
+                            pst2.setString(4, txtGuiaDespacho.getText());
+                            pst2.setString(5, cmbTransporte.getSelectedItem().toString());
+                            pst2.setInt(6, cmbBodega.getSelectedIndex());
+                            pst2.setString(7, model.getValueAt(i, 0).toString());
+                            pst2.setString(8, model.getValueAt(i, 1).toString());
+                            pst2.setString(9, qrCodeData);
+                            pst2.setString(10, model.getValueAt(i, 3).toString());
+                            pst2.setString(11, "Ingreso realizado por 'Ingreso de Mercadería'");
+                            int up = pst2.executeUpdate();
+                            String queryINV = "UPDATE INVENTARIO SET STOCK = stock + ? WHERE IDPRODUCTO = ?";
+                            PreparedStatement pstINV = cn.prepareStatement(queryINV);
+                            pstINV.setInt(1, Integer.parseInt(tblProductosEnNC.getValueAt(i, 3).toString()));
+                            pstINV.setString(2, tblProductosEnNC.getValueAt(i, 0).toString());
+                            int upINV = pstINV.executeUpdate();
+                        }
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "ERROR EN :" + ex.getMessage());
+                    }
+                } catch (NumberFormatException | SQLException | HeadlessException ex) {
+                    JOptionPane.showMessageDialog(null, "ERROR EN :" + ex.getMessage());
+                }
+                try {
+                    // create the java mysql update preparedstatement
+                    String query = "update abastecimiento set estado = 'Nota de compra ingresada' where numerocotizacion = ?";
+                    PreparedStatement preparedStmt = cn.prepareStatement(query);
+                    preparedStmt.setString(1, lblNV.getText());
+                    // execute the java preparedstatement
+                    preparedStmt.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Cotización validada: " + txtNumeroNotaCompra.getText());
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex.getMessage());
+                }
+
+                int index_borrar = tblProductosEnNC.getRowCount();
+                DefaultTableModel modelo_paso = (DefaultTableModel) tblProductosEnNC.getModel();
+                for (int i = index_borrar - 1; i >= 0; i--) {
+                    modelo_paso.removeRow(i);
+                }
+
+                txtNumeroNotaCompra.setText("");
+                txtIDproductoIngreso.setText("");
+                txtSKUIngreso.setText("");
+                txtNombreProductoIngreso.setText("");
+                txtStockIngresado.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "Operación cancelada");
+            }
+
         }
 
-        int index_borrar = tblProductosEnNC.getRowCount();
-        DefaultTableModel modelo_paso = (DefaultTableModel) tblProductosEnNC.getModel();
-        for (int i = index_borrar - 1; i >= 0; i--) {
-            modelo_paso.removeRow(i);
-        }
-
-        txtNumeroNotaCompra.setText("");
-        txtIDproductoIngreso.setText("");
-        txtSKUIngreso.setText("");
-        txtNombreProductoIngreso.setText("");
-        txtStockIngresado.setText("");
     }//GEN-LAST:event_btnIngresarMercaderíaActionPerformed
 
     private void txtNumeroNotaCompraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroNotaCompraKeyPressed
@@ -763,6 +938,17 @@ public class Ingreso extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDistribuidorActionPerformed
 
+    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+        try {
+            DefaultTableModel model = (DefaultTableModel) tblProductosEnNC.getModel();
+            int SelectedRowIndex = tblProductosEnNC.getSelectedRow();
+            model.removeRow(SelectedRowIndex);
+            JOptionPane.showMessageDialog(null, "Producto Removido");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un producto " + ex);
+        }
+    }//GEN-LAST:event_btnBorrarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -799,6 +985,7 @@ public class Ingreso extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnConfirmarInfoProd;
     private javax.swing.JButton btnIngresarMercadería;
     private javax.swing.JButton btnVolver5;
@@ -832,6 +1019,7 @@ public class Ingreso extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane5;
     private javax.swing.JLabel lblIngresoFrame;
+    public javax.swing.JLabel lblNV;
     private javax.swing.JLabel lblPreview;
     private javax.swing.JPanel panelIngresoProducto;
     private javax.swing.JTable tblProductosAIngresar;

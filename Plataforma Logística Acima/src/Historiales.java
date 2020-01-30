@@ -147,13 +147,20 @@ public class Historiales extends javax.swing.JFrame {
             HistorialIngresos histIngreso = new HistorialIngresos();
 
             histIngreso.setVisible(true);
-            String query = "Select i.numeroCotizacion as 'Número de Cotización',\n"
-                    + "i.tipoTransporte as 'Tipo de Transporte' ,\n"
-                    + "b.nombreBodega as 'Nombre de Bodega' ,\n"
-                    + "idProducto as 'ID de Producto',sku as 'SKU',\n"
-                    + "STOCKINGRESADO AS 'Stock Ingresado',\n"
-                    + "fechaIngreso as 'Fecha de Ingreso' ,codigogeneradoQR as 'Código QR generado'\n"
-                    + "from ingreso i join bodega b on i.idbodega = b.idbodega";
+            String query = "SELECT \n"
+                    + "    ing.numeroCotizacion AS 'N° de Cotización',\n"
+                    + "    ing.notaVenta AS 'Nota de Venta',\n"
+                    + "    ing.tipoTransporte AS 'Transporte',\n"
+                    + "    ing.idProducto AS 'ID de Producto',\n"
+                    + "    inv.NOMBREPRODUCTO AS 'Nombre de Producto',\n"
+                    + "    ing.guiaDespachoProveedor AS 'Guía de Despacho',\n"
+                    + "    ing.codigoGeneradoQR AS 'Código QR',\n"
+                    + "    ing.stockIngresado AS 'Stock',\n"
+                    + "    ing.fechaIngreso AS 'Fecha de Ingreso'\n"
+                    + "FROM\n"
+                    + "    ingreso ing\n"
+                    + "        JOIN\n"
+                    + "    inventario inv ON inv.idProducto = ing.idProducto;";
             PreparedStatement pst = cn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
             histIngreso.tblHistorialIngreso.setModel(DbUtils.resultSetToTableModel(rs));

@@ -123,7 +123,7 @@ public class Ingreso extends javax.swing.JFrame {
         cmbSeccionBodega = new javax.swing.JComboBox();
         jLabel55 = new javax.swing.JLabel();
         jLabel59 = new javax.swing.JLabel();
-        txtNumeroNotaCompra = new javax.swing.JTextField();
+        txtNumeroNotaVenta = new javax.swing.JTextField();
         jButton6 = new javax.swing.JButton();
         jScrollPane9 = new javax.swing.JScrollPane();
         tblProductosAIngresar = new javax.swing.JTable();
@@ -134,14 +134,12 @@ public class Ingreso extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtDistribuidor = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        lblNV = new javax.swing.JLabel();
+        lblNC = new javax.swing.JLabel();
         btnVolver5 = new javax.swing.JButton();
         lblIngresoFrame = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1280, 720));
         setMinimumSize(new java.awt.Dimension(1280, 720));
-        setPreferredSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
 
         jPanel39.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -355,10 +353,10 @@ public class Ingreso extends javax.swing.JFrame {
         jLabel59.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jLabel59.setText("Número de Nota de Venta:");
 
-        txtNumeroNotaCompra.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        txtNumeroNotaCompra.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtNumeroNotaVenta.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        txtNumeroNotaVenta.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtNumeroNotaCompraKeyPressed(evt);
+                txtNumeroNotaVentaKeyPressed(evt);
             }
         });
 
@@ -427,8 +425,7 @@ public class Ingreso extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Productos Solicitados");
 
-        lblNV.setVisible(false);
-        lblNV.setText("jLabel5");
+        lblNC.setText("jLabel5");
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
@@ -451,7 +448,7 @@ public class Ingreso extends javax.swing.JFrame {
                                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtNumeroNotaCompra)
+                                    .addComponent(txtNumeroNotaVenta)
                                     .addComponent(txtDistribuidor)
                                     .addComponent(cmbTransporte, 0, 411, Short.MAX_VALUE)
                                     .addComponent(cmbBodega, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -468,7 +465,7 @@ public class Ingreso extends javax.swing.JFrame {
                                                 .addComponent(cmbSeccionBodega, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(jPanel14Layout.createSequentialGroup()
-                                        .addComponent(lblNV)
+                                        .addComponent(lblNC)
                                         .addGap(0, 0, Short.MAX_VALUE))))
                             .addComponent(jScrollPane9)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -484,12 +481,12 @@ public class Ingreso extends javax.swing.JFrame {
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton6)
                     .addComponent(jLabel59)
-                    .addComponent(txtNumeroNotaCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNumeroNotaVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtDistribuidor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNV))
+                    .addComponent(lblNC))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel73)
@@ -692,21 +689,22 @@ public class Ingreso extends javax.swing.JFrame {
                         DefaultTableModel model = (DefaultTableModel) tblProductosEnNC.getModel();
                         int rowcount = tblProductosEnNC.getRowCount();
                         for (int i = 0; i < rowcount; i++) {
-                            String query3 = "INSERT INTO ingreso(`numeroCotizacion`, `nombreDistribuidor`,numeroFactura,guiaDespachoProveedor, "
+                            String query3 = "INSERT INTO ingreso(`numeroCotizacion`,`notaventa`, `nombreDistribuidor`,numeroFactura,guiaDespachoProveedor, "
                                     + "`tipoTransporte`, `idBodega`,`IDProducto`,`SKU`,"
-                                    + "`codigoGeneradoQR`,`StockIngresado`,`tipoIngreso`) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+                                    + "`codigoGeneradoQR`,`StockIngresado`,`tipoIngreso`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
                             PreparedStatement pst2 = cn.prepareStatement(query3);
-                            pst2.setString(1, txtNumeroNotaCompra.getText());
-                            pst2.setString(2, txtDistribuidor.getText());
-                            pst2.setString(3, txtNumFactura.getText());
-                            pst2.setString(4, txtGuiaDespacho.getText());
-                            pst2.setString(5, cmbTransporte.getSelectedItem().toString());
-                            pst2.setInt(6, cmbBodega.getSelectedIndex());
-                            pst2.setString(7, model.getValueAt(i, 0).toString());
-                            pst2.setString(8, model.getValueAt(i, 1).toString());
-                            pst2.setString(9, qrCodeData);
-                            pst2.setString(10, model.getValueAt(i, 3).toString());
-                            pst2.setString(11, "Ingreso realizado por 'Ingreso de Mercadería'");
+                            pst2.setString(1, lblNC.getText());
+                            pst2.setString(2, txtNumeroNotaVenta.getText());
+                            pst2.setString(3, txtDistribuidor.getText());
+                            pst2.setString(4, txtNumFactura.getText());
+                            pst2.setString(5, txtGuiaDespacho.getText());
+                            pst2.setString(6, cmbTransporte.getSelectedItem().toString());
+                            pst2.setInt(7, cmbBodega.getSelectedIndex());
+                            pst2.setString(8, model.getValueAt(i, 0).toString());
+                            pst2.setString(9, model.getValueAt(i, 1).toString());
+                            pst2.setString(10, qrCodeData);
+                            pst2.setString(11, model.getValueAt(i, 3).toString());
+                            pst2.setString(12, "Ingreso realizado por 'Ingreso de Mercadería'");
                             int up = pst2.executeUpdate();
                             String queryINV = "UPDATE INVENTARIO SET STOCK = stock + ? WHERE IDPRODUCTO = ?";
                             PreparedStatement pstINV = cn.prepareStatement(queryINV);
@@ -724,10 +722,10 @@ public class Ingreso extends javax.swing.JFrame {
                     // create the java mysql update preparedstatement
                     String query = "update abastecimiento set estado = 'Nota de compra ingresada con productos faltantes' where numerocotizacion = ?";
                     PreparedStatement preparedStmt = cn.prepareStatement(query);
-                    preparedStmt.setString(1, lblNV.getText());
+                    preparedStmt.setString(1, lblNC.getText());
                     // execute the java preparedstatement
                     preparedStmt.executeUpdate();
-                    JOptionPane.showMessageDialog(null, "Cotización validada: " + txtNumeroNotaCompra.getText());
+                    JOptionPane.showMessageDialog(null, "Cotización validada: " + txtNumeroNotaVenta.getText());
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex.getMessage());
                 }
@@ -738,7 +736,7 @@ public class Ingreso extends javax.swing.JFrame {
                     modelo_paso.removeRow(i);
                 }
 
-                txtNumeroNotaCompra.setText("");
+                txtNumeroNotaVenta.setText("");
                 txtIDproductoIngreso.setText("");
                 txtSKUIngreso.setText("");
                 txtNombreProductoIngreso.setText("");
@@ -815,21 +813,22 @@ public class Ingreso extends javax.swing.JFrame {
                         DefaultTableModel model = (DefaultTableModel) tblProductosEnNC.getModel();
                         int rowcount = tblProductosEnNC.getRowCount();
                         for (int i = 0; i < rowcount; i++) {
-                            String query3 = "INSERT INTO ingreso(`numeroCotizacion`, `nombreDistribuidor`,numeroFactura,guiaDespachoProveedor, "
+                            String query3 = "INSERT INTO ingreso(`numeroCotizacion`,`notaventa`, `nombreDistribuidor`,numeroFactura,guiaDespachoProveedor, "
                                     + "`tipoTransporte`, `idBodega`,`IDProducto`,`SKU`,"
-                                    + "`codigoGeneradoQR`,`StockIngresado`,`tipoIngreso`) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+                                    + "`codigoGeneradoQR`,`StockIngresado`,`tipoIngreso`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
                             PreparedStatement pst2 = cn.prepareStatement(query3);
-                            pst2.setString(1, txtNumeroNotaCompra.getText());
-                            pst2.setString(2, txtDistribuidor.getText());
-                            pst2.setString(3, txtNumFactura.getText());
-                            pst2.setString(4, txtGuiaDespacho.getText());
-                            pst2.setString(5, cmbTransporte.getSelectedItem().toString());
-                            pst2.setInt(6, cmbBodega.getSelectedIndex());
-                            pst2.setString(7, model.getValueAt(i, 0).toString());
-                            pst2.setString(8, model.getValueAt(i, 1).toString());
-                            pst2.setString(9, qrCodeData);
-                            pst2.setString(10, model.getValueAt(i, 3).toString());
-                            pst2.setString(11, "Ingreso realizado por 'Ingreso de Mercadería'");
+                            pst2.setString(1, lblNC.getText());
+                            pst2.setString(2, txtNumeroNotaVenta.getText());
+                            pst2.setString(3, txtDistribuidor.getText());
+                            pst2.setString(4, txtNumFactura.getText());
+                            pst2.setString(5, txtGuiaDespacho.getText());
+                            pst2.setString(6, cmbTransporte.getSelectedItem().toString());
+                            pst2.setInt(7, cmbBodega.getSelectedIndex());
+                            pst2.setString(8, model.getValueAt(i, 0).toString());
+                            pst2.setString(9, model.getValueAt(i, 1).toString());
+                            pst2.setString(10, qrCodeData);
+                            pst2.setString(11, model.getValueAt(i, 3).toString());
+                            pst2.setString(12, "Ingreso realizado por 'Ingreso de Mercadería'");
                             int up = pst2.executeUpdate();
                             String queryINV = "UPDATE INVENTARIO SET STOCK = stock + ? WHERE IDPRODUCTO = ?";
                             PreparedStatement pstINV = cn.prepareStatement(queryINV);
@@ -847,10 +846,10 @@ public class Ingreso extends javax.swing.JFrame {
                     // create the java mysql update preparedstatement
                     String query = "update abastecimiento set estado = 'Nota de compra ingresada' where numerocotizacion = ?";
                     PreparedStatement preparedStmt = cn.prepareStatement(query);
-                    preparedStmt.setString(1, lblNV.getText());
+                    preparedStmt.setString(1, lblNC.getText());
                     // execute the java preparedstatement
                     preparedStmt.executeUpdate();
-                    JOptionPane.showMessageDialog(null, "Cotización validada: " + txtNumeroNotaCompra.getText());
+                    JOptionPane.showMessageDialog(null, "Cotización validada: " + txtNumeroNotaVenta.getText());
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex.getMessage());
                 }
@@ -861,7 +860,7 @@ public class Ingreso extends javax.swing.JFrame {
                     modelo_paso.removeRow(i);
                 }
 
-                txtNumeroNotaCompra.setText("");
+                txtNumeroNotaVenta.setText("");
                 txtIDproductoIngreso.setText("");
                 txtSKUIngreso.setText("");
                 txtNombreProductoIngreso.setText("");
@@ -874,9 +873,9 @@ public class Ingreso extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnIngresarMercaderíaActionPerformed
 
-    private void txtNumeroNotaCompraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroNotaCompraKeyPressed
+    private void txtNumeroNotaVentaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroNotaVentaKeyPressed
 
-    }//GEN-LAST:event_txtNumeroNotaCompraKeyPressed
+    }//GEN-LAST:event_txtNumeroNotaVentaKeyPressed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         try {
@@ -884,7 +883,7 @@ public class Ingreso extends javax.swing.JFrame {
                     + "PRECIOUNITARIO AS 'PRECIOUNITARIO',PRECIOTOTALNETO AS 'PRECIO TOTAL NETO'\n"
                     + "FROM detalle_abastecimiento da join abastecimiento a on da.numeroCotizacion = a.numeroCotizacion\n"
                     + "WHERE da.idOrden = ?";
-            String param = txtNumeroNotaCompra.getText();
+            String param = txtNumeroNotaVenta.getText();
             PreparedStatement pst = cn.prepareStatement(query);
             pst.setString(1, param);
             ResultSet rs = pst.executeQuery();
@@ -942,6 +941,15 @@ public class Ingreso extends javax.swing.JFrame {
         try {
             DefaultTableModel model = (DefaultTableModel) tblProductosEnNC.getModel();
             int SelectedRowIndex = tblProductosEnNC.getSelectedRow();
+
+            int indexTablaOriginal = tblProductosAIngresar.getSelectedRow();
+            int cantidadTablaOriginal = Integer.parseInt(tblProductosAIngresar.getValueAt(indexTablaOriginal, 4).toString());
+
+            int cantidadBorrada = Integer.parseInt(model.getValueAt(SelectedRowIndex, 3).toString());
+
+            cantidadBorrada = cantidadBorrada + cantidadTablaOriginal;
+            tblProductosAIngresar.setValueAt(cantidadBorrada, indexTablaOriginal, 4);
+
             model.removeRow(SelectedRowIndex);
             JOptionPane.showMessageDialog(null, "Producto Removido");
         } catch (Exception ex) {
@@ -1019,7 +1027,7 @@ public class Ingreso extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane5;
     private javax.swing.JLabel lblIngresoFrame;
-    public javax.swing.JLabel lblNV;
+    public javax.swing.JLabel lblNC;
     private javax.swing.JLabel lblPreview;
     private javax.swing.JPanel panelIngresoProducto;
     private javax.swing.JTable tblProductosAIngresar;
@@ -1029,7 +1037,7 @@ public class Ingreso extends javax.swing.JFrame {
     private javax.swing.JTextField txtIDproductoIngreso;
     private javax.swing.JTextField txtNombreProductoIngreso;
     private javax.swing.JTextField txtNumFactura;
-    public javax.swing.JTextField txtNumeroNotaCompra;
+    public javax.swing.JTextField txtNumeroNotaVenta;
     private javax.swing.JTextField txtSKUIngreso;
     private javax.swing.JTextField txtStockIngresado;
     // End of variables declaration//GEN-END:variables

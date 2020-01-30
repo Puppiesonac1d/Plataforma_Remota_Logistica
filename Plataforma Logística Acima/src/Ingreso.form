@@ -3,13 +3,7 @@
 <Form version="1.9" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
-    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[1280, 720]"/>
-    </Property>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[1280, 720]"/>
-    </Property>
-    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[1280, 720]"/>
     </Property>
     <Property name="resizable" type="boolean" value="false"/>
@@ -150,7 +144,7 @@
                                                   </Group>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="txtNumeroNotaCompra" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="txtNumeroNotaVenta" alignment="0" max="32767" attributes="0"/>
                                                       <Component id="txtDistribuidor" alignment="0" max="32767" attributes="0"/>
                                                       <Component id="cmbTransporte" alignment="0" pref="411" max="32767" attributes="0"/>
                                                       <Component id="cmbBodega" alignment="0" max="32767" attributes="0"/>
@@ -171,7 +165,7 @@
                                                           </Group>
                                                       </Group>
                                                       <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="lblNV" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="lblNC" min="-2" max="-2" attributes="0"/>
                                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                                       </Group>
                                                   </Group>
@@ -195,13 +189,13 @@
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jButton6" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel59" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtNumeroNotaCompra" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtNumeroNotaVenta" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="txtDistribuidor" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblNV" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblNC" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
@@ -647,14 +641,14 @@
                             <Property name="text" type="java.lang.String" value="N&#xfa;mero de Nota de Venta:"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtNumeroNotaCompra">
+                        <Component class="javax.swing.JTextField" name="txtNumeroNotaVenta">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="20" style="1"/>
                             </Property>
                           </Properties>
                           <Events>
-                            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNumeroNotaCompraKeyPressed"/>
+                            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNumeroNotaVentaKeyPressed"/>
                           </Events>
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -758,12 +752,11 @@
                             <Property name="text" type="java.lang.String" value="Productos Solicitados"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JLabel" name="lblNV">
+                        <Component class="javax.swing.JLabel" name="lblNC">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="jLabel5"/>
                           </Properties>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="lblNV.setVisible(false);"/>
                             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                           </AuxValues>
                         </Component>

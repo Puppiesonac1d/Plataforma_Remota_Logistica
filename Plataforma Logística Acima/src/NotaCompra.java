@@ -55,7 +55,6 @@ public class NotaCompra extends javax.swing.JFrame {
         lblFondoNotaCompra = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setResizable(false);
 
         jLayeredPane17.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -87,6 +86,11 @@ public class NotaCompra extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblNC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblNCMouseClicked(evt);
+            }
+        });
         jScrollPane15.setViewportView(tblNC);
 
         jButton14.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
@@ -444,7 +448,7 @@ public class NotaCompra extends javax.swing.JFrame {
                     + "    detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
                     + "WHERE\n"
                     + "    da.idOrden IS NOT NULL\n"
-                    + "        AND a.Estado BETWEEN 'Cotización Validada' AND 'Nota de compra ingresada con productos faltantes' da.idOrden RLIKE ?;";
+                    + "        AND a.Estado BETWEEN 'Cotización Validada' AND 'Nota de compra ingresada con productos faltantes' and da.idOrden RLIKE ?;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             pst.setInt(1, Integer.parseInt(txtNumNV.getText()));
@@ -456,6 +460,29 @@ public class NotaCompra extends javax.swing.JFrame {
                     .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void tblNCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNCMouseClicked
+        try {
+            Ingreso ingreso = new Ingreso();
+            String query = "select nombreBodega,seccion from bodega";
+            PreparedStatement pst = cn.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                ingreso.cmbBodega.addItem(rs.getString(1));
+                ingreso.cmbSeccionBodega.addItem(rs.getString(2));
+            }
+            int index = tblNC.getSelectedRow();
+            //seleccionarComuna(jComboBox1, jComboBox1);
+            ingreso.txtNumeroNotaVenta.setText(tblNC.getValueAt(index, 0).toString());
+            ingreso.lblNC.setText(tblNC.getValueAt(index, 1).toString());
+            ingreso.setVisible(true);
+            ingreso.jButton6.doClick();
+            this.dispose();
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error " + ex);
+        }
+    }//GEN-LAST:event_tblNCMouseClicked
 
     /**
      * @param args the command line arguments

@@ -157,6 +157,11 @@ public class HistorialNV extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblHistorialNV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblHistorialNVMouseClicked(evt);
+            }
+        });
         jScrollPane19.setViewportView(tblHistorialNV);
 
         btnVolverMenu9.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
@@ -398,6 +403,27 @@ public class HistorialNV extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void tblHistorialNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHistorialNVMouseClicked
+        try {
+            int index = tblHistorialNV.getSelectedRow();
+            String nv = tblHistorialNV.getValueAt(index, 0).toString();
+            String oc = tblHistorialNV.getValueAt(index, 1).toString();
+            Salida salida = new Salida();
+            salida.txtCodigoOTSalida.setText(nv);
+            salida.lblOC.setText(oc);
+            salida.setVisible(true);
+            String queryBodega = "select nombreBodega from bodega ORDER BY nombreBodega";
+            PreparedStatement pstBodega = cn.prepareStatement(queryBodega);
+            ResultSet rsBodega = pstBodega.executeQuery();
+            while (rsBodega.next()) {
+                salida.cmbBodegaSalida.addItem(rsBodega.getString(1));
+            }
+            salida.btnBuscarOTSalida.doClick();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "No hay una nota seleccionada" + ex.getMessage());
+        }
+    }//GEN-LAST:event_tblHistorialNVMouseClicked
 
     /**
      * @param args the command line arguments

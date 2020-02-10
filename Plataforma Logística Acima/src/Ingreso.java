@@ -47,6 +47,7 @@ public class Ingreso extends javax.swing.JFrame {
 
     public Ingreso() {
         initComponents();
+    
     }
 
     //Metodos de Generación de QR
@@ -360,6 +361,7 @@ public class Ingreso extends javax.swing.JFrame {
             }
         });
 
+        jButton6.setVisible(false);
         jButton6.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jButton6.setText("1-. Buscar Nota de Venta - Compra");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -1000,7 +1002,7 @@ public class Ingreso extends javax.swing.JFrame {
     public javax.swing.JComboBox<String> cmbBodega;
     public javax.swing.JComboBox cmbSeccionBodega;
     public javax.swing.JComboBox<String> cmbTransporte;
-    private javax.swing.JButton jButton6;
+    public javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

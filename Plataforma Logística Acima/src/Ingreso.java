@@ -13,12 +13,25 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.BarcodeQRCode;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -47,39 +60,7 @@ public class Ingreso extends javax.swing.JFrame {
 
     public Ingreso() {
         initComponents();
-    
-    }
 
-    //Metodos de Generación de QR
-    public static void createQRCode(String qrCodeData, String filePath,
-            String charset, Map hintMap, int qrCodeheight, int qrCodewidth)
-            throws WriterException, IOException {
-        BitMatrix matrix = new MultiFormatWriter().encode(
-                new String(qrCodeData.getBytes(charset), charset),
-                BarcodeFormat.QR_CODE, qrCodewidth, qrCodeheight, hintMap);
-        MatrixToImageWriter.writeToFile(matrix, filePath.substring(filePath
-                .lastIndexOf('.') + 1), new File(filePath));
-    }
-
-    public static String readQRCode(String filePath, String charset, Map hintMap)
-            throws FileNotFoundException, IOException, NotFoundException {
-        BinaryBitmap binaryBitmap = new BinaryBitmap(new HybridBinarizer(
-                new BufferedImageLuminanceSource(
-                        ImageIO.read(new FileInputStream(filePath)))));
-        Result qrCodeResult = new MultiFormatReader().decode(binaryBitmap,
-                hintMap);
-        return qrCodeResult.getText();
-    }
-
-    private static final String ALPHA_NUMERIC_STRING = "0123456789";
-
-    public static String randomAlphaNumeric(int count) {
-        StringBuilder builder = new StringBuilder();
-        while (count-- != 0) {
-            int character = (int) (Math.random() * ALPHA_NUMERIC_STRING.length());
-            builder.append(ALPHA_NUMERIC_STRING.charAt(character));
-        }
-        return builder.toString();
     }
 
     /**
@@ -642,51 +623,7 @@ public class Ingreso extends javax.swing.JFrame {
                     while (rs3.next()) {
                         idBodega = rs3.getInt("idBodega");
                     }
-                    //Metodo para Escoger la ruta donde se guardara el reporte
-                    String ruta = "";
-                    String nombre = "Acima Group - " + idBodega + randomAlphaNumeric(4);
-                    JFileChooser dlg = new JFileChooser();
-                    dlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
-                    int option = dlg.showOpenDialog(this);
-
-                    if (option == JFileChooser.APPROVE_OPTION) {
-                        File f = dlg.getSelectedFile();
-                        ruta = f.toString() + "\\" + nombre + ".png";
-                    }
-                    String qrCodeData;
-                    qrCodeData = nombre;
-                    String charset = "UTF-8"; // or "ISO-8859-1"
-                    Map hintMap = new HashMap();
-                    hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
-                    try {
-                        createQRCode(qrCodeData, ruta, charset, hintMap, 800, 800);
-                    } catch (WriterException | IOException ex) {
-                        Logger.getLogger(Login.class
-                                .getName()).log(Level.SEVERE, null, ex);
-                    }
-                    System.out.println("Se ha creado Código QR con éxito");
-                    try {
-                        System.out.println("Datos obtenidos de Código QR: "
-                                + readQRCode(ruta, charset, hintMap));
-                    } catch (IOException | NotFoundException ex) {
-                        Logger.getLogger(Login.class
-                                .getName()).log(Level.SEVERE, null, ex);
-                    }
-                    JOptionPane.showMessageDialog(
-                            null, "Se ha Generado un Código QR con la siguiente información: " + qrCodeData);
-                    //Cargar un preview del Código
-                    try {
-                        File FileToRead = new File(ruta);
-                        Image Picture = ImageIO.read(FileToRead);
-                        BufferedImage img = (BufferedImage) Picture;
-                        Image dimg = img.getScaledInstance(lblPreview.getWidth(), lblPreview.getHeight(),
-                                Image.SCALE_SMOOTH);
-                        ImageIcon icon = new ImageIcon(dimg);
-                        lblPreview.setIcon(icon);
-                    } catch (IOException e) {
-                        JOptionPane.showMessageDialog(null, e.getMessage());
-                    }
                     try {
                         DefaultTableModel model = (DefaultTableModel) tblProductosEnNC.getModel();
                         int rowcount = tblProductosEnNC.getRowCount();
@@ -704,15 +641,131 @@ public class Ingreso extends javax.swing.JFrame {
                             pst2.setInt(7, cmbBodega.getSelectedIndex());
                             pst2.setString(8, model.getValueAt(i, 0).toString());
                             pst2.setString(9, model.getValueAt(i, 1).toString());
-                            pst2.setString(10, qrCodeData);
+                            pst2.setString(10, "");
                             pst2.setString(11, model.getValueAt(i, 3).toString());
                             pst2.setString(12, "Ingreso realizado por 'Ingreso de Mercadería'");
                             int up = pst2.executeUpdate();
+                            
                             String queryINV = "UPDATE INVENTARIO SET STOCK = stock + ? WHERE IDPRODUCTO = ?";
                             PreparedStatement pstINV = cn.prepareStatement(queryINV);
                             pstINV.setInt(1, Integer.parseInt(tblProductosEnNC.getValueAt(i, 3).toString()));
                             pstINV.setString(2, tblProductosEnNC.getValueAt(i, 0).toString());
                             int upINV = pstINV.executeUpdate();
+
+                            String queryIngreso = "SELECT * FROM ingreso where MAX(idIngreso)";
+                            // create the java statement
+                            PreparedStatement pstIngreso = cn.prepareStatement(queryIngreso);
+                            // execute the query, and get a java resultset
+                            ResultSet rs = pstIngreso.executeQuery();
+                            // iterate through the java resultset
+                            String maxId = "";
+
+                            int cantidad = 0;
+
+                            while (rs.next()) {
+                                maxId = rs.getString("MAX(idIngreso)");
+
+                                cantidad = rs.getInt("stockIngresado");
+                            }
+
+                            String ruta = "";
+
+                            JFileChooser dlg = new JFileChooser();
+                            dlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+                            int option = dlg.showOpenDialog(this);
+
+                            if (option == JFileChooser.APPROVE_OPTION) {
+                                File f = dlg.getSelectedFile();
+                                ruta = f.toString();
+                            }
+
+                            Document doc = new Document(new Rectangle(282, 424));
+
+                            PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(ruta + "\\" + "ingreso_prueba" + ".pdf"));
+
+                            doc.open();
+
+                            //Establecer imagen y escala
+                            com.itextpdf.text.Image logoAcima = com.itextpdf.text.Image.getInstance("src\\imagenes\\acima-logo-400p.png");
+                            logoAcima.scaleAbsolute(64, 34);
+
+                            PdfPCell cell1 = new PdfPCell(logoAcima, false);
+                            cell1.setBorder(Rectangle.NO_BORDER);
+                            cell1.setBackgroundColor(BaseColor.WHITE);
+                            cell1.setHorizontalAlignment(Element.ALIGN_RIGHT);
+
+                            //Crear Tabla
+                            PdfPTable tableHeader = new PdfPTable(1);
+                            tableHeader.setWidthPercentage(100);
+
+                            tableHeader.addCell(cell1);
+                            doc.add(tableHeader);
+
+                            //Separador
+                            PdfPTable myTable = new PdfPTable(1);
+                            myTable.setWidthPercentage(100.0f);
+                            PdfPCell myCell = new PdfPCell(new Paragraph(""));
+                            myCell.setBorder(Rectangle.BOTTOM);
+                            myTable.addCell(myCell);
+                            myTable.setSpacingAfter(5f);
+                            myTable.setSpacingBefore(5f);
+                            doc.add(myTable);
+
+                            //Crear Tabla de información
+                            PdfPTable tableInfoContacto = new PdfPTable(1);
+                            tableInfoContacto.setWidthPercentage(100);
+
+                            //Empresa
+                            Paragraph empresa = new Paragraph("Empresa: ", FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                            empresa.setAlignment(Paragraph.ALIGN_LEFT);
+                            doc.add(empresa);
+                            //Orden de Compra
+                            Paragraph oc = new Paragraph("Orden de Compra: ", FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                            oc.setAlignment(Paragraph.ALIGN_LEFT);
+                            doc.add(oc);
+                            //Ingreso
+                            Paragraph fechaIngreso = new Paragraph("Fecha de Ingreso de Mercadería: ", FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                            fechaIngreso.setAlignment(Paragraph.ALIGN_LEFT);
+                            doc.add(fechaIngreso);
+
+                            doc.add(myTable);
+
+                            //Nombre Producto
+                            Paragraph nombreProducto = new Paragraph("Nombre de Producto: " + model.getValueAt(i, 2).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                            nombreProducto.setAlignment(Paragraph.ALIGN_LEFT);
+                            doc.add(nombreProducto);
+                            //Sku
+                            Paragraph sku = new Paragraph("SKU: " + model.getValueAt(i, 1).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                            sku.setAlignment(Paragraph.ALIGN_LEFT);
+                            doc.add(sku);
+
+                            doc.add(myTable);
+
+                            //Numero de Ingreso
+                            Paragraph numeroIngreso = new Paragraph("Número de Ingreso: " + maxId, FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                            numeroIngreso.setAlignment(Paragraph.ALIGN_LEFT);
+                            doc.add(numeroIngreso);
+
+                            //Codigo QR
+                            BarcodeQRCode barcodeQRCode = new BarcodeQRCode("Cantidad de Producto ingresada: " + cantidad, 1000, 1000, null);
+                            com.itextpdf.text.Image codeQrImage = barcodeQRCode.getImage();
+                            codeQrImage.scaleAbsolute(50, 50);
+
+                            doc.add(codeQrImage);
+
+                            /*
+                             PdfContentByte cb = writer.getDirectContent();
+                             Barcode128 barcode128 = new Barcode128();
+                             barcode128.setCode("este es un codigo de barra muy largo...con mucha informacion innecesaria");
+                             barcode128.setCodeType(Barcode.CODE128);
+                             Image code128Image = barcode128.createImageWithBarcode(cb, null, null);
+                             doc.add(code128Image);
+                             */
+                            doc.add(myTable);
+
+                            doc.close();
+
                         }
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, "ERROR EN :" + ex.getMessage());
@@ -766,51 +819,8 @@ public class Ingreso extends javax.swing.JFrame {
                     while (rs3.next()) {
                         idBodega = rs3.getInt("idBodega");
                     }
-                    //Metodo para Escoger la ruta donde se guardara el reporte
-                    String ruta = "";
-                    String nombre = "Acima Group - " + idBodega + randomAlphaNumeric(4);
-                    JFileChooser dlg = new JFileChooser();
-                    dlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-
-                    int option = dlg.showOpenDialog(this);
-
-                    if (option == JFileChooser.APPROVE_OPTION) {
-                        File f = dlg.getSelectedFile();
-                        ruta = f.toString() + "\\" + nombre + ".png";
-                    }
-                    String qrCodeData;
-                    qrCodeData = nombre;
-                    String charset = "UTF-8"; // or "ISO-8859-1"
-                    Map hintMap = new HashMap();
-                    hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
-                    try {
-                        createQRCode(qrCodeData, ruta, charset, hintMap, 800, 800);
-                    } catch (WriterException | IOException ex) {
-                        Logger.getLogger(Login.class
-                                .getName()).log(Level.SEVERE, null, ex);
-                    }
-                    System.out.println("Se ha creado Código QR con éxito");
-                    try {
-                        System.out.println("Datos obtenidos de Código QR: "
-                                + readQRCode(ruta, charset, hintMap));
-                    } catch (IOException | NotFoundException ex) {
-                        Logger.getLogger(Login.class
-                                .getName()).log(Level.SEVERE, null, ex);
-                    }
-                    JOptionPane.showMessageDialog(
-                            null, "Se ha Generado un Código QR con la siguiente información: " + qrCodeData);
-                    //Cargar un preview del Código
-                    try {
-                        File FileToRead = new File(ruta);
-                        Image Picture = ImageIO.read(FileToRead);
-                        BufferedImage img = (BufferedImage) Picture;
-                        Image dimg = img.getScaledInstance(lblPreview.getWidth(), lblPreview.getHeight(),
-                                Image.SCALE_SMOOTH);
-                        ImageIcon icon = new ImageIcon(dimg);
-                        lblPreview.setIcon(icon);
-                    } catch (IOException e) {
-                        JOptionPane.showMessageDialog(null, e.getMessage());
-                    }
+                    
+                    
                     try {
                         DefaultTableModel model = (DefaultTableModel) tblProductosEnNC.getModel();
                         int rowcount = tblProductosEnNC.getRowCount();
@@ -828,7 +838,7 @@ public class Ingreso extends javax.swing.JFrame {
                             pst2.setInt(7, cmbBodega.getSelectedIndex());
                             pst2.setString(8, model.getValueAt(i, 0).toString());
                             pst2.setString(9, model.getValueAt(i, 1).toString());
-                            pst2.setString(10, qrCodeData);
+                            pst2.setString(10, "");
                             pst2.setString(11, model.getValueAt(i, 3).toString());
                             pst2.setString(12, "Ingreso realizado por 'Ingreso de Mercadería'");
                             int up = pst2.executeUpdate();

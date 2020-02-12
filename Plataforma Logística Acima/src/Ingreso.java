@@ -37,6 +37,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -117,6 +120,8 @@ public class Ingreso extends javax.swing.JFrame {
         txtDistribuidor = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         lblNC = new javax.swing.JLabel();
+        lblEmpresa = new javax.swing.JLabel();
+        lblOC = new javax.swing.JLabel();
         btnVolver5 = new javax.swing.JButton();
         lblIngresoFrame = new javax.swing.JLabel();
 
@@ -260,9 +265,7 @@ public class Ingreso extends javax.swing.JFrame {
                                 .addComponent(btnBorrar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel75))
-                            .addGroup(panelIngresoProductoLayout.createSequentialGroup()
-                                .addComponent(btnIngresarMercadería)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(btnIngresarMercadería))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel50, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -314,17 +317,15 @@ public class Ingreso extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelIngresoProductoLayout.createSequentialGroup()
-                        .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(24, Short.MAX_VALUE))
+                .addGroup(panelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(panelIngresoProductoLayout.createSequentialGroup()
                         .addGroup(panelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel75)
                             .addComponent(btnBorrar))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnIngresarMercadería)
-                        .addGap(23, 23, 23))))
+                        .addComponent(btnIngresarMercadería))
+                    .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10))
         );
 
         cmbSeccionBodega.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
@@ -410,6 +411,10 @@ public class Ingreso extends javax.swing.JFrame {
 
         lblNC.setText("jLabel5");
 
+        lblEmpresa.setText("jLabel5");
+
+        lblOC.setText("jLabel5");
+
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
@@ -433,22 +438,26 @@ public class Ingreso extends javax.swing.JFrame {
                                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtNumeroNotaVenta)
                                     .addComponent(txtDistribuidor)
-                                    .addComponent(cmbTransporte, 0, 411, Short.MAX_VALUE)
+                                    .addComponent(cmbTransporte, 0, 408, Short.MAX_VALUE)
                                     .addComponent(cmbBodega, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtNumFactura)
                                     .addComponent(txtGuiaDespacho))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel14Layout.createSequentialGroup()
-                                        .addGap(0, 4, Short.MAX_VALUE)
+                                        .addGap(0, 7, Short.MAX_VALUE)
+                                        .addComponent(jLabel55)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cmbSeccionBodega, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel14Layout.createSequentialGroup()
                                         .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(jPanel14Layout.createSequentialGroup()
-                                                .addComponent(jLabel55)
+                                                .addComponent(lblNC)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(cmbSeccionBodega, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(jPanel14Layout.createSequentialGroup()
-                                        .addComponent(lblNC)
+                                                .addComponent(lblEmpresa)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(lblOC))
+                                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(0, 0, Short.MAX_VALUE))))
                             .addComponent(jScrollPane9)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -462,14 +471,15 @@ public class Ingreso extends javax.swing.JFrame {
                 .addComponent(jLabel76)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6)
                     .addComponent(jLabel59)
                     .addComponent(txtNumeroNotaVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtDistribuidor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNC))
+                    .addComponent(lblNC)
+                    .addComponent(lblEmpresa)
+                    .addComponent(lblOC))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel73)
@@ -487,8 +497,9 @@ public class Ingreso extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtGuiaDespacho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(10, 10, 10)
+                    .addComponent(jLabel2)
+                    .addComponent(jButton6))
+                .addGap(7, 7, 7)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -645,27 +656,27 @@ public class Ingreso extends javax.swing.JFrame {
                             pst2.setString(11, model.getValueAt(i, 3).toString());
                             pst2.setString(12, "Ingreso realizado por 'Ingreso de Mercadería'");
                             int up = pst2.executeUpdate();
-                            
+
                             String queryINV = "UPDATE INVENTARIO SET STOCK = stock + ? WHERE IDPRODUCTO = ?";
                             PreparedStatement pstINV = cn.prepareStatement(queryINV);
                             pstINV.setInt(1, Integer.parseInt(tblProductosEnNC.getValueAt(i, 3).toString()));
                             pstINV.setString(2, tblProductosEnNC.getValueAt(i, 0).toString());
                             int upINV = pstINV.executeUpdate();
 
-                            String queryIngreso = "SELECT * FROM ingreso where MAX(idIngreso)";
+                            String queryIngreso = "SELECT MAX(idIngreso),stockIngresado FROM ingreso having MAX(idIngreso)";
                             // create the java statement
                             PreparedStatement pstIngreso = cn.prepareStatement(queryIngreso);
                             // execute the query, and get a java resultset
                             ResultSet rs = pstIngreso.executeQuery();
                             // iterate through the java resultset
-                            String maxId = "";
+                            int maxId = 0;
 
                             int cantidad = 0;
 
                             while (rs.next()) {
-                                maxId = rs.getString("MAX(idIngreso)");
+                                maxId = rs.getInt(1);
 
-                                cantidad = rs.getInt("stockIngresado");
+                                cantidad = rs.getInt(2);
                             }
 
                             String ruta = "";
@@ -680,9 +691,17 @@ public class Ingreso extends javax.swing.JFrame {
                                 ruta = f.toString();
                             }
 
+                            Date sistHora = new Date();
+                            String pmAm = "hh:mm a";
+                            SimpleDateFormat format = new SimpleDateFormat(pmAm);
+                            Calendar hoy = Calendar.getInstance();
+                            String hora = (String.format(format.format(sistHora), hoy));
+                            hora = hora.replace(":", "-");
+                            SimpleDateFormat formato = new SimpleDateFormat("dd-MMM-YYYY");
+                            Date sistFecha = new Date();
                             Document doc = new Document(new Rectangle(282, 424));
 
-                            PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(ruta + "\\" + "ingreso_prueba" + ".pdf"));
+                            PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(ruta + "\\" + "ingreso_" + txtNumeroNotaVenta.getText() + "_producto_" + model.getValueAt(i, 1).toString() + "_" + formato.format(sistFecha) + ".pdf"));
 
                             doc.open();
 
@@ -717,15 +736,15 @@ public class Ingreso extends javax.swing.JFrame {
                             tableInfoContacto.setWidthPercentage(100);
 
                             //Empresa
-                            Paragraph empresa = new Paragraph("Empresa: ", FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                            Paragraph empresa = new Paragraph("Empresa: " + lblEmpresa.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
                             empresa.setAlignment(Paragraph.ALIGN_LEFT);
                             doc.add(empresa);
                             //Orden de Compra
-                            Paragraph oc = new Paragraph("Orden de Compra: ", FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                            Paragraph oc = new Paragraph("Orden de Compra: " + lblOC.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
                             oc.setAlignment(Paragraph.ALIGN_LEFT);
                             doc.add(oc);
                             //Ingreso
-                            Paragraph fechaIngreso = new Paragraph("Fecha de Ingreso de Mercadería: ", FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                            Paragraph fechaIngreso = new Paragraph("Fecha de Ingreso de Mercadería: " + formato.format(sistFecha), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
                             fechaIngreso.setAlignment(Paragraph.ALIGN_LEFT);
                             doc.add(fechaIngreso);
 
@@ -768,10 +787,10 @@ public class Ingreso extends javax.swing.JFrame {
 
                         }
                     } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(null, "ERROR EN :" + ex.getMessage());
+                        JOptionPane.showMessageDialog(null, "ERROR EN A:" + ex.getMessage());
                     }
                 } catch (NumberFormatException | SQLException | HeadlessException ex) {
-                    JOptionPane.showMessageDialog(null, "ERROR EN :" + ex.getMessage());
+                    JOptionPane.showMessageDialog(null, "ERROR EN B:" + ex.getMessage());
                 }
                 try {
                     // create the java mysql update preparedstatement
@@ -819,8 +838,7 @@ public class Ingreso extends javax.swing.JFrame {
                     while (rs3.next()) {
                         idBodega = rs3.getInt("idBodega");
                     }
-                    
-                    
+
                     try {
                         DefaultTableModel model = (DefaultTableModel) tblProductosEnNC.getModel();
                         int rowcount = tblProductosEnNC.getRowCount();
@@ -847,12 +865,136 @@ public class Ingreso extends javax.swing.JFrame {
                             pstINV.setInt(1, Integer.parseInt(tblProductosEnNC.getValueAt(i, 3).toString()));
                             pstINV.setString(2, tblProductosEnNC.getValueAt(i, 0).toString());
                             int upINV = pstINV.executeUpdate();
+
+                            String queryIngreso = "SELECT MAX(idIngreso),stockIngresado FROM ingreso having MAX(idIngreso)";
+                            // create the java statement
+                            PreparedStatement pstIngreso = cn.prepareStatement(queryIngreso);
+                            // execute the query, and get a java resultset
+                            ResultSet rs = pstIngreso.executeQuery();
+                            // iterate through the java resultset
+                            int maxId = 0;
+
+                            int cantidad = 0;
+
+                            while (rs.next()) {
+                                maxId = rs.getInt(1);
+
+                                cantidad = rs.getInt(2);
+                            }
+
+                            String ruta = "";
+
+                            JFileChooser dlg = new JFileChooser();
+                            dlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+                            int option = dlg.showOpenDialog(this);
+
+                            if (option == JFileChooser.APPROVE_OPTION) {
+                                File f = dlg.getSelectedFile();
+                                ruta = f.toString();
+                            }
+
+                            Date sistHora = new Date();
+                            String pmAm = "hh:mm a";
+                            SimpleDateFormat format = new SimpleDateFormat(pmAm);
+                            Calendar hoy = Calendar.getInstance();
+                            String hora = (String.format(format.format(sistHora), hoy));
+                            hora = hora.replace(":", "-");
+                            SimpleDateFormat formato = new SimpleDateFormat("dd-MMM-YYYY");
+                            Date sistFecha = new Date();
+
+                            Document doc = new Document(new Rectangle(282, 424));
+
+                            PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(ruta + "\\" + "ingreso_" + txtNumeroNotaVenta.getText() + "_producto_" + model.getValueAt(i, 1).toString() + "_" + formato.format(sistFecha) + ".pdf"));
+
+                            doc.open();
+
+                            //Establecer imagen y escala
+                            com.itextpdf.text.Image logoAcima = com.itextpdf.text.Image.getInstance("src\\imagenes\\acima-logo-400p.png");
+                            logoAcima.scaleAbsolute(64, 34);
+
+                            PdfPCell cell1 = new PdfPCell(logoAcima, false);
+                            cell1.setBorder(Rectangle.NO_BORDER);
+                            cell1.setBackgroundColor(BaseColor.WHITE);
+                            cell1.setHorizontalAlignment(Element.ALIGN_RIGHT);
+
+                            //Crear Tabla
+                            PdfPTable tableHeader = new PdfPTable(1);
+                            tableHeader.setWidthPercentage(100);
+
+                            tableHeader.addCell(cell1);
+                            doc.add(tableHeader);
+
+                            //Separador
+                            PdfPTable myTable = new PdfPTable(1);
+                            myTable.setWidthPercentage(100.0f);
+                            PdfPCell myCell = new PdfPCell(new Paragraph(""));
+                            myCell.setBorder(Rectangle.BOTTOM);
+                            myTable.addCell(myCell);
+                            myTable.setSpacingAfter(5f);
+                            myTable.setSpacingBefore(5f);
+                            doc.add(myTable);
+
+                            //Crear Tabla de información
+                            PdfPTable tableInfoContacto = new PdfPTable(1);
+                            tableInfoContacto.setWidthPercentage(100);
+
+                            //Empresa
+                            Paragraph empresa = new Paragraph("Empresa: " + lblEmpresa.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                            empresa.setAlignment(Paragraph.ALIGN_LEFT);
+                            doc.add(empresa);
+                            //Orden de Compra
+                            Paragraph oc = new Paragraph("Orden de Compra: " + lblOC.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                            oc.setAlignment(Paragraph.ALIGN_LEFT);
+                            doc.add(oc);
+                            //Ingreso
+                            Paragraph fechaIngreso = new Paragraph("Fecha de Ingreso de Mercadería: " + formato.format(sistFecha), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                            fechaIngreso.setAlignment(Paragraph.ALIGN_LEFT);
+                            doc.add(fechaIngreso);
+
+                            doc.add(myTable);
+
+                            //Nombre Producto
+                            Paragraph nombreProducto = new Paragraph("Nombre de Producto: " + model.getValueAt(i, 2).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                            nombreProducto.setAlignment(Paragraph.ALIGN_LEFT);
+                            doc.add(nombreProducto);
+                            //Sku
+                            Paragraph sku = new Paragraph("SKU: " + model.getValueAt(i, 1).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                            sku.setAlignment(Paragraph.ALIGN_LEFT);
+                            doc.add(sku);
+
+                            doc.add(myTable);
+
+                            //Numero de Ingreso
+                            Paragraph numeroIngreso = new Paragraph("Número de Ingreso: " + maxId, FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                            numeroIngreso.setAlignment(Paragraph.ALIGN_LEFT);
+                            doc.add(numeroIngreso);
+
+                            //Codigo QR
+                            BarcodeQRCode barcodeQRCode = new BarcodeQRCode("Cantidad de Producto ingresada: " + cantidad, 1000, 1000, null);
+                            com.itextpdf.text.Image codeQrImage = barcodeQRCode.getImage();
+                            codeQrImage.scaleAbsolute(50, 50);
+
+                            doc.add(codeQrImage);
+
+                            /*
+                             PdfContentByte cb = writer.getDirectContent();
+                             Barcode128 barcode128 = new Barcode128();
+                             barcode128.setCode("este es un codigo de barra muy largo...con mucha informacion innecesaria");
+                             barcode128.setCodeType(Barcode.CODE128);
+                             Image code128Image = barcode128.createImageWithBarcode(cb, null, null);
+                             doc.add(code128Image);
+                             */
+                            doc.add(myTable);
+
+                            doc.close();
+
                         }
                     } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(null, "ERROR EN :" + ex.getMessage());
+                        JOptionPane.showMessageDialog(null, "ERROR EN A:" + ex.getMessage());
                     }
                 } catch (NumberFormatException | SQLException | HeadlessException ex) {
-                    JOptionPane.showMessageDialog(null, "ERROR EN :" + ex.getMessage());
+                    JOptionPane.showMessageDialog(null, "ERROR EN B:" + ex.getMessage());
                 }
                 try {
                     // create the java mysql update preparedstatement
@@ -1038,8 +1180,10 @@ public class Ingreso extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane5;
+    public javax.swing.JLabel lblEmpresa;
     private javax.swing.JLabel lblIngresoFrame;
     public javax.swing.JLabel lblNC;
+    public javax.swing.JLabel lblOC;
     private javax.swing.JLabel lblPreview;
     private javax.swing.JPanel panelIngresoProducto;
     private javax.swing.JTable tblProductosAIngresar;

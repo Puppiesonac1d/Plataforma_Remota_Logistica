@@ -475,6 +475,8 @@ public class NotaCompra extends javax.swing.JFrame {
             //seleccionarComuna(jComboBox1, jComboBox1);
             ingreso.txtNumeroNotaVenta.setText(tblNC.getValueAt(index, 0).toString());
             ingreso.lblNC.setText(tblNC.getValueAt(index, 1).toString());
+            ingreso.lblEmpresa.setText(tblNC.getValueAt(index, 3).toString());
+            ingreso.lblOC.setText(tblNC.getValueAt(index, 2).toString());
             ingreso.setVisible(true);
             ingreso.jButton6.doClick();
             this.dispose();

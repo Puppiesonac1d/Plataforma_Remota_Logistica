@@ -23,6 +23,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
@@ -1148,7 +1149,7 @@ public class Salida extends javax.swing.JFrame {
                     Date sistFecha = new Date();
                     Document doc = new Document(new Rectangle(282, 424));
 
-                    PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(ruta + "\\" + "salida_" + formato.format(sistFecha) + ".pdf"));
+                    PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(ruta + "\\" + "salida_numero_" + idSalida + "_bulto_" + tblBultosResumen.getValueAt(b, 0).toString() + "_fecha_" + formato.format(sistFecha) + ".pdf"));
 
                     doc.open();
 
@@ -1254,9 +1255,9 @@ public class Salida extends javax.swing.JFrame {
                     doc.add(dimensiones);
 
                     //Codigo QR
-                    BarcodeQRCode barcodeQRCode = new BarcodeQRCode("Cantidad de Producto ingresada: ", 1000, 1000, null);
+                    BarcodeQRCode barcodeQRCode = new BarcodeQRCode("Acima Group - " + idSalida, 1000, 1000, null);
                     com.itextpdf.text.Image codeQrImage = barcodeQRCode.getImage();
-                    codeQrImage.scaleAbsolute(50, 50);
+                    codeQrImage.scaleAbsolute(60, 60);
 
                     doc.add(codeQrImage);
 
@@ -1268,11 +1269,10 @@ public class Salida extends javax.swing.JFrame {
                      Image code128Image = barcode128.createImageWithBarcode(cb, null, null);
                      doc.add(code128Image);
                      */
-                    doc.add(myTable);
-
+                    // doc.add(myTable);
                     doc.close();
 
-                    JOptionPane.showMessageDialog(null, "Salida de mercadería para bulto: " + tblBultosResumen.getValueAt(b, 5).toString() + "realizada");
+                    JOptionPane.showMessageDialog(null, "Salida de mercadería para bulto: " + tblBultosResumen.getValueAt(b, 5).toString() + " realizada");
                 }
 
             } catch (SQLException ex) {

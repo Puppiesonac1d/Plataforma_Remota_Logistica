@@ -163,7 +163,7 @@ public class Ingreso extends javax.swing.JFrame {
 
         jLabel40.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jLabel40.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel40.setText("SKU:");
+        jLabel40.setText("SKU interno:");
 
         txtSKUIngreso.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
 
@@ -660,7 +660,7 @@ public class Ingreso extends javax.swing.JFrame {
                             String queryINV = "UPDATE INVENTARIO SET STOCK = stock + ? WHERE IDPRODUCTO = ?";
                             PreparedStatement pstINV = cn.prepareStatement(queryINV);
                             pstINV.setInt(1, Integer.parseInt(tblProductosEnNC.getValueAt(i, 3).toString()));
-                            pstINV.setString(2, tblProductosEnNC.getValueAt(i, 0).toString());
+                            pstINV.setString(2, tblProductosEnNC.getValueAt(i, 1).toString());
                             int upINV = pstINV.executeUpdate();
 
                             String queryIngreso = "SELECT MAX(idIngreso),stockIngresado FROM ingreso having MAX(idIngreso)";
@@ -766,10 +766,10 @@ public class Ingreso extends javax.swing.JFrame {
                             numeroIngreso.setAlignment(Paragraph.ALIGN_LEFT);
                             doc.add(numeroIngreso);
 
-                            //Codigo QR
-                            BarcodeQRCode barcodeQRCode = new BarcodeQRCode("Cantidad de Producto ingresada: " + cantidad, 1000, 1000, null);
+                            ///Codigo QR
+                            BarcodeQRCode barcodeQRCode = new BarcodeQRCode("Acima Group - " + maxId, 1000, 1000, null);
                             com.itextpdf.text.Image codeQrImage = barcodeQRCode.getImage();
-                            codeQrImage.scaleAbsolute(50, 50);
+                            codeQrImage.scaleAbsolute(60, 60);
 
                             doc.add(codeQrImage);
 
@@ -863,7 +863,7 @@ public class Ingreso extends javax.swing.JFrame {
                             String queryINV = "UPDATE INVENTARIO SET STOCK = stock + ? WHERE IDPRODUCTO = ?";
                             PreparedStatement pstINV = cn.prepareStatement(queryINV);
                             pstINV.setInt(1, Integer.parseInt(tblProductosEnNC.getValueAt(i, 3).toString()));
-                            pstINV.setString(2, tblProductosEnNC.getValueAt(i, 0).toString());
+                            pstINV.setString(2, tblProductosEnNC.getValueAt(i, 1).toString());
                             int upINV = pstINV.executeUpdate();
 
                             String queryIngreso = "SELECT MAX(idIngreso),stockIngresado FROM ingreso having MAX(idIngreso)";
@@ -905,7 +905,7 @@ public class Ingreso extends javax.swing.JFrame {
 
                             Document doc = new Document(new Rectangle(282, 424));
 
-                            PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(ruta + "\\" + "ingreso_" + txtNumeroNotaVenta.getText() + "_producto_" + model.getValueAt(i, 1).toString() + "_" + formato.format(sistFecha) + ".pdf"));
+                            PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(ruta + "\\" + "ingreso_numero_" + txtNumeroNotaVenta.getText() + "_producto_" + model.getValueAt(i, 1).toString() + "_fecha_" + formato.format(sistFecha) + ".pdf"));
 
                             doc.open();
 
@@ -940,9 +940,9 @@ public class Ingreso extends javax.swing.JFrame {
                             tableInfoContacto.setWidthPercentage(100);
 
                             //Empresa
-                            Paragraph empresa = new Paragraph("Empresa: " + lblEmpresa.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
-                            empresa.setAlignment(Paragraph.ALIGN_LEFT);
-                            doc.add(empresa);
+                            Paragraph empresaNegrita = new Paragraph("Empresa: ", FontFactory.getFont(FontFactory.HELVETICA, 9, Font.BOLD, null));
+                            Paragraph empresaLabel = new Paragraph(lblEmpresa.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+
                             //Orden de Compra
                             Paragraph oc = new Paragraph("Orden de Compra: " + lblOC.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
                             oc.setAlignment(Paragraph.ALIGN_LEFT);
@@ -970,12 +970,13 @@ public class Ingreso extends javax.swing.JFrame {
                             numeroIngreso.setAlignment(Paragraph.ALIGN_LEFT);
                             doc.add(numeroIngreso);
 
-                            //Codigo QR
-                            BarcodeQRCode barcodeQRCode = new BarcodeQRCode("Cantidad de Producto ingresada: " + cantidad, 1000, 1000, null);
+                            ///Codigo QR
+                            BarcodeQRCode barcodeQRCode = new BarcodeQRCode("Acima Group - " + maxId, 1000, 1000, null);
                             com.itextpdf.text.Image codeQrImage = barcodeQRCode.getImage();
-                            codeQrImage.scaleAbsolute(50, 50);
+                            codeQrImage.scaleAbsolute(60, 60);
 
                             doc.add(codeQrImage);
+
 
                             /*
                              PdfContentByte cb = writer.getDirectContent();
@@ -1033,7 +1034,7 @@ public class Ingreso extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         try {
-            String query = "SELECT SKU, CODIGOPRODUCTO AS 'CODIGO DE PRODUCTO', CATEGORIA AS 'CATEGORÍA', NOMBRE AS 'NOMBRE DE PRODUCTO',CANTIDAD AS 'CANTIDAD',\n"
+            String query = "SELECT SKU as 'SKU de Proveedor', CODIGOPRODUCTO AS 'CODIGO DE PRODUCTO', CATEGORIA AS 'CATEGORÍA', NOMBRE AS 'NOMBRE DE PRODUCTO',CANTIDAD AS 'CANTIDAD',\n"
                     + "PRECIOUNITARIO AS 'PRECIOUNITARIO',PRECIOTOTALNETO AS 'PRECIO TOTAL NETO'\n"
                     + "FROM detalle_abastecimiento da join abastecimiento a on da.numeroCotizacion = a.numeroCotizacion\n"
                     + "WHERE da.idOrden = ?";

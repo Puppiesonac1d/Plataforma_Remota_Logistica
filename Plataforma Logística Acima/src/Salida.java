@@ -1,13 +1,33 @@
 
 import clases.Conexion;
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.BarcodeQRCode;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Color;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -1104,10 +1124,162 @@ public class Salida extends javax.swing.JFrame {
                             int up4 = updateProducto.executeUpdate();
                         }
                     }
+
+                    //Documento de Bulto
+                    String ruta = "";
+
+                    JFileChooser dlg = new JFileChooser();
+                    dlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+                    int option = dlg.showOpenDialog(this);
+
+                    if (option == JFileChooser.APPROVE_OPTION) {
+                        File f = dlg.getSelectedFile();
+                        ruta = f.toString();
+                    }
+
+                    Date sistHora = new Date();
+                    String pmAm = "hh:mm a";
+                    SimpleDateFormat format = new SimpleDateFormat(pmAm);
+                    Calendar hoy = Calendar.getInstance();
+                    String hora = (String.format(format.format(sistHora), hoy));
+                    hora = hora.replace(":", "-");
+                    SimpleDateFormat formato = new SimpleDateFormat("dd-MMM-YYYY");
+                    Date sistFecha = new Date();
+                    Document doc = new Document(new Rectangle(282, 424));
+
+                    PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(ruta + "\\" + "salida_" + formato.format(sistFecha) + ".pdf"));
+
+                    doc.open();
+
+                    //Establecer imagen y escala
+                    com.itextpdf.text.Image logoAcima = com.itextpdf.text.Image.getInstance("src\\imagenes\\acima-logo-400p.png");
+                    logoAcima.scaleAbsolute(64, 34);
+
+                    PdfPCell cell1 = new PdfPCell(logoAcima, false);
+                    cell1.setBorder(Rectangle.NO_BORDER);
+                    cell1.setBackgroundColor(BaseColor.WHITE);
+                    cell1.setHorizontalAlignment(Element.ALIGN_RIGHT);
+
+                    //Crear Tabla
+                    PdfPTable tableHeader = new PdfPTable(1);
+                    tableHeader.setWidthPercentage(100);
+
+                    tableHeader.addCell(cell1);
+                    doc.add(tableHeader);
+
+                    //Separador
+                    PdfPTable myTable = new PdfPTable(1);
+                    myTable.setWidthPercentage(100.0f);
+                    PdfPCell myCell = new PdfPCell(new Paragraph(""));
+                    myCell.setBorder(Rectangle.BOTTOM);
+                    myTable.addCell(myCell);
+                    myTable.setSpacingAfter(5f);
+                    myTable.setSpacingBefore(5f);
+                    doc.add(myTable);
+
+                    //Crear Tabla de información
+                    PdfPTable tableInfoContacto = new PdfPTable(1);
+                    tableInfoContacto.setWidthPercentage(100);
+
+                    //Destino
+                    Paragraph destino = new Paragraph("Destino: " + txtNombreDemandanteOCSalida.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                    destino.setAlignment(Paragraph.ALIGN_LEFT);
+                    doc.add(destino);
+                    //Dirección
+                    Paragraph direccionDestino = new Paragraph("Dirección: " + txtDireccionesDespachoOCSalida.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                    direccionDestino.setAlignment(Paragraph.ALIGN_LEFT);
+                    doc.add(direccionDestino);
+                    //Contacto
+                    Paragraph contactoDestino = new Paragraph("Contacto: " + txtContactoOCSalida.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                    contactoDestino.setAlignment(Paragraph.ALIGN_LEFT);
+                    doc.add(contactoDestino);
+                    //Fono
+                    Paragraph fonoDestino = new Paragraph("Fono: " + txtTelefonoCompradorSalida.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                    fonoDestino.setAlignment(Paragraph.ALIGN_LEFT);
+                    doc.add(fonoDestino);
+                    //Orden de Compra
+                    Paragraph ordenCompra = new Paragraph("N° de Orden de Compra: " + lblOC.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                    ordenCompra.setAlignment(Paragraph.ALIGN_LEFT);
+                    doc.add(ordenCompra);
+
+                    doc.add(myTable);
+
+                    //Empresa
+                    Paragraph empresa = new Paragraph("Empresa: " + txtProveedorOCSalida.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                    empresa.setAlignment(Paragraph.ALIGN_LEFT);
+                    doc.add(empresa);
+                    //Dirección
+                    Paragraph direccionEmpresa = new Paragraph("Dirección Empresa: Av. 5 de abril 4454, Oficina 31, Estación Central, Santiago, Chile", FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                    direccionEmpresa.setAlignment(Paragraph.ALIGN_LEFT);
+                    doc.add(direccionEmpresa);
+                    //Contacto
+                    Paragraph contactoEmpresa = new Paragraph("Contacto: Sergio Lagos", FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                    contactoEmpresa.setAlignment(Paragraph.ALIGN_LEFT);
+                    doc.add(contactoEmpresa);
+                    //Fono
+                    Paragraph fonoEmpresa = new Paragraph("Fono: 983606487", FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                    fonoEmpresa.setAlignment(Paragraph.ALIGN_LEFT);
+                    doc.add(fonoEmpresa);
+                    //Factura
+                    Paragraph facturaEmpresa = new Paragraph("Factura: " + txtNumeroFactura.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                    facturaEmpresa.setAlignment(Paragraph.ALIGN_LEFT);
+                    doc.add(facturaEmpresa);
+                    //Guia de Despacho
+                    Paragraph guiaDespachoEmpresa = new Paragraph("Guia de Despacho: " + tblBultosResumen.getValueAt(b, 5).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                    guiaDespachoEmpresa.setAlignment(Paragraph.ALIGN_LEFT);
+                    doc.add(guiaDespachoEmpresa);
+
+                    doc.add(myTable);
+
+                    //Información de Pedido
+                    Paragraph informacionPedido = new Paragraph("Información de Pedido", FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                    informacionPedido.setAlignment(Paragraph.ALIGN_LEFT);
+                    doc.add(informacionPedido);
+
+                    //Bulto
+                    Paragraph bulto = new Paragraph("Bulto: " + tblBultosResumen.getValueAt(b, 0).toString() + " de " + index_bultos, FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                    bulto.setAlignment(Paragraph.ALIGN_LEFT);
+                    doc.add(bulto);
+
+                    //Peso
+                    Paragraph peso = new Paragraph("Peso: " + tblBultosResumen.getValueAt(b, 4).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                    peso.setAlignment(Paragraph.ALIGN_LEFT);
+                    doc.add(peso);
+
+                    //Dimensiones
+                    Paragraph dimensiones = new Paragraph("Dimensiones: "
+                            + "Largo: " + tblBultosResumen.getValueAt(b, 1).toString() + " ,Alto: " + tblBultosResumen.getValueAt(b, 2).toString() + ",Ancho: " + tblBultosResumen.getValueAt(b, 3).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                    dimensiones.setAlignment(Paragraph.ALIGN_LEFT);
+                    doc.add(dimensiones);
+
+                    //Codigo QR
+                    BarcodeQRCode barcodeQRCode = new BarcodeQRCode("Cantidad de Producto ingresada: ", 1000, 1000, null);
+                    com.itextpdf.text.Image codeQrImage = barcodeQRCode.getImage();
+                    codeQrImage.scaleAbsolute(50, 50);
+
+                    doc.add(codeQrImage);
+
+                    /*
+                     PdfContentByte cb = writer.getDirectContent();
+                     Barcode128 barcode128 = new Barcode128();
+                     barcode128.setCode("este es un codigo de barra muy largo...con mucha informacion innecesaria");
+                     barcode128.setCodeType(Barcode.CODE128);
+                     Image code128Image = barcode128.createImageWithBarcode(cb, null, null);
+                     doc.add(code128Image);
+                     */
+                    doc.add(myTable);
+
+                    doc.close();
+
                     JOptionPane.showMessageDialog(null, "Salida de mercadería para bulto: " + tblBultosResumen.getValueAt(b, 5).toString() + "realizada");
                 }
 
             } catch (SQLException ex) {
+                Logger.getLogger(Salida.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (DocumentException ex) {
+                Logger.getLogger(Salida.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
                 Logger.getLogger(Salida.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -1595,15 +1767,24 @@ public class Salida extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConfirmarBultosActionPerformed
 
     private void btnAsignarConductorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarConductorActionPerformed
-        int index = tblBultosResumen.getSelectedRow();
-        String respuesta = JOptionPane.showInputDialog(null, "Indique chofer", null, JOptionPane.ERROR_MESSAGE);
-        tblBultosResumen.setValueAt(respuesta, index, 6);
+        try {
+            int index = tblBultosResumen.getSelectedRow();
+            String respuesta = JOptionPane.showInputDialog(null, "Indique chofer", null, JOptionPane.ERROR_MESSAGE);
+            tblBultosResumen.setValueAt(respuesta, index, 6);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error: debe seleccionar un elemento en la tabla" + ex);
+        }
     }//GEN-LAST:event_btnAsignarConductorActionPerformed
 
     private void btnGuiaDespachoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiaDespachoActionPerformed
-        int index = tblBultosResumen.getSelectedRow();
-        String respuesta = JOptionPane.showInputDialog(null, "Indique guía de despacho", null, JOptionPane.ERROR_MESSAGE);
-        tblBultosResumen.setValueAt(respuesta, index, 5);
+        try {
+            int index = tblBultosResumen.getSelectedRow();
+
+            String respuesta = JOptionPane.showInputDialog(null, "Indique guía de despacho", null, JOptionPane.ERROR_MESSAGE);
+            tblBultosResumen.setValueAt(respuesta, index, 5);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error: debe seleccionar un elemento en la tabla" + ex);
+        }
     }//GEN-LAST:event_btnGuiaDespachoActionPerformed
 
     private void txtNombreOrdenCompraSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreOrdenCompraSalidaActionPerformed

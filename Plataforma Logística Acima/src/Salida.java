@@ -1154,6 +1154,11 @@ public class Salida extends javax.swing.JFrame {
                     doc.open();
 
                     //Establecer imagen y escala
+                    //Codigo QR
+                    BarcodeQRCode barcodeQRCode = new BarcodeQRCode("Acima Group - Salida " + idSalida, 1000, 1000, null);
+                    com.itextpdf.text.Image codeQrImage = barcodeQRCode.getImage();
+                    codeQrImage.scaleAbsolute(50, 50);
+
                     com.itextpdf.text.Image logoAcima = com.itextpdf.text.Image.getInstance("src\\imagenes\\acima-logo-400p.png");
                     logoAcima.scaleAbsolute(64, 34);
 
@@ -1162,13 +1167,47 @@ public class Salida extends javax.swing.JFrame {
                     cell1.setBackgroundColor(BaseColor.WHITE);
                     cell1.setHorizontalAlignment(Element.ALIGN_RIGHT);
 
+                    PdfPCell cellqr = new PdfPCell(codeQrImage, false);
+                    cellqr.setBorder(Rectangle.NO_BORDER);
+                    cellqr.setBackgroundColor(BaseColor.WHITE);
+                    cellqr.setHorizontalAlignment(Element.ALIGN_LEFT);
+
                     //Crear Tabla
-                    PdfPTable tableHeader = new PdfPTable(1);
+                    PdfPTable tableHeader = new PdfPTable(2);
                     tableHeader.setWidthPercentage(100);
 
+                    tableHeader.addCell(cellqr);
                     tableHeader.addCell(cell1);
                     doc.add(tableHeader);
 
+                    /*
+                    //Establecer imagen y escala
+                Image logoAcima = Image.getInstance("src\\Imagenes\\acima-logo-400p.png");
+                logoAcima.scaleAbsolute(128, 68);
+                //Establecer párrafo
+                Paragraph nro = new Paragraph("Orden de compra interna, documento solo para uso interno de la empresa " + txtEmpresa.getText(), FontFactory
+                        .getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null)
+                );
+                nro.setAlignment(Paragraph.ALIGN_JUSTIFIED);
+
+                //Crear Tabla
+                PdfPTable tableHeader = new PdfPTable(2);
+                tableHeader.setWidthPercentage(100);
+
+                PdfPCell cell1 = new PdfPCell(logoAcima, false);
+                cell1.setBorder(Rectangle.NO_BORDER);
+                cell1.setBackgroundColor(BaseColor.WHITE);
+                cell1.setHorizontalAlignment(Element.ALIGN_RIGHT);
+
+                PdfPCell cell2 = new PdfPCell(nro);
+                cell2.setBorder(Rectangle.NO_BORDER);
+                cell2.setBackgroundColor(BaseColor.WHITE);
+                cell2.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+
+                tableHeader.addCell(cell2);
+                tableHeader.addCell(cell1);
+                doc.add(tableHeader);
+                     */
                     //Separador
                     PdfPTable myTable = new PdfPTable(1);
                     myTable.setWidthPercentage(100.0f);
@@ -1253,13 +1292,6 @@ public class Salida extends javax.swing.JFrame {
                             + "Largo: " + tblBultosResumen.getValueAt(b, 1).toString() + " ,Alto: " + tblBultosResumen.getValueAt(b, 2).toString() + ",Ancho: " + tblBultosResumen.getValueAt(b, 3).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
                     dimensiones.setAlignment(Paragraph.ALIGN_LEFT);
                     doc.add(dimensiones);
-
-                    //Codigo QR
-                    BarcodeQRCode barcodeQRCode = new BarcodeQRCode("Acima Group - " + idSalida, 1000, 1000, null);
-                    com.itextpdf.text.Image codeQrImage = barcodeQRCode.getImage();
-                    codeQrImage.scaleAbsolute(60, 60);
-
-                    doc.add(codeQrImage);
 
                     /*
                      PdfContentByte cb = writer.getDirectContent();
@@ -1811,12 +1843,15 @@ public class Salida extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(Salida.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(Salida.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(Salida.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Salida.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);

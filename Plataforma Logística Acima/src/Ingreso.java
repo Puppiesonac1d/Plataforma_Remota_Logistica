@@ -706,6 +706,11 @@ public class Ingreso extends javax.swing.JFrame {
                             doc.open();
 
                             //Establecer imagen y escala
+                            ///Codigo QR
+                            BarcodeQRCode barcodeQRCode = new BarcodeQRCode("Acima Group - Ingreso " + maxId, 1000, 1000, null);
+                            com.itextpdf.text.Image codeQrImage = barcodeQRCode.getImage();
+                            codeQrImage.scaleAbsolute(50, 50);
+
                             com.itextpdf.text.Image logoAcima = com.itextpdf.text.Image.getInstance("src\\imagenes\\acima-logo-400p.png");
                             logoAcima.scaleAbsolute(64, 34);
 
@@ -714,10 +719,16 @@ public class Ingreso extends javax.swing.JFrame {
                             cell1.setBackgroundColor(BaseColor.WHITE);
                             cell1.setHorizontalAlignment(Element.ALIGN_RIGHT);
 
+                            PdfPCell cellqr = new PdfPCell(codeQrImage, false);
+                            cellqr.setBorder(Rectangle.NO_BORDER);
+                            cellqr.setBackgroundColor(BaseColor.WHITE);
+                            cellqr.setHorizontalAlignment(Element.ALIGN_LEFT);
+
                             //Crear Tabla
-                            PdfPTable tableHeader = new PdfPTable(1);
+                            PdfPTable tableHeader = new PdfPTable(2);
                             tableHeader.setWidthPercentage(100);
 
+                            tableHeader.addCell(cellqr);
                             tableHeader.addCell(cell1);
                             doc.add(tableHeader);
 
@@ -765,11 +776,6 @@ public class Ingreso extends javax.swing.JFrame {
                             Paragraph numeroIngreso = new Paragraph("Número de Ingreso: " + maxId, FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
                             numeroIngreso.setAlignment(Paragraph.ALIGN_LEFT);
                             doc.add(numeroIngreso);
-
-                            ///Codigo QR
-                            BarcodeQRCode barcodeQRCode = new BarcodeQRCode("Acima Group - " + maxId, 1000, 1000, null);
-                            com.itextpdf.text.Image codeQrImage = barcodeQRCode.getImage();
-                            codeQrImage.scaleAbsolute(60, 60);
 
                             doc.add(codeQrImage);
 

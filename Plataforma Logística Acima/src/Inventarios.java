@@ -42,7 +42,6 @@ public class Inventarios extends javax.swing.JFrame {
         btnListadoBodegas = new javax.swing.JButton();
         btnInventarioPorBodega = new javax.swing.JButton();
         btnSalirInventarios = new javax.swing.JButton();
-        lblFondoInventarios = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1280, 740));
@@ -56,7 +55,6 @@ public class Inventarios extends javax.swing.JFrame {
         jPanel3.setLayout(new java.awt.GridLayout(1, 0));
 
         btnListadoBodegas.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        btnListadoBodegas.setIcon(new javax.swing.ImageIcon("D:\\Plataforma Logística Acima_11-06-2019\\Plataforma Logística Acima\\src\\imagenes\\907d27c649702(1).png")); // NOI18N
         btnListadoBodegas.setText("Listado de Bodegas");
         btnListadoBodegas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,29 +83,24 @@ public class Inventarios extends javax.swing.JFrame {
         });
         jPanel3.add(btnSalirInventarios);
 
-        lblFondoInventarios.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblFondoInventarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/menuTest.png"))); // NOI18N
+        panelInventarios.setLayer(jPanel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout panelInventariosLayout = new javax.swing.GroupLayout(panelInventarios);
         panelInventarios.setLayout(panelInventariosLayout);
         panelInventariosLayout.setHorizontalGroup(
             panelInventariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblFondoInventarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInventariosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1260, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelInventariosLayout.setVerticalGroup(
             panelInventariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblFondoInventarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(panelInventariosLayout.createSequentialGroup()
                 .addGap(270, 270, 270)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(397, Short.MAX_VALUE))
         );
-        panelInventarios.setLayer(jPanel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        panelInventarios.setLayer(lblFondoInventarios, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -224,7 +217,6 @@ public class Inventarios extends javax.swing.JFrame {
     private javax.swing.JButton btnListadoBodegas;
     private javax.swing.JButton btnSalirInventarios;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JLabel lblFondoInventarios;
     private javax.swing.JLayeredPane panelInventarios;
     // End of variables declaration//GEN-END:variables
 }

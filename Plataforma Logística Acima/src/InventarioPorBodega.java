@@ -1,14 +1,27 @@
 
 import clases.Conexion;
 import java.awt.HeadlessException;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -78,8 +91,8 @@ public class InventarioPorBodega extends javax.swing.JFrame {
         cmbStatusProdIngreso1 = new javax.swing.JComboBox();
         jLabel148 = new javax.swing.JLabel();
         btnConfirmarInfoProd1 = new javax.swing.JButton();
-        cmbTransporte1 = new javax.swing.JComboBox<String>();
-        cmbBodega2 = new javax.swing.JComboBox<String>();
+        cmbTransporte1 = new javax.swing.JComboBox<>();
+        cmbBodega2 = new javax.swing.JComboBox<>();
         jLabel146 = new javax.swing.JLabel();
         jLabel149 = new javax.swing.JLabel();
         jLabel150 = new javax.swing.JLabel();
@@ -99,14 +112,14 @@ public class InventarioPorBodega extends javax.swing.JFrame {
         btnBuscarSKU2 = new javax.swing.JButton();
         jPanel19 = new javax.swing.JPanel();
         jLabel88 = new javax.swing.JLabel();
-        cmbStatusFiltrarInventario = new javax.swing.JComboBox<String>();
+        cmbStatusFiltrarInventario = new javax.swing.JComboBox<>();
         btnBuscarStatus1 = new javax.swing.JButton();
         btnReiniciarTablaProducto5 = new javax.swing.JButton();
         btnDetalleProductoInventarioBodega = new javax.swing.JButton();
         jScrollPane12 = new javax.swing.JScrollPane();
         tblProductoInventarioBodega = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
         btnVolverMenu = new javax.swing.JButton();
-        lblFondoInventarioBodegaFrame = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -126,8 +139,6 @@ public class InventarioPorBodega extends javax.swing.JFrame {
 
         jLayeredPane10.setMaximumSize(new java.awt.Dimension(1280, 720));
         jLayeredPane10.setMinimumSize(new java.awt.Dimension(1280, 720));
-
-        jPanel48.setBackground(new java.awt.Color(0, 153, 153));
 
         panelIngresoProducto1.setBackground(new java.awt.Color(0, 153, 153));
         panelIngresoProducto1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -223,7 +234,7 @@ public class InventarioPorBodega extends javax.swing.JFrame {
         });
 
         cmbTransporte1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        cmbTransporte1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione Transporte", "Acima", "Transporte Externo" }));
+        cmbTransporte1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Transporte", "Acima", "Transporte Externo" }));
 
         cmbBodega2.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
 
@@ -479,7 +490,7 @@ public class InventarioPorBodega extends javax.swing.JFrame {
         jLabel88.setText("Busqueda por Status:");
 
         cmbStatusFiltrarInventario.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        cmbStatusFiltrarInventario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar Status", "Publicado", "Sin Stock", "Sin Información" }));
+        cmbStatusFiltrarInventario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Status", "Publicado", "Sin Stock", "Sin Información" }));
 
         btnBuscarStatus1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         btnBuscarStatus1.setText("Buscar");
@@ -548,6 +559,14 @@ public class InventarioPorBodega extends javax.swing.JFrame {
         ));
         jScrollPane12.setViewportView(tblProductoInventarioBodega);
 
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jButton1.setText("Exportar Inventario a Excel");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
@@ -557,6 +576,8 @@ public class InventarioPorBodega extends javax.swing.JFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnReiniciarTablaProducto5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDetalleProductoInventarioBodega, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -564,7 +585,7 @@ public class InventarioPorBodega extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane12, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTabbedPane7))
+                            .addComponent(jTabbedPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 1202, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         jPanel9Layout.setVerticalGroup(
@@ -573,11 +594,12 @@ public class InventarioPorBodega extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnReiniciarTablaProducto5)
-                    .addComponent(btnDetalleProductoInventarioBodega))
+                    .addComponent(btnDetalleProductoInventarioBodega)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
+                .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -599,7 +621,7 @@ public class InventarioPorBodega extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnVolverMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1227, Short.MAX_VALUE))
                 .addGap(13, 13, 13))
         );
         jPanel48Layout.setVerticalGroup(
@@ -608,17 +630,16 @@ public class InventarioPorBodega extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btnVolverMenu)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 632, Short.MAX_VALUE)
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        lblFondoInventarioBodegaFrame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/menuTest.png"))); // NOI18N
+        jLayeredPane10.setLayer(jPanel48, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane10Layout = new javax.swing.GroupLayout(jLayeredPane10);
         jLayeredPane10.setLayout(jLayeredPane10Layout);
         jLayeredPane10Layout.setHorizontalGroup(
             jLayeredPane10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblFondoInventarioBodegaFrame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jLayeredPane10Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jPanel48, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -627,15 +648,10 @@ public class InventarioPorBodega extends javax.swing.JFrame {
         jLayeredPane10Layout.setVerticalGroup(
             jLayeredPane10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane10Layout.createSequentialGroup()
-                .addComponent(lblFondoInventarioBodegaFrame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(1, 1, 1))
-            .addGroup(jLayeredPane10Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(47, 47, 47)
                 .addComponent(jPanel48, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
-        jLayeredPane10.setLayer(jPanel48, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane10.setLayer(lblFondoInventarioBodegaFrame, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -689,7 +705,7 @@ public class InventarioPorBodega extends javax.swing.JFrame {
                 pstINV.setString(6, cmbConvenioMarco.getSelectedItem().toString());
                 pstINV.setInt(7, Integer.parseInt(txtPrecioVentaIngreso1.getText()));
                 pstINV.setInt(8, Integer.parseInt(txtPrecioCostoIngreso1.getText()));
-                pstINV.setInt(9, cmbConvenioMarco.getSelectedIndex()+1);
+                pstINV.setInt(9, cmbConvenioMarco.getSelectedIndex() + 1);
                 pstINV.setString(10, txtDescripcionIngreso1.getText());
                 pstINV.setString(11, txtRegionesIngreso1.getText());
                 pstINV.setString(12, txtCondicionDespachoIngreso1.getText());
@@ -834,6 +850,76 @@ public class InventarioPorBodega extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnVolverMenuActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+
+            String ruta = "";
+
+            JFileChooser dlg = new JFileChooser();
+            dlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+            int option = dlg.showOpenDialog(this);
+
+            if (option == JFileChooser.APPROVE_OPTION) {
+                File f = dlg.getSelectedFile();
+                ruta = f.toString();
+            }
+
+            Workbook workbook = new XSSFWorkbook();
+            Sheet sheet = workbook.createSheet("Inventario");
+
+            Font headerFont = workbook.createFont();
+            headerFont.setBold(true);
+            headerFont.setFontHeightInPoints((short) 14);
+            headerFont.setColor(IndexedColors.RED.getIndex());
+
+            CellStyle headerCellStyle = workbook.createCellStyle();
+            headerCellStyle.setFont(headerFont);
+
+            // Create a Row
+            Row headerRow = sheet.createRow(0);
+
+            for (int i = 0; i < tblProductoInventarioBodega.getColumnCount(); i++) {
+                Cell cell = headerRow.createCell(i);
+                cell.setCellValue(tblProductoInventarioBodega.getColumnName(i));
+                cell.setCellStyle(headerCellStyle);
+            }
+
+            // Create Other rows and cells with contacts data
+            int rowNum = 1;
+
+            for (int i = 0; i < tblProductoInventarioBodega.getRowCount(); i++) {
+                Row row = sheet.createRow(rowNum++);
+                row.createCell(0).setCellValue(tblProductoInventarioBodega.getValueAt(i, 0).toString());
+                row.createCell(1).setCellValue(tblProductoInventarioBodega.getValueAt(i, 1).toString());
+                row.createCell(2).setCellValue(tblProductoInventarioBodega.getValueAt(i, 2).toString());
+                row.createCell(3).setCellValue(tblProductoInventarioBodega.getValueAt(i, 3).toString());
+                row.createCell(4).setCellValue(tblProductoInventarioBodega.getValueAt(i, 4).toString());
+                row.createCell(5).setCellValue(tblProductoInventarioBodega.getValueAt(i, 5).toString());
+                row.createCell(6).setCellValue(tblProductoInventarioBodega.getValueAt(i, 6).toString());
+                row.createCell(7).setCellValue(tblProductoInventarioBodega.getValueAt(i, 7).toString());
+                row.createCell(8).setCellValue(tblProductoInventarioBodega.getValueAt(i, 8).toString());
+                row.createCell(9).setCellValue(tblProductoInventarioBodega.getValueAt(i, 9).toString());
+                row.createCell(10).setCellValue(tblProductoInventarioBodega.getValueAt(i, 10).toString());
+                row.createCell(11).setCellValue(tblProductoInventarioBodega.getValueAt(i, 11).toString());
+                row.createCell(12).setCellValue(tblProductoInventarioBodega.getValueAt(i, 12).toString());
+            }
+
+            // Resize all columns to fit the content size
+            for (int i = 0; i < tblProductoInventarioBodega.getColumnCount(); i++) {
+                sheet.autoSizeColumn(i);
+            }
+
+            try ( // Write the output to a file
+                    FileOutputStream fileOut = new FileOutputStream(ruta + "\\" + "productos.xlsx")) {
+                workbook.write(fileOut);
+            }
+            JOptionPane.showMessageDialog(null, "Documento Creado");
+        } catch (HeadlessException | IOException ex) {
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -884,6 +970,7 @@ public class InventarioPorBodega extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbStatusFiltrarInventario;
     public javax.swing.JComboBox cmbStatusProdIngreso1;
     private javax.swing.JComboBox<String> cmbTransporte1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel123;
     private javax.swing.JLabel jLabel124;
     private javax.swing.JLabel jLabel126;
@@ -916,7 +1003,6 @@ public class InventarioPorBodega extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane7;
     private javax.swing.JTabbedPane jTabbedPane8;
-    private javax.swing.JLabel lblFondoInventarioBodegaFrame;
     private javax.swing.JPanel panelIngresoProducto1;
     public javax.swing.JTable tblProductoInventarioBodega;
     private javax.swing.JTextField txtCondicionDespachoIngreso1;

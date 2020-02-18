@@ -50,7 +50,7 @@ public class IngresoTransporte extends javax.swing.JFrame {
         jLabel58 = new javax.swing.JLabel();
         btnTransporte = new javax.swing.JButton();
         jLabel81 = new javax.swing.JLabel();
-        cmbZona = new javax.swing.JComboBox<String>();
+        cmbZona = new javax.swing.JComboBox<>();
         txtRegion = new javax.swing.JTextField();
         txtComuna = new javax.swing.JTextField();
         jLabel48 = new javax.swing.JLabel();
@@ -153,7 +153,7 @@ public class IngresoTransporte extends javax.swing.JFrame {
         jLabel81.setText("Zona:");
 
         cmbZona.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        cmbZona.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione Zona", "Zona Norte", "Zona Centro", "Zona Sur" }));
+        cmbZona.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Zona", "Zona Norte", "Zona Centro", "Zona Sur" }));
 
         txtRegion.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         txtRegion.setEnabled(false);
@@ -299,13 +299,14 @@ public class IngresoTransporte extends javax.swing.JFrame {
     private void btnVolverSalidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverSalidasActionPerformed
         SalidasPendientes salidas = new SalidasPendientes();
         salidas.setVisible(true);
-        this.dispose();
+
+        // this.dispose();
         try {
-            String query = "Select s.idOrdenTrabajo as 'ID de Orden de Trabajo',\n"
+            String query = "Select s.idSalida as 'Número de Salida',s.idOrden as 'Número de Nota de Venta',s.codigoOrdenCompra as 'Codigo de Orden de Compra',\n"
                     + "s.tipoTransporte as 'Transporte',s.netoTransporte as 'Neto',s.ivaTransporte as 'IVA',s.totalTransporte as 'Total',b.nombreBodega as 'Nombre de Bodega',\n"
                     + "s.seccion as 'Sección',bu.codigoBulto as 'Bulto de Salida', s.fechaSalida as 'Fecha de Solicitud',ordenTransporte as 'Orden de Transporte'\n"
-                    + "from salida s join bodega b on s.idBodega=b.idBodega \n"
-                    + "join bulto bu on s.idOrdenTrabajo = bu.idOrdenTrabajo \n"
+                    + "from salida s join bodega b on s.idBodega=b.idBodega\n"
+                    + "join bulto bu on s.codigoOrdenCompra = bu.codigoOrdenCompra\n"
                     + "where s.tipoTransporte='Pendiente';";
             PreparedStatement pst = cn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
@@ -315,7 +316,25 @@ public class IngresoTransporte extends javax.swing.JFrame {
         }
         try {
             salidas.cmbSalidasPendientes.removeAllItems();
-            String query = "select CONCAT('TRANSPORTE: ',transporte,' - DIRECCIÓN: ',DIRECCIONCARGA,' - COMUNA: ',NomComuna,' - PROVINCIA: ',PROVINCIA,' - REGIÓN: ',NOMREGION) from TRANSPORTE T ;";
+            String query = "SELECT \n"
+                    + "    CONCAT('TRANSPORTE: ',\n"
+                    + "            transporte,\n"
+                    + "            ' - DIRECCIÓN: ',\n"
+                    + "            DIRECCIONCARGA,\n"
+                    + "            ' - COMUNA: ',\n"
+                    + "            NomComuna,\n"
+                    + "            ' - PROVINCIA: ',\n"
+                    + "            PROVINCIA,\n"
+                    + "            ' - REGIÓN: ',\n"
+                    + "            NOMREGION)\n"
+                    + "FROM\n"
+                    + "    TRANSPORTE\n"
+                    + "    WHERE transporte is not null\n"
+                    + "    and direccionCarga is not null\n"
+                    + "    and nomComuna is not null\n"
+                    + "    and provincia is not null\n"
+                    + "    and nomRegion is not null;\n"
+                    + "            ";
             PreparedStatement pst = cn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {

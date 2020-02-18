@@ -16,12 +16,12 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import net.proteanit.sql.DbUtils;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author The_S
@@ -64,11 +64,9 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLayeredPane2 = new javax.swing.JLayeredPane();
         contenedor = new javax.swing.JPanel();
         panelRojo = new javax.swing.JPanel();
         btnNotaCompra = new javax.swing.JButton();
-        btnIngreso = new javax.swing.JButton();
         btnNotaVenta = new javax.swing.JButton();
         btnInventarioProductos = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
@@ -76,7 +74,7 @@ public class Menu extends javax.swing.JFrame {
         btnHistorialIngreso = new javax.swing.JButton();
         btnSeguimiento = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
-        lblFondo = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuUserName = new javax.swing.JMenu();
         menuHora = new javax.swing.JMenu();
@@ -87,6 +85,7 @@ public class Menu extends javax.swing.JFrame {
         idUsuarioMenuTag = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(247, 247, 247));
         setPreferredSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
 
@@ -105,17 +104,6 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         panelRojo.add(btnNotaCompra);
-
-        btnIngreso.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        btnIngreso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Historial.png"))); // NOI18N
-        btnIngreso.setText("Ingreso y salida");
-        btnIngreso.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnIngreso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIngresoActionPerformed(evt);
-            }
-        });
-        panelRojo.add(btnIngreso);
 
         btnNotaVenta.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         btnNotaVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/4f49eabd611eb(1).png"))); // NOI18N
@@ -196,41 +184,19 @@ public class Menu extends javax.swing.JFrame {
         contenedorLayout.setHorizontalGroup(
             contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contenedorLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(10, 10, 10)
                 .addComponent(panelRojo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(10, 10, 10))
         );
         contenedorLayout.setVerticalGroup(
             contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contenedorLayout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addComponent(panelRojo, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
-                .addGap(5, 5, 5))
+                .addGap(10, 10, 10)
+                .addComponent(panelRojo, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10))
         );
 
-        lblFondo.setVisible(true);
-        lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/menuTest.png"))); // NOI18N
-
-        javax.swing.GroupLayout jLayeredPane2Layout = new javax.swing.GroupLayout(jLayeredPane2);
-        jLayeredPane2.setLayout(jLayeredPane2Layout);
-        jLayeredPane2Layout.setHorizontalGroup(
-            jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(19, 19, 19))
-        );
-        jLayeredPane2Layout.setVerticalGroup(
-            jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                .addGap(171, 171, 171)
-                .addComponent(contenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jLayeredPane2.setLayer(contenedor, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(lblFondo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/acima-logo-200p.png"))); // NOI18N
 
         menuUserName.setText(" Nombre de Usuario: No Conectado ");
         jMenuBar1.add(menuUserName);
@@ -259,13 +225,23 @@ public class Menu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane2)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLayeredPane2)
-                .addGap(0, 0, 0))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(contenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -286,11 +262,14 @@ public class Menu extends javax.swing.JFrame {
                     + "    a.estado AS 'Estado'\n"
                     + "FROM\n"
                     + "    abastecimiento a\n"
-                    + "        JOIN\n"
+                    + "        LEFT JOIN\n"
                     + "    detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
                     + "WHERE\n"
-                    + "    da.idOrden IS NOT NULL\n"
-                    + "        AND a.Estado BETWEEN 'Cotización Validada' AND 'Nota de compra ingresada con productos faltantes';";
+                    + "    a.numeroCotizacion NOT IN (SELECT \n"
+                    + "            i.numeroCotizacion\n"
+                    + "        FROM\n"
+                    + "            ingreso i)\n"
+                    + "        AND a.estado IN ('Cotización Validada' , 'Nota de compra ingresada con productos faltantes');";
             PreparedStatement pst = cn.prepareStatement(queryActualizar);
             ResultSet rs = pst.executeQuery();
             nota.tblNC.setModel(DbUtils.resultSetToTableModel(rs));
@@ -306,8 +285,15 @@ public class Menu extends javax.swing.JFrame {
             nota.setVisible(true);
             nota.lblCodigo.setText(codigoAutorizacionMenuTag.getText());
 
-            String query = "select idOrden as 'N° de nota de venta', codigoOrdenCompra as 'Código de Orden de Compra', nombre_Proveedor as 'Empresa', fechaEnvioOC as 'Fecha de OC'\n"
-                    + "from ordenTrabajo;";
+            String query = "SELECT \n"
+                    + "    ot.idOrden AS 'N° de nota de venta',\n"
+                    + "    ot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
+                    + "    ot.nombre_Proveedor AS 'Empresa',\n"
+                    + "    ot.fechaEnvioOC AS 'Fecha de OC'\n"
+                    + "FROM\n"
+                    + "    ordenTrabajo ot       \n"
+                    + "WHERE\n"
+                    + "    ot.idOrden NOT IN (SELECT d.idOrden FROM detalleSalida d);";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
@@ -316,14 +302,6 @@ public class Menu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_btnNotaVentaActionPerformed
-
-    private void btnIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresoActionPerformed
-        IngresoSalida ing = new IngresoSalida();
-        ing.lblCodigo.setText(codigoAutorizacionMenuTag.getText());
-        ing.lblContacto.setText(contactoMenuTag.getText());
-        ing.lblFono.setText(fonoMenuTag.getText());
-        ing.setVisible(true);
-    }//GEN-LAST:event_btnIngresoActionPerformed
 
     private void btnInventarioProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioProductosActionPerformed
         Inventarios inventarios = new Inventarios();
@@ -433,7 +411,6 @@ public class Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHistorialIngreso;
-    private javax.swing.JButton btnIngreso;
     private javax.swing.JButton btnInventarioProductos;
     private javax.swing.JButton btnMantenedorBodegas;
     private javax.swing.JButton btnNotaCompra;
@@ -446,9 +423,8 @@ public class Menu extends javax.swing.JFrame {
     public javax.swing.JMenu fonoMenuTag;
     public javax.swing.JMenu idUsuarioMenuTag;
     private javax.swing.JButton jButton7;
-    private javax.swing.JLayeredPane jLayeredPane2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JLabel lblFondo;
     private javax.swing.JMenu menuFecha;
     private javax.swing.JMenu menuHora;
     public javax.swing.JMenu menuUserName;

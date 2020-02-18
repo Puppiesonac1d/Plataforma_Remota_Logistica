@@ -75,14 +75,13 @@ public class Ingreso extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLayeredPane6 = new javax.swing.JLayeredPane();
         jPanel39 = new javax.swing.JPanel();
         jTabbedPane5 = new javax.swing.JTabbedPane();
         jScrollPane10 = new javax.swing.JScrollPane();
         jPanel14 = new javax.swing.JPanel();
         jLabel73 = new javax.swing.JLabel();
-        cmbTransporte = new javax.swing.JComboBox<String>();
-        cmbBodega = new javax.swing.JComboBox<String>();
+        cmbTransporte = new javax.swing.JComboBox<>();
+        cmbBodega = new javax.swing.JComboBox<>();
         jLabel74 = new javax.swing.JLabel();
         jLabel76 = new javax.swing.JLabel();
         panelIngresoProducto = new javax.swing.JPanel();
@@ -101,9 +100,6 @@ public class Ingreso extends javax.swing.JFrame {
         tblProductosEnNC = new javax.swing.JTable();
         btnIngresarMercadería = new javax.swing.JButton();
         jLabel52 = new javax.swing.JLabel();
-        jLabel75 = new javax.swing.JLabel();
-        jPanel16 = new javax.swing.JPanel();
-        lblPreview = new javax.swing.JLabel();
         btnBorrar = new javax.swing.JButton();
         cmbSeccionBodega = new javax.swing.JComboBox();
         jLabel55 = new javax.swing.JLabel();
@@ -123,11 +119,11 @@ public class Ingreso extends javax.swing.JFrame {
         lblEmpresa = new javax.swing.JLabel();
         lblOC = new javax.swing.JLabel();
         btnVolver5 = new javax.swing.JButton();
-        lblIngresoFrame = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(247, 247, 247));
         setMinimumSize(new java.awt.Dimension(1280, 720));
-        setResizable(false);
 
         jPanel39.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -137,7 +133,7 @@ public class Ingreso extends javax.swing.JFrame {
         jLabel73.setText("Transporte:");
 
         cmbTransporte.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        cmbTransporte.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione Transporte", "Acima", "Transporte Externo" }));
+        cmbTransporte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Transporte", "Acima", "Transporte Externo" }));
 
         cmbBodega.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
 
@@ -145,30 +141,25 @@ public class Ingreso extends javax.swing.JFrame {
         jLabel74.setText("Bodega:");
 
         panelIngresoProducto.setVisible(false);
-        panelIngresoProducto.setBackground(new java.awt.Color(0, 153, 153));
         panelIngresoProducto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         panelIngresoProducto.setEnabled(false);
 
         jLabel48.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel48.setForeground(new java.awt.Color(255, 255, 255));
         jLabel48.setText("ID de Producto:");
 
         txtIDproductoIngreso.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
 
         jLabel68.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel68.setForeground(new java.awt.Color(255, 255, 255));
         jLabel68.setText("Stock a Ingresar:");
 
         txtStockIngresado.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
 
         jLabel40.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel40.setForeground(new java.awt.Color(255, 255, 255));
         jLabel40.setText("SKU interno:");
 
         txtSKUIngreso.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
 
         jLabel41.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel41.setForeground(new java.awt.Color(255, 255, 255));
         jLabel41.setText("Nombre de Producto:");
 
         txtNombreProductoIngreso.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
@@ -221,31 +212,8 @@ public class Ingreso extends javax.swing.JFrame {
         jLabel52.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel52.setText("Productos en el Ingreso:");
 
-        jLabel75.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel75.setText("Código QR generado:");
-
-        jPanel16.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel16.setPreferredSize(new java.awt.Dimension(200, 200));
-
-        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
-        jPanel16.setLayout(jPanel16Layout);
-        jPanel16Layout.setHorizontalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblPreview, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel16Layout.setVerticalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel16Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblPreview, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
-        );
-
         btnBorrar.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        btnBorrar.setText("Borrar producto");
+        btnBorrar.setText("Borrar producto de lista");
         btnBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBorrarActionPerformed(evt);
@@ -260,14 +228,10 @@ public class Ingreso extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelIngresoProductoLayout.createSequentialGroup()
-                        .addGroup(panelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelIngresoProductoLayout.createSequentialGroup()
-                                .addComponent(btnBorrar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel75))
-                            .addComponent(btnIngresarMercadería))
+                        .addComponent(btnBorrar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnIngresarMercadería)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jLabel50, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel52, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane8, javax.swing.GroupLayout.Alignment.LEADING)
@@ -284,7 +248,7 @@ public class Ingreso extends javax.swing.JFrame {
                             .addComponent(txtIDproductoIngreso)
                             .addComponent(txtNombreProductoIngreso)
                             .addComponent(txtStockIngresado)
-                            .addComponent(btnConfirmarInfoProd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnConfirmarInfoProd, javax.swing.GroupLayout.DEFAULT_SIZE, 898, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         panelIngresoProductoLayout.setVerticalGroup(
@@ -317,15 +281,10 @@ public class Ingreso extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(panelIngresoProductoLayout.createSequentialGroup()
-                        .addGroup(panelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel75)
-                            .addComponent(btnBorrar))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnIngresarMercadería))
-                    .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10))
+                .addGroup(panelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBorrar)
+                    .addComponent(btnIngresarMercadería))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         cmbSeccionBodega.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
@@ -409,10 +368,13 @@ public class Ingreso extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Productos Solicitados");
 
+        lblNC.setVisible(false);
         lblNC.setText("jLabel5");
 
+        lblEmpresa.setVisible(false);
         lblEmpresa.setText("jLabel5");
 
+        lblOC.setVisible(false);
         lblOC.setText("jLabel5");
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
@@ -438,27 +400,24 @@ public class Ingreso extends javax.swing.JFrame {
                                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtNumeroNotaVenta)
                                     .addComponent(txtDistribuidor)
-                                    .addComponent(cmbTransporte, 0, 408, Short.MAX_VALUE)
+                                    .addComponent(cmbTransporte, 0, 429, Short.MAX_VALUE)
                                     .addComponent(cmbBodega, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtNumFactura)
                                     .addComponent(txtGuiaDespacho))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel14Layout.createSequentialGroup()
-                                        .addGap(0, 7, Short.MAX_VALUE)
                                         .addComponent(jLabel55)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cmbSeccionBodega, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(cmbSeccionBodega, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(jPanel14Layout.createSequentialGroup()
-                                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel14Layout.createSequentialGroup()
-                                                .addComponent(lblNC)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(lblEmpresa)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(lblOC))
-                                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(0, 0, Short.MAX_VALUE))))
+                                        .addComponent(lblNC)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblEmpresa)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblOC))
+                                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(9, 9, 9))
                             .addComponent(jScrollPane9)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(panelIngresoProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -505,7 +464,7 @@ public class Ingreso extends javax.swing.JFrame {
                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(panelIngresoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jScrollPane10.setViewportView(jPanel14);
@@ -527,7 +486,7 @@ public class Ingreso extends javax.swing.JFrame {
             .addGroup(jPanel39Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane5)
+                    .addComponent(jTabbedPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1236, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel39Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnVolver5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -537,44 +496,35 @@ public class Ingreso extends javax.swing.JFrame {
             jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel39Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
+                .addComponent(jTabbedPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnVolver5)
                 .addContainerGap())
         );
 
-        lblIngresoFrame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/menuTest.png"))); // NOI18N
-
-        javax.swing.GroupLayout jLayeredPane6Layout = new javax.swing.GroupLayout(jLayeredPane6);
-        jLayeredPane6.setLayout(jLayeredPane6Layout);
-        jLayeredPane6Layout.setHorizontalGroup(
-            jLayeredPane6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblIngresoFrame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jLayeredPane6Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jPanel39, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jLayeredPane6Layout.setVerticalGroup(
-            jLayeredPane6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblIngresoFrame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jLayeredPane6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel39, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jLayeredPane6.setLayer(jPanel39, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane6.setLayer(lblIngresoFrame, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/acima-logo-200p.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane6)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel39, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane6)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel39, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -660,7 +610,7 @@ public class Ingreso extends javax.swing.JFrame {
                             String queryINV = "UPDATE INVENTARIO SET STOCK = stock + ? WHERE IDPRODUCTO = ?";
                             PreparedStatement pstINV = cn.prepareStatement(queryINV);
                             pstINV.setInt(1, Integer.parseInt(tblProductosEnNC.getValueAt(i, 3).toString()));
-                            pstINV.setString(2, tblProductosEnNC.getValueAt(i, 1).toString());
+                            pstINV.setString(2, tblProductosEnNC.getValueAt(i, 0).toString());
                             int upINV = pstINV.executeUpdate();
 
                             String queryIngreso = "SELECT MAX(idIngreso),stockIngresado FROM ingreso having MAX(idIngreso)";
@@ -869,7 +819,7 @@ public class Ingreso extends javax.swing.JFrame {
                             String queryINV = "UPDATE INVENTARIO SET STOCK = stock + ? WHERE IDPRODUCTO = ?";
                             PreparedStatement pstINV = cn.prepareStatement(queryINV);
                             pstINV.setInt(1, Integer.parseInt(tblProductosEnNC.getValueAt(i, 3).toString()));
-                            pstINV.setString(2, tblProductosEnNC.getValueAt(i, 1).toString());
+                            pstINV.setString(2, tblProductosEnNC.getValueAt(i, 0).toString());
                             int upINV = pstINV.executeUpdate();
 
                             String queryIngreso = "SELECT MAX(idIngreso),stockIngresado FROM ingreso having MAX(idIngreso)";
@@ -1169,6 +1119,7 @@ public class Ingreso extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel55;
@@ -1177,21 +1128,16 @@ public class Ingreso extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel68;
     private javax.swing.JLabel jLabel73;
     private javax.swing.JLabel jLabel74;
-    private javax.swing.JLabel jLabel75;
     private javax.swing.JLabel jLabel76;
-    private javax.swing.JLayeredPane jLayeredPane6;
     private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel39;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane5;
     public javax.swing.JLabel lblEmpresa;
-    private javax.swing.JLabel lblIngresoFrame;
     public javax.swing.JLabel lblNC;
     public javax.swing.JLabel lblOC;
-    private javax.swing.JLabel lblPreview;
     private javax.swing.JPanel panelIngresoProducto;
     private javax.swing.JTable tblProductosAIngresar;
     private javax.swing.JTable tblProductosEnNC;

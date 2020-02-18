@@ -33,13 +33,10 @@ public class NotaCompra extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jLayeredPane17 = new javax.swing.JLayeredPane();
         jPanel11 = new javax.swing.JPanel();
         btnSalir3 = new javax.swing.JButton();
         jScrollPane15 = new javax.swing.JScrollPane();
         tblNC = new javax.swing.JTable();
-        jButton14 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
@@ -52,15 +49,16 @@ public class NotaCompra extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtNumNV = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-        lblFondoNotaCompra = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        txtCotizacion = new javax.swing.JTextField();
+        jButton4 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
-        jLayeredPane17.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel11.setBackground(new java.awt.Color(0, 153, 153));
         jPanel11.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel11.setForeground(new java.awt.Color(0, 204, 204));
 
         btnSalir3.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         btnSalir3.setText("Volver");
@@ -93,22 +91,6 @@ public class NotaCompra extends javax.swing.JFrame {
         });
         jScrollPane15.setViewportView(tblNC);
 
-        jButton14.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jButton14.setText("Realizar Ingreso de Mercadería");
-        jButton14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton14ActionPerformed(evt);
-            }
-        });
-
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jButton1.setText("Ver Detalle de Cotización");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jButton3.setText("Reiniciar Filtros");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -122,14 +104,12 @@ public class NotaCompra extends javax.swing.JFrame {
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 863, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jScrollPane15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSalir3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
+                    .addComponent(btnSalir3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
@@ -138,19 +118,13 @@ public class NotaCompra extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addComponent(jButton14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSalir3)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE))
+                    .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE))
                 .addContainerGap())
         );
-
-        jLayeredPane17.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 1250, 540));
 
         jTabbedPane1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -169,7 +143,7 @@ public class NotaCompra extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(cmbDistribuidor, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(573, Short.MAX_VALUE))
+                .addContainerGap(669, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,7 +179,7 @@ public class NotaCompra extends javax.swing.JFrame {
                 .addComponent(txtCodigoOrdenCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBuscarOC)
-                .addContainerGap(261, Short.MAX_VALUE))
+                .addContainerGap(367, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,35 +218,88 @@ public class NotaCompra extends javax.swing.JFrame {
                 .addComponent(txtNumNV, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
-                .addContainerGap(461, Short.MAX_VALUE))
+                .addContainerGap(567, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtNumNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Buscar por N° de nota de venta", jPanel1);
 
-        jLayeredPane17.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(286, 30, 980, 130));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jLabel3.setText("N° de Cotización:");
 
-        lblFondoNotaCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/menuTest.png"))); // NOI18N
-        jLayeredPane17.add(lblFondoNotaCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        txtCotizacion.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+
+        jButton4.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jButton4.setText("Buscar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4)
+                .addContainerGap(531, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4))
+                .addContainerGap(44, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Buscar por N° de Cotización", jPanel2);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/acima-logo-200p.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane17, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTabbedPane1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(10, 10, 10))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane17)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10))
         );
 
         pack();
@@ -281,67 +308,6 @@ public class NotaCompra extends javax.swing.JFrame {
     private void btnSalir3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir3ActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnSalir3ActionPerformed
-
-    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        try {
-            Ingreso ingreso = new Ingreso();
-            String query = "select nombreBodega,seccion from bodega";
-            PreparedStatement pst = cn.prepareStatement(query);
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                ingreso.cmbBodega.addItem(rs.getString(1));
-                ingreso.cmbSeccionBodega.addItem(rs.getString(2));
-            }
-            int index = tblNC.getSelectedRow();
-            //seleccionarComuna(jComboBox1, jComboBox1);
-            ingreso.txtNumeroNotaVenta.setText(tblNC.getValueAt(index, 0).toString());
-            ingreso.lblNC.setText(tblNC.getValueAt(index, 1).toString());
-            ingreso.setVisible(true);
-            this.dispose();
-
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Ha ocurrido un error " + ex);
-        }
-    }//GEN-LAST:event_jButton14ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            int index = tblNC.getSelectedRow();
-            String cotizacion = tblNC.getValueAt(index, 1).toString();
-            DetalleNotaCompra detalle = new DetalleNotaCompra();
-            detalle.setVisible(true);
-            String query = "select * from abastecimiento where numeroCotizacion  = ?";
-            PreparedStatement pst = cn.prepareStatement(query);
-            pst.setString(1, cotizacion);
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                detalle.lblNumeroCotizacion.setText(rs.getString("numeroCotizacion"));
-                detalle.lblCodigoOC.setText(rs.getString("codigoOrdenCompra"));
-                detalle.lblDistribuidor.setText(rs.getString("distribuidor"));
-                detalle.lblFecha.setText(rs.getString("fecha"));
-                detalle.lblProveedor.setText(rs.getString("proveedor"));
-                detalle.lblContacto.setText(rs.getString("Contacto"));
-                detalle.lblMail.setText(rs.getString("Mail"));
-                detalle.lblNumero.setText(rs.getString("Numero"));
-                detalle.lblIva.setText(rs.getString("iva"));
-                detalle.lblTotal.setText(rs.getString("total"));
-                detalle.lblCondicionDespacho.setText(rs.getString("condicionDespacho"));
-                detalle.lblDemoraDespacho.setText(rs.getString("DemoraDespacho"));
-                detalle.lblFormaPago.setText(rs.getString("FormaPago"));
-                detalle.lblObservaciones.setText(rs.getString("observaciones"));
-                detalle.lblEstado.setText(rs.getString("estado"));
-            }
-
-            String query2 = "SELECT SKU, CODIGOPRODUCTO AS 'CODIGO DE PRODUCTO', CATEGORIA AS 'CATEGORÍA', NOMBRE AS 'NOMBRE DE PRODUCTO',CANTIDAD AS 'CANTIDAD',PRECIOUNITARIO AS 'PRECIOUNITARIO',PRECIOTOTALNETO AS 'PRECIO TOTAL NETO'\n"
-                    + "FROM detalle_abastecimiento WHERE numeroCotizacion= ?;";
-            PreparedStatement pst2 = cn.prepareStatement(query2);
-            pst2.setString(1, cotizacion);
-            ResultSet rs2 = pst2.executeQuery();
-            detalle.tblProductos.setModel(DbUtils.resultSetToTableModel(rs2));
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex.getMessage());
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
@@ -356,11 +322,14 @@ public class NotaCompra extends javax.swing.JFrame {
                     + "    a.estado AS 'Estado'\n"
                     + "FROM\n"
                     + "    abastecimiento a\n"
-                    + "        JOIN\n"
+                    + "        LEFT JOIN\n"
                     + "    detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
                     + "WHERE\n"
-                    + "    da.idOrden IS NOT NULL\n"
-                    + "        AND a.Estado BETWEEN 'Cotización Validada' AND 'Nota de compra ingresada con productos faltantes';";
+                    + "    a.numeroCotizacion NOT IN (SELECT \n"
+                    + "            i.numeroCotizacion\n"
+                    + "        FROM\n"
+                    + "            ingreso i)\n"
+                    + "        AND a.estado IN ('Cotización Validada' , 'Nota de compra ingresada con productos faltantes');";
             PreparedStatement pst = cn.prepareStatement(queryActualizar);
             ResultSet rs = pst.executeQuery();
             tblNC.setModel(DbUtils.resultSetToTableModel(rs));
@@ -370,7 +339,6 @@ public class NotaCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void cmbDistribuidorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDistribuidorItemStateChanged
-
         try {
             String query = "SELECT \n"
                     + "    da.idOrden AS 'N° de nota de venta',\n"
@@ -383,11 +351,14 @@ public class NotaCompra extends javax.swing.JFrame {
                     + "    a.estado AS 'Estado'\n"
                     + "FROM\n"
                     + "    abastecimiento a\n"
-                    + "        JOIN\n"
+                    + "        LEFT JOIN\n"
                     + "    detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
                     + "WHERE\n"
-                    + "    da.idOrden IS NOT NULL\n"
-                    + "        AND a.Estado BETWEEN 'Cotización Validada' AND 'Nota de compra ingresada con productos faltantes' and a.distribuidor RLIKE ? ";
+                    + "    a.numeroCotizacion NOT IN (SELECT \n"
+                    + "            i.numeroCotizacion\n"
+                    + "        FROM\n"
+                    + "            ingreso i)\n"
+                    + "        AND a.estado IN ('Cotización Validada' , 'Nota de compra ingresada con productos faltantes') AND a.distribuidor RLIKE ?;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             pst.setString(1, cmbDistribuidor.getSelectedItem().toString());
@@ -398,7 +369,6 @@ public class NotaCompra extends javax.swing.JFrame {
             Logger.getLogger(Seguimiento.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
-
     }//GEN-LAST:event_cmbDistribuidorItemStateChanged
 
     private void btnBuscarOCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarOCActionPerformed
@@ -414,11 +384,14 @@ public class NotaCompra extends javax.swing.JFrame {
                     + "    a.estado AS 'Estado'\n"
                     + "FROM\n"
                     + "    abastecimiento a\n"
-                    + "        JOIN\n"
+                    + "        LEFT JOIN\n"
                     + "    detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
                     + "WHERE\n"
-                    + "    da.idOrden IS NOT NULL\n"
-                    + "        AND a.Estado BETWEEN 'Cotización Validada' AND 'Nota de compra ingresada con productos faltantes' and a.codigoOrdenCompra RLIKE ?;";
+                    + "    a.numeroCotizacion NOT IN (SELECT \n"
+                    + "            i.numeroCotizacion\n"
+                    + "        FROM\n"
+                    + "            ingreso i)\n"
+                    + "        AND a.estado IN ('Cotización Validada' , 'Nota de compra ingresada con productos faltantes') AND a.codigoOrdenCompra RLIKE ?;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             pst.setString(1, txtCodigoOrdenCompra.getText());
@@ -444,17 +417,19 @@ public class NotaCompra extends javax.swing.JFrame {
                     + "    a.estado AS 'Estado'\n"
                     + "FROM\n"
                     + "    abastecimiento a\n"
-                    + "        JOIN\n"
+                    + "        LEFT JOIN\n"
                     + "    detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
                     + "WHERE\n"
-                    + "    da.idOrden IS NOT NULL\n"
-                    + "        AND a.Estado BETWEEN 'Cotización Validada' AND 'Nota de compra ingresada con productos faltantes' and da.idOrden RLIKE ?;";
+                    + "    a.numeroCotizacion NOT IN (SELECT \n"
+                    + "            i.numeroCotizacion\n"
+                    + "        FROM\n"
+                    + "            ingreso i)\n"
+                    + "        AND a.estado IN ('Cotización Validada' , 'Nota de compra ingresada con productos faltantes') AND da.idOrden RLIKE ?;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             pst.setInt(1, Integer.parseInt(txtNumNV.getText()));
             ResultSet rs = pst.executeQuery();
             tblNC.setModel(DbUtils.resultSetToTableModel(rs));
-
         } catch (SQLException ex) {
             Logger.getLogger(Seguimiento.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -485,6 +460,38 @@ public class NotaCompra extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error " + ex);
         }
     }//GEN-LAST:event_tblNCMouseClicked
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        try {
+            String query = "SELECT \n"
+                    + "    da.idOrden AS 'N° de nota de venta',\n"
+                    + "    a.numeroCotizacion AS 'N° de Cotización',\n"
+                    + "    a.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
+                    + "    a.distribuidor AS 'Distribuidor',\n"
+                    + "    a.fecha AS 'Fecha',\n"
+                    + "    a.proveedor AS 'Proveedor',\n"
+                    + "    a.contacto AS 'Contacto',\n"
+                    + "    a.estado AS 'Estado'\n"
+                    + "FROM\n"
+                    + "    abastecimiento a\n"
+                    + "        LEFT JOIN\n"
+                    + "    detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
+                    + "WHERE\n"
+                    + "    a.numeroCotizacion NOT IN (SELECT \n"
+                    + "            i.numeroCotizacion\n"
+                    + "        FROM\n"
+                    + "            ingreso i)\n"
+                    + "        AND a.estado IN ('Cotización Validada' , 'Nota de compra ingresada con productos faltantes') AND a.numeroCotizacion RLIKE ?;";
+            PreparedStatement pst;
+            pst = cn.prepareStatement(query);
+            pst.setInt(1, Integer.parseInt(txtCotizacion.getText()));
+            ResultSet rs = pst.executeQuery();
+            tblNC.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (SQLException ex) {
+            Logger.getLogger(Seguimiento.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -526,22 +533,23 @@ public class NotaCompra extends javax.swing.JFrame {
     private javax.swing.JButton btnSalir3;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox cmbDistribuidor;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLayeredPane jLayeredPane17;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane15;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JLabel lblFondoNotaCompra;
     public javax.swing.JTable tblNC;
     private javax.swing.JTextField txtCodigoOrdenCompra;
+    private javax.swing.JTextField txtCotizacion;
     private javax.swing.JTextField txtNumNV;
     // End of variables declaration//GEN-END:variables
 }

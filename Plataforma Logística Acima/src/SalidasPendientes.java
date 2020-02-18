@@ -6,12 +6,12 @@ import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author The_S
@@ -34,18 +34,26 @@ public class SalidasPendientes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLayeredPane18 = new javax.swing.JLayeredPane();
         jPanel7 = new javax.swing.JPanel();
-        jButton10 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtIDSalida = new javax.swing.JTextField();
         btnBuscarSalida = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        txtNotaVenta = new javax.swing.JTextField();
+        btnNV = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        txtFiltroOT = new javax.swing.JTextField();
+        btnBuscarOT = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        cmbSalidasPendientesFiltro = new javax.swing.JComboBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel8 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         tblSalidasPendientes = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
@@ -61,40 +69,18 @@ public class SalidasPendientes extends javax.swing.JFrame {
         btnAgregarTransporte = new javax.swing.JButton();
         jLabel174 = new javax.swing.JLabel();
         txtOrdenTransporte = new javax.swing.JTextField();
-        jLabel94 = new javax.swing.JLabel();
-        lblCodigo = new javax.swing.JLabel();
-        lblContacto = new javax.swing.JLabel();
-        lblFono = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        btnReiniciarFiltros = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(247, 247, 247));
         setMinimumSize(new java.awt.Dimension(1280, 720));
-        setResizable(false);
-
-        jLayeredPane18.setMaximumSize(new java.awt.Dimension(1280, 740));
-        jLayeredPane18.setMinimumSize(new java.awt.Dimension(1280, 740));
-        jLayeredPane18.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel7.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jButton10.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
-        jButton10.setText("Volver");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
-            }
-        });
-
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jButton1.setText("Realizar Salida de Mercadería");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jTabbedPane2.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-
         jTabbedPane1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jLabel1.setText("ID de Salida:");
@@ -109,14 +95,6 @@ public class SalidasPendientes extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jButton2.setText("Reiniciar Filtros");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -128,9 +106,7 @@ public class SalidasPendientes extends javax.swing.JFrame {
                 .addComponent(txtIDSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBuscarSalida)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addContainerGap())
+                .addContainerGap(787, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,12 +115,124 @@ public class SalidasPendientes extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtIDSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscarSalida)
-                    .addComponent(jButton2))
+                    .addComponent(btnBuscarSalida))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Filtar por ID", jPanel1);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jLabel3.setText("Número de Nota de Venta:");
+
+        txtNotaVenta.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        txtNotaVenta.setToolTipText("");
+
+        btnNV.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        btnNV.setText("Buscar");
+        btnNV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNVActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtNotaVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnNV)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtNotaVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNV))
+                .addGap(10, 10, 10))
+        );
+
+        jTabbedPane1.addTab("Filtrar por Número de Nota de Venta", jPanel3);
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jLabel4.setText("Orden de Transporte");
+
+        txtFiltroOT.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+
+        btnBuscarOT.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        btnBuscarOT.setText("Buscar");
+        btnBuscarOT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarOTActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtFiltroOT, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBuscarOT)
+                .addContainerGap(532, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtFiltroOT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarOT))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Filtrar por Orden de Transporte", jPanel4);
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jLabel5.setText("Transporte:");
+
+        cmbSalidasPendientesFiltro.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        cmbSalidasPendientesFiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione Transporte" }));
+        cmbSalidasPendientesFiltro.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbSalidasPendientesFiltroItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbSalidasPendientesFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 993, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(79, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(cmbSalidasPendientesFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Filtrar por Transporte", jPanel5);
 
         tblSalidasPendientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -158,29 +246,6 @@ public class SalidasPendientes extends javax.swing.JFrame {
             }
         ));
         jScrollPane5.setViewportView(tblSalidasPendientes);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1181, Short.MAX_VALUE)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jTabbedPane2.addTab("Solicitudes de Salida Pendientes", jPanel2);
 
         jPanel6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -233,37 +298,27 @@ public class SalidasPendientes extends javax.swing.JFrame {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(10, 10, 10)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel174)
+                    .addComponent(jLabel92)
+                    .addComponent(jLabel91)
+                    .addComponent(jLabel79)
+                    .addComponent(jLabel72))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel72)
-                        .addGap(111, 111, 111)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtIvaTransporte)
                             .addComponent(btnAgregarTransporte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cmbSalidasPendientes, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txtCostoNetoTransporte)
+                            .addComponent(txtTotalTransporte)
+                            .addComponent(txtOrdenTransporte)
+                            .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE))
+                        .addContainerGap(294, Short.MAX_VALUE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel174)
-                                    .addComponent(jLabel91)
-                                    .addComponent(jLabel92))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                                .addComponent(jLabel79)
-                                .addGap(113, 113, 113)))
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jButton11)
-                                .addContainerGap(587, Short.MAX_VALUE))
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtTotalTransporte)
-                                    .addComponent(txtOrdenTransporte)
-                                    .addComponent(txtIvaTransporte)
-                                    .addComponent(txtCostoNetoTransporte))
-                                .addGap(37, 37, 37))))))
+                        .addComponent(cmbSalidasPendientes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,66 +341,122 @@ public class SalidasPendientes extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTotalTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel92))
-                .addGap(10, 10, 10)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(7, 7, 7)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel174)
                     .addComponent(txtOrdenTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton11)
-                .addContainerGap(156, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane2.addTab("Costos de Transporte", jPanel6);
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane5)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jScrollPane5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jScrollPane1.setViewportView(jPanel8);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jTabbedPane1))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton10))
-                    .addComponent(jTabbedPane2))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+            .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton10))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jLayeredPane18.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(9, 166, 1240, 540));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/acima-logo-200p.png"))); // NOI18N
 
-        jLabel94.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/menuTest.png"))); // NOI18N
-        jLayeredPane18.add(jLabel94, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 1290, 760));
+        btnReiniciarFiltros.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        btnReiniciarFiltros.setText("Reiniciar Filtros");
+        btnReiniciarFiltros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReiniciarFiltrosActionPerformed(evt);
+            }
+        });
 
-        lblCodigo.setVisible(false);
-        jLayeredPane18.add(lblCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 510, -1, -1));
-
-        lblContacto.setText("jLabel1");
-        jLayeredPane18.add(lblContacto, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 570, -1, -1));
-
-        lblFono.setText("jLabel1");
-        jLayeredPane18.add(lblFono, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 440, -1, -1));
+        jButton10.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
+        jButton10.setText("Volver");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane18, javax.swing.GroupLayout.DEFAULT_SIZE, 1280, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnReiniciarFiltros)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton10)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane18, javax.swing.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnReiniciarFiltros)
+                        .addComponent(jButton10)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10))
         );
 
         pack();
@@ -356,7 +467,7 @@ public class SalidasPendientes extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel) tblSalidasPendientes.getModel();
             int index = tblSalidasPendientes.getSelectedRow();
             // create the java mysql update preparedstatement
-            String query = "update salida set idTransporte = ?, tipoTransporte= ?, netoTransporte = ?, ivaTransporte = ?, totalTransporte = ?,ordenTransporte = ? where idOrdenTrabajo = ?";
+            String query = "update salida set idTransporte = ?, tipoTransporte= ?, netoTransporte = ?, ivaTransporte = ?, totalTransporte = ?,ordenTransporte = ? where idSalida = ?";
             PreparedStatement preparedStmt = cn.prepareStatement(query);
             preparedStmt.setInt(1, cmbSalidasPendientes.getSelectedIndex());
             preparedStmt.setString(2, cmbSalidasPendientes.getSelectedItem().toString());
@@ -367,14 +478,17 @@ public class SalidasPendientes extends javax.swing.JFrame {
             preparedStmt.setInt(7, Integer.parseInt(tblSalidasPendientes.getValueAt(index, 0).toString()));
             // execute the java preparedstatement
             preparedStmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Salida de mercadería: " + tblSalidasPendientes.getValueAt(index, 0).toString() + " actualizada");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         try {
-            String query = "Select s.idOrdenTrabajo as 'ID de Orden de Trabajo',"
-                    + "s.tipoTransporte as 'Transporte',s.netoTransporte as 'Neto',s.ivaTransporte as 'IVA',s.totalTransporte as 'Total',b.nombreBodega as 'Nombre de Bodega',"
-                    + "s.seccion as 'Sección', s.fechaSalida as 'Fecha de Solicitud' "
-                    + "from salida s join bodega b on s.idBodega=b.idBodega;";
+            String query = "Select s.idSalida as 'Número de Salida',s.idOrden as 'Número de Nota de Venta',s.codigoOrdenCompra as 'Codigo de Orden de Compra',\n"
+                    + "s.tipoTransporte as 'Transporte',s.netoTransporte as 'Neto',s.ivaTransporte as 'IVA',s.totalTransporte as 'Total',b.nombreBodega as 'Nombre de Bodega',\n"
+                    + "s.seccion as 'Sección',bu.codigoBulto as 'Bulto de Salida', s.fechaSalida as 'Fecha de Solicitud',ordenTransporte as 'Orden de Transporte'\n"
+                    + "from salida s join bodega b on s.idBodega=b.idBodega\n"
+                    + "join bulto bu on s.codigoOrdenCompra = bu.codigoOrdenCompra\n"
+                    + "where s.tipoTransporte='Pendiente';";
             PreparedStatement pst = cn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
             tblSalidasPendientes.setModel(DbUtils.resultSetToTableModel(rs));
@@ -384,7 +498,6 @@ public class SalidasPendientes extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void btnAgregarTransporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarTransporteActionPerformed
-
         try {
             this.dispose();
             IngresoTransporte transporte = new IngresoTransporte();
@@ -408,35 +521,14 @@ public class SalidasPendientes extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton10ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            Salida salida = new Salida();
-            salida.setVisible(true);
-            salida.lblCodigo.setText(lblCodigo.getText());
-            salida.lblContacto.setText(lblContacto.getText());
-            salida.lblFono.setText(lblFono.getText());
-            salida.setTitle("Salida de Mercadería");
-            this.dispose();
-
-            String queryBodega = "select nombreBodega from bodega ORDER BY nombreBodega";
-            PreparedStatement pstBodega = cn.prepareStatement(queryBodega);
-            ResultSet rsBodega = pstBodega.executeQuery();
-            while (rsBodega.next()) {
-                salida.cmbBodegaSalida.addItem(rsBodega.getString(1));
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void btnBuscarSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarSalidaActionPerformed
         try {
-            String query = "Select s.idOrdenTrabajo as 'ID de Orden de Trabajo',\n"
+            String query = "Select s.idSalida as 'Número de Salida',s.idOrden as 'Número de Nota de Venta',s.codigoOrdenCompra as 'Codigo de Orden de Compra',\n"
                     + "s.tipoTransporte as 'Transporte',s.netoTransporte as 'Neto',s.ivaTransporte as 'IVA',s.totalTransporte as 'Total',b.nombreBodega as 'Nombre de Bodega',\n"
                     + "s.seccion as 'Sección',bu.codigoBulto as 'Bulto de Salida', s.fechaSalida as 'Fecha de Solicitud',ordenTransporte as 'Orden de Transporte'\n"
-                    + "from salida s join bodega b on s.idBodega=b.idBodega \n"
-                    + "join bulto bu on s.idOrdenTrabajo = bu.idOrdenTrabajo \n"
-                    + "where s.tipoTransporte='Pendiente' and s.idOrdenTrabajo RLIKE ?;";
+                    + "from salida s join bodega b on s.idBodega=b.idBodega\n"
+                    + "join bulto bu on s.codigoOrdenCompra = bu.codigoOrdenCompra\n"
+                    + "where s.idSalida RLIKE ?;";
             PreparedStatement pst = cn.prepareStatement(query);
             pst.setString(1, txtIDSalida.getText());
             ResultSet rs = pst.executeQuery();
@@ -446,22 +538,73 @@ public class SalidasPendientes extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnBuscarSalidaActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnReiniciarFiltrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarFiltrosActionPerformed
         try {
-            String query = "Select s.codigoOrdenCompra as 'Codigo de Orden de Compra',\n"
+            String query = "Select s.idSalida as 'Número de Salida',s.idOrden as 'Número de Nota de Venta',s.codigoOrdenCompra as 'Codigo de Orden de Compra',\n"
                     + "s.tipoTransporte as 'Transporte',s.netoTransporte as 'Neto',s.ivaTransporte as 'IVA',s.totalTransporte as 'Total',b.nombreBodega as 'Nombre de Bodega',\n"
                     + "s.seccion as 'Sección',bu.codigoBulto as 'Bulto de Salida', s.fechaSalida as 'Fecha de Solicitud',ordenTransporte as 'Orden de Transporte'\n"
                     + "from salida s join bodega b on s.idBodega=b.idBodega\n"
                     + "join bulto bu on s.codigoOrdenCompra = bu.codigoOrdenCompra\n"
-                    + "where s.tipoTransporte='Pendiente'\n"
-                    + "group by s.codigoOrdenCompra;";
+                    + "where s.tipoTransporte='Pendiente';";
             PreparedStatement pst = cn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
             tblSalidasPendientes.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnReiniciarFiltrosActionPerformed
+
+    private void btnNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNVActionPerformed
+        try {
+            String query = "Select s.idSalida as 'Número de Salida',s.idOrden as 'Número de Nota de Venta',s.codigoOrdenCompra as 'Codigo de Orden de Compra',\\n\"\n"
+                    + " s.tipoTransporte as 'Transporte',s.netoTransporte as 'Neto',s.ivaTransporte as 'IVA',s.totalTransporte as 'Total',b.nombreBodega as 'Nombre de Bodega',\\n\"\n"
+                    + " s.seccion as 'Sección',bu.codigoBulto as 'Bulto de Salida', s.fechaSalida as 'Fecha de Solicitud',ordenTransporte as 'Orden de Transporte'\\n\"\n"
+                    + " from salida s join bodega b on s.idBodega=b.idBodega\\n\"\n"
+                    + " join bulto bu on s.codigoOrdenCompra = bu.codigoOrdenCompra\\n\"\n"
+                    + " where s.tipoTransporte='Pendiente' and s.idOrden RLIKE ?;";
+            PreparedStatement pst = cn.prepareStatement(query);
+            pst.setInt(1, Integer.parseInt(txtNotaVenta.getText()));
+            ResultSet rs = pst.executeQuery();
+            tblSalidasPendientes.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }//GEN-LAST:event_btnNVActionPerformed
+
+    private void btnBuscarOTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarOTActionPerformed
+        try {
+            String query = "Select s.idSalida as 'Número de Salida',s.idOrden as 'Número de Nota de Venta',s.codigoOrdenCompra as 'Codigo de Orden de Compra',\\n\"\n"
+                    + " s.tipoTransporte as 'Transporte',s.netoTransporte as 'Neto',s.ivaTransporte as 'IVA',s.totalTransporte as 'Total',b.nombreBodega as 'Nombre de Bodega',\\n\"\n"
+                    + " s.seccion as 'Sección',bu.codigoBulto as 'Bulto de Salida', s.fechaSalida as 'Fecha de Solicitud',ordenTransporte as 'Orden de Transporte'\\n\"\n"
+                    + " from salida s join bodega b on s.idBodega=b.idBodega\\n\"\n"
+                    + " join bulto bu on s.codigoOrdenCompra = bu.codigoOrdenCompra\\n\"\n"
+                    + " where s.ordenTransporte RLIKE ?;";
+            PreparedStatement pst = cn.prepareStatement(query);
+            pst.setInt(1, Integer.parseInt(txtNotaVenta.getText()));
+            ResultSet rs = pst.executeQuery();
+            tblSalidasPendientes.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }//GEN-LAST:event_btnBuscarOTActionPerformed
+
+    private void cmbSalidasPendientesFiltroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbSalidasPendientesFiltroItemStateChanged
+        // cmbSalidasPendientesFiltro
+        try {
+            String query = "Select s.idSalida as 'Número de Salida',s.idOrden as 'Número de Nota de Venta',s.codigoOrdenCompra as 'Codigo de Orden de Compra',\\n\"\n"
+                    + " s.tipoTransporte as 'Transporte',s.netoTransporte as 'Neto',s.ivaTransporte as 'IVA',s.totalTransporte as 'Total',b.nombreBodega as 'Nombre de Bodega',\\n\"\n"
+                    + " s.seccion as 'Sección',bu.codigoBulto as 'Bulto de Salida', s.fechaSalida as 'Fecha de Solicitud',ordenTransporte as 'Orden de Transporte'\\n\"\n"
+                    + " from salida s join bodega b on s.idBodega=b.idBodega\\n\"\n"
+                    + " join bulto bu on s.codigoOrdenCompra = bu.codigoOrdenCompra\\n\"\n"
+                    + " where s.tipoTransporte RLIKE ?;";
+            PreparedStatement pst = cn.prepareStatement(query);
+            pst.setString(1, cmbSalidasPendientesFiltro.getSelectedItem().toString());
+            ResultSet rs = pst.executeQuery();
+            tblSalidasPendientes.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }//GEN-LAST:event_cmbSalidasPendientesFiltroItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -500,34 +643,41 @@ public class SalidasPendientes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarTransporte;
+    private javax.swing.JButton btnBuscarOT;
     private javax.swing.JButton btnBuscarSalida;
+    private javax.swing.JButton btnNV;
+    private javax.swing.JButton btnReiniciarFiltros;
     public javax.swing.JComboBox cmbSalidasPendientes;
-    private javax.swing.JButton jButton1;
+    public javax.swing.JComboBox cmbSalidasPendientesFiltro;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel174;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel72;
     private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel91;
     private javax.swing.JLabel jLabel92;
-    private javax.swing.JLabel jLabel94;
-    private javax.swing.JLayeredPane jLayeredPane18;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTabbedPane jTabbedPane2;
-    public javax.swing.JLabel lblCodigo;
-    public javax.swing.JLabel lblContacto;
-    public javax.swing.JLabel lblFono;
     public javax.swing.JTable tblSalidasPendientes;
     private javax.swing.JTextField txtCostoNetoTransporte;
+    private javax.swing.JTextField txtFiltroOT;
     private javax.swing.JTextField txtIDSalida;
     private javax.swing.JTextField txtIvaTransporte;
+    private javax.swing.JTextField txtNotaVenta;
     private javax.swing.JTextField txtOrdenTransporte;
     private javax.swing.JTextField txtTotalTransporte;
     // End of variables declaration//GEN-END:variables

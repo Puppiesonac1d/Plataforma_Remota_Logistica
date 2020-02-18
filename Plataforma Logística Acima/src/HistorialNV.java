@@ -34,37 +34,85 @@ public class HistorialNV extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLayeredPane19 = new javax.swing.JLayeredPane();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        txtCodigoOC = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         txtFechaOC = new javax.swing.JFormattedTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        txtCodigoOC = new javax.swing.JTextField();
+        jButton4 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        txtNV = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
         jPanel43 = new javax.swing.JPanel();
         jScrollPane19 = new javax.swing.JScrollPane();
         tblHistorialNV = new javax.swing.JTable();
         btnVolverMenu9 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         lblCodigo = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        lblFondoHistorialOC = new javax.swing.JLabel();
+        btnSalida = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setResizable(false);
+        setBackground(new java.awt.Color(247, 247, 247));
+        setPreferredSize(new java.awt.Dimension(1280, 740));
 
-        jLayeredPane19.setMaximumSize(new java.awt.Dimension(1280, 720));
-        jLayeredPane19.setMinimumSize(new java.awt.Dimension(1280, 720));
-        jLayeredPane19.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel1.setText("Código de OC");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jLabel2.setText("Fecha de envío de OC:");
 
+        jButton5.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jButton5.setText("Buscar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        try {
+            txtFechaOC.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##-##-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtFechaOC.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtFechaOC, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton5)
+                .addContainerGap(478, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtFechaOC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5))
+                .addContainerGap(57, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Filtrar por Fecha", jPanel2);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jLabel1.setText("Código de OC:");
+
+        txtCodigoOC.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+
+        jButton4.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jButton4.setText("Buscar");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,63 +131,59 @@ public class HistorialNV extends javax.swing.JFrame {
                 .addComponent(txtCodigoOC, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4)
-                .addContainerGap(508, Short.MAX_VALUE))
+                .addContainerGap(475, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addGap(8, 8, 8)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtCodigoOC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Filtrar por Código de OC", jPanel1);
 
-        jLabel2.setText("Fecha de envío de OC:");
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jLabel4.setText("Número de Nota de Venta:");
 
-        jButton5.setText("Buscar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        txtNV.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+
+        btnBuscar.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
 
-        try {
-            txtFechaOC.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##-##-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
+                .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFechaOC, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtNV, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5)
-                .addContainerGap(646, Short.MAX_VALUE))
+                .addComponent(btnBuscar)
+                .addContainerGap(464, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtFechaOC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5))
-                .addContainerGap(44, Short.MAX_VALUE))
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Filtrar por Fecha", jPanel2);
-
-        jLayeredPane19.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 20, 990, 130));
+        jTabbedPane1.addTab("Buscar por N° de Nota de Venta", jPanel3);
 
         tblHistorialNV = new javax.swing.JTable(){
             public boolean isCellEditable(int rowIndex, int celIndex){
@@ -175,26 +219,7 @@ public class HistorialNV extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jButton1.setText("Crear Nota de Venta a partir de OC");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         lblCodigo.setVisible(false);
-
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jButton2.setText(" Detalle de Nota de Venta");
-        jButton2.setMaximumSize(new java.awt.Dimension(238, 35));
-        jButton2.setMinimumSize(new java.awt.Dimension(238, 35));
-        jButton2.setPreferredSize(new java.awt.Dimension(238, 35));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
 
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jButton3.setText("Salida de Mercadería");
@@ -207,23 +232,19 @@ public class HistorialNV extends javax.swing.JFrame {
             }
         });
 
-        jButton9.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jButton9.setText("Nota de Venta desde 0");
-        jButton9.setToolTipText("");
-        jButton9.setMaximumSize(new java.awt.Dimension(238, 35));
-        jButton9.setMinimumSize(new java.awt.Dimension(238, 35));
-        jButton9.setPreferredSize(new java.awt.Dimension(238, 35));
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
-            }
-        });
-
         jButton6.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jButton6.setText("Reiniciar Filtros");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
+            }
+        });
+
+        btnSalida.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        btnSalida.setText("Salidas Pendientes");
+        btnSalida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalidaActionPerformed(evt);
             }
         });
 
@@ -239,15 +260,13 @@ public class HistorialNV extends javax.swing.JFrame {
                         .addGap(366, 366, 366))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel43Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane19, javax.swing.GroupLayout.PREFERRED_SIZE, 840, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane19)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnVolverMenu9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
                             .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnVolverMenu9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSalida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel43Layout.setVerticalGroup(
@@ -255,15 +274,11 @@ public class HistorialNV extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel43Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane19, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
+                    .addComponent(jScrollPane19, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
                     .addGroup(jPanel43Layout.createSequentialGroup()
                         .addComponent(jButton6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)
+                        .addComponent(btnSalida)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -274,22 +289,32 @@ public class HistorialNV extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLayeredPane19.add(jPanel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 164, 1252, -1));
-
-        lblFondoHistorialOC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/menuTest.png"))); // NOI18N
-        jLayeredPane19.add(lblFondoHistorialOC, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/acima-logo-200p.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jLayeredPane19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel43, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTabbedPane1)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel43, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -298,35 +323,6 @@ public class HistorialNV extends javax.swing.JFrame {
     private void btnVolverMenu9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverMenu9ActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnVolverMenu9ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (tblHistorialNV.getSelectionModel().isSelectionEmpty() == true) {
-            ConsultaMP consulta = new ConsultaMP();
-            consulta.lblCodigo.setText(lblCodigo.getText());
-            consulta.setVisible(true);
-            this.dispose();
-        } else {
-            ConsultaMP consulta = new ConsultaMP();
-            consulta.setVisible(true);
-            consulta.lblCodigo.setText(lblCodigo.getText());
-            int row = tblHistorialNV.getSelectedRow();
-            TableModel historialModel = tblHistorialNV.getModel();
-            consulta.txtOC.setText(historialModel.getValueAt(row, 0).toString());
-            this.dispose();
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try {
-            int index = tblHistorialNV.getSelectedRow();
-            String oc = tblHistorialNV.getValueAt(index, 1).toString();
-            DetalleNotaVenta nv = new DetalleNotaVenta();
-            nv.txtConsultarOC.setText(oc);
-            nv.setVisible(true);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "No hay una nota seleccionada" + ex.getMessage());
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
@@ -346,21 +342,17 @@ public class HistorialNV extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        try {
-            NotaVenta nota = new NotaVenta();
-            nota.setVisible(true);
-
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar una OC -" + ex.getMessage());
-        }
-    }//GEN-LAST:event_jButton9ActionPerformed
-
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try {
 
-            String query = "select idOrden as 'N° de nota de venta', codigoOrdenCompra as 'Código de Orden de Compra', nombre_Proveedor as 'Empresa', fechaEnvioOC as 'Fecha de OC'\n"
-                    + "from ordenTrabajo where codigoOrdenCompra = ?;";
+            String query = "SELECT \n"
+                    + "    ot.idOrden AS 'N° de nota de venta',\n"
+                    + "    ot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
+                    + "    ot.nombre_Proveedor AS 'Empresa',\n"
+                    + "    ot.fechaEnvioOC AS 'Fecha de OC'\n"
+                    + "FROM ordenTrabajo ot"
+                    + " WHERE\n"
+                    + " ot.idOrden NOT IN (SELECT d.idOrden FROM detalleSalida d) AND codigoOrdenCompra = ?;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             pst.setString(1, txtCodigoOC.getText());
@@ -379,8 +371,15 @@ public class HistorialNV extends javax.swing.JFrame {
             String anio = txtFechaOC.getText().substring(6, 10);
             String fecha = anio + "-" + mes + "-" + dia;
             System.out.println(fecha);
-            String query = "select idOrden as 'N° de nota de venta', codigoOrdenCompra as 'Código de Orden de Compra', nombre_Proveedor as 'Empresa', fechaEnvioOC as 'Fecha de OC'\n"
-                    + "from ordenTrabajo where LEFT(fechaEnvioOC, 10) RLIKE ? ";
+            String query = "SELECT \n"
+                    + "    ot.idOrden AS 'N° de nota de venta',"
+                    + "    ot.codigoOrdenCompra AS 'Código de Orden de Compra',"
+                    + "    ot.nombre_Proveedor AS 'Empresa',"
+                    + "    ot.fechaEnvioOC AS 'Fecha de OC'"
+                    + " FROM"
+                    + " ordenTrabajo ot"
+                    + " WHERE"
+                    + " ot.idOrden NOT IN (SELECT d.idOrden FROM detalleSalida d) AND LEFT(fechaEnvioOC, 10) RLIKE ? ";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             pst.setString(1, fecha);
@@ -393,8 +392,15 @@ public class HistorialNV extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         try {
-            String query = "select idOrden as 'N° de nota de venta', codigoOrdenCompra as 'Código de Orden de Compra', nombre_Proveedor as 'Empresa', fechaEnvioOC as 'Fecha de OC'\n"
-                    + "from ordenTrabajo;";
+            String query = "SELECT \n"
+                    + "    ot.idOrden AS 'N° de nota de venta',\n"
+                    + "    ot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
+                    + "    ot.nombre_Proveedor AS 'Empresa',\n"
+                    + "    ot.fechaEnvioOC AS 'Fecha de OC'\n"
+                    + "FROM\n"
+                    + "    ordenTrabajo ot       \n"
+                    + "WHERE\n"
+                    + "    ot.idOrden NOT IN (SELECT d.idOrden FROM detalleSalida d);";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
@@ -424,6 +430,76 @@ public class HistorialNV extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No hay una nota seleccionada" + ex.getMessage());
         }
     }//GEN-LAST:event_tblHistorialNVMouseClicked
+
+    private void btnSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalidaActionPerformed
+        SalidasPendientes salidas = new SalidasPendientes();
+        salidas.setVisible(true);
+
+        // this.dispose();
+        try {
+            String query = "Select s.idSalida as 'Número de Salida',s.idOrden as 'Número de Nota de Venta',s.codigoOrdenCompra as 'Codigo de Orden de Compra',\n"
+                    + "s.tipoTransporte as 'Transporte',s.netoTransporte as 'Neto',s.ivaTransporte as 'IVA',s.totalTransporte as 'Total',b.nombreBodega as 'Nombre de Bodega',\n"
+                    + "s.seccion as 'Sección',bu.codigoBulto as 'Bulto de Salida', s.fechaSalida as 'Fecha de Solicitud',ordenTransporte as 'Orden de Transporte'\n"
+                    + "from salida s join bodega b on s.idBodega=b.idBodega\n"
+                    + "join bulto bu on s.codigoOrdenCompra = bu.codigoOrdenCompra\n"
+                    + "where s.tipoTransporte='Pendiente';";
+            PreparedStatement pst = cn.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
+            salidas.tblSalidasPendientes.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        try {
+            salidas.cmbSalidasPendientes.removeAllItems();
+            String query = "SELECT \n"
+                    + "    CONCAT('TRANSPORTE: ',\n"
+                    + "            transporte,\n"
+                    + "            ' - DIRECCIÓN: ',\n"
+                    + "            DIRECCIONCARGA,\n"
+                    + "            ' - COMUNA: ',\n"
+                    + "            NomComuna,\n"
+                    + "            ' - PROVINCIA: ',\n"
+                    + "            PROVINCIA,\n"
+                    + "            ' - REGIÓN: ',\n"
+                    + "            NOMREGION)\n"
+                    + "FROM\n"
+                    + "    TRANSPORTE\n"
+                    + "    WHERE transporte is not null\n"
+                    + "    and direccionCarga is not null\n"
+                    + "    and nomComuna is not null\n"
+                    + "    and provincia is not null\n"
+                    + "    and nomRegion is not null;\n"
+                    + "            ";
+            PreparedStatement pst = cn.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                salidas.cmbSalidasPendientes.addItem(rs.getString(1));
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }//GEN-LAST:event_btnSalidaActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        try {
+
+            String query = "SELECT \n"
+                    + "    ot.idOrden AS 'N° de nota de venta',\n"
+                    + "    ot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
+                    + "    ot.nombre_Proveedor AS 'Empresa',\n"
+                    + "    ot.fechaEnvioOC AS 'Fecha de OC'\n"
+                    + "FROM ordenTrabajo ot "
+                    + " WHERE\n"
+                    + " ot.idOrden NOT IN (SELECT d.idOrden FROM detalleSalida d) AND ot.idOrden = ?;";
+            PreparedStatement pst;
+            pst = cn.prepareStatement(query);
+            pst.setString(1, txtNV.getText());
+            ResultSet rs = pst.executeQuery();
+            tblHistorialNV.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -461,26 +537,27 @@ public class HistorialNV extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnSalida;
     private javax.swing.JButton btnVolverMenu9;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLayeredPane jLayeredPane19;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel43;
     private javax.swing.JScrollPane jScrollPane19;
     private javax.swing.JTabbedPane jTabbedPane1;
     public javax.swing.JLabel lblCodigo;
-    private javax.swing.JLabel lblFondoHistorialOC;
     public javax.swing.JTable tblHistorialNV;
     private javax.swing.JTextField txtCodigoOC;
     private javax.swing.JFormattedTextField txtFechaOC;
+    private javax.swing.JTextField txtNV;
     // End of variables declaration//GEN-END:variables
 }

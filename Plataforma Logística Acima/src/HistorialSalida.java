@@ -91,6 +91,9 @@ public class HistorialSalida extends javax.swing.JFrame {
         lblFondoHistorialSalida.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblFondoHistorialSalida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/menuTest.png"))); // NOI18N
 
+        panelHistorialSalida.setLayer(jPanel32, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panelHistorialSalida.setLayer(lblFondoHistorialSalida, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout panelHistorialSalidaLayout = new javax.swing.GroupLayout(panelHistorialSalida);
         panelHistorialSalida.setLayout(panelHistorialSalidaLayout);
         panelHistorialSalidaLayout.setHorizontalGroup(
@@ -111,8 +114,6 @@ public class HistorialSalida extends javax.swing.JFrame {
                 .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        panelHistorialSalida.setLayer(jPanel32, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        panelHistorialSalida.setLayer(lblFondoHistorialSalida, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

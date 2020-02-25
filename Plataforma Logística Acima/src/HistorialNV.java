@@ -17,10 +17,10 @@ import net.proteanit.sql.DbUtils;
  * @author The_S
  */
 public class HistorialNV extends javax.swing.JFrame {
-
+    
     Conexion con = new Conexion();
     Connection cn = con.conecta();
-
+    
     public HistorialNV() {
         initComponents();
     }
@@ -54,6 +54,7 @@ public class HistorialNV extends javax.swing.JFrame {
         lblCodigo = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
         btnSalida = new javax.swing.JButton();
+        lblIDUsuario = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -236,6 +237,9 @@ public class HistorialNV extends javax.swing.JFrame {
             }
         });
 
+        lblIDUsuario.setVisible(false);
+        lblIDUsuario.setText("-");
+
         javax.swing.GroupLayout jPanel43Layout = new javax.swing.GroupLayout(jPanel43);
         jPanel43.setLayout(jPanel43Layout);
         jPanel43Layout.setHorizontalGroup(
@@ -253,7 +257,8 @@ public class HistorialNV extends javax.swing.JFrame {
                         .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnVolverMenu9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
                             .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnSalida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnSalida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblIDUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel43Layout.setVerticalGroup(
@@ -268,6 +273,8 @@ public class HistorialNV extends javax.swing.JFrame {
                         .addComponent(btnSalida)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnVolverMenu9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblIDUsuario)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblCodigo)
@@ -311,7 +318,7 @@ public class HistorialNV extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try {
-
+            
             String query = "SELECT \n"
                     + "    ot.idOrden AS 'N° de nota de venta',\n"
                     + "    ot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
@@ -393,6 +400,7 @@ public class HistorialNV extends javax.swing.JFrame {
                 salida.cmbBodegaSalida.addItem(rsBodega.getString(1));
             }
             salida.btnBuscarOTSalida.doClick();
+            salida.lblID.setText(lblIDUsuario.getText());
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "No hay una nota seleccionada" + ex.getMessage());
         }
@@ -433,7 +441,7 @@ public class HistorialNV extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         try {
-
+            
             String query = "SELECT \n"
                     + "    idTransporte AS 'ID',\n"
                     + "    transporte AS 'Transporte',\n"
@@ -453,7 +461,7 @@ public class HistorialNV extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         try {
-
+            
             String query = "SELECT \n"
                     + "    ot.idOrden AS 'N° de nota de venta',\n"
                     + "    ot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
@@ -525,6 +533,7 @@ public class HistorialNV extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane19;
     private javax.swing.JTabbedPane jTabbedPane1;
     public javax.swing.JLabel lblCodigo;
+    public javax.swing.JLabel lblIDUsuario;
     public javax.swing.JTable tblHistorialNV;
     private javax.swing.JTextField txtCodigoOC;
     private javax.swing.JFormattedTextField txtFechaOC;

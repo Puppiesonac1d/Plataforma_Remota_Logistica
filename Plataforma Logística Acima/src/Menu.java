@@ -204,7 +204,7 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(58, 58, 58)
-                .addComponent(panelRojo, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
+                .addComponent(panelRojo, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
                 .addGap(84, 84, 84))
         );
 
@@ -302,6 +302,7 @@ public class Menu extends javax.swing.JFrame {
             pst = cn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
             nota.tblHistorialNV.setModel(DbUtils.resultSetToTableModel(rs));
+            nota.lblIDUsuario.setText(idUsuarioMenuTag.getText());
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }

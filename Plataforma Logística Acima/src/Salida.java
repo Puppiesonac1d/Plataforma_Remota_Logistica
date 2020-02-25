@@ -14,6 +14,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Color;
+import java.awt.HeadlessException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -84,7 +85,6 @@ public class Salida extends javax.swing.JFrame {
         jScrollPane29 = new javax.swing.JScrollPane();
         tblProductosDefinitivosBultos = new javax.swing.JTable();
         jLabel53 = new javax.swing.JLabel();
-        jLayeredPane12 = new javax.swing.JLayeredPane();
         jPanel5 = new javax.swing.JPanel();
         jTabbedPane4 = new javax.swing.JTabbedPane();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -106,6 +106,7 @@ public class Salida extends javax.swing.JFrame {
         btnBuscarOTSalida = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         lblOC = new javax.swing.JLabel();
+        lblID = new javax.swing.JLabel();
         panelGD = new javax.swing.JPanel();
         jLabel147 = new javax.swing.JLabel();
         cmbTipoDespacho = new javax.swing.JComboBox();
@@ -166,7 +167,6 @@ public class Salida extends javax.swing.JFrame {
         lblCodigo = new javax.swing.JLabel();
         lblContacto = new javax.swing.JLabel();
         lblFono = new javax.swing.JLabel();
-        lblFondoSalida = new javax.swing.JLabel();
 
         bultos.setMinimumSize(new java.awt.Dimension(1280, 740));
         bultos.setResizable(false);
@@ -466,7 +466,7 @@ public class Salida extends javax.swing.JFrame {
 
             },
             new String [] {
-                "N° de bulto", "Largo", "Alto", "Ancho", "Peso", "Guia de despacho", "Chofer"
+                "N° de bulto", "Largo", "Alto", "Ancho", "Peso", "Guia de despacho", "Chofer", "Encargado"
             }
         ));
         jScrollPane3.setViewportView(tblBultosResumen);
@@ -489,6 +489,11 @@ public class Salida extends javax.swing.JFrame {
 
         btnEncargado.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         btnEncargado.setText("Encargado de Bulto");
+        btnEncargado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEncargadoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
         jPanel25.setLayout(jPanel25Layout);
@@ -555,6 +560,9 @@ public class Salida extends javax.swing.JFrame {
         lblOC.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         lblOC.setText("-");
 
+        lblID.setVisible(false);
+        lblID.setText("jLabel5");
+
         javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
         jPanel26.setLayout(jPanel26Layout);
         jPanel26Layout.setHorizontalGroup(
@@ -570,20 +578,27 @@ public class Salida extends javax.swing.JFrame {
                     .addComponent(txtCodigoOTSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnBuscarOTSalida)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblID)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel26Layout.setVerticalGroup(
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel26Layout.createSequentialGroup()
-                .addGap(4, 4, 4)
-                .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel51)
-                    .addComponent(txtCodigoOTSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscarOTSalida))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(lblOC))
+            .addGroup(jPanel26Layout.createSequentialGroup()
+                .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel26Layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel51)
+                            .addComponent(txtCodigoOTSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBuscarOTSalida))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(lblOC)))
+                    .addGroup(jPanel26Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblID)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -921,10 +936,6 @@ public class Salida extends javax.swing.JFrame {
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelGD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
@@ -939,21 +950,23 @@ public class Salida extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(10, 10, 10))
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane23)
-                .addContainerGap())
+                .addGap(11, 11, 11)
+                .addComponent(jLabel54))
             .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnSalida1))
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel131))
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(jLabel54))
+                        .addComponent(panelGD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnSalida1))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel131)))
-                .addGap(0, 0, 0))
+                        .addComponent(jScrollPane23)
+                        .addContainerGap())))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1012,7 +1025,7 @@ public class Salida extends javax.swing.JFrame {
                         .addComponent(btnVolver2))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jTabbedPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                        .addComponent(jTabbedPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1240, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -1025,31 +1038,7 @@ public class Salida extends javax.swing.JFrame {
                     .addComponent(lblContacto)
                     .addComponent(lblFono))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        lblFondoSalida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/menuTest.png"))); // NOI18N
-
-        jLayeredPane12.setLayer(jPanel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane12.setLayer(lblFondoSalida, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout jLayeredPane12Layout = new javax.swing.GroupLayout(jLayeredPane12);
-        jLayeredPane12.setLayout(jLayeredPane12Layout);
-        jLayeredPane12Layout.setHorizontalGroup(
-            jLayeredPane12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblFondoSalida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane12Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jLayeredPane12Layout.setVerticalGroup(
-            jLayeredPane12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblFondoSalida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane12Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTabbedPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 657, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1057,11 +1046,17 @@ public class Salida extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane12)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -1074,126 +1069,131 @@ public class Salida extends javax.swing.JFrame {
             try {
                 int input = JOptionPane.showConfirmDialog(null, "¿Confirma Salida de Mercadería?");
                 if (input == JOptionPane.YES_OPTION) {
-                    //Sacar la cantidad de bultos
-                    int index_bultos = tblBultosResumen.getRowCount();
-                    for (int b = 0; b < index_bultos; b++) {
-                        String querySalida = "insert into salida (idOrden,codigoOrdenCompra,numFactura,direccionDespacho) values(?,?,?,?);";
-                        PreparedStatement insertSalida = cn.prepareStatement(querySalida);
-                        insertSalida.setString(1, txtCodigoOTSalida.getText());
-                        insertSalida.setString(2, lblOC.getText());
-                        insertSalida.setString(3, txtNumeroFactura.getText());
-                        insertSalida.setString(4, txtDireccionesDespachoOCSalida.getText());
+                    String m = JOptionPane.showInputDialog("Ingrese Código de Usuario");
+                    System.out.println("credencial: " + m);
+                    System.out.println("Credencial del sistema: " + lblID.getText());
+                    if (m.equalsIgnoreCase(lblID.getText())) {
 
-                        int up = insertSalida.executeUpdate();
+                        //Sacar la cantidad de bultos
+                        int index_bultos = tblBultosResumen.getRowCount();
+                        for (int b = 0; b < index_bultos; b++) {
+                            String querySalida = "insert into salida (idOrden,codigoOrdenCompra,numFactura,direccionDespacho) values(?,?,?,?);";
+                            PreparedStatement insertSalida = cn.prepareStatement(querySalida);
+                            insertSalida.setString(1, txtCodigoOTSalida.getText());
+                            insertSalida.setString(2, lblOC.getText());
+                            insertSalida.setString(3, txtNumeroFactura.getText());
+                            insertSalida.setString(4, txtDireccionesDespachoOCSalida.getText());
 
-                        int idSalida = 0;
-                        String queryMax = "SELECT MAX(idSalida) FROM salida";
-                        // create the java statement
-                        PreparedStatement st = cn.prepareStatement(queryMax);
-                        // execute the query, and get a java resultset
-                        ResultSet rs = st.executeQuery();
-                        // iterate through the java resultset
-                        while (rs.next()) {
-                            idSalida = rs.getInt(1);
-                        }
-                        System.out.println("ID SALIDA: " + idSalida);
+                            int up = insertSalida.executeUpdate();
 
-                        String queryBulto = "insert into bulto "
-                                + "(codigoBulto,idSalida,idOrden,codigoOrdenCompra,guiaDespacho,largo,alto,ancho,peso,chofer,direccionDespacho) "
-                                + "values(?,?,?,?,?,?,?,?,?,?,?);";
-                        PreparedStatement insertBulto = cn.prepareStatement(queryBulto);
-                        insertBulto.setString(1, tblBultosResumen.getValueAt(b, 0).toString());
-                        insertBulto.setInt(2, idSalida);
-                        insertBulto.setInt(3, Integer.parseInt(txtCodigoOTSalida.getText()));
-                        insertBulto.setString(4, lblOC.getText());
-                        insertBulto.setString(5, tblBultosResumen.getValueAt(b, 5).toString());
-                        insertBulto.setString(6, tblBultosResumen.getValueAt(b, 1).toString());
-                        insertBulto.setString(7, tblBultosResumen.getValueAt(b, 2).toString());
-                        insertBulto.setString(8, tblBultosResumen.getValueAt(b, 3).toString());
-                        insertBulto.setString(9, tblBultosResumen.getValueAt(b, 4).toString());
-                        insertBulto.setString(10, tblBultosResumen.getValueAt(b, 6).toString());
-                        insertBulto.setString(11, txtDireccionesDespachoOCSalida.getText());
-                        int up2 = insertBulto.executeUpdate();
-
-                        //tblResumenProductos
-                        int index_productos = tblResumenProductos.getRowCount();
-                        for (int r = 0; r < index_productos; r++) {
-
-                            if (tblResumenProductos.getValueAt(r, 3).toString().equals(tblBultosResumen.getValueAt(b, 0).toString())) {
-                                String queryProducto = "insert into detalleSalida (idSalida,idOrden,codigoOrdenCompra,codigoBulto,idProducto,nombreProducto,stockRestado) values(?,?,?,?,?,?,?);";
-                                PreparedStatement insertProducto = cn.prepareStatement(queryProducto);
-                                insertProducto.setInt(1, idSalida);
-                                insertProducto.setInt(2, Integer.parseInt(txtCodigoOTSalida.getText()));
-                                insertProducto.setString(3, lblOC.getText());
-                                insertProducto.setString(4, tblResumenProductos.getValueAt(r, 3).toString());
-                                insertProducto.setString(5, tblResumenProductos.getValueAt(r, 0).toString());
-                                insertProducto.setString(6, tblResumenProductos.getValueAt(r, 1).toString());
-                                insertProducto.setString(7, tblResumenProductos.getValueAt(r, 2).toString());
-                                int up3 = insertProducto.executeUpdate();
-
-                                String queryUpdateProducto = "update inventario set stock = (stock - ?) where idProducto = ?";
-                                PreparedStatement updateProducto = cn.prepareStatement(queryUpdateProducto);
-                                updateProducto.setInt(1, Integer.parseInt(tblResumenProductos.getValueAt(r, 2).toString()));
-                                updateProducto.setInt(2, Integer.parseInt(tblResumenProductos.getValueAt(r, 0).toString()));
-                                int up4 = updateProducto.executeUpdate();
+                            int idSalida = 0;
+                            String queryMax = "SELECT MAX(idSalida) FROM salida";
+                            // create the java statement
+                            PreparedStatement st = cn.prepareStatement(queryMax);
+                            // execute the query, and get a java resultset
+                            ResultSet rs = st.executeQuery();
+                            // iterate through the java resultset
+                            while (rs.next()) {
+                                idSalida = rs.getInt(1);
                             }
-                        }
+                            System.out.println("ID SALIDA: " + idSalida);
 
-                        //Documento de Bulto
-                        String ruta = "";
+                            String queryBulto = "insert into bulto "
+                                    + "(codigoBulto,idSalida,idOrden,codigoOrdenCompra,guiaDespacho,largo,alto,ancho,peso,chofer,direccionDespacho) "
+                                    + "values(?,?,?,?,?,?,?,?,?,?,?);";
+                            PreparedStatement insertBulto = cn.prepareStatement(queryBulto);
+                            insertBulto.setString(1, tblBultosResumen.getValueAt(b, 0).toString());
+                            insertBulto.setInt(2, idSalida);
+                            insertBulto.setInt(3, Integer.parseInt(txtCodigoOTSalida.getText()));
+                            insertBulto.setString(4, lblOC.getText());
+                            insertBulto.setString(5, tblBultosResumen.getValueAt(b, 5).toString());
+                            insertBulto.setString(6, tblBultosResumen.getValueAt(b, 1).toString());
+                            insertBulto.setString(7, tblBultosResumen.getValueAt(b, 2).toString());
+                            insertBulto.setString(8, tblBultosResumen.getValueAt(b, 3).toString());
+                            insertBulto.setString(9, tblBultosResumen.getValueAt(b, 4).toString());
+                            insertBulto.setString(10, tblBultosResumen.getValueAt(b, 6).toString());
+                            insertBulto.setString(11, txtDireccionesDespachoOCSalida.getText());
+                            int up2 = insertBulto.executeUpdate();
 
-                        JFileChooser dlg = new JFileChooser();
-                        dlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                            //tblResumenProductos
+                            int index_productos = tblResumenProductos.getRowCount();
+                            for (int r = 0; r < index_productos; r++) {
 
-                        int option = dlg.showOpenDialog(this);
+                                if (tblResumenProductos.getValueAt(r, 3).toString().equals(tblBultosResumen.getValueAt(b, 0).toString())) {
+                                    String queryProducto = "insert into detalleSalida (idSalida,idOrden,codigoOrdenCompra,codigoBulto,idProducto,nombreProducto,stockRestado) values(?,?,?,?,?,?,?);";
+                                    PreparedStatement insertProducto = cn.prepareStatement(queryProducto);
+                                    insertProducto.setInt(1, idSalida);
+                                    insertProducto.setInt(2, Integer.parseInt(txtCodigoOTSalida.getText()));
+                                    insertProducto.setString(3, lblOC.getText());
+                                    insertProducto.setString(4, tblResumenProductos.getValueAt(r, 3).toString());
+                                    insertProducto.setString(5, tblResumenProductos.getValueAt(r, 0).toString());
+                                    insertProducto.setString(6, tblResumenProductos.getValueAt(r, 1).toString());
+                                    insertProducto.setString(7, tblResumenProductos.getValueAt(r, 2).toString());
+                                    int up3 = insertProducto.executeUpdate();
 
-                        if (option == JFileChooser.APPROVE_OPTION) {
-                            File f = dlg.getSelectedFile();
-                            ruta = f.toString();
-                        }
+                                    String queryUpdateProducto = "update inventario set stock = (stock - ?) where idProducto = ?";
+                                    PreparedStatement updateProducto = cn.prepareStatement(queryUpdateProducto);
+                                    updateProducto.setInt(1, Integer.parseInt(tblResumenProductos.getValueAt(r, 2).toString()));
+                                    updateProducto.setInt(2, Integer.parseInt(tblResumenProductos.getValueAt(r, 0).toString()));
+                                    int up4 = updateProducto.executeUpdate();
+                                }
+                            }
 
-                        Date sistHora = new Date();
-                        String pmAm = "hh:mm a";
-                        SimpleDateFormat format = new SimpleDateFormat(pmAm);
-                        Calendar hoy = Calendar.getInstance();
-                        String hora = (String.format(format.format(sistHora), hoy));
-                        hora = hora.replace(":", "-");
-                        SimpleDateFormat formato = new SimpleDateFormat("dd-MMM-YYYY");
-                        Date sistFecha = new Date();
-                        Document doc = new Document(new Rectangle(282, 424));
+                            //Documento de Bulto
+                            String ruta = "";
 
-                        PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(ruta + "\\" + "salida_numero_" + idSalida + "_bulto_" + tblBultosResumen.getValueAt(b, 0).toString() + "_fecha_" + formato.format(sistFecha) + ".pdf"));
+                            JFileChooser dlg = new JFileChooser();
+                            dlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
-                        doc.open();
+                            int option = dlg.showOpenDialog(this);
 
-                        //Establecer imagen y escala
-                        //Codigo QR
-                        BarcodeQRCode barcodeQRCode = new BarcodeQRCode("Acima Group - Salida " + idSalida, 1000, 1000, null);
-                        com.itextpdf.text.Image codeQrImage = barcodeQRCode.getImage();
-                        codeQrImage.scaleAbsolute(50, 50);
+                            if (option == JFileChooser.APPROVE_OPTION) {
+                                File f = dlg.getSelectedFile();
+                                ruta = f.toString();
+                            }
 
-                        com.itextpdf.text.Image logoAcima = com.itextpdf.text.Image.getInstance("src\\imagenes\\acima-logo-400p.png");
-                        logoAcima.scaleAbsolute(64, 34);
+                            Date sistHora = new Date();
+                            String pmAm = "hh:mm a";
+                            SimpleDateFormat format = new SimpleDateFormat(pmAm);
+                            Calendar hoy = Calendar.getInstance();
+                            String hora = (String.format(format.format(sistHora), hoy));
+                            hora = hora.replace(":", "-");
+                            SimpleDateFormat formato = new SimpleDateFormat("dd-MMM-YYYY");
+                            Date sistFecha = new Date();
+                            Document doc = new Document(new Rectangle(282, 424));
 
-                        PdfPCell cell1 = new PdfPCell(logoAcima, false);
-                        cell1.setBorder(Rectangle.NO_BORDER);
-                        cell1.setBackgroundColor(BaseColor.WHITE);
-                        cell1.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                            PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(ruta + "\\" + "salida_numero_" + idSalida + "_bulto_" + tblBultosResumen.getValueAt(b, 0).toString() + "_fecha_" + formato.format(sistFecha) + ".pdf"));
 
-                        PdfPCell cellqr = new PdfPCell(codeQrImage, false);
-                        cellqr.setBorder(Rectangle.NO_BORDER);
-                        cellqr.setBackgroundColor(BaseColor.WHITE);
-                        cellqr.setHorizontalAlignment(Element.ALIGN_LEFT);
+                            doc.open();
 
-                        //Crear Tabla
-                        PdfPTable tableHeader = new PdfPTable(2);
-                        tableHeader.setWidthPercentage(100);
+                            //Establecer imagen y escala
+                            //Codigo QR
+                            BarcodeQRCode barcodeQRCode = new BarcodeQRCode("Acima Group - Salida " + idSalida, 1000, 1000, null);
+                            com.itextpdf.text.Image codeQrImage = barcodeQRCode.getImage();
+                            codeQrImage.scaleAbsolute(50, 50);
 
-                        tableHeader.addCell(cellqr);
-                        tableHeader.addCell(cell1);
-                        doc.add(tableHeader);
+                            com.itextpdf.text.Image logoAcima = com.itextpdf.text.Image.getInstance("src\\imagenes\\acima-logo-400p.png");
+                            logoAcima.scaleAbsolute(64, 34);
 
-                        /*
+                            PdfPCell cell1 = new PdfPCell(logoAcima, false);
+                            cell1.setBorder(Rectangle.NO_BORDER);
+                            cell1.setBackgroundColor(BaseColor.WHITE);
+                            cell1.setHorizontalAlignment(Element.ALIGN_RIGHT);
+
+                            PdfPCell cellqr = new PdfPCell(codeQrImage, false);
+                            cellqr.setBorder(Rectangle.NO_BORDER);
+                            cellqr.setBackgroundColor(BaseColor.WHITE);
+                            cellqr.setHorizontalAlignment(Element.ALIGN_LEFT);
+
+                            //Crear Tabla
+                            PdfPTable tableHeader = new PdfPTable(2);
+                            tableHeader.setWidthPercentage(100);
+
+                            tableHeader.addCell(cellqr);
+                            tableHeader.addCell(cell1);
+                            doc.add(tableHeader);
+
+                            /*
                     //Establecer imagen y escala
                 Image logoAcima = Image.getInstance("src\\Imagenes\\acima-logo-400p.png");
                 logoAcima.scaleAbsolute(128, 68);
@@ -1220,117 +1220,116 @@ public class Salida extends javax.swing.JFrame {
                 tableHeader.addCell(cell2);
                 tableHeader.addCell(cell1);
                 doc.add(tableHeader);
-                         */
-                        //Separador
-                        PdfPTable myTable = new PdfPTable(1);
-                        myTable.setWidthPercentage(100.0f);
-                        PdfPCell myCell = new PdfPCell(new Paragraph(""));
-                        myCell.setBorder(Rectangle.BOTTOM);
-                        myTable.addCell(myCell);
-                        myTable.setSpacingAfter(5f);
-                        myTable.setSpacingBefore(5f);
-                        doc.add(myTable);
+                             */
+                            //Separador
+                            PdfPTable myTable = new PdfPTable(1);
+                            myTable.setWidthPercentage(100.0f);
+                            PdfPCell myCell = new PdfPCell(new Paragraph(""));
+                            myCell.setBorder(Rectangle.BOTTOM);
+                            myTable.addCell(myCell);
+                            myTable.setSpacingAfter(5f);
+                            myTable.setSpacingBefore(5f);
+                            doc.add(myTable);
 
-                        //Crear Tabla de información
-                        PdfPTable tableInfoContacto = new PdfPTable(1);
-                        tableInfoContacto.setWidthPercentage(100);
+                            //Crear Tabla de información
+                            PdfPTable tableInfoContacto = new PdfPTable(1);
+                            tableInfoContacto.setWidthPercentage(100);
 
-                        //Destino
-                        Paragraph destino = new Paragraph("Destino: " + txtNombreDemandanteOCSalida.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
-                        destino.setAlignment(Paragraph.ALIGN_LEFT);
-                        doc.add(destino);
-                        //Dirección
-                        Paragraph direccionDestino = new Paragraph("Dirección: " + txtDireccionesDespachoOCSalida.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
-                        direccionDestino.setAlignment(Paragraph.ALIGN_LEFT);
-                        doc.add(direccionDestino);
-                        //Contacto
-                        Paragraph contactoDestino = new Paragraph("Contacto: " + txtContactoOCSalida.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
-                        contactoDestino.setAlignment(Paragraph.ALIGN_LEFT);
-                        doc.add(contactoDestino);
-                        //Fono
-                        Paragraph fonoDestino = new Paragraph("Fono: " + txtTelefonoCompradorSalida.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
-                        fonoDestino.setAlignment(Paragraph.ALIGN_LEFT);
-                        doc.add(fonoDestino);
-                        //Orden de Compra
-                        Paragraph ordenCompra = new Paragraph("N° de Orden de Compra: " + lblOC.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
-                        ordenCompra.setAlignment(Paragraph.ALIGN_LEFT);
-                        doc.add(ordenCompra);
+                            //Destino
+                            Paragraph destino = new Paragraph("Destino: " + txtNombreDemandanteOCSalida.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                            destino.setAlignment(Paragraph.ALIGN_LEFT);
+                            doc.add(destino);
+                            //Dirección
+                            Paragraph direccionDestino = new Paragraph("Dirección: " + txtDireccionesDespachoOCSalida.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                            direccionDestino.setAlignment(Paragraph.ALIGN_LEFT);
+                            doc.add(direccionDestino);
+                            //Contacto
+                            Paragraph contactoDestino = new Paragraph("Contacto: " + txtContactoOCSalida.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                            contactoDestino.setAlignment(Paragraph.ALIGN_LEFT);
+                            doc.add(contactoDestino);
+                            //Fono
+                            Paragraph fonoDestino = new Paragraph("Fono: " + txtTelefonoCompradorSalida.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                            fonoDestino.setAlignment(Paragraph.ALIGN_LEFT);
+                            doc.add(fonoDestino);
+                            //Orden de Compra
+                            Paragraph ordenCompra = new Paragraph("N° de Orden de Compra: " + lblOC.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                            ordenCompra.setAlignment(Paragraph.ALIGN_LEFT);
+                            doc.add(ordenCompra);
 
-                        doc.add(myTable);
+                            doc.add(myTable);
 
-                        //Empresa
-                        Paragraph empresa = new Paragraph("Empresa: " + txtProveedorOCSalida.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
-                        empresa.setAlignment(Paragraph.ALIGN_LEFT);
-                        doc.add(empresa);
-                        //Dirección
-                        Paragraph direccionEmpresa = new Paragraph("Dirección Empresa: Av. 5 de abril 4454, Oficina 31, Estación Central, Santiago, Chile", FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
-                        direccionEmpresa.setAlignment(Paragraph.ALIGN_LEFT);
-                        doc.add(direccionEmpresa);
-                        //Contacto
-                        Paragraph contactoEmpresa = new Paragraph("Contacto: Sergio Lagos", FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
-                        contactoEmpresa.setAlignment(Paragraph.ALIGN_LEFT);
-                        doc.add(contactoEmpresa);
-                        //Fono
-                        Paragraph fonoEmpresa = new Paragraph("Fono: 983606487", FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
-                        fonoEmpresa.setAlignment(Paragraph.ALIGN_LEFT);
-                        doc.add(fonoEmpresa);
-                        //Factura
-                        Paragraph facturaEmpresa = new Paragraph("Factura: " + txtNumeroFactura.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
-                        facturaEmpresa.setAlignment(Paragraph.ALIGN_LEFT);
-                        doc.add(facturaEmpresa);
-                        //Guia de Despacho
-                        Paragraph guiaDespachoEmpresa = new Paragraph("Guia de Despacho: " + tblBultosResumen.getValueAt(b, 5).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
-                        guiaDespachoEmpresa.setAlignment(Paragraph.ALIGN_LEFT);
-                        doc.add(guiaDespachoEmpresa);
+                            //Empresa
+                            Paragraph empresa = new Paragraph("Empresa: " + txtProveedorOCSalida.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                            empresa.setAlignment(Paragraph.ALIGN_LEFT);
+                            doc.add(empresa);
+                            //Dirección
+                            Paragraph direccionEmpresa = new Paragraph("Dirección Empresa: Av. 5 de abril 4454, Oficina 31, Estación Central, Santiago, Chile", FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                            direccionEmpresa.setAlignment(Paragraph.ALIGN_LEFT);
+                            doc.add(direccionEmpresa);
+                            //Contacto
+                            Paragraph contactoEmpresa = new Paragraph("Contacto: Sergio Lagos", FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                            contactoEmpresa.setAlignment(Paragraph.ALIGN_LEFT);
+                            doc.add(contactoEmpresa);
+                            //Fono
+                            Paragraph fonoEmpresa = new Paragraph("Fono: 983606487", FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                            fonoEmpresa.setAlignment(Paragraph.ALIGN_LEFT);
+                            doc.add(fonoEmpresa);
+                            //Factura
+                            Paragraph facturaEmpresa = new Paragraph("Factura: " + txtNumeroFactura.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                            facturaEmpresa.setAlignment(Paragraph.ALIGN_LEFT);
+                            doc.add(facturaEmpresa);
+                            //Guia de Despacho
+                            Paragraph guiaDespachoEmpresa = new Paragraph("Guia de Despacho: " + tblBultosResumen.getValueAt(b, 5).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                            guiaDespachoEmpresa.setAlignment(Paragraph.ALIGN_LEFT);
+                            doc.add(guiaDespachoEmpresa);
 
-                        doc.add(myTable);
+                            doc.add(myTable);
 
-                        //Información de Pedido
-                        Paragraph informacionPedido = new Paragraph("Información de Pedido", FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
-                        informacionPedido.setAlignment(Paragraph.ALIGN_LEFT);
-                        doc.add(informacionPedido);
+                            //Información de Pedido
+                            Paragraph informacionPedido = new Paragraph("Información de Pedido", FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                            informacionPedido.setAlignment(Paragraph.ALIGN_LEFT);
+                            doc.add(informacionPedido);
 
-                        //Bulto
-                        Paragraph bulto = new Paragraph("Bulto: " + tblBultosResumen.getValueAt(b, 0).toString() + " de " + index_bultos, FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
-                        bulto.setAlignment(Paragraph.ALIGN_LEFT);
-                        doc.add(bulto);
+                            //Bulto
+                            Paragraph bulto = new Paragraph("Bulto: " + tblBultosResumen.getValueAt(b, 0).toString() + " de " + index_bultos, FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                            bulto.setAlignment(Paragraph.ALIGN_LEFT);
+                            doc.add(bulto);
 
-                        //Peso
-                        Paragraph peso = new Paragraph("Peso: " + tblBultosResumen.getValueAt(b, 4).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
-                        peso.setAlignment(Paragraph.ALIGN_LEFT);
-                        doc.add(peso);
+                            //Peso
+                            Paragraph peso = new Paragraph("Peso: " + tblBultosResumen.getValueAt(b, 4).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                            peso.setAlignment(Paragraph.ALIGN_LEFT);
+                            doc.add(peso);
 
-                        //Dimensiones
-                        Paragraph dimensiones = new Paragraph("Dimensiones: "
-                                + "Largo: " + tblBultosResumen.getValueAt(b, 1).toString() + " ,Alto: " + tblBultosResumen.getValueAt(b, 2).toString() + ",Ancho: " + tblBultosResumen.getValueAt(b, 3).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
-                        dimensiones.setAlignment(Paragraph.ALIGN_LEFT);
-                        doc.add(dimensiones);
+                            //Dimensiones
+                            Paragraph dimensiones = new Paragraph("Dimensiones: "
+                                    + "Largo: " + tblBultosResumen.getValueAt(b, 1).toString() + " ,Alto: " + tblBultosResumen.getValueAt(b, 2).toString() + ",Ancho: " + tblBultosResumen.getValueAt(b, 3).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                            dimensiones.setAlignment(Paragraph.ALIGN_LEFT);
+                            doc.add(dimensiones);
 
-                        /*
+                            /*
                      PdfContentByte cb = writer.getDirectContent();
                      Barcode128 barcode128 = new Barcode128();
                      barcode128.setCode("este es un codigo de barra muy largo...con mucha informacion innecesaria");
                      barcode128.setCodeType(Barcode.CODE128);
                      Image code128Image = barcode128.createImageWithBarcode(cb, null, null);
                      doc.add(code128Image);
-                         */
-                        // doc.add(myTable);
-                        doc.close();
+                             */
+                            // doc.add(myTable);
+                            doc.close();
 
-                        JOptionPane.showMessageDialog(null, "Salida de mercadería para bulto: " + tblBultosResumen.getValueAt(b, 5).toString() + " realizada");
+                            JOptionPane.showMessageDialog(null, "Salida de mercadería para bulto: " + tblBultosResumen.getValueAt(b, 5).toString() + " realizada");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "La credencial no es correcta");
                     }
+
                 } else {
                     JOptionPane.showMessageDialog(null, "Se ha cancelado la operación");
                 }
 
-            } catch (SQLException ex) {
-                Logger.getLogger(Salida.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (DocumentException ex) {
-                Logger.getLogger(Salida.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(Salida.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (DocumentException | HeadlessException | IOException | NumberFormatException | SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Ha ocurrido un error en la salida de mercadería" + ex);
             }
-
         }
     }//GEN-LAST:event_btnSalida1ActionPerformed
 
@@ -1678,6 +1677,17 @@ public class Salida extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreOrdenCompraSalidaActionPerformed
 
+    private void btnEncargadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncargadoActionPerformed
+        try {
+            int index = tblBultosResumen.getSelectedRow();
+
+            String respuesta = JOptionPane.showInputDialog(null, "Indique encargado", null, JOptionPane.ERROR_MESSAGE);
+            tblBultosResumen.setValueAt(respuesta, index, 7);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error: debe seleccionar un elemento en la tabla" + ex);
+        }
+    }//GEN-LAST:event_btnEncargadoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1772,7 +1782,6 @@ public class Salida extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel83;
     private javax.swing.JLabel jLabel84;
-    private javax.swing.JLayeredPane jLayeredPane12;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel20;
@@ -1795,8 +1804,8 @@ public class Salida extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane4;
     public javax.swing.JLabel lblCodigo;
     public javax.swing.JLabel lblContacto;
-    private javax.swing.JLabel lblFondoSalida;
     public javax.swing.JLabel lblFono;
+    public javax.swing.JLabel lblID;
     public javax.swing.JLabel lblOC;
     private javax.swing.JLabel lblStock;
     private javax.swing.JPanel panelGD;

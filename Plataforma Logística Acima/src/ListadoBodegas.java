@@ -26,21 +26,29 @@ public class ListadoBodegas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLayeredPane9 = new javax.swing.JLayeredPane();
+        jPanel1 = new javax.swing.JPanel();
+        btnVolver6 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jTabbedPane6 = new javax.swing.JTabbedPane();
         jScrollPane11 = new javax.swing.JScrollPane();
         tblListadoBodegas = new javax.swing.JTable();
-        btnVolver6 = new javax.swing.JButton();
-        lblListadoBodegaFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1280, 720));
-        setMinimumSize(new java.awt.Dimension(1280, 720));
-        setResizable(false);
+        setMaximumSize(new java.awt.Dimension(1280, 740));
+        setMinimumSize(new java.awt.Dimension(1280, 740));
 
-        jLayeredPane9.setMaximumSize(new java.awt.Dimension(1280, 720));
-        jLayeredPane9.setMinimumSize(new java.awt.Dimension(1280, 720));
-        jLayeredPane9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.setBackground(new java.awt.Color(252, 252, 252));
+        jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        btnVolver6.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        btnVolver6.setText("Volver");
+        btnVolver6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolver6ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/acima-logo-200p.png"))); // NOI18N
 
         jTabbedPane6.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
 
@@ -61,31 +69,45 @@ public class ListadoBodegas extends javax.swing.JFrame {
 
         jTabbedPane6.addTab("Todas las Bodegas", jScrollPane11);
 
-        jLayeredPane9.add(jTabbedPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 1230, 403));
-
-        btnVolver6.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        btnVolver6.setText("Volver");
-        btnVolver6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVolver6ActionPerformed(evt);
-            }
-        });
-        jLayeredPane9.add(btnVolver6, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 630, 140, -1));
-
-        lblListadoBodegaFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/menuTest.png"))); // NOI18N
-        jLayeredPane9.add(lblListadoBodegaFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnVolver6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTabbedPane6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1230, Short.MAX_VALUE))
+                .addGap(14, 14, 14))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTabbedPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnVolver6)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLayeredPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addGap(10, 10, 10)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10))
         );
 
         pack();
@@ -132,10 +154,10 @@ public class ListadoBodegas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVolver6;
-    private javax.swing.JLayeredPane jLayeredPane9;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JTabbedPane jTabbedPane6;
-    private javax.swing.JLabel lblListadoBodegaFondo;
     public javax.swing.JTable tblListadoBodegas;
     // End of variables declaration//GEN-END:variables
 }

@@ -39,7 +39,7 @@ public class InventarioPorBodega extends javax.swing.JFrame {
     private void ReiniciarTablaProductos(JTable tblProducto) {
         try {
             String queryProducto = "Select idProducto as 'ID producto', SKU, categoria as 'Categoría', nombreProducto as 'Producto', descripcion as 'Descripción',\n"
-                    + "Concat('$',precioVenta )as 'Precio Venta', precioCosto as 'Precio Costo', d.nombreDistribuidor as 'Nombre de Distribuidor', regiones as 'Regiones',\n"
+                    + "FORMAT( precioVenta, 'es_CL')as 'Precio Venta', FORMAT( precioCosto,'es_CL') as 'Precio Costo', d.nombreDistribuidor as 'Nombre de Distribuidor', regiones as 'Regiones',\n"
                     + "CondicionDespacho as 'Condición de Despacho', diasHabiles as 'Días Hábiles', StatusProducto as 'Estado', stock as 'Stock'\n"
                     + "FROM inventario r left join distribuidor d on r.IDDISTRIBUIDOR = d.idDistribuidor;";
             PreparedStatement pstProducto = cn.prepareStatement(queryProducto);
@@ -60,7 +60,6 @@ public class InventarioPorBodega extends javax.swing.JFrame {
     private void initComponents() {
 
         jLayeredPane1 = new javax.swing.JLayeredPane();
-        jLayeredPane10 = new javax.swing.JLayeredPane();
         jPanel48 = new javax.swing.JPanel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jScrollPane24 = new javax.swing.JScrollPane();
@@ -120,6 +119,7 @@ public class InventarioPorBodega extends javax.swing.JFrame {
         tblProductoInventarioBodega = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         btnVolverMenu = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -133,74 +133,60 @@ public class InventarioPorBodega extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1280, 720));
-        setPreferredSize(new java.awt.Dimension(1280, 720));
-        setResizable(false);
+        setMaximumSize(new java.awt.Dimension(1280, 740));
+        setPreferredSize(new java.awt.Dimension(1280, 740));
 
-        jLayeredPane10.setMaximumSize(new java.awt.Dimension(1280, 720));
-        jLayeredPane10.setMinimumSize(new java.awt.Dimension(1280, 720));
+        jPanel48.setBackground(new java.awt.Color(252, 252, 252));
+        jPanel48.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        panelIngresoProducto1.setBackground(new java.awt.Color(0, 153, 153));
+        panelIngresoProducto1.setBackground(new java.awt.Color(252, 252, 252));
         panelIngresoProducto1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         panelIngresoProducto1.setEnabled(true);
 
         jLabel95.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel95.setForeground(new java.awt.Color(255, 255, 255));
         jLabel95.setText("ID de Producto:");
 
         txtIDproductoIngreso1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
 
         jLabel123.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel123.setForeground(new java.awt.Color(255, 255, 255));
         jLabel123.setText("Stock a Ingresar:");
 
         txtStockIngresado1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         txtStockIngresado1.setText("0");
 
         jLabel124.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
-        jLabel124.setForeground(new java.awt.Color(255, 255, 255));
         jLabel124.setText("SKU:");
 
-        txtSKUIngreso1.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
+        txtSKUIngreso1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
 
         jLabel126.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel126.setForeground(new java.awt.Color(255, 255, 255));
         jLabel126.setText("Nombre de Producto:");
 
         jLabel127.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel127.setForeground(new java.awt.Color(255, 255, 255));
         jLabel127.setText("Categoría:");
 
         jLabel128.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel128.setForeground(new java.awt.Color(255, 255, 255));
         jLabel128.setText("Precio de Venta(Unitario):");
 
         jLabel129.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel129.setForeground(new java.awt.Color(255, 255, 255));
         jLabel129.setText("Precio Costo:");
 
         jLabel132.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel132.setForeground(new java.awt.Color(255, 255, 255));
         jLabel132.setText("Descripción:");
 
         jLabel133.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel133.setForeground(new java.awt.Color(255, 255, 255));
         jLabel133.setText("Distribuidor:");
 
         jLabel134.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel134.setForeground(new java.awt.Color(255, 255, 255));
         jLabel134.setText("Regiones:");
 
         jLabel135.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel135.setForeground(new java.awt.Color(255, 255, 255));
         jLabel135.setText("Condición de Despacho:");
 
         jLabel136.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel136.setForeground(new java.awt.Color(255, 255, 255));
         jLabel136.setText("Días Hábiles:");
 
         jLabel141.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel141.setForeground(new java.awt.Color(255, 255, 255));
         jLabel141.setText("Status del Producto:");
 
         txtNombreProductoIngreso1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
@@ -239,15 +225,12 @@ public class InventarioPorBodega extends javax.swing.JFrame {
         cmbBodega2.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
 
         jLabel146.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel146.setForeground(new java.awt.Color(255, 255, 255));
         jLabel146.setText("Bodega:");
 
         jLabel149.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel149.setForeground(new java.awt.Color(255, 255, 255));
         jLabel149.setText("Transporte:");
 
         jLabel150.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel150.setForeground(new java.awt.Color(255, 255, 255));
         jLabel150.setText("Sección de Bodega:");
 
         cmbSeccionBodega1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
@@ -267,19 +250,19 @@ public class InventarioPorBodega extends javax.swing.JFrame {
                     .addComponent(jLabel148)
                     .addGroup(panelIngresoProducto1Layout.createSequentialGroup()
                         .addGroup(panelIngresoProducto1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel95)
-                            .addComponent(jLabel124)
-                            .addComponent(jLabel126)
-                            .addComponent(jLabel127)
-                            .addComponent(jLabel128)
-                            .addComponent(jLabel129)
-                            .addComponent(jLabel133)
-                            .addComponent(jLabel132)
-                            .addComponent(jLabel134)
-                            .addComponent(jLabel135)
-                            .addComponent(jLabel136)
-                            .addComponent(jLabel141)
                             .addComponent(jLabel123)
+                            .addComponent(jLabel141)
+                            .addComponent(jLabel136)
+                            .addComponent(jLabel135)
+                            .addComponent(jLabel134)
+                            .addComponent(jLabel132)
+                            .addComponent(jLabel133)
+                            .addComponent(jLabel129)
+                            .addComponent(jLabel128)
+                            .addComponent(jLabel127)
+                            .addComponent(jLabel126)
+                            .addComponent(jLabel124)
+                            .addComponent(jLabel95)
                             .addComponent(jLabel146)
                             .addComponent(jLabel149))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -388,7 +371,7 @@ public class InventarioPorBodega extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("Ingreso de Productos (Stock 0)", jScrollPane24);
 
-        jPanel9.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel9.setBackground(new java.awt.Color(252, 252, 252));
 
         jTabbedPane7.setBackground(new java.awt.Color(0, 153, 153));
         jTabbedPane7.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
@@ -397,10 +380,9 @@ public class InventarioPorBodega extends javax.swing.JFrame {
         jTabbedPane8.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         jTabbedPane8.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
 
-        jPanel17.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel17.setBackground(new java.awt.Color(252, 252, 252));
 
         jLabel86.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel86.setForeground(new java.awt.Color(255, 255, 255));
         jLabel86.setText("Nombre Genérico:");
         jLabel86.setToolTipText("");
 
@@ -440,10 +422,9 @@ public class InventarioPorBodega extends javax.swing.JFrame {
 
         jTabbedPane8.addTab("Busqueda de productos por Nombre", jPanel17);
 
-        jPanel18.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel18.setBackground(new java.awt.Color(252, 252, 252));
 
         jLabel87.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel87.setForeground(new java.awt.Color(255, 255, 255));
         jLabel87.setText("Buscar por SKU:");
 
         txtSKUInventarioBodega.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
@@ -483,10 +464,9 @@ public class InventarioPorBodega extends javax.swing.JFrame {
 
         jTabbedPane8.addTab("Busqueda de productos por SKU", jPanel18);
 
-        jPanel19.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel19.setBackground(new java.awt.Color(252, 252, 252));
 
         jLabel88.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel88.setForeground(new java.awt.Color(255, 255, 255));
         jLabel88.setText("Busqueda por Status:");
 
         cmbStatusFiltrarInventario.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
@@ -585,7 +565,7 @@ public class InventarioPorBodega extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane12, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTabbedPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 1202, Short.MAX_VALUE))
+                            .addComponent(jTabbedPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 1209, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         jPanel9Layout.setVerticalGroup(
@@ -599,7 +579,7 @@ public class InventarioPorBodega extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
+                .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -613,44 +593,32 @@ public class InventarioPorBodega extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/acima-logo-200p.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel48Layout = new javax.swing.GroupLayout(jPanel48);
         jPanel48.setLayout(jPanel48Layout);
         jPanel48Layout.setHorizontalGroup(
             jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel48Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnVolverMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1227, Short.MAX_VALUE))
-                .addGap(13, 13, 13))
+                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1234, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel48Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnVolverMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(10, 10, 10))
         );
         jPanel48Layout.setVerticalGroup(
             jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel48Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnVolverMenu)
+                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(btnVolverMenu))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jLayeredPane10.setLayer(jPanel48, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout jLayeredPane10Layout = new javax.swing.GroupLayout(jLayeredPane10);
-        jLayeredPane10.setLayout(jLayeredPane10Layout);
-        jLayeredPane10Layout.setHorizontalGroup(
-            jLayeredPane10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane10Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jPanel48, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
-        );
-        jLayeredPane10Layout.setVerticalGroup(
-            jLayeredPane10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane10Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(jPanel48, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -658,12 +626,16 @@ public class InventarioPorBodega extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLayeredPane10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(4, 4, 4))
+                .addContainerGap()
+                .addComponent(jPanel48, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jPanel48, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10))
         );
 
         pack();
@@ -695,7 +667,7 @@ public class InventarioPorBodega extends javax.swing.JFrame {
             try {
                 String queryINV = "INSERT INTO inventario(`idBodega`,`idProducto`,`sku`,`nombreProducto`,codigoConvenio,`categoria`,"
                         + "`precioventa`,`precioCosto`,`iddistribuidor`,`descripcion`,`regiones`,`condiciondespacho`,`diashabiles`,"
-                        + "`statusproducto`,`stock`,`codigoqr`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+                        + "`statusproducto`,`stock`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
                 PreparedStatement pstINV = cn.prepareStatement(queryINV);
                 pstINV.setInt(1, cmbBodega2.getSelectedIndex());
                 pstINV.setString(2, txtIDproductoIngreso1.getText());
@@ -712,7 +684,7 @@ public class InventarioPorBodega extends javax.swing.JFrame {
                 pstINV.setString(13, txtDiasHabilesIngreso1.getText());
                 pstINV.setString(14, cmbStatusProdIngreso1.getSelectedItem().toString());
                 pstINV.setInt(15, Integer.parseInt(txtStockIngresado1.getText()));
-                pstINV.setString(16, "-");
+
                 int upINV = pstINV.executeUpdate();
                 ReiniciarTablaProductos(tblProductoInventarioBodega);
                 JOptionPane.showMessageDialog(null, "Producto Ingresado");
@@ -745,7 +717,7 @@ public class InventarioPorBodega extends javax.swing.JFrame {
 
         try {
             String queryProducto = "Select idProducto as 'ID producto', SKU, categoria as 'Categoría', nombreProducto as 'Producto', descripcion as 'Descripción',\n"
-                    + "Concat('$',precioVenta )as 'Precio Venta', precioCosto as 'Precio Costo', d.nombreDistribuidor as 'Nombre de Distribuidor', regiones as 'Regiones',\n"
+                    + "FORMAT( precioVenta, 'es_CL')as 'Precio Venta', FORMAT( precioCosto,'es_CL') as 'Precio Costo', d.nombreDistribuidor as 'Nombre de Distribuidor', regiones as 'Regiones',\n"
                     + "CondicionDespacho as 'Condición de Despacho', diasHabiles as 'Días Hábiles', StatusProducto as 'Estado', stock as 'Stock'\n"
                     + "FROM inventario r left join distribuidor d on r.IDDISTRIBUIDOR = d.idDistribuidor where r.nombreProducto RLIKE ? ";
             String param = txtFiltrarNombreInventario.getText();
@@ -761,8 +733,8 @@ public class InventarioPorBodega extends javax.swing.JFrame {
     private void btnBuscarSKU2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarSKU2ActionPerformed
 
         try {
-            String queryProducto = "Select idProducto as 'ID producto', SKU, categoria as 'Categoría', nombreProducto as 'Producto', descripcion as 'Descripción',\n"
-                    + "Concat('$',precioVenta )as 'Precio Venta', precioCosto as 'Precio Costo', d.nombreDistribuidor as 'Nombre de Distribuidor', regiones as 'Regiones',\n"
+            String queryProducto = "SSelect idProducto as 'ID producto', SKU, categoria as 'Categoría', nombreProducto as 'Producto', descripcion as 'Descripción',\n"
+                    + "FORMAT( precioVenta, 'es_CL')as 'Precio Venta', FORMAT( precioCosto,'es_CL') as 'Precio Costo', d.nombreDistribuidor as 'Nombre de Distribuidor', regiones as 'Regiones',\n"
                     + "CondicionDespacho as 'Condición de Despacho', diasHabiles as 'Días Hábiles', StatusProducto as 'Estado', stock as 'Stock'\n"
                     + "FROM inventario r left join distribuidor d on r.IDDISTRIBUIDOR = d.idDistribuidor where r.sku RLIKE ?";
             String param = txtSKUInventarioBodega.getText();
@@ -779,7 +751,7 @@ public class InventarioPorBodega extends javax.swing.JFrame {
 
         try {
             String queryProducto = "Select idProducto as 'ID producto', SKU, categoria as 'Categoría', nombreProducto as 'Producto', descripcion as 'Descripción',\n"
-                    + "Concat('$',precioVenta )as 'Precio Venta', precioCosto as 'Precio Costo', d.nombreDistribuidor as 'Nombre de Distribuidor', regiones as 'Regiones',\n"
+                    + "FORMAT( precioVenta, 'es_CL')as 'Precio Venta', FORMAT( precioCosto,'es_CL') as 'Precio Costo', d.nombreDistribuidor as 'Nombre de Distribuidor', regiones as 'Regiones',\n"
                     + "CondicionDespacho as 'Condición de Despacho', diasHabiles as 'Días Hábiles', StatusProducto as 'Estado', stock as 'Stock'\n"
                     + "FROM inventario r left join distribuidor d on r.IDDISTRIBUIDOR = d.idDistribuidor WHERE  r.statusproducto RLIKE ?";
             String param = cmbStatusFiltrarInventario.getSelectedItem().toString();
@@ -903,6 +875,7 @@ public class InventarioPorBodega extends javax.swing.JFrame {
                 row.createCell(10).setCellValue(tblProductoInventarioBodega.getValueAt(i, 10).toString());
                 row.createCell(11).setCellValue(tblProductoInventarioBodega.getValueAt(i, 11).toString());
                 row.createCell(12).setCellValue(tblProductoInventarioBodega.getValueAt(i, 12).toString());
+
             }
 
             // Resize all columns to fit the content size
@@ -911,7 +884,7 @@ public class InventarioPorBodega extends javax.swing.JFrame {
             }
 
             try ( // Write the output to a file
-                    FileOutputStream fileOut = new FileOutputStream(ruta + "\\" + "productos.xlsx")) {
+                    FileOutputStream fileOut = new FileOutputStream(ruta + "\\" + "inventario_productos.xlsx")) {
                 workbook.write(fileOut);
             }
             JOptionPane.showMessageDialog(null, "Documento Creado");
@@ -934,16 +907,24 @@ public class InventarioPorBodega extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InventarioPorBodega.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InventarioPorBodega.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InventarioPorBodega.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InventarioPorBodega.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InventarioPorBodega.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InventarioPorBodega.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InventarioPorBodega.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InventarioPorBodega.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -971,6 +952,7 @@ public class InventarioPorBodega extends javax.swing.JFrame {
     public javax.swing.JComboBox cmbStatusProdIngreso1;
     private javax.swing.JComboBox<String> cmbTransporte1;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel123;
     private javax.swing.JLabel jLabel124;
     private javax.swing.JLabel jLabel126;
@@ -992,7 +974,6 @@ public class InventarioPorBodega extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel88;
     private javax.swing.JLabel jLabel95;
     private javax.swing.JLayeredPane jLayeredPane1;
-    private javax.swing.JLayeredPane jLayeredPane10;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;

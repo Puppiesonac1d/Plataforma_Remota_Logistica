@@ -276,26 +276,25 @@ public class Mantenedores extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLayeredPane11 = new javax.swing.JLayeredPane();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         btnMantenedorBodegas1 = new javax.swing.JButton();
-        btnMantenedorProductos = new javax.swing.JButton();
         btnMantenedorCM = new javax.swing.JButton();
         btnVolverMenu2 = new javax.swing.JButton();
-        lblMantenedoresFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(252, 252, 252));
         setMaximumSize(new java.awt.Dimension(1280, 720));
         setMinimumSize(new java.awt.Dimension(1280, 720));
-        setPreferredSize(new java.awt.Dimension(1280, 720));
-        setResizable(false);
 
-        jLayeredPane11.setMaximumSize(new java.awt.Dimension(1280, 720));
-        jLayeredPane11.setMinimumSize(new java.awt.Dimension(1280, 720));
+        jPanel1.setBackground(new java.awt.Color(252, 252, 252));
 
-        jPanel8.setBackground(new java.awt.Color(0, 153, 153));
-        jPanel8.setForeground(new java.awt.Color(0, 204, 204));
-        jPanel8.setLayout(new java.awt.GridLayout(1, 0));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/acima-logo-200p.png"))); // NOI18N
+
+        jPanel8.setBackground(new java.awt.Color(252, 252, 252));
+        jPanel8.setForeground(new java.awt.Color(252, 252, 252));
+        jPanel8.setLayout(new java.awt.GridLayout(2, 0));
 
         btnMantenedorBodegas1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         btnMantenedorBodegas1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/578bc5a79c(2).png"))); // NOI18N
@@ -307,18 +306,7 @@ public class Mantenedores extends javax.swing.JFrame {
         });
         jPanel8.add(btnMantenedorBodegas1);
 
-        btnMantenedorProductos.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        btnMantenedorProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/7af6ee279c(1).png"))); // NOI18N
-        btnMantenedorProductos.setText("Ingresar Productos a Merma");
-        btnMantenedorProductos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMantenedorProductosActionPerformed(evt);
-            }
-        });
-        jPanel8.add(btnMantenedorProductos);
-
         btnMantenedorCM.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        btnMantenedorCM.setIcon(new javax.swing.ImageIcon("D:\\Plataforma Logística Acima_11-06-2019\\Plataforma Logística Acima\\src\\imagenes\\7e27801d8b(1).png")); // NOI18N
         btnMantenedorCM.setText("Registrar Convenio Marco");
         btnMantenedorCM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -328,7 +316,6 @@ public class Mantenedores extends javax.swing.JFrame {
         jPanel8.add(btnMantenedorCM);
 
         btnVolverMenu2.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        btnVolverMenu2.setIcon(new javax.swing.ImageIcon("D:\\Plataforma Logística Acima_11-06-2019\\Plataforma Logística Acima\\src\\imagenes\\exit_icon-icons.com_70975.png")); // NOI18N
         btnVolverMenu2.setText("Volver");
         btnVolverMenu2.setToolTipText("");
         btnVolverMenu2.addActionListener(new java.awt.event.ActionListener() {
@@ -338,40 +325,44 @@ public class Mantenedores extends javax.swing.JFrame {
         });
         jPanel8.add(btnVolverMenu2);
 
-        lblMantenedoresFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/menuTest.png"))); // NOI18N
-
-        javax.swing.GroupLayout jLayeredPane11Layout = new javax.swing.GroupLayout(jLayeredPane11);
-        jLayeredPane11.setLayout(jLayeredPane11Layout);
-        jLayeredPane11Layout.setHorizontalGroup(
-            jLayeredPane11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblMantenedoresFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jLayeredPane11Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addGap(30, 30, 30))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 1240, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
-        jLayeredPane11Layout.setVerticalGroup(
-            jLayeredPane11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblMantenedoresFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jLayeredPane11Layout.createSequentialGroup()
-                .addGap(368, 368, 368)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
+                .addGap(74, 74, 74))
         );
-        jLayeredPane11.setLayer(jPanel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane11.setLayer(lblMantenedoresFondo, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLayeredPane11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -391,23 +382,6 @@ public class Mantenedores extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_btnMantenedorBodegas1ActionPerformed
-
-    private void btnMantenedorProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMantenedorProductosActionPerformed
-        try {
-            this.dispose();
-            MantenedorProductos productos = new MantenedorProductos();
-            productos.setVisible(true);
-            String queryProducto = "Select inv.idProducto as 'ID producto', inv.SKU, inv.categoria as 'Categoría', inv.nombreProducto as 'Producto',\n"
-                    + "inv.descripcion as 'Descripción' ,inv.StatusProducto as 'Estado', inv.stock as 'Stock en la bodega', b.nombreBodega as 'Nombre de Bodega'\n"
-                    + "FROM inventario inv join bodega b on inv.idBodega = b.idBodega\n"
-                    + "join ingreso ing on ing.idBodega = inv.idBodega";
-            PreparedStatement pstProducto = cn.prepareStatement(queryProducto);
-            ResultSet rsProducto = pstProducto.executeQuery();
-            productos.tblMantenedorProductos.setModel(DbUtils.resultSetToTableModel(rsProducto));
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex.getMessage());
-        }
-    }//GEN-LAST:event_btnMantenedorProductosActionPerformed
 
     private void btnMantenedorCMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMantenedorCMActionPerformed
         try {
@@ -466,10 +440,9 @@ public class Mantenedores extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMantenedorBodegas1;
     private javax.swing.JButton btnMantenedorCM;
-    private javax.swing.JButton btnMantenedorProductos;
     private javax.swing.JButton btnVolverMenu2;
-    private javax.swing.JLayeredPane jLayeredPane11;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JLabel lblMantenedoresFondo;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,12 +1,24 @@
 
 import clases.Conexion;
 import java.awt.HeadlessException;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -30,9 +42,9 @@ public class IngresoTransporte extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLayeredPane8 = new javax.swing.JLayeredPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
         btnVolver3 = new javax.swing.JButton();
-        btnVolverSalidas = new javax.swing.JButton();
         jPanel46 = new javax.swing.JPanel();
         jLabel43 = new javax.swing.JLabel();
         txtContacto = new javax.swing.JTextField();
@@ -55,19 +67,18 @@ public class IngresoTransporte extends javax.swing.JFrame {
         txtComuna = new javax.swing.JTextField();
         jLabel48 = new javax.swing.JLabel();
         txtCiudad = new javax.swing.JTextField();
+        btnVolverSalidas = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jScrollPane25 = new javax.swing.JScrollPane();
         tblTransportes = new javax.swing.JTable();
-        jLabel82 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1280, 720));
         setMinimumSize(new java.awt.Dimension(1280, 720));
         setPreferredSize(new java.awt.Dimension(1280, 720));
-        setResizable(false);
 
-        jLayeredPane8.setMaximumSize(new java.awt.Dimension(1280, 720));
-        jLayeredPane8.setMinimumSize(new java.awt.Dimension(1280, 720));
-        jLayeredPane8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.setBackground(new java.awt.Color(252, 252, 252));
 
         btnVolver3.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         btnVolver3.setText("Volver");
@@ -76,28 +87,16 @@ public class IngresoTransporte extends javax.swing.JFrame {
                 btnVolver3ActionPerformed(evt);
             }
         });
-        jLayeredPane8.add(btnVolver3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 120, 152, -1));
 
-        btnVolverSalidas.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        btnVolverSalidas.setText("Volver a salidas pendientes");
-        btnVolverSalidas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVolverSalidasActionPerformed(evt);
-            }
-        });
-        jLayeredPane8.add(btnVolverSalidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 120, 330, -1));
-
-        jPanel46.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel46.setBackground(new java.awt.Color(252, 252, 252));
         jPanel46.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel43.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel43.setForeground(new java.awt.Color(255, 255, 255));
         jLabel43.setText("Transporte:");
 
         txtContacto.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
 
         jLabel44.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel44.setForeground(new java.awt.Color(255, 255, 255));
         jLabel44.setText("Contacto:");
 
         txtTransporte.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
@@ -108,36 +107,30 @@ public class IngresoTransporte extends javax.swing.JFrame {
         });
 
         jLabel45.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel45.setForeground(new java.awt.Color(255, 255, 255));
         jLabel45.setText("Telefono:");
 
         txtTelefono.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
 
         jLabel46.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel46.setForeground(new java.awt.Color(255, 255, 255));
         jLabel46.setText("Correo:");
         jLabel46.setToolTipText("");
 
         txtCorreo.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
 
         jLabel47.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel47.setForeground(new java.awt.Color(255, 255, 255));
         jLabel47.setText("Dirección de Carga:");
 
         txtDireccionCarga.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
 
         jLabel49.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel49.setForeground(new java.awt.Color(255, 255, 255));
         jLabel49.setText("Provincia");
 
         txtProvincia.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
 
         jLabel57.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel57.setForeground(new java.awt.Color(255, 255, 255));
         jLabel57.setText("Región:");
 
         jLabel58.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel58.setForeground(new java.awt.Color(255, 255, 255));
         jLabel58.setText("Comuna:");
 
         btnTransporte.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
@@ -149,7 +142,6 @@ public class IngresoTransporte extends javax.swing.JFrame {
         });
 
         jLabel81.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel81.setForeground(new java.awt.Color(255, 255, 255));
         jLabel81.setText("Zona:");
 
         cmbZona.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
@@ -166,43 +158,60 @@ public class IngresoTransporte extends javax.swing.JFrame {
         });
 
         jLabel48.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel48.setForeground(new java.awt.Color(255, 255, 255));
         jLabel48.setText("Ciudad:");
 
         txtCiudad.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+
+        btnVolverSalidas.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        btnVolverSalidas.setText("Volver a salidas pendientes");
+        btnVolverSalidas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverSalidasActionPerformed(evt);
+            }
+        });
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jButton1.setText("Exportar a excel");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel46Layout = new javax.swing.GroupLayout(jPanel46);
         jPanel46.setLayout(jPanel46Layout);
         jPanel46Layout.setHorizontalGroup(
             jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel46Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(btnTransporte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel46Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel46)
-                    .addComponent(jLabel45)
-                    .addComponent(jLabel44)
-                    .addComponent(jLabel43)
-                    .addComponent(jLabel47)
-                    .addComponent(jLabel48)
-                    .addComponent(jLabel57)
-                    .addComponent(jLabel81)
-                    .addComponent(jLabel49)
-                    .addComponent(jLabel58))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtProvincia)
-                    .addComponent(txtRegion)
-                    .addComponent(txtComuna)
-                    .addComponent(txtCiudad)
-                    .addComponent(txtDireccionCarga)
-                    .addComponent(txtCorreo)
-                    .addComponent(txtTelefono)
-                    .addComponent(txtContacto)
-                    .addComponent(txtTransporte)
-                    .addComponent(cmbZona, 0, 252, Short.MAX_VALUE))
+                    .addComponent(btnTransporte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel46Layout.createSequentialGroup()
+                        .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel47)
+                            .addComponent(jLabel46)
+                            .addComponent(jLabel45)
+                            .addComponent(jLabel44)
+                            .addComponent(jLabel43)
+                            .addComponent(jLabel48)
+                            .addComponent(jLabel58)
+                            .addComponent(jLabel57)
+                            .addComponent(jLabel49)
+                            .addComponent(jLabel81))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbZona, 0, 274, Short.MAX_VALUE)
+                            .addComponent(txtProvincia)
+                            .addComponent(txtRegion)
+                            .addComponent(txtComuna)
+                            .addComponent(txtCiudad)
+                            .addComponent(txtTransporte)
+                            .addComponent(txtContacto)
+                            .addComponent(txtTelefono)
+                            .addComponent(txtCorreo)
+                            .addComponent(txtDireccionCarga)))
+                    .addComponent(btnVolverSalidas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel46Layout.setVerticalGroup(
@@ -248,12 +257,14 @@ public class IngresoTransporte extends javax.swing.JFrame {
                 .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel81, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(38, 38, 38)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnTransporte)
-                .addGap(22, 22, 22))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnVolverSalidas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addGap(43, 43, 43))
         );
-
-        jLayeredPane8.add(jPanel46, new org.netbeans.lib.awtextra.AbsoluteConstraints(739, 192, 490, 460));
 
         tblTransportes = new javax.swing.JTable(){
             public boolean isCellEditable(int rowIndex, int celIndex){
@@ -273,20 +284,59 @@ public class IngresoTransporte extends javax.swing.JFrame {
         ));
         jScrollPane25.setViewportView(tblTransportes);
 
-        jLayeredPane8.add(jScrollPane25, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 193, 720, 460));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/acima-logo-200p.png"))); // NOI18N
 
-        jLabel82.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/menuTest.png"))); // NOI18N
-        jLayeredPane8.add(jLabel82, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane25, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnVolver3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel46, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(14, 14, 14))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(46, 46, 46)
+                        .addComponent(jScrollPane25))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(119, 119, 119)
+                        .addComponent(btnVolver3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel46, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+
+        jScrollPane1.setViewportView(jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 717, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -315,31 +365,19 @@ public class IngresoTransporte extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         try {
-            salidas.cmbSalidasPendientes.removeAllItems();
+
             String query = "SELECT \n"
-                    + "    CONCAT('TRANSPORTE: ',\n"
-                    + "            transporte,\n"
-                    + "            ' - DIRECCIÓN: ',\n"
-                    + "            DIRECCIONCARGA,\n"
-                    + "            ' - COMUNA: ',\n"
-                    + "            NomComuna,\n"
-                    + "            ' - PROVINCIA: ',\n"
-                    + "            PROVINCIA,\n"
-                    + "            ' - REGIÓN: ',\n"
-                    + "            NOMREGION)\n"
+                    + "    idTransporte AS 'ID',\n"
+                    + "    transporte AS 'Transporte',\n"
+                    + "    DIRECCIONCARGA AS 'Dirección de Carga',\n"
+                    + "    NomComuna AS 'Nombre de Comuna',\n"
+                    + "    PROVINCIA AS 'Provincia',\n"
+                    + "    NOMREGION AS 'Nombre de Región'\n"
                     + "FROM\n"
-                    + "    TRANSPORTE\n"
-                    + "    WHERE transporte is not null\n"
-                    + "    and direccionCarga is not null\n"
-                    + "    and nomComuna is not null\n"
-                    + "    and provincia is not null\n"
-                    + "    and nomRegion is not null;\n"
-                    + "            ";
+                    + "TRANSPORTE;";
             PreparedStatement pst = cn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                salidas.cmbSalidasPendientes.addItem(rs.getString(1));
-            }
+            tblTransportes.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
@@ -433,6 +471,123 @@ public class IngresoTransporte extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtComunaKeyPressed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+
+            String ruta = "";
+
+            JFileChooser dlg = new JFileChooser();
+            dlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+            int option = dlg.showOpenDialog(this);
+
+            if (option == JFileChooser.APPROVE_OPTION) {
+                File f = dlg.getSelectedFile();
+                ruta = f.toString();
+            }
+
+            Workbook workbook = new XSSFWorkbook();
+            Sheet sheet = workbook.createSheet("Transportes");
+
+            Font headerFont = workbook.createFont();
+            headerFont.setBold(true);
+            headerFont.setFontHeightInPoints((short) 14);
+            headerFont.setColor(IndexedColors.RED.getIndex());
+
+            CellStyle headerCellStyle = workbook.createCellStyle();
+            headerCellStyle.setFont(headerFont);
+
+            // Create a Row
+            Row headerRow = sheet.createRow(0);
+
+            for (int i = 0; i < tblTransportes.getColumnCount(); i++) {
+                Cell cell = headerRow.createCell(i);
+                cell.setCellValue(tblTransportes.getColumnName(i));
+                cell.setCellStyle(headerCellStyle);
+            }
+
+            // Create Other rows and cells with contacts data
+            int rowNum = 1;
+
+            for (int i = 0; i < tblTransportes.getRowCount(); i++) {
+                Row row = sheet.createRow(rowNum++);
+                if (tblTransportes.getValueAt(i, 0).toString().isEmpty()) {
+                    row.createCell(0).setCellValue("-");
+                } else {
+                    row.createCell(0).setCellValue(tblTransportes.getValueAt(i, 0).toString());
+                }
+
+                if (tblTransportes.getValueAt(i, 1).toString().isEmpty()) {
+                    row.createCell(1).setCellValue("-");
+                } else {
+                    row.createCell(1).setCellValue(tblTransportes.getValueAt(i, 1).toString());
+                }
+
+                if (tblTransportes.getValueAt(i, 2).toString().isEmpty()) {
+                    row.createCell(2).setCellValue("-");
+                } else {
+                    row.createCell(2).setCellValue(tblTransportes.getValueAt(i, 2).toString());
+                }
+
+                if (tblTransportes.getValueAt(i, 3).toString().isEmpty()) {
+                    row.createCell(3).setCellValue("-");
+                } else {
+                    row.createCell(3).setCellValue(tblTransportes.getValueAt(i, 3).toString());
+                }
+
+                if (tblTransportes.getValueAt(i, 4).toString().isEmpty()) {
+                    row.createCell(4).setCellValue("-");
+                } else {
+                    row.createCell(4).setCellValue(tblTransportes.getValueAt(i, 4).toString());
+                }
+
+                if (tblTransportes.getValueAt(i, 5).toString().isEmpty()) {
+                    row.createCell(5).setCellValue("-");
+                } else {
+                    row.createCell(5).setCellValue(tblTransportes.getValueAt(i, 5).toString());
+                }
+
+                if (tblTransportes.getValueAt(i, 6).toString().isEmpty()) {
+                    row.createCell(6).setCellValue("-");
+                } else {
+                    row.createCell(6).setCellValue(tblTransportes.getValueAt(i, 6).toString());
+                }
+
+                if (tblTransportes.getValueAt(i, 7).toString().isEmpty()) {
+                    row.createCell(7).setCellValue("-");
+                } else {
+                    row.createCell(7).setCellValue(tblTransportes.getValueAt(i, 7).toString());
+                }
+
+                if (tblTransportes.getValueAt(i, 8).toString().isEmpty()) {
+                    row.createCell(8).setCellValue("-");
+                } else {
+                    row.createCell(8).setCellValue(tblTransportes.getValueAt(i, 8).toString());
+                }
+
+                if (tblTransportes.getValueAt(i, 9).toString().isEmpty()) {
+                    row.createCell(9).setCellValue("-");
+                } else {
+                    row.createCell(9).setCellValue(tblTransportes.getValueAt(i, 9).toString());
+                }
+
+            }
+
+            // Resize all columns to fit the content size
+            for (int i = 0; i < tblTransportes.getColumnCount(); i++) {
+                sheet.autoSizeColumn(i);
+            }
+
+            try ( // Write the output to a file
+                    FileOutputStream fileOut = new FileOutputStream(ruta + "\\" + "transportes.xlsx")) {
+                workbook.write(fileOut);
+            }
+            JOptionPane.showMessageDialog(null, "Documento Creado");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error: Hay valores vacíos en la tabla..." + ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -473,6 +628,8 @@ public class IngresoTransporte extends javax.swing.JFrame {
     private javax.swing.JButton btnVolver3;
     private javax.swing.JButton btnVolverSalidas;
     private javax.swing.JComboBox<String> cmbZona;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
@@ -483,9 +640,9 @@ public class IngresoTransporte extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel81;
-    private javax.swing.JLabel jLabel82;
-    private javax.swing.JLayeredPane jLayeredPane8;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel46;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane25;
     public javax.swing.JTable tblTransportes;
     private javax.swing.JTextField txtCiudad;

@@ -8,13 +8,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
+
 /*
  /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author The_S
@@ -37,22 +37,25 @@ public class Inventarios extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelInventarios = new javax.swing.JLayeredPane();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnListadoBodegas = new javax.swing.JButton();
         btnInventarioPorBodega = new javax.swing.JButton();
+        btnMantenedorProductos = new javax.swing.JButton();
         btnSalirInventarios = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1280, 740));
-        setMinimumSize(new java.awt.Dimension(1280, 740));
-        setResizable(false);
+        setMinimumSize(new java.awt.Dimension(1280, 720));
+        setPreferredSize(new java.awt.Dimension(1280, 720));
 
-        panelInventarios.setMaximumSize(new java.awt.Dimension(1280, 740));
-        panelInventarios.setMinimumSize(new java.awt.Dimension(1280, 740));
-        panelInventarios.setName(""); // NOI18N
+        jPanel1.setBackground(new java.awt.Color(252, 252, 252));
 
-        jPanel3.setLayout(new java.awt.GridLayout(1, 0));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/acima-logo-200p.png"))); // NOI18N
+
+        jPanel3.setBackground(new java.awt.Color(252, 252, 252));
+        jPanel3.setLayout(new java.awt.GridLayout(3, 2));
 
         btnListadoBodegas.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         btnListadoBodegas.setText("Listado de Bodegas");
@@ -73,6 +76,16 @@ public class Inventarios extends javax.swing.JFrame {
         });
         jPanel3.add(btnInventarioPorBodega);
 
+        btnMantenedorProductos.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        btnMantenedorProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/7af6ee279c(1).png"))); // NOI18N
+        btnMantenedorProductos.setText("Ingresar Productos a Merma");
+        btnMantenedorProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMantenedorProductosActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnMantenedorProductos);
+
         btnSalirInventarios.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         btnSalirInventarios.setText("Volver");
         btnSalirInventarios.setToolTipText("");
@@ -83,34 +96,44 @@ public class Inventarios extends javax.swing.JFrame {
         });
         jPanel3.add(btnSalirInventarios);
 
-        panelInventarios.setLayer(jPanel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout panelInventariosLayout = new javax.swing.GroupLayout(panelInventarios);
-        panelInventarios.setLayout(panelInventariosLayout);
-        panelInventariosLayout.setHorizontalGroup(
-            panelInventariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInventariosLayout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1260, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1240, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        panelInventariosLayout.setVerticalGroup(
-            panelInventariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelInventariosLayout.createSequentialGroup()
-                .addGap(270, 270, 270)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(397, Short.MAX_VALUE))
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelInventarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelInventarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -138,7 +161,7 @@ public class Inventarios extends javax.swing.JFrame {
             inventario.setVisible(true);
 
             String query = "Select idProducto as 'ID producto', SKU, categoria as 'Categoría', nombreProducto as 'Producto', descripcion as 'Descripción',\n"
-                    + "Concat('$',precioVenta )as 'Precio Venta', precioCosto as 'Precio Costo', d.nombreDistribuidor as 'Nombre de Distribuidor', regiones as 'Regiones',\n"
+                    + "FORMAT( precioVenta, 'es_CL')as 'Precio Venta', FORMAT( precioCosto,'es_CL') as 'Precio Costo', d.nombreDistribuidor as 'Nombre de Distribuidor', regiones as 'Regiones',\n"
                     + "CondicionDespacho as 'Condición de Despacho', diasHabiles as 'Días Hábiles', StatusProducto as 'Estado', stock as 'Stock'\n"
                     + "FROM inventario r left join distribuidor d on r.IDDISTRIBUIDOR = d.idDistribuidor;";
             PreparedStatement pst = cn.prepareStatement(query);
@@ -176,6 +199,34 @@ public class Inventarios extends javax.swing.JFrame {
     private void btnSalirInventariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirInventariosActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnSalirInventariosActionPerformed
+
+    private void btnMantenedorProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMantenedorProductosActionPerformed
+        try {
+            this.dispose();
+            MantenedorProductos productos = new MantenedorProductos();
+            productos.setVisible(true);
+            String queryProducto = "SELECT \n"
+                    + "    inv.idProducto AS 'ID producto',\n"
+                    + "    inv.SKU,\n"
+                    + "    inv.categoria AS 'Categoría',\n"
+                    + "    inv.nombreProducto AS 'Producto',\n"
+                    + "    inv.descripcion AS 'Descripción',\n"
+                    + "    inv.StatusProducto AS 'Estado',\n"
+                    + "    inv.stock AS 'Stock en la bodega',\n"
+                    + "    b.nombreBodega AS 'Nombre de Bodega'\n"
+                    + "FROM\n"
+                    + "    inventario inv\n"
+                    + "        LEFT JOIN\n"
+                    + "    bodega b ON inv.idBodega = b.idBodega\n"
+                    + "        LEFT JOIN\n"
+                    + "    ingreso ing ON ing.idBodega = inv.idBodega";
+            PreparedStatement pstProducto = cn.prepareStatement(queryProducto);
+            ResultSet rsProducto = pstProducto.executeQuery();
+            productos.tblMantenedorProductos.setModel(DbUtils.resultSetToTableModel(rsProducto));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_btnMantenedorProductosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -215,8 +266,10 @@ public class Inventarios extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInventarioPorBodega;
     private javax.swing.JButton btnListadoBodegas;
+    private javax.swing.JButton btnMantenedorProductos;
     private javax.swing.JButton btnSalirInventarios;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JLayeredPane panelInventarios;
     // End of variables declaration//GEN-END:variables
 }

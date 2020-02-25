@@ -58,7 +58,6 @@ public class SalidasPendientes extends javax.swing.JFrame {
         tblSalidasPendientes = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         jLabel72 = new javax.swing.JLabel();
-        cmbSalidasPendientes = new javax.swing.JComboBox();
         txtCostoNetoTransporte = new javax.swing.JTextField();
         jLabel79 = new javax.swing.JLabel();
         jLabel91 = new javax.swing.JLabel();
@@ -69,6 +68,8 @@ public class SalidasPendientes extends javax.swing.JFrame {
         btnAgregarTransporte = new javax.swing.JButton();
         jLabel174 = new javax.swing.JLabel();
         txtOrdenTransporte = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblTransportes = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         btnReiniciarFiltros = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
@@ -253,9 +254,6 @@ public class SalidasPendientes extends javax.swing.JFrame {
         jLabel72.setText("Transporte:");
         jLabel72.setToolTipText("");
 
-        cmbSalidasPendientes.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        cmbSalidasPendientes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione Transporte" }));
-
         txtCostoNetoTransporte.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
 
         jLabel79.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
@@ -293,18 +291,35 @@ public class SalidasPendientes extends javax.swing.JFrame {
 
         txtOrdenTransporte.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
 
+        tblTransportes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tblTransportes);
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel174)
-                    .addComponent(jLabel92)
-                    .addComponent(jLabel91)
-                    .addComponent(jLabel79)
-                    .addComponent(jLabel72))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel174)
+                            .addComponent(jLabel92)
+                            .addComponent(jLabel91)
+                            .addComponent(jLabel79)))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel72)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
@@ -314,19 +329,20 @@ public class SalidasPendientes extends javax.swing.JFrame {
                             .addComponent(txtCostoNetoTransporte)
                             .addComponent(txtTotalTransporte)
                             .addComponent(txtOrdenTransporte)
-                            .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE))
-                        .addContainerGap(294, Short.MAX_VALUE))
+                            .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE))
+                        .addGap(468, 468, 468))
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(cmbSalidasPendientes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2)
                         .addContainerGap())))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel72)
-                    .addComponent(cmbSalidasPendientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel72))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAgregarTransporte)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -365,7 +381,7 @@ public class SalidasPendientes extends javax.swing.JFrame {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jScrollPane5)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -380,7 +396,7 @@ public class SalidasPendientes extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jTabbedPane1))
                 .addContainerGap())
         );
@@ -466,11 +482,12 @@ public class SalidasPendientes extends javax.swing.JFrame {
         try {
             DefaultTableModel model = (DefaultTableModel) tblSalidasPendientes.getModel();
             int index = tblSalidasPendientes.getSelectedRow();
+            int index_2 = tblTransportes.getSelectedRow();
             // create the java mysql update preparedstatement
             String query = "update salida set idTransporte = ?, tipoTransporte= ?, netoTransporte = ?, ivaTransporte = ?, totalTransporte = ?,ordenTransporte = ? where idSalida = ?";
             PreparedStatement preparedStmt = cn.prepareStatement(query);
-            preparedStmt.setInt(1, cmbSalidasPendientes.getSelectedIndex());
-            preparedStmt.setString(2, cmbSalidasPendientes.getSelectedItem().toString());
+            preparedStmt.setInt(1, Integer.parseInt(tblTransportes.getValueAt(index_2, 0).toString()));
+            preparedStmt.setString(2, tblTransportes.getValueAt(index_2, 1).toString());
             preparedStmt.setString(3, txtCostoNetoTransporte.getText());
             preparedStmt.setString(4, txtIvaTransporte.getText());
             preparedStmt.setString(5, txtTotalTransporte.getText());
@@ -647,7 +664,6 @@ public class SalidasPendientes extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscarSalida;
     private javax.swing.JButton btnNV;
     private javax.swing.JButton btnReiniciarFiltros;
-    public javax.swing.JComboBox cmbSalidasPendientes;
     public javax.swing.JComboBox cmbSalidasPendientesFiltro;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -670,9 +686,11 @@ public class SalidasPendientes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     public javax.swing.JTable tblSalidasPendientes;
+    public javax.swing.JTable tblTransportes;
     private javax.swing.JTextField txtCostoNetoTransporte;
     private javax.swing.JTextField txtFiltroOT;
     private javax.swing.JTextField txtIDSalida;

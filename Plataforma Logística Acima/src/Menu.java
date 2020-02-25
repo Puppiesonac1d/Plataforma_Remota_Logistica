@@ -85,10 +85,13 @@ public class Menu extends javax.swing.JFrame {
         idUsuarioMenuTag = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(247, 247, 247));
+        setBackground(new java.awt.Color(252, 252, 252));
+        setMinimumSize(new java.awt.Dimension(1280, 720));
         setPreferredSize(new java.awt.Dimension(1280, 720));
-        setResizable(false);
 
+        contenedor.setBackground(new java.awt.Color(252, 252, 252));
+
+        panelRojo.setBackground(new java.awt.Color(252, 252, 252));
         panelRojo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         panelRojo.setAlignmentX(1.0F);
         panelRojo.setAlignmentY(1.0F);
@@ -139,8 +142,9 @@ public class Menu extends javax.swing.JFrame {
 
         btnMantenedorBodegas.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         btnMantenedorBodegas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/578bc5a79c(2).png"))); // NOI18N
-        btnMantenedorBodegas.setText("Mantenedores");
+        btnMantenedorBodegas.setText("Agregar Bodegas / CM");
         btnMantenedorBodegas.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnMantenedorBodegas.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
         btnMantenedorBodegas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMantenedorBodegasActionPerformed(evt);
@@ -179,6 +183,8 @@ public class Menu extends javax.swing.JFrame {
         });
         panelRojo.add(btnSalir);
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/acima-logo-200p.png"))); // NOI18N
+
         javax.swing.GroupLayout contenedorLayout = new javax.swing.GroupLayout(contenedor);
         contenedor.setLayout(contenedorLayout);
         contenedorLayout.setHorizontalGroup(
@@ -187,16 +193,20 @@ public class Menu extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addComponent(panelRojo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
+            .addGroup(contenedorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         contenedorLayout.setVerticalGroup(
             contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contenedorLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(panelRojo, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(58, 58, 58)
+                .addComponent(panelRojo, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
+                .addGap(84, 84, 84))
         );
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/acima-logo-200p.png"))); // NOI18N
 
         menuUserName.setText(" Nombre de Usuario: No Conectado ");
         jMenuBar1.add(menuUserName);
@@ -226,22 +236,15 @@ public class Menu extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1)))
+                .addGap(10, 10, 10)
+                .addComponent(contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(contenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -292,7 +295,7 @@ public class Menu extends javax.swing.JFrame {
                     + "    ot.nombre_Proveedor AS 'Empresa',\n"
                     + "    ot.fechaEnvioOC AS 'Fecha de OC'\n"
                     + "FROM\n"
-                    + "    ordenTrabajo ot       \n"
+                    + "    ordenTrabajo ot \n"
                     + "WHERE\n"
                     + "    ot.idOrden NOT IN (SELECT d.idOrden FROM detalleSalida d);";
             PreparedStatement pst;

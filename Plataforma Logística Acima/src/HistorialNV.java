@@ -437,12 +437,28 @@ public class HistorialNV extends javax.swing.JFrame {
 
         // this.dispose();
         try {
-            String query = "Select s.idSalida as 'Número de Salida',s.idOrden as 'Número de Nota de Venta',s.codigoOrdenCompra as 'Codigo de Orden de Compra',\n"
-                    + "s.tipoTransporte as 'Transporte',s.netoTransporte as 'Neto',s.ivaTransporte as 'IVA',s.totalTransporte as 'Total',b.nombreBodega as 'Nombre de Bodega',\n"
-                    + "s.seccion as 'Sección',bu.codigoBulto as 'Bulto de Salida', s.fechaSalida as 'Fecha de Solicitud',ordenTransporte as 'Orden de Transporte'\n"
-                    + "from salida s join bodega b on s.idBodega=b.idBodega\n"
-                    + "join bulto bu on s.codigoOrdenCompra = bu.codigoOrdenCompra\n"
-                    + "where s.tipoTransporte='Pendiente';";
+            String query = "SELECT \n"
+                    + "    s.idSalida AS 'Número de Salida',\n"
+                    + "    s.idOrden AS 'Número de Nota de Venta',\n"
+                    + "    s.codigoOrdenCompra AS 'Codigo de Orden de Compra',\n"
+                    + "    s.tipoTransporte AS 'Transporte',\n"
+                    + "    s.netoTransporte AS 'Neto',\n"
+                    + "    s.ivaTransporte AS 'IVA',\n"
+                    + "    s.totalTransporte AS 'Total',\n"
+                    + "    b.nombreBodega AS 'Nombre de Bodega',\n"
+                    + "    s.seccion AS 'Sección',\n"
+                    + "    bu.codigoBulto AS 'Bulto de Salida',\n"
+                    + "    s.fechaSalida AS 'Fecha de Solicitud',\n"
+                    + "    ordenTransporte AS 'Orden de Transporte'\n"
+                    + "FROM\n"
+                    + "    salida s\n"
+                    + "        LEFT JOIN\n"
+                    + "    bodega b ON s.idBodega = b.idBodega\n"
+                    + "        LEFT JOIN\n"
+                    + "    bulto bu ON s.codigoOrdenCompra = bu.codigoOrdenCompra\n"
+                    + "WHERE\n"
+                    + "    s.tipoTransporte = 'Pendiente'\n"
+                    + "    group by s.idOrden;";
             PreparedStatement pst = cn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
             salidas.tblSalidasPendientes.setModel(DbUtils.resultSetToTableModel(rs));
@@ -450,31 +466,19 @@ public class HistorialNV extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         try {
-            salidas.cmbSalidasPendientes.removeAllItems();
+
             String query = "SELECT \n"
-                    + "    CONCAT('TRANSPORTE: ',\n"
-                    + "            transporte,\n"
-                    + "            ' - DIRECCIÓN: ',\n"
-                    + "            DIRECCIONCARGA,\n"
-                    + "            ' - COMUNA: ',\n"
-                    + "            NomComuna,\n"
-                    + "            ' - PROVINCIA: ',\n"
-                    + "            PROVINCIA,\n"
-                    + "            ' - REGIÓN: ',\n"
-                    + "            NOMREGION)\n"
+                    + "    idTransporte AS 'ID',\n"
+                    + "    transporte AS 'Transporte',\n"
+                    + "    DIRECCIONCARGA AS 'Dirección de Carga',\n"
+                    + "    NomComuna AS 'Nombre de Comuna',\n"
+                    + "    PROVINCIA AS 'Provincia',\n"
+                    + "    NOMREGION AS 'Nombre de Región'\n"
                     + "FROM\n"
-                    + "    TRANSPORTE\n"
-                    + "    WHERE transporte is not null\n"
-                    + "    and direccionCarga is not null\n"
-                    + "    and nomComuna is not null\n"
-                    + "    and provincia is not null\n"
-                    + "    and nomRegion is not null;\n"
-                    + "            ";
+                    + "TRANSPORTE;";
             PreparedStatement pst = cn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                salidas.cmbSalidasPendientes.addItem(rs.getString(1));
-            }
+            salidas.tblTransportes.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }

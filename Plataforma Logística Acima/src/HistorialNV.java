@@ -52,7 +52,6 @@ public class HistorialNV extends javax.swing.JFrame {
         tblHistorialNV = new javax.swing.JTable();
         btnVolverMenu9 = new javax.swing.JButton();
         lblCodigo = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         btnSalida = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -102,7 +101,7 @@ public class HistorialNV extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(txtFechaOC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton5))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Filtrar por Fecha", jPanel2);
@@ -141,7 +140,7 @@ public class HistorialNV extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(txtCodigoOC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4))
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Filtrar por Código de OC", jPanel1);
@@ -180,7 +179,7 @@ public class HistorialNV extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(txtNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Buscar por N° de Nota de Venta", jPanel3);
@@ -221,17 +220,6 @@ public class HistorialNV extends javax.swing.JFrame {
 
         lblCodigo.setVisible(false);
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jButton3.setText("Salida de Mercadería");
-        jButton3.setMaximumSize(new java.awt.Dimension(238, 35));
-        jButton3.setMinimumSize(new java.awt.Dimension(238, 35));
-        jButton3.setPreferredSize(new java.awt.Dimension(238, 35));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
         jButton6.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jButton6.setText("Reiniciar Filtros");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -264,7 +252,6 @@ public class HistorialNV extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnVolverMenu9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnSalida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
@@ -279,8 +266,6 @@ public class HistorialNV extends javax.swing.JFrame {
                         .addComponent(jButton6)
                         .addGap(8, 8, 8)
                         .addComponent(btnSalida)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnVolverMenu9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -311,7 +296,7 @@ public class HistorialNV extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel43, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -323,24 +308,6 @@ public class HistorialNV extends javax.swing.JFrame {
     private void btnVolverMenu9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverMenu9ActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnVolverMenu9ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        try {
-            int index = tblHistorialNV.getSelectedRow();
-            String oc = tblHistorialNV.getValueAt(index, 0).toString();
-            Salida salida = new Salida();
-            salida.txtCodigoOTSalida.setText(oc);
-            salida.setVisible(true);
-            String queryBodega = "select nombreBodega from bodega ORDER BY nombreBodega";
-            PreparedStatement pstBodega = cn.prepareStatement(queryBodega);
-            ResultSet rsBodega = pstBodega.executeQuery();
-            while (rsBodega.next()) {
-                salida.cmbBodegaSalida.addItem(rsBodega.getString(1));
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "No hay una nota seleccionada" + ex.getMessage());
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try {
@@ -544,7 +511,6 @@ public class HistorialNV extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnSalida;
     private javax.swing.JButton btnVolverMenu9;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;

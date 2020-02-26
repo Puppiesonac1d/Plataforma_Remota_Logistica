@@ -99,7 +99,6 @@ public class Salida extends javax.swing.JFrame {
         tblBultosResumen = new javax.swing.JTable();
         btnAsignarConductor = new javax.swing.JButton();
         btnGuiaDespacho = new javax.swing.JButton();
-        btnEncargado = new javax.swing.JButton();
         jPanel26 = new javax.swing.JPanel();
         txtCodigoOTSalida = new javax.swing.JTextField();
         jLabel51 = new javax.swing.JLabel();
@@ -245,10 +244,10 @@ public class Salida extends javax.swing.JFrame {
 
         txtQty.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         txtQty.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 txtQtyInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         txtQty.addActionListener(new java.awt.event.ActionListener() {
@@ -318,7 +317,7 @@ public class Salida extends javax.swing.JFrame {
 
             },
             new String [] {
-                "N° de bulto", "Largo", "Alto", "Ancho", "Peso", "Guia de Despacho", "Chofer", "Encargado"
+                "N° de bulto", "Largo", "Alto", "Ancho", "Peso", "Guia de Despacho", "Chofer"
             }
         ));
         jScrollPane2.setViewportView(tblBultos);
@@ -466,7 +465,7 @@ public class Salida extends javax.swing.JFrame {
 
             },
             new String [] {
-                "N° de bulto", "Largo", "Alto", "Ancho", "Peso", "Guia de despacho", "Chofer", "Encargado"
+                "N° de bulto", "Largo", "Alto", "Ancho", "Peso", "Guia de despacho", "Chofer"
             }
         ));
         jScrollPane3.setViewportView(tblBultosResumen);
@@ -484,14 +483,6 @@ public class Salida extends javax.swing.JFrame {
         btnGuiaDespacho.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuiaDespachoActionPerformed(evt);
-            }
-        });
-
-        btnEncargado.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        btnEncargado.setText("Encargado de Bulto");
-        btnEncargado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEncargadoActionPerformed(evt);
             }
         });
 
@@ -514,8 +505,7 @@ public class Salida extends javax.swing.JFrame {
                     .addGroup(jPanel25Layout.createSequentialGroup()
                         .addComponent(btnAsignarConductor)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnGuiaDespacho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(btnEncargado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnGuiaDespacho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel25Layout.setVerticalGroup(
@@ -533,8 +523,6 @@ public class Salida extends javax.swing.JFrame {
                     .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnAsignarConductor)
                         .addComponent(btnGuiaDespacho)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEncargado)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -961,12 +949,9 @@ public class Salida extends javax.swing.JFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(panelGD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(jScrollPane23)
-                        .addContainerGap())))
+                    .addComponent(panelGD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane23))
+                .addContainerGap())
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1099,8 +1084,8 @@ public class Salida extends javax.swing.JFrame {
                             System.out.println("ID SALIDA: " + idSalida);
 
                             String queryBulto = "insert into bulto "
-                                    + "(codigoBulto,idSalida,idOrden,codigoOrdenCompra,guiaDespacho,largo,alto,ancho,peso,chofer,direccionDespacho) "
-                                    + "values(?,?,?,?,?,?,?,?,?,?,?);";
+                                    + "(codigoBulto,idSalida,idOrden,codigoOrdenCompra,guiaDespacho,largo,alto,ancho,peso,chofer,direccionDespacho,encargado) "
+                                    + "values(?,?,?,?,?,?,?,?,?,?,?,?);";
                             PreparedStatement insertBulto = cn.prepareStatement(queryBulto);
                             insertBulto.setString(1, tblBultosResumen.getValueAt(b, 0).toString());
                             insertBulto.setInt(2, idSalida);
@@ -1113,6 +1098,7 @@ public class Salida extends javax.swing.JFrame {
                             insertBulto.setString(9, tblBultosResumen.getValueAt(b, 4).toString());
                             insertBulto.setString(10, tblBultosResumen.getValueAt(b, 6).toString());
                             insertBulto.setString(11, txtDireccionesDespachoOCSalida.getText());
+                            insertBulto.setInt(12, Integer.parseInt(m));
                             int up2 = insertBulto.executeUpdate();
 
                             //tblResumenProductos
@@ -1677,17 +1663,6 @@ public class Salida extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreOrdenCompraSalidaActionPerformed
 
-    private void btnEncargadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncargadoActionPerformed
-        try {
-            int index = tblBultosResumen.getSelectedRow();
-
-            String respuesta = JOptionPane.showInputDialog(null, "Indique encargado", null, JOptionPane.ERROR_MESSAGE);
-            tblBultosResumen.setValueAt(respuesta, index, 7);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error: debe seleccionar un elemento en la tabla" + ex);
-        }
-    }//GEN-LAST:event_btnEncargadoActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -1738,7 +1713,6 @@ public class Salida extends javax.swing.JFrame {
     public javax.swing.JButton btnBuscarOTSalida;
     private javax.swing.JButton btnConfirmarBultos;
     private javax.swing.JButton btnConfirmarOperacionBultos;
-    private javax.swing.JButton btnEncargado;
     private javax.swing.JButton btnGuiaDespacho;
     private javax.swing.JButton btnIngresarBultos;
     private javax.swing.JButton btnSalida1;

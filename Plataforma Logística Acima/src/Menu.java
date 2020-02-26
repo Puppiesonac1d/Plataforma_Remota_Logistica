@@ -99,7 +99,7 @@ public class Menu extends javax.swing.JFrame {
 
         btnNotaCompra.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         btnNotaCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/4f49eabd611eb(1).png"))); // NOI18N
-        btnNotaCompra.setText("Nota de Compra");
+        btnNotaCompra.setText("Nota de Compra / Ingreso");
         btnNotaCompra.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnNotaCompra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,7 +110,7 @@ public class Menu extends javax.swing.JFrame {
 
         btnNotaVenta.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         btnNotaVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/4f49eabd611eb(1).png"))); // NOI18N
-        btnNotaVenta.setText("Nota de Venta");
+        btnNotaVenta.setText("Nota de Venta / Salida");
         btnNotaVenta.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnNotaVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -256,24 +256,25 @@ public class Menu extends javax.swing.JFrame {
             NotaCompra nota = new NotaCompra();
             nota.setVisible(true);
             String queryActualizar = "SELECT \n"
-                    + "    da.idOrden AS 'N° de nota de venta',\n"
-                    + "    a.numeroCotizacion AS 'N° de Cotización',\n"
-                    + "    a.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
-                    + "    a.distribuidor AS 'Distribuidor',\n"
-                    + "    a.fecha AS 'Fecha',\n"
-                    + "    a.proveedor AS 'Proveedor',\n"
-                    + "    a.contacto AS 'Contacto',\n"
-                    + "    a.estado AS 'Estado'\n"
+                    + "da.idOrden AS 'N° de nota de venta',\n"
+                    + "a.numeroCotizacion AS 'N° de Cotización',\n"
+                    + "a.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
+                    + "a.distribuidor AS 'Distribuidor',\n"
+                    + "a.fecha AS 'Fecha',\n"
+                    + "a.proveedor AS 'Proveedor',\n"
+                    + "a.contacto AS 'Contacto',\n"
+                    + "a.estado AS 'Estado'\n"
                     + "FROM\n"
-                    + "    abastecimiento a\n"
-                    + "        LEFT JOIN\n"
-                    + "    detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
+                    + "abastecimiento a\n"
+                    + "    LEFT JOIN\n"
+                    + "detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
                     + "WHERE\n"
-                    + "    a.numeroCotizacion NOT IN (SELECT \n"
-                    + "            i.numeroCotizacion\n"
-                    + "        FROM\n"
-                    + "            ingreso i)\n"
-                    + "        AND a.estado IN ('Cotización Validada' , 'Nota de compra ingresada con productos faltantes');";
+                    + "a.numeroCotizacion NOT IN (SELECT \n"
+                    + "        i.numeroCotizacion\n"
+                    + "    FROM\n"
+                    + "        ingreso i)\n"
+                    + "    AND a.estado  IN('Comprado','Nota de compra ingresada con productos faltantes', 'Enviado a Proveedor')\n"
+                    + "    GROUP BY a.numeroCotizacion;";
             PreparedStatement pst = cn.prepareStatement(queryActualizar);
             ResultSet rs = pst.executeQuery();
             nota.tblNC.setModel(DbUtils.resultSetToTableModel(rs));

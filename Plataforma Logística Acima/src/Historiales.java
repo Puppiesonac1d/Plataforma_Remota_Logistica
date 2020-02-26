@@ -33,20 +33,21 @@ public class Historiales extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLayeredPane3 = new javax.swing.JLayeredPane();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         contenedorHistoriales = new javax.swing.JPanel();
         btnHistorialSalida = new javax.swing.JButton();
         btnHistorialIngreso1 = new javax.swing.JButton();
         btnSalirHistoriales = new javax.swing.JButton();
-        lblFondoHistoriales = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1280, 720));
         setMinimumSize(new java.awt.Dimension(1280, 720));
-        setResizable(false);
+        setPreferredSize(new java.awt.Dimension(1280, 740));
 
-        jLayeredPane3.setMaximumSize(new java.awt.Dimension(1280, 720));
-        jLayeredPane3.setMinimumSize(new java.awt.Dimension(1280, 720));
+        jPanel1.setBackground(new java.awt.Color(252, 252, 252));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/acima-logo-200p.png"))); // NOI18N
 
         contenedorHistoriales.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         contenedorHistoriales.setLayout(new java.awt.GridLayout(1, 0));
@@ -79,44 +80,48 @@ public class Historiales extends javax.swing.JFrame {
         });
         contenedorHistoriales.add(btnSalirHistoriales);
 
-        lblFondoHistoriales.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/menuTest.png"))); // NOI18N
-
-        javax.swing.GroupLayout jLayeredPane3Layout = new javax.swing.GroupLayout(jLayeredPane3);
-        jLayeredPane3.setLayout(jLayeredPane3Layout);
-        jLayeredPane3Layout.setHorizontalGroup(
-            jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane3Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(contenedorHistoriales, javax.swing.GroupLayout.DEFAULT_SIZE, 1256, Short.MAX_VALUE)
-                .addGap(12, 12, 12))
-            .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(lblFondoHistoriales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jLayeredPane3Layout.setVerticalGroup(
-            jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane3Layout.createSequentialGroup()
-                .addGap(307, 307, 307)
-                .addComponent(contenedorHistoriales, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(344, Short.MAX_VALUE))
-            .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane3Layout.createSequentialGroup()
-                    .addComponent(lblFondoHistoriales, javax.swing.GroupLayout.PREFERRED_SIZE, 728, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addContainerGap(1040, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(contenedorHistoriales, javax.swing.GroupLayout.DEFAULT_SIZE, 1258, Short.MAX_VALUE)
                     .addContainerGap()))
         );
-        jLayeredPane3.setLayer(contenedorHistoriales, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane3.setLayer(lblFondoHistoriales, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(597, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(227, 227, 227)
+                    .addComponent(contenedorHistoriales, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(390, Short.MAX_VALUE)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLayeredPane3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addGap(10, 10, 10)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10))
         );
 
         pack();
@@ -127,10 +132,11 @@ public class Historiales extends javax.swing.JFrame {
             //this.dispose();
             HistorialSalida histSalida = new HistorialSalida();
             histSalida.setVisible(true);
-            String query = "Select s.codigoOrdenCompra as 'Código de Nota de Venta',\n"
-                    + "tipoTransporte as 'Tipo de Transporte', b.nombreBodega as 'Nombre de Bodega',s.seccion as 'Sección', bu.codigoBulto as 'Codigo de Bulto', "
+            String query = "Select s.idSalida as 'ID de Salida',s.idOrden as 'ID de Orden', s.codigoOrdenCompra as 'Código de Orden de Compra',\n"
+                    + "tipoTransporte as 'Tipo de Transporte', b.nombreBodega as 'Nombre de Bodega',s.seccion as 'Sección', bu.codigoBulto as 'Codigo de Bulto',\n"
                     + "fechaSalida as 'Fecha de Salida',\n"
-                    + "s.ordenTransporte as 'Orden de Transporte' from salida s join bodega b on s.idBodega = b.idBodega join bulto bu on bu.codigoOrdenCompra = s.codigoOrdenCompra;";
+                    + "s.ordenTransporte as 'Orden de Transporte' from salida s join bodega b on s.idBodega = b.idBodega join bulto bu on bu.codigoOrdenCompra = s.codigoOrdenCompra\n"
+                    + "GROUP BY s.idOrden;";
             PreparedStatement pst = cn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
             histSalida.tblHistorialSalida.setModel(DbUtils.resultSetToTableModel(rs));
@@ -215,7 +221,7 @@ public class Historiales extends javax.swing.JFrame {
     private javax.swing.JButton btnHistorialSalida;
     private javax.swing.JButton btnSalirHistoriales;
     private javax.swing.JPanel contenedorHistoriales;
-    private javax.swing.JLayeredPane jLayeredPane3;
-    private javax.swing.JLabel lblFondoHistoriales;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

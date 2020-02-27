@@ -1,11 +1,42 @@
 
 import clases.Conexion;
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.table.TableModel;
+import javax.swing.table.DefaultTableModel;
+import javax.xml.parsers.DocumentBuilderFactory;
 import net.proteanit.sql.DbUtils;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,10 +48,10 @@ import net.proteanit.sql.DbUtils;
  * @author The_S
  */
 public class HistorialNV extends javax.swing.JFrame {
-    
+
     Conexion con = new Conexion();
     Connection cn = con.conecta();
-    
+
     public HistorialNV() {
         initComponents();
     }
@@ -55,6 +86,11 @@ public class HistorialNV extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         btnSalida = new javax.swing.JButton();
         lblIDUsuario = new javax.swing.JLabel();
+        btnGenerarPDFNV = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblOC = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblBDD = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -240,6 +276,46 @@ public class HistorialNV extends javax.swing.JFrame {
         lblIDUsuario.setVisible(false);
         lblIDUsuario.setText("-");
 
+        btnGenerarPDFNV.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        btnGenerarPDFNV.setText("Imprimir OC / NV");
+        btnGenerarPDFNV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarPDFNVActionPerformed(evt);
+            }
+        });
+
+        jScrollPane1.setVisible(false);
+
+        tblOC.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Código / ID licitación CM", "Producto", "Cantidad", "Especificación de Comprador", "Especificación de Proveedor", "Moneda", "Precio Unitario", "Descuento", "Cargos", "Valor Total"
+            }
+        ));
+        tblOC.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tblOC);
+
+        jScrollPane2.setVisible(false);
+
+        tblBDD.setVisible(true);
+        tblBDD.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tblBDD);
+
         javax.swing.GroupLayout jPanel43Layout = new javax.swing.GroupLayout(jPanel43);
         jPanel43.setLayout(jPanel43Layout);
         jPanel43Layout.setHorizontalGroup(
@@ -252,13 +328,18 @@ public class HistorialNV extends javax.swing.JFrame {
                         .addGap(366, 366, 366))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel43Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane19)
+                        .addComponent(jScrollPane19, javax.swing.GroupLayout.DEFAULT_SIZE, 934, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnVolverMenu9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
                             .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnSalida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblIDUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(btnGenerarPDFNV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel43Layout.createSequentialGroup()
+                                .addComponent(lblIDUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel43Layout.setVerticalGroup(
@@ -272,7 +353,13 @@ public class HistorialNV extends javax.swing.JFrame {
                         .addGap(8, 8, 8)
                         .addComponent(btnSalida)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnGenerarPDFNV)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnVolverMenu9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(133, 133, 133)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblIDUsuario)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -318,7 +405,7 @@ public class HistorialNV extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try {
-            
+
             String query = "SELECT \n"
                     + "    ot.idOrden AS 'N° de nota de venta',\n"
                     + "    ot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
@@ -385,25 +472,38 @@ public class HistorialNV extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void tblHistorialNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHistorialNVMouseClicked
-        try {
-            int index = tblHistorialNV.getSelectedRow();
-            String nv = tblHistorialNV.getValueAt(index, 0).toString();
-            String oc = tblHistorialNV.getValueAt(index, 1).toString();
-            Salida salida = new Salida();
-            salida.txtCodigoOTSalida.setText(nv);
-            salida.lblOC.setText(oc);
-            salida.setVisible(true);
-            String queryBodega = "select nombreBodega from bodega ORDER BY nombreBodega";
-            PreparedStatement pstBodega = cn.prepareStatement(queryBodega);
-            ResultSet rsBodega = pstBodega.executeQuery();
-            while (rsBodega.next()) {
-                salida.cmbBodegaSalida.addItem(rsBodega.getString(1));
+
+        String[] options = new String[]{"Salida de Mercadería", "Imprimir Nota de Venta", "Cancelar"};
+        int resp = JOptionPane.showOptionDialog(null, "Elija una operación", null,
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                null, options, options[0]);
+        if (resp == 0) {
+            try {
+                int index = tblHistorialNV.getSelectedRow();
+                String nv = tblHistorialNV.getValueAt(index, 0).toString();
+                String oc = tblHistorialNV.getValueAt(index, 1).toString();
+                Salida salida = new Salida();
+                salida.txtCodigoOTSalida.setText(nv);
+                salida.lblOC.setText(oc);
+                salida.setVisible(true);
+                String queryBodega = "select nombreBodega from bodega ORDER BY nombreBodega";
+                PreparedStatement pstBodega = cn.prepareStatement(queryBodega);
+                ResultSet rsBodega = pstBodega.executeQuery();
+                while (rsBodega.next()) {
+                    salida.cmbBodegaSalida.addItem(rsBodega.getString(1));
+                }
+                salida.btnBuscarOTSalida.doClick();
+                salida.lblID.setText(lblIDUsuario.getText());
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "No hay una nota seleccionada" + ex.getMessage());
             }
-            salida.btnBuscarOTSalida.doClick();
-            salida.lblID.setText(lblIDUsuario.getText());
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "No hay una nota seleccionada" + ex.getMessage());
+
+        } else if (resp == 1) {
+            btnGenerarPDFNV.doClick();
+        } else {
+            JOptionPane.showMessageDialog(null, "No se realizará una acción");
         }
+
     }//GEN-LAST:event_tblHistorialNVMouseClicked
 
     private void btnSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalidaActionPerformed
@@ -441,7 +541,7 @@ public class HistorialNV extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         try {
-            
+
             String query = "SELECT \n"
                     + "    idTransporte AS 'ID',\n"
                     + "    transporte AS 'Transporte',\n"
@@ -461,7 +561,7 @@ public class HistorialNV extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         try {
-            
+
             String query = "SELECT \n"
                     + "    ot.idOrden AS 'N° de nota de venta',\n"
                     + "    ot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
@@ -479,6 +579,451 @@ public class HistorialNV extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnGenerarPDFNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarPDFNVActionPerformed
+
+        try {
+            int index = tblHistorialNV.getSelectedRow();
+            //código de orden de compra
+            String oc = tblHistorialNV.getValueAt(index, 1).toString();
+            //Variables
+            String fechaEnvioOC = "";
+            String estadoOC = "";
+            String unidadCompra = "";
+            String rutComprador = "";
+            String direccionDemandante = "";
+            String demandante = "";
+            String telefonoDemandante = "";
+            String emailContacto = "";
+            String nombreProveedor = "";
+            String direccionProveedor = "";
+            String rutProveedor = "";
+            String nombreContactoProveedor = "";
+            String fonoProveedor = "";
+            String fechaAceptacion = "";
+            String nombreOC = "";
+            String direccionDespacho = "";
+            String direccionEnvioFactura = "";
+            String metodoDespacho = "";
+            String contactoPago = "";
+            String formaPago = "";
+            String contactoOC = "";
+            String netoOC = "";
+            String dctoOC = "";
+            String cargosOC = "";
+            String subTotalOC = "";
+            String ivaOC = "";
+            String impuestoEspecificoOC = "";
+            String totalOC = "";
+            String observacionOC = "";
+
+            //En esta sección se ingresa el Request para que la "API", digamosle así xd y posteriormente entrega el resultado del mismo.
+            String format = "xml";
+            String url = "http://api.mercadopublico.cl/servicios/v1/publico/ordenesdecompra.xml?codigo=" + oc + "&ticket=210555F9-8B7E-48ED-93ED-2504CAD3B155";
+            System.out.println(url);
+            //Se crea un obj de tipo url con el cual se realizará el request
+            URL obj;
+
+            obj = new URL(url);
+
+            HttpURLConnection con;
+
+            con = (HttpURLConnection) obj.openConnection();
+
+            int responseCode;
+
+            responseCode = con.getResponseCode();
+
+            //Por motivos de Debug, se necesita el codigo de respuesta
+            System.out.println("Código de Respuesta : " + responseCode);
+            StringBuffer response = null;
+            try (BufferedReader in = new BufferedReader(
+                    new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8))) {
+                String inputLine;
+                response = new StringBuffer();
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(HistorialOC.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //print in String
+            // System.out.println(response.toString());
+            org.w3c.dom.Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new InputSource(new StringReader(response.toString())));
+            //Aqui segun el TAG del XML va a poder obtener los elementos...
+            //Obedeciendo el orden del documento, los tags son los siguientes...
+
+            NodeList ordenes = doc.getElementsByTagName("Ordenes");
+            if (ordenes.getLength() > 0) {
+                Element err = (Element) ordenes.item(0);
+                fechaEnvioOC = err.getElementsByTagName("FechaCreacion").item(0).getTextContent();
+                estadoOC = err.getElementsByTagName("Estado").item(0).getTextContent();
+                unidadCompra = err.getElementsByTagName("NombreUnidad").item(0).getTextContent();
+
+            } else {
+                // success
+            }
+
+            NodeList comprador = doc.getElementsByTagName("Comprador");
+            if (comprador.getLength() > 0) {
+                Element err = (Element) comprador.item(0);
+                rutComprador = err.getElementsByTagName("RutUnidad").item(0).getTextContent();
+                direccionDemandante = err.getElementsByTagName("DireccionUnidad").item(0).getTextContent();
+                demandante = err.getElementsByTagName("NombreOrganismo").item(0).getTextContent();
+                telefonoDemandante = err.getElementsByTagName("FonoContacto").item(0).getTextContent();
+                emailContacto = err.getElementsByTagName("MailContacto").item(0).getTextContent();
+            } else {
+                // success
+            }
+
+            NodeList proveedor = doc.getElementsByTagName("Proveedor");
+            if (proveedor.getLength() > 0) {
+                Element err = (Element) proveedor.item(0);
+                nombreProveedor = err.getElementsByTagName("Nombre").item(0).getTextContent();
+                direccionProveedor = err.getElementsByTagName("Direccion").item(0).getTextContent();
+                rutProveedor = err.getElementsByTagName("RutSucursal").item(0).getTextContent();
+                nombreContactoProveedor = err.getElementsByTagName("NombreContacto").item(0).getTextContent();
+                fonoProveedor = err.getElementsByTagName("FonoContacto").item(0).getTextContent();
+            } else {
+                // success
+            }
+
+            NodeList fechas = doc.getElementsByTagName("Fechas");
+            if (fechas.getLength() > 0) {
+                Element err = (Element) fechas.item(0);
+                fechaEnvioOC = err.getElementsByTagName("FechaCreacion").item(0).getTextContent();
+                fechaAceptacion = err.getElementsByTagName("FechaAceptacion").item(0).getTextContent();
+            } else {
+                // success
+            }
+
+            NodeList detalleOrden = doc.getElementsByTagName("OrdenCompra");
+            if (detalleOrden.getLength() > 0) {
+                Element err = (Element) detalleOrden.item(0);
+                nombreOC = (err.getElementsByTagName("Nombre").item(0).getTextContent());
+                direccionDespacho = (err.getElementsByTagName("DireccionUnidad").item(0).getTextContent() + " "
+                        + err.getElementsByTagName("ComunaUnidad").item(0).getTextContent() + " " + err.getElementsByTagName("RegionUnidad").item(0).getTextContent());
+                direccionEnvioFactura = err.getElementsByTagName("DireccionUnidad").item(0).getTextContent() + " "
+                        + err.getElementsByTagName("ComunaUnidad").item(0).getTextContent() + " "
+                        + err.getElementsByTagName("RegionUnidad").item(0).getTextContent();
+                metodoDespacho = err.getElementsByTagName("TipoDespacho").item(0).getTextContent();
+                contactoPago = err.getElementsByTagName("NombreContacto").item(0).getTextContent() + " "
+                        + err.getElementsByTagName("FonoContacto").item(0).getTextContent() + " "
+                        + err.getElementsByTagName("MailContacto").item(0).getTextContent();
+                formaPago = err.getElementsByTagName("FormaPago").item(0).getTextContent();
+                contactoOC = err.getElementsByTagName("NombreContacto").item(0).getTextContent();
+            } else {
+                // success
+            }
+
+            NodeList flowList0 = doc.getElementsByTagName("Listado");
+            Element err1 = (Element) flowList0.item(0);
+            int num = Integer.parseInt(err1.getElementsByTagName("Cantidad").item(0).getTextContent());
+            System.out.println(num + "");
+            NodeList flowList1 = doc.getElementsByTagName("Listado");
+            DefaultTableModel modelo = (DefaultTableModel) tblOC.getModel();
+
+            for (int m = 0; m < tblOC.getRowCount(); m++) {
+                modelo.removeRow(m);
+            }
+            modelo.setRowCount(num);
+            for (int x = 0; x < num; x++) {
+                System.out.println("Listado " + flowList1.getLength());
+
+                NodeList flowList = doc.getElementsByTagName("Item");
+                for (int i = 0; i < flowList.getLength(); i++) {
+                    Element err = (Element) flowList.item(x);
+
+                    String str = err.getElementsByTagName("EspecificacionComprador").item(0).getTextContent();
+                    if (str.contains("(") && str.contains(")")) {
+                        //Contiene o no
+                        String answer = str.substring(str.indexOf("(") + 1, str.indexOf(")"));
+                        modelo.setValueAt(answer, x, 0);
+                    } else {
+                        modelo.setValueAt("-", x, 0);
+                    }
+
+                    modelo.setValueAt(err.getElementsByTagName("EspecificacionComprador").item(0).getTextContent(), x, 1);
+                    modelo.setValueAt(err.getElementsByTagName("Cantidad").item(0).getTextContent(), x, 2);
+                    modelo.setValueAt(err.getElementsByTagName("EspecificacionComprador").item(0).getTextContent(), x, 3);
+                    modelo.setValueAt(err.getElementsByTagName("EspecificacionProveedor").item(0).getTextContent(), x, 4);
+                    modelo.setValueAt(err.getElementsByTagName("Moneda").item(0).getTextContent(), x, 5);
+                    modelo.setValueAt(err.getElementsByTagName("PrecioNeto").item(0).getTextContent(), x, 6);
+                    modelo.setValueAt(err.getElementsByTagName("TotalDescuentos").item(0).getTextContent(), x, 7);
+                    modelo.setValueAt(err.getElementsByTagName("TotalCargos").item(0).getTextContent(), x, 8);
+                    modelo.setValueAt(err.getElementsByTagName("Total").item(0).getTextContent(), x, 9);
+                }
+            }
+
+            NodeList detalleMontos = doc.getElementsByTagName("OrdenCompra");
+
+            if (detalleMontos.getLength()
+                    > 0) {
+                Element err = (Element) detalleMontos.item(0);
+                netoOC = ("$" + err.getElementsByTagName("TotalNeto").item(0).getTextContent());
+                dctoOC = ("$" + err.getElementsByTagName("Descuentos").item(0).getTextContent());
+                cargosOC = ("$" + err.getElementsByTagName("Cargos").item(0).getTextContent());
+                subTotalOC = (Integer.toString(Integer.parseInt(netoOC.substring(1)) - Integer.parseInt(dctoOC.substring(1))));
+                ivaOC = ("$" + err.getElementsByTagName("Impuestos").item(0).getTextContent());
+                impuestoEspecificoOC = ("$" + err.getElementsByTagName("TotalImpuestos").item(0).getTextContent());
+                totalOC = ("$" + err.getElementsByTagName("Total").item(0).getTextContent());
+
+            } else {
+                // success
+            }
+            NodeList descripcion = doc.getElementsByTagName("OrdenCompra");
+
+            if (descripcion.getLength()
+                    > 0) {
+                Element err = (Element) descripcion.item(0);
+                observacionOC = (err.getElementsByTagName("Descripcion").item(0).getTextContent());
+            } else {
+                // success
+            }
+            System.out.println("La consulta fue realizada con éxito");
+
+            //Consultar Tabla de notas de venta a partir de la OC
+            try {
+                String query = "Select idOrden as 'N° de NV', \n"
+                        + "codigoOrdenCompra as 'Código Orden Compra',\n"
+                        + "codigoProducto as 'Código / ID licitación',\n"
+                        + "nombreProducto as 'Producto',\n"
+                        + "cantidad as 'Cantidad',\n"
+                        + "moneda as 'Moneda',\n"
+                        + "'N/A' as 'Especificación Comprador',\n"
+                        + "'N/A' as 'Especificación Proveedor',\n"
+                        + "precioUnitario as 'Precio Unitario',\n"
+                        + "descuento as 'Descuento',\n"
+                        + "cargos as 'Cargos',\n"
+                        + "valorTotal as 'Total'\n"
+                        + "from detalleordentrabajo\n"
+                        + "where codigoOrdenCompra = ?;";
+                String param = oc;
+                PreparedStatement pst = cn.prepareStatement(query);
+                pst.setString(1, param);
+                java.sql.ResultSet rs = pst.executeQuery();
+                tblBDD.setModel(DbUtils.resultSetToTableModel(rs));
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex);
+            }
+
+            //Impresion del PDF
+            String ruta = "";
+
+            JFileChooser dlg = new JFileChooser();
+            dlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+            int option = dlg.showOpenDialog(this);
+
+            if (option == JFileChooser.APPROVE_OPTION) {
+                File f = dlg.getSelectedFile();
+                ruta = f.toString();
+            }
+
+            //Fecha
+            Date sistFecha = new Date();
+            SimpleDateFormat formato = new SimpleDateFormat("dd-MMM-YYYY");
+            //Crear PDF
+            try {
+                Document docPDF = new Document(PageSize.A4);
+
+                Date sistHora = new Date();
+                String pmAm = "hh:mm a";
+                SimpleDateFormat formatPDF = new SimpleDateFormat(pmAm);
+                Calendar hoy = Calendar.getInstance();
+                String horaPDF = (String.format(formatPDF.format(sistHora), hoy));
+                horaPDF = horaPDF.replace(":", "-");
+                PdfWriter writer = PdfWriter.getInstance(docPDF, new FileOutputStream(ruta + "\\" + oc + "_Fecha_" + formato.format(sistFecha) + "_hora_" + horaPDF + "_Nota_de_Venta_" + ".pdf"));
+
+                //Separador
+                PdfPTable myTable = new PdfPTable(1);
+                myTable.setWidthPercentage(100.0f);
+                PdfPCell myCell = new PdfPCell(new Paragraph(""));
+                myCell.setBorder(Rectangle.BOTTOM);
+                myTable.addCell(myCell);
+                myTable.setSpacingAfter(10f);
+                myTable.setSpacingBefore(10f);
+
+                docPDF.open();
+
+                //Añadir la imagen
+                try {
+                    Image logoAcima = Image.getInstance("src\\Imagenes\\acima-logo-200p.png");
+                    logoAcima.scaleAbsolute(126, 67);
+                    logoAcima.setAlignment(Paragraph.ALIGN_RIGHT);
+                    docPDF.add(logoAcima);
+
+                    docPDF.add(myTable);
+
+                } catch (BadElementException ex) {
+                    Logger.getLogger(OrdenTrabajo.class
+                            .getName()).log(Level.SEVERE, null, ex);
+
+                } catch (IOException ex) {
+                    Logger.getLogger(OrdenTrabajo.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                }
+
+                Paragraph titulo = new Paragraph("Información del demandante", FontFactory.getFont(FontFactory.TIMES, 12, com.itextpdf.text.Font.BOLD, null));
+                docPDF.add(titulo);
+
+                PdfPTable tableDatos = new PdfPTable(2);
+                tableDatos.setWidthPercentage(100);
+                tableDatos.addCell(new Phrase("Rut del Demandante: " + rutComprador, FontFactory.getFont(FontFactory.TIMES, 12)));
+                tableDatos.addCell(new Phrase("Demandante: " + demandante, FontFactory.getFont(FontFactory.TIMES, 12)));
+                tableDatos.addCell(new Phrase("Dirección del Demandante: " + direccionDemandante, FontFactory.getFont(FontFactory.TIMES, 12)));
+                tableDatos.addCell(new Phrase("Unidad de Compra: " + unidadCompra, FontFactory.getFont(FontFactory.TIMES, 12)));
+                tableDatos.addCell(new Phrase("Teléfono del Demandante: " + telefonoDemandante, FontFactory.getFont(FontFactory.TIMES, 12)));
+                tableDatos.addCell(new Phrase("Fecha de Envío de Nota de OC: " + fechaEnvioOC, FontFactory.getFont(FontFactory.TIMES, 12)));
+                tableDatos.setSpacingBefore(15f);
+                tableDatos.setWidthPercentage(100);
+                Paragraph alineaDatos = new Paragraph();
+                alineaDatos.add(tableDatos);
+                docPDF.add(alineaDatos);
+
+                docPDF.add(myTable);
+
+                Paragraph titulo2 = new Paragraph("Información de la empresa", FontFactory.getFont(FontFactory.TIMES, 12, com.itextpdf.text.Font.BOLD, null));
+                docPDF.add(titulo2);
+
+                Paragraph proveedorParagraph = new Paragraph("Proveedor: " + nombreProveedor, FontFactory.getFont(FontFactory.TIMES, 12, com.itextpdf.text.Font.NORMAL, null));
+                proveedorParagraph.setAlignment(Paragraph.ALIGN_LEFT);
+                docPDF.add(proveedorParagraph);
+
+                docPDF.add(myTable);
+
+                Paragraph titulo3 = new Paragraph("Información de orden", FontFactory.getFont(FontFactory.TIMES, 12, com.itextpdf.text.Font.NORMAL, null));
+                docPDF.add(titulo);
+
+                PdfPTable tableDatos2 = new PdfPTable(2);
+                tableDatos2.setWidthPercentage(100);
+                tableDatos2.addCell(new Phrase("Nombre de la Orden de Compra: " + nombreOC, FontFactory.getFont(FontFactory.TIMES, 12)));
+                tableDatos2.addCell(new Phrase("Metodo de Despacho: " + metodoDespacho, FontFactory.getFont(FontFactory.TIMES, 12)));
+                tableDatos2.addCell(new Phrase("Fecha de aceptación: " + fechaAceptacion, FontFactory.getFont(FontFactory.TIMES, 12)));
+                tableDatos2.addCell(new Phrase("Forma de Pago: " + formaPago, FontFactory.getFont(FontFactory.TIMES, 12)));
+                tableDatos2.addCell(new Phrase("Direcciones de despacho: " + direccionDespacho, FontFactory.getFont(FontFactory.TIMES, 12)));
+                tableDatos2.addCell(new Phrase("Contacto de pago: " + contactoPago, FontFactory.getFont(FontFactory.TIMES, 12)));
+                tableDatos2.addCell(new Phrase("Direcciones de envio de factura: " + direccionEnvioFactura, FontFactory.getFont(FontFactory.TIMES, 12)));
+                tableDatos2.addCell(new Phrase("Contacto de OC: " + contactoOC, FontFactory.getFont(FontFactory.TIMES, 12)));
+                tableDatos2.addCell(new Phrase("Mail de Envío de Factura: " + emailContacto, FontFactory.getFont(FontFactory.TIMES, 12)));
+                tableDatos2.addCell(new Phrase("Código de Orden de Compra: " + oc, FontFactory.getFont(FontFactory.TIMES, 12)));
+                tableDatos2.setSpacingBefore(15f);
+                tableDatos2.setWidthPercentage(100);
+                Paragraph alineaDatos2 = new Paragraph();
+                alineaDatos2.add(tableDatos2);
+                docPDF.add(alineaDatos2);
+
+                // doc.setPageSize(PageSize.A4.rotate());
+                //doc.newPage();
+                Paragraph tablas = new Paragraph("Información de productos en la orden ", FontFactory.getFont(FontFactory.TIMES, 12, com.itextpdf.text.Font.BOLD, null));
+                docPDF.add(tablas);
+                PdfPTable pdfTable = new PdfPTable(tblOC.getColumnCount());
+                pdfTable.setSpacingBefore(15f);
+                pdfTable.setWidthPercentage(100);
+                for (int i = 0; i < tblOC.getColumnCount(); i++) {
+                    pdfTable.addCell(new Phrase(tblOC.getColumnName(i), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                }
+                for (int rows = 0; rows < tblOC.getRowCount(); rows++) {
+                    pdfTable.addCell(new Phrase(tblOC.getModel().getValueAt(rows, 0).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    pdfTable.addCell(new Phrase(tblOC.getModel().getValueAt(rows, 1).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    pdfTable.addCell(new Phrase(tblOC.getModel().getValueAt(rows, 2).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    pdfTable.addCell(new Phrase(tblOC.getModel().getValueAt(rows, 3).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    pdfTable.addCell(new Phrase(tblOC.getModel().getValueAt(rows, 4).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    pdfTable.addCell(new Phrase(tblOC.getModel().getValueAt(rows, 5).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    pdfTable.addCell(new Phrase(tblOC.getModel().getValueAt(rows, 6).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    pdfTable.addCell(new Phrase(tblOC.getModel().getValueAt(rows, 7).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    pdfTable.addCell(new Phrase(tblOC.getModel().getValueAt(rows, 8).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    pdfTable.addCell(new Phrase(tblOC.getModel().getValueAt(rows, 9).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                }
+
+                docPDF.add(pdfTable);
+
+                Paragraph neto = new Paragraph("Neto: " + netoOC, FontFactory.getFont(FontFactory.TIMES, 12, com.itextpdf.text.Font.NORMAL, null));
+                neto.setAlignment(Paragraph.ALIGN_RIGHT);
+                Paragraph iva = new Paragraph("IVA: " + ivaOC, FontFactory.getFont(FontFactory.TIMES, 12, com.itextpdf.text.Font.NORMAL, null));
+                iva.setAlignment(Paragraph.ALIGN_RIGHT);
+                Paragraph total = new Paragraph("Total: " + totalOC, FontFactory.getFont(FontFactory.TIMES, 12, com.itextpdf.text.Font.NORMAL, null));
+                total.setAlignment(Paragraph.ALIGN_RIGHT);
+                docPDF.add(neto);
+                docPDF.add(iva);
+                docPDF.add(total);
+
+                docPDF.add(myTable);
+
+                //doc.newPage();
+                //Para las notas de venta
+                Paragraph tablas2 = new Paragraph("Información de productos en notas de venta ", FontFactory.getFont(FontFactory.TIMES, 12, com.itextpdf.text.Font.BOLD, null));
+                docPDF.add(tablas2);
+                PdfPTable pdfTable2 = new PdfPTable(tblBDD.getColumnCount());
+                pdfTable2.setSpacingBefore(15f);
+                pdfTable2.setWidthPercentage(100);
+                for (int i = 0; i < tblBDD.getColumnCount(); i++) {
+                    pdfTable2.addCell(new Phrase(tblBDD.getColumnName(i), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                }
+                for (int rows = 0; rows < tblBDD.getRowCount(); rows++) {
+                    pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 0).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 1).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 2).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 3).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 4).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 5).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 6).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 7).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 8).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 9).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 10).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 11).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                }
+                docPDF.add(pdfTable2);
+
+                docPDF.add(myTable);
+                //Iconos
+                try {
+                    PdfPTable table = new PdfPTable(2);
+                    table.setWidths(new int[]{1, 12});
+                    table.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+                    //D:\Plataforma Operaciones\src\imagenes\465892689e(1).png
+                    Image img1 = Image.getInstance("src\\Imagenes\\phone-icon-11-64.png");
+                    Image img2 = Image.getInstance("src\\Imagenes\\mail-64.png");
+
+                    PdfPCell imagen1 = new PdfPCell(img1, false);
+                    imagen1.setBorder(Rectangle.NO_BORDER);
+                    imagen1.setBackgroundColor(BaseColor.WHITE);
+                    imagen1.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+
+                    PdfPCell imagen2 = new PdfPCell(img2, false);
+                    imagen2.setBorder(Rectangle.NO_BORDER);
+                    imagen2.setBackgroundColor(BaseColor.WHITE);
+                    imagen2.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+
+                    table.addCell(imagen1);
+                    table.addCell(new Phrase("Central telefónica: +56-232 107 900", FontFactory.getFont(FontFactory.TIMES, 12)));
+                    table.addCell(imagen2);
+                    table.addCell(new Phrase("ventas@acima.cl - comercial@acima.cl - gerencia@acima.cl", FontFactory.getFont(FontFactory.TIMES, 12)));
+                    Paragraph tableFooter = new Paragraph();
+                    tableFooter.add(table);
+                    tableFooter.setSpacingBefore(15f);
+                    tableFooter.setSpacingBefore(15f);
+                    tableFooter.setAlignment(Paragraph.ALIGN_RIGHT);
+                    docPDF.add(tableFooter);
+
+                    docPDF.close();
+                    JOptionPane.showMessageDialog(null, "PDF Generado Correctamente");
+
+                } catch (BadElementException | IOException ex) {
+                    Logger.getLogger(HistorialOC.class
+                            .getName()).log(Level.SEVERE, null, ex);
+
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(HistorialOC.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex);
+        }
+
+    }//GEN-LAST:event_btnGenerarPDFNVActionPerformed
 
     /**
      * @param args the command line arguments
@@ -517,6 +1062,7 @@ public class HistorialNV extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnGenerarPDFNV;
     private javax.swing.JButton btnSalida;
     private javax.swing.JButton btnVolverMenu9;
     private javax.swing.JButton jButton4;
@@ -530,11 +1076,15 @@ public class HistorialNV extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel43;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane19;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     public javax.swing.JLabel lblCodigo;
     public javax.swing.JLabel lblIDUsuario;
+    private javax.swing.JTable tblBDD;
     public javax.swing.JTable tblHistorialNV;
+    private javax.swing.JTable tblOC;
     private javax.swing.JTextField txtCodigoOC;
     private javax.swing.JFormattedTextField txtFechaOC;
     private javax.swing.JTextField txtNV;

@@ -256,8 +256,8 @@ public class Menu extends javax.swing.JFrame {
             NotaCompra nota = new NotaCompra();
             nota.setVisible(true);
             String queryActualizar = "SELECT \n"
-                    + "da.idOrden AS 'N° de nota de venta',\n"
                     + "a.numeroCotizacion AS 'N° de Cotización',\n"
+                    + "da.idOrden AS 'N° de nota de venta',\n"
                     + "a.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
                     + "a.distribuidor AS 'Distribuidor',\n"
                     + "a.fecha AS 'Fecha',\n"
@@ -266,15 +266,11 @@ public class Menu extends javax.swing.JFrame {
                     + "a.estado AS 'Estado'\n"
                     + "FROM\n"
                     + "abastecimiento a\n"
-                    + "    LEFT JOIN\n"
+                    + "LEFT JOIN\n"
                     + "detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
                     + "WHERE\n"
-                    + "a.numeroCotizacion NOT IN (SELECT \n"
-                    + "        i.numeroCotizacion\n"
-                    + "    FROM\n"
-                    + "        ingreso i)\n"
-                    + "    AND a.estado  IN('Comprado','Nota de compra ingresada con productos faltantes', 'Enviado a Proveedor')\n"
-                    + "    GROUP BY a.numeroCotizacion;";
+                    + "a.estado  IN('Comprado','Nota de compra ingresada con productos faltantes', 'Enviado a Proveedor')\n"
+                    + "GROUP BY a.numeroCotizacion;";
             PreparedStatement pst = cn.prepareStatement(queryActualizar);
             ResultSet rs = pst.executeQuery();
             nota.tblNC.setModel(DbUtils.resultSetToTableModel(rs));

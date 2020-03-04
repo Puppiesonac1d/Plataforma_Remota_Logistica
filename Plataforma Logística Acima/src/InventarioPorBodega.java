@@ -153,6 +153,7 @@ public class InventarioPorBodega extends javax.swing.JFrame {
 
         txtStockIngresado1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         txtStockIngresado1.setText("0");
+        txtStockIngresado1.setEnabled(false);
 
         jLabel124.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
         jLabel124.setText("SKU:");
@@ -207,6 +208,7 @@ public class InventarioPorBodega extends javax.swing.JFrame {
 
         cmbStatusProdIngreso1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         cmbStatusProdIngreso1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sin Stock", "Habilitado" }));
+        cmbStatusProdIngreso1.setEnabled(false);
 
         jLabel148.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel148.setText("Información del Producto:");

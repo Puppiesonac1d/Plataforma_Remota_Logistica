@@ -322,6 +322,7 @@
                           <Font name="Tahoma" size="20" style="1"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="0"/>
+                        <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel124">
@@ -481,6 +482,7 @@
                             <StringItem index="1" value="Habilitado"/>
                           </StringArray>
                         </Property>
+                        <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

@@ -1305,6 +1305,7 @@ public class Salida extends javax.swing.JFrame {
 
                             JOptionPane.showMessageDialog(null, "Salida de mercadería para bulto: " + tblBultosResumen.getValueAt(b, 5).toString() + " realizada");
                         }
+                        this.dispose();
                     } else {
                         JOptionPane.showMessageDialog(null, "La credencial no es correcta");
                     }

@@ -13,6 +13,7 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -104,7 +105,7 @@ public class Ingreso extends javax.swing.JFrame {
         cmbSeccionBodega = new javax.swing.JComboBox();
         jLabel55 = new javax.swing.JLabel();
         jLabel59 = new javax.swing.JLabel();
-        txtNumeroNotaVenta = new javax.swing.JTextField();
+        txtNC = new javax.swing.JTextField();
         jButton6 = new javax.swing.JButton();
         jScrollPane9 = new javax.swing.JScrollPane();
         tblProductosAIngresar = new javax.swing.JTable();
@@ -192,9 +193,10 @@ public class Ingreso extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID de Producto", "SKU", "Nombre de Producto", "Stock a Ingresar"
+                "Orden de Compra", "ID de Producto", "SKU", "Nombre de Producto", "Stock a Ingresar"
             }
         ));
+        tblProductosEnNC.getTableHeader().setReorderingAllowed(false);
         jScrollPane8.setViewportView(tblProductosEnNC);
 
         btnIngresarMercadería.setBackground(new java.awt.Color(51, 204, 0));
@@ -248,7 +250,7 @@ public class Ingreso extends javax.swing.JFrame {
                             .addComponent(txtIDproductoIngreso)
                             .addComponent(txtNombreProductoIngreso)
                             .addComponent(txtStockIngresado)
-                            .addComponent(btnConfirmarInfoProd, javax.swing.GroupLayout.DEFAULT_SIZE, 898, Short.MAX_VALUE))))
+                            .addComponent(btnConfirmarInfoProd, javax.swing.GroupLayout.DEFAULT_SIZE, 917, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         panelIngresoProductoLayout.setVerticalGroup(
@@ -279,12 +281,12 @@ public class Ingreso extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addComponent(jLabel52)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBorrar)
                     .addComponent(btnIngresarMercadería))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         cmbSeccionBodega.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
@@ -293,12 +295,12 @@ public class Ingreso extends javax.swing.JFrame {
         jLabel55.setText("Sección de Bodega:");
 
         jLabel59.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel59.setText("Número de Nota de Venta:");
+        jLabel59.setText("Número de Nota de Compra:");
 
-        txtNumeroNotaVenta.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        txtNumeroNotaVenta.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtNC.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        txtNC.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtNumeroNotaVentaKeyPressed(evt);
+                txtNCKeyPressed(evt);
             }
         });
 
@@ -327,6 +329,7 @@ public class Ingreso extends javax.swing.JFrame {
 
             }
         ));
+        tblProductosAIngresar.getTableHeader().setReorderingAllowed(false);
         tblProductosAIngresar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblProductosAIngresarMouseClicked(evt);
@@ -398,7 +401,7 @@ public class Ingreso extends javax.swing.JFrame {
                                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtNumeroNotaVenta)
+                                    .addComponent(txtNC)
                                     .addComponent(txtDistribuidor)
                                     .addComponent(cmbTransporte, 0, 429, Short.MAX_VALUE)
                                     .addComponent(cmbBodega, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -431,7 +434,7 @@ public class Ingreso extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel59)
-                    .addComponent(txtNumeroNotaVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -461,10 +464,10 @@ public class Ingreso extends javax.swing.JFrame {
                 .addGap(7, 7, 7)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
                 .addGap(10, 10, 10)
                 .addComponent(panelIngresoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jScrollPane10.setViewportView(jPanel14);
@@ -534,23 +537,22 @@ public class Ingreso extends javax.swing.JFrame {
         try {
             //Agregar los productos a la lista
             int i = tblProductosAIngresar.getSelectedRow();
-            int verificar = Integer.parseInt(tblProductosAIngresar.getValueAt(i, 4).toString());
-
+            int verificar = Integer.parseInt(tblProductosAIngresar.getValueAt(i, 5).toString());
+            String oc = tblProductosAIngresar.getValueAt(i, 0).toString();
             if (verificar <= 0) {
                 JOptionPane.showMessageDialog(null, "La cantidad de producto es 0, no puede restar mas de la lista");
             } else {
                 int indexs = tblProductosAIngresar.getRowCount();
-                Object[] row = new Object[4];
+                Object[] row = new Object[5];
                 DefaultTableModel modeloNuevo = (DefaultTableModel) tblProductosEnNC.getModel();
-
-                row[0] = txtIDproductoIngreso.getText();
-                row[1] = txtSKUIngreso.getText();
-                row[2] = txtNombreProductoIngreso.getText();
-                row[3] = txtStockIngresado.getText();
+                row[0] = oc;
+                row[1] = txtIDproductoIngreso.getText();
+                row[2] = txtSKUIngreso.getText();
+                row[3] = txtNombreProductoIngreso.getText();
+                row[4] = txtStockIngresado.getText();
                 modeloNuevo.addRow(row);
 
-                tblProductosAIngresar.setValueAt((Integer.parseInt(tblProductosAIngresar.getValueAt(i, 4).toString()) - Integer.parseInt(txtStockIngresado.getText())), i, 4);
-
+                JOptionPane.showMessageDialog(null, "Producto Agregado a la lista");
             }
 
         } catch (Exception ex) {
@@ -559,12 +561,229 @@ public class Ingreso extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConfirmarInfoProdActionPerformed
 
     private void btnIngresarMercaderíaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarMercaderíaActionPerformed
-        int totalCantidad = 0;
-        for (int i = 0; i < tblProductosAIngresar.getRowCount(); i++) {
-            totalCantidad = Integer.parseInt(tblProductosAIngresar.getValueAt(i, 4).toString()) + totalCantidad;
+
+        //Realizar el ingreso X productos
+        DefaultTableModel model = (DefaultTableModel) tblProductosEnNC.getModel();
+        int rowcount = tblProductosEnNC.getRowCount();
+        //Se va a hacer un insert X producto
+        for (int i = 0; i < rowcount; i++) {
+            try {
+                String query3 = "INSERT INTO ingreso(`numeroCotizacion`,codigoOrdenCompra,`notaventa`, `nombreDistribuidor`,numeroFactura,guiaDespachoProveedor, "
+                        + "`tipoTransporte`, `idBodega`,`IDProducto`,`SKU`,"
+                        + "`codigoGeneradoQR`,`StockIngresado`,`tipoIngreso`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                PreparedStatement pst2 = cn.prepareStatement(query3);
+                pst2.setString(1, lblNC.getText());
+                pst2.setString(2, model.getValueAt(i, 0).toString());
+                pst2.setString(3, txtNC.getText());
+                pst2.setString(4, txtDistribuidor.getText());
+                pst2.setString(5, txtNumFactura.getText());
+                pst2.setString(6, txtGuiaDespacho.getText());
+                pst2.setString(7, cmbTransporte.getSelectedItem().toString());
+                pst2.setInt(8, cmbBodega.getSelectedIndex());
+                pst2.setString(9, model.getValueAt(i, 1).toString());
+                pst2.setString(10, model.getValueAt(i, 2).toString());
+                pst2.setString(11, "");
+                pst2.setString(12, model.getValueAt(i, 4).toString());
+                pst2.setString(13, "Ingreso realizado por 'Ingreso de Mercadería'");
+                int up = pst2.executeUpdate();
+
+                //Sumar Stock
+                String queryINV = "UPDATE INVENTARIO SET STOCK = stock + ? WHERE IDPRODUCTO = ?";
+                PreparedStatement pstINV = cn.prepareStatement(queryINV);
+                pstINV.setInt(1, Integer.parseInt(tblProductosEnNC.getValueAt(i, 4).toString()));
+                pstINV.setString(2, tblProductosEnNC.getValueAt(i, 1).toString());
+                int upINV = pstINV.executeUpdate();
+
+                //Sacar el id de ingreso para el QR
+                String queryIngreso = "SELECT MAX(idIngreso),stockIngresado FROM ingreso having MAX(idIngreso)";
+                // create the java statement
+                PreparedStatement pstIngreso = cn.prepareStatement(queryIngreso);
+                // execute the query, and get a java resultset
+                ResultSet rs = pstIngreso.executeQuery();
+                // iterate through the java resultset
+                int maxId = 0;
+
+                int cantidad = 0;
+
+                while (rs.next()) {
+                    maxId = rs.getInt(1);
+                    cantidad = rs.getInt(2);
+                }
+
+                String queryProductoIngresado = "update detalle_abastecimiento set estado = 'Ingresado' where numeroCotizacion = ? and codigoOrdenCompra = ? and codigoProducto = ?;";
+                PreparedStatement pstProductoIngresado = cn.prepareStatement(queryProductoIngresado);
+                pstProductoIngresado.setString(1, txtNC.getText());
+                pstProductoIngresado.setString(2, tblProductosEnNC.getValueAt(i, 0).toString());
+                pstProductoIngresado.setString(3, tblProductosEnNC.getValueAt(i, 1).toString());
+                int upProductoIngresado = pstProductoIngresado.executeUpdate();
+
+                String ruta = "";
+
+                JFileChooser dlg = new JFileChooser();
+                dlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+                int option = dlg.showOpenDialog(this);
+
+                if (option == JFileChooser.APPROVE_OPTION) {
+                    File f = dlg.getSelectedFile();
+                    ruta = f.toString();
+                }
+
+                Date sistHora = new Date();
+                String pmAm = "hh:mm a";
+                SimpleDateFormat format = new SimpleDateFormat(pmAm);
+                Calendar hoy = Calendar.getInstance();
+                String hora = (String.format(format.format(sistHora), hoy));
+                hora = hora.replace(":", "-");
+                SimpleDateFormat formato = new SimpleDateFormat("dd-MMM-YYYY");
+                Date sistFecha = new Date();
+                Document doc = new Document(new Rectangle(282, 424));
+
+                PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(ruta + "\\" + "ingreso_" + txtNC.getText() + "_producto_" + model.getValueAt(i, 1).toString() + "_" + formato.format(sistFecha) + ".pdf"));
+
+                doc.open();
+
+                //Establecer imagen y escala
+                ///Codigo QR
+                BarcodeQRCode barcodeQRCode = new BarcodeQRCode("Acima Group - Ingreso " + maxId, 1000, 1000, null);
+                com.itextpdf.text.Image codeQrImage = barcodeQRCode.getImage();
+                codeQrImage.scaleAbsolute(50, 50);
+
+                com.itextpdf.text.Image logoAcima = com.itextpdf.text.Image.getInstance("src\\imagenes\\acima-logo-400p.png");
+                logoAcima.scaleAbsolute(64, 34);
+
+                PdfPCell cell1 = new PdfPCell(logoAcima, false);
+                cell1.setBorder(Rectangle.NO_BORDER);
+                cell1.setBackgroundColor(BaseColor.WHITE);
+                cell1.setHorizontalAlignment(Element.ALIGN_RIGHT);
+
+                PdfPCell cellqr = new PdfPCell(codeQrImage, false);
+                cellqr.setBorder(Rectangle.NO_BORDER);
+                cellqr.setBackgroundColor(BaseColor.WHITE);
+                cellqr.setHorizontalAlignment(Element.ALIGN_LEFT);
+
+                //Crear Tabla
+                PdfPTable tableHeader = new PdfPTable(2);
+                tableHeader.setWidthPercentage(100);
+
+                tableHeader.addCell(cellqr);
+                tableHeader.addCell(cell1);
+                doc.add(tableHeader);
+
+                //Separador
+                PdfPTable myTable = new PdfPTable(1);
+                myTable.setWidthPercentage(100.0f);
+                PdfPCell myCell = new PdfPCell(new Paragraph(""));
+                myCell.setBorder(Rectangle.BOTTOM);
+                myTable.addCell(myCell);
+                myTable.setSpacingAfter(5f);
+                myTable.setSpacingBefore(5f);
+                doc.add(myTable);
+
+                //Crear Tabla de información
+                PdfPTable tableInfoContacto = new PdfPTable(1);
+                tableInfoContacto.setWidthPercentage(100);
+
+                //Empresa
+                Paragraph empresa = new Paragraph("Empresa: " + lblEmpresa.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                empresa.setAlignment(Paragraph.ALIGN_LEFT);
+                doc.add(empresa);
+                //Orden de Compra
+                Paragraph oc = new Paragraph("Orden de Compra: " + lblOC.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                oc.setAlignment(Paragraph.ALIGN_LEFT);
+                doc.add(oc);
+                //Ingreso
+                Paragraph fechaIngreso = new Paragraph("Fecha de Ingreso de Mercadería: " + formato.format(sistFecha), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                fechaIngreso.setAlignment(Paragraph.ALIGN_LEFT);
+                doc.add(fechaIngreso);
+
+                doc.add(myTable);
+
+                //Nombre Producto
+                Paragraph nombreProducto = new Paragraph("Nombre de Producto: " + model.getValueAt(i, 2).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                nombreProducto.setAlignment(Paragraph.ALIGN_LEFT);
+                doc.add(nombreProducto);
+                //Sku
+                Paragraph sku = new Paragraph("SKU: " + model.getValueAt(i, 1).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                sku.setAlignment(Paragraph.ALIGN_LEFT);
+                doc.add(sku);
+
+                doc.add(myTable);
+
+                //Numero de Ingreso
+                Paragraph numeroIngreso = new Paragraph("Número de Ingreso: " + maxId, FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                numeroIngreso.setAlignment(Paragraph.ALIGN_LEFT);
+                doc.add(numeroIngreso);
+
+                doc.add(codeQrImage);
+                /*
+                        PdfContentByte cb = writer.getDirectContent();
+                        Barcode128 barcode128 = new Barcode128();
+                        barcode128.setCode("este es un codigo de barra muy largo...con mucha informacion innecesaria");
+                        barcode128.setCodeType(Barcode.CODE128);
+                        Image code128Image = barcode128.createImageWithBarcode(cb, null, null);
+                        doc.add(code128Image);
+                 */
+                doc.add(myTable);
+
+                doc.close();
+            } catch (SQLException | DocumentException | IOException ex) {
+                Logger.getLogger(Ingreso.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
-        System.out.println("Cantidad " + totalCantidad);
-        if (totalCantidad > 0) {
+
+        int totalCantidadIngreso = 0;
+        try {
+            String queryCantIngreso = "SELECT sum(StockIngresado) FROM acimabasededatos.ingreso where notaVenta = ?;";
+            PreparedStatement pstCantIngreso = cn.prepareStatement(queryCantIngreso);
+            pstCantIngreso.setString(1, txtNC.getText());
+            ResultSet rsCantIngreso = pstCantIngreso.executeQuery();
+            while (rsCantIngreso.next()) {
+                totalCantidadIngreso = rsCantIngreso.getInt("sum(StockIngresado)");
+            }
+        } catch (Exception ex) {
+            System.out.println("error realizando la suma" + ex);
+        }
+        System.out.println("Cantidad de Productos Ingresados: " + totalCantidadIngreso);
+
+        int sumatoriaStock = 0;
+        for (int x = 0; x < tblProductosAIngresar.getRowCount(); x++) {
+            sumatoriaStock = sumatoriaStock + Integer.parseInt(tblProductosAIngresar.getValueAt(x, 5).toString());
+        }
+        System.out.println("Sumatoria de Stock :" + sumatoriaStock);
+
+        //ACTUALIZAR SI SE HAN INGRESADO TODOS LOS PRODUCTOS O NO
+        if (sumatoriaStock == totalCantidadIngreso) {
+            try {
+                // create the java mysql update preparedstatement
+                String query = "update abastecimiento set estado = 'Nota de compra ingresada' where numerocotizacion = ?";
+                PreparedStatement preparedStmt = cn.prepareStatement(query);
+                preparedStmt.setString(1, txtNC.getText());
+                // execute the java preparedstatement
+                preparedStmt.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Cotización validada: " + txtNC.getText());
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex.getMessage());
+            }
+        } else if (sumatoriaStock != totalCantidadIngreso) {
+            try {
+                // create the java mysql update preparedstatement
+                String query = "update abastecimiento set estado = 'Nota de compra ingresada con productos faltantes' where numerocotizacion = ?";
+                PreparedStatement preparedStmt = cn.prepareStatement(query);
+                preparedStmt.setString(1, txtNC.getText());
+                // execute the java preparedstatement
+                preparedStmt.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Cotización validada: " + txtNC.getText());
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex.getMessage());
+            }
+        }
+        this.dispose();
+
+        /*
+        //Metodo antiguo
+        if (totalCantidadNV > 0) {
             //se estará ingresando con la cantidad faltante
 
             String[] options = new String[]{"Confirmar", "Cancelar"};
@@ -594,7 +813,7 @@ public class Ingreso extends javax.swing.JFrame {
                                     + "`codigoGeneradoQR`,`StockIngresado`,`tipoIngreso`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
                             PreparedStatement pst2 = cn.prepareStatement(query3);
                             pst2.setString(1, lblNC.getText());
-                            pst2.setString(2, txtNumeroNotaVenta.getText());
+                            pst2.setString(2, txtNC.getText());
                             pst2.setString(3, txtDistribuidor.getText());
                             pst2.setString(4, txtNumFactura.getText());
                             pst2.setString(5, txtGuiaDespacho.getText());
@@ -651,7 +870,7 @@ public class Ingreso extends javax.swing.JFrame {
                             Date sistFecha = new Date();
                             Document doc = new Document(new Rectangle(282, 424));
 
-                            PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(ruta + "\\" + "ingreso_" + txtNumeroNotaVenta.getText() + "_producto_" + model.getValueAt(i, 1).toString() + "_" + formato.format(sistFecha) + ".pdf"));
+                            PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(ruta + "\\" + "ingreso_" + txtNC.getText() + "_producto_" + model.getValueAt(i, 1).toString() + "_" + formato.format(sistFecha) + ".pdf"));
 
                             doc.open();
 
@@ -729,20 +948,21 @@ public class Ingreso extends javax.swing.JFrame {
 
                             doc.add(codeQrImage);
 
-                            /*
+                            
                              PdfContentByte cb = writer.getDirectContent();
                              Barcode128 barcode128 = new Barcode128();
                              barcode128.setCode("este es un codigo de barra muy largo...con mucha informacion innecesaria");
                              barcode128.setCodeType(Barcode.CODE128);
                              Image code128Image = barcode128.createImageWithBarcode(cb, null, null);
                              doc.add(code128Image);
-                             */
-                            doc.add(myTable);
+         
+        doc.add(myTable);
 
-                            doc.close();
+        doc.close();
 
-                        }
-                    } catch (Exception ex) {
+    }
+}
+catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, "ERROR EN A:" + ex.getMessage());
                     }
                 } catch (NumberFormatException | SQLException | HeadlessException ex) {
@@ -755,7 +975,7 @@ public class Ingreso extends javax.swing.JFrame {
                     preparedStmt.setString(1, lblNC.getText());
                     // execute the java preparedstatement
                     preparedStmt.executeUpdate();
-                    JOptionPane.showMessageDialog(null, "Cotización validada: " + txtNumeroNotaVenta.getText());
+                    JOptionPane.showMessageDialog(null, "Cotización validada: " + txtNC.getText());
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex.getMessage());
                 }
@@ -766,7 +986,7 @@ public class Ingreso extends javax.swing.JFrame {
                     modelo_paso.removeRow(i);
                 }
 
-                txtNumeroNotaVenta.setText("");
+                txtNC.setText("");
                 txtIDproductoIngreso.setText("");
                 txtSKUIngreso.setText("");
                 txtNombreProductoIngreso.setText("");
@@ -774,7 +994,7 @@ public class Ingreso extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Operación cancelada");
             }
-        } else if (totalCantidad == 0) {
+        } else if (totalCantidadNV == 0) {
             //se estará ingresando con la cantidad justa
 
             String[] options = new String[]{"Confirmar", "Cancelar"};
@@ -804,7 +1024,7 @@ public class Ingreso extends javax.swing.JFrame {
                                     + "`codigoGeneradoQR`,`StockIngresado`,`tipoIngreso`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
                             PreparedStatement pst2 = cn.prepareStatement(query3);
                             pst2.setString(1, lblNC.getText());
-                            pst2.setString(2, txtNumeroNotaVenta.getText());
+                            pst2.setString(2, txtNC.getText());
                             pst2.setString(3, txtDistribuidor.getText());
                             pst2.setString(4, txtNumFactura.getText());
                             pst2.setString(5, txtGuiaDespacho.getText());
@@ -861,7 +1081,7 @@ public class Ingreso extends javax.swing.JFrame {
 
                             Document doc = new Document(new Rectangle(282, 424));
 
-                            PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(ruta + "\\" + "ingreso_numero_" + txtNumeroNotaVenta.getText() + "_producto_" + model.getValueAt(i, 1).toString() + "_fecha_" + formato.format(sistFecha) + ".pdf"));
+                            PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(ruta + "\\" + "ingreso_numero_" + txtNC.getText() + "_producto_" + model.getValueAt(i, 1).toString() + "_fecha_" + formato.format(sistFecha) + ".pdf"));
 
                             doc.open();
 
@@ -934,14 +1154,14 @@ public class Ingreso extends javax.swing.JFrame {
                             doc.add(codeQrImage);
 
 
-                            /*
+                            
                              PdfContentByte cb = writer.getDirectContent();
                              Barcode128 barcode128 = new Barcode128();
                              barcode128.setCode("este es un codigo de barra muy largo...con mucha informacion innecesaria");
                              barcode128.setCodeType(Barcode.CODE128);
                              Image code128Image = barcode128.createImageWithBarcode(cb, null, null);
                              doc.add(code128Image);
-                             */
+                             
                             doc.add(myTable);
 
                             doc.close();
@@ -960,7 +1180,7 @@ public class Ingreso extends javax.swing.JFrame {
                     preparedStmt.setString(1, lblNC.getText());
                     // execute the java preparedstatement
                     preparedStmt.executeUpdate();
-                    JOptionPane.showMessageDialog(null, "Cotización validada: " + txtNumeroNotaVenta.getText());
+                    JOptionPane.showMessageDialog(null, "Cotización validada: " + txtNC.getText());
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex.getMessage());
                 }
@@ -971,7 +1191,7 @@ public class Ingreso extends javax.swing.JFrame {
                     modelo_paso.removeRow(i);
                 }
 
-                txtNumeroNotaVenta.setText("");
+                txtNC.setText("");
                 txtIDproductoIngreso.setText("");
                 txtSKUIngreso.setText("");
                 txtNombreProductoIngreso.setText("");
@@ -980,25 +1200,68 @@ public class Ingreso extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Operación cancelada");
             }
 
+
         }
+         */
 
     }//GEN-LAST:event_btnIngresarMercaderíaActionPerformed
 
-    private void txtNumeroNotaVentaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroNotaVentaKeyPressed
+    private void txtNCKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNCKeyPressed
 
-    }//GEN-LAST:event_txtNumeroNotaVentaKeyPressed
+    }//GEN-LAST:event_txtNCKeyPressed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         try {
-            String query = "SELECT SKU as 'SKU de Proveedor', CODIGOPRODUCTO AS 'CODIGO DE PRODUCTO', CATEGORIA AS 'CATEGORÍA', NOMBRE AS 'NOMBRE DE PRODUCTO',CANTIDAD AS 'CANTIDAD',\n"
-                    + "PRECIOUNITARIO AS 'PRECIOUNITARIO',PRECIOTOTALNETO AS 'PRECIO TOTAL NETO'\n"
-                    + "FROM detalle_abastecimiento da join abastecimiento a on da.numeroCotizacion = a.numeroCotizacion\n"
-                    + "WHERE da.idOrden = ?";
-            String param = txtNumeroNotaVenta.getText();
+
+            String queryProveedor = "SELECT proveedor FROM abastecimiento\n"
+                    + "WHERE numeroCotizacion = ?";
+            String paramProveedor = txtNC.getText();
+            PreparedStatement pstProveedor = cn.prepareStatement(queryProveedor);
+            pstProveedor.setString(1, paramProveedor);
+            ResultSet rsProveedor = pstProveedor.executeQuery();
+            while (rsProveedor.next()) {
+                txtDistribuidor.setText(rsProveedor.getString(1));
+            }
+
+            String query = "SELECT \n"
+                    + "    da.codigoOrdenCompra AS 'CÓDIGO DE ORDEN DE COMPRA',\n"
+                    + "    da.SKU AS 'SKU de Proveedor',\n"
+                    + "    da.CODIGOPRODUCTO AS 'CODIGO DE PRODUCTO',\n"
+                    + "    da.CATEGORIA AS 'CATEGORÍA',\n"
+                    + "    da.NOMBRE AS 'NOMBRE DE PRODUCTO',\n"
+                    + "    da.CANTIDAD AS 'CANTIDAD',\n"
+                    + "    0 AS 'Cantidad Pendiente',\n"
+                    + "    da.PRECIOUNITARIO AS 'PRECIOUNITARIO',\n"
+                    + "    da.PRECIOTOTALNETO AS 'PRECIO TOTAL NETO',\n"
+                    + "    da.estado AS 'Estado'\n"
+                    + "FROM\n"
+                    + "    detalle_abastecimiento da\n"
+                    + "WHERE\n"
+                    + "    da.numeroCotizacion = ?;";
+            String param = txtNC.getText();
             PreparedStatement pst = cn.prepareStatement(query);
             pst.setString(1, param);
+
             ResultSet rs = pst.executeQuery();
             tblProductosAIngresar.setModel(DbUtils.resultSetToTableModel(rs));
+
+            //Sacar la cantidad pendiente que puedan tener
+            for (int i = 0; i < tblProductosAIngresar.getRowCount(); i++) {
+                int cantidadSolicitada = 0;
+                DefaultTableModel modeloIngresos = (DefaultTableModel) tblProductosAIngresar.getModel();
+                String queryCorregirCantidad = "select sum(stockIngresado) from ingreso where notaVenta = ? and idProducto = ? and codigoOrdenCompra = ?;";
+                PreparedStatement pstCorregir = cn.prepareStatement(queryCorregirCantidad);
+                pstCorregir.setString(1, txtNC.getText());
+                pstCorregir.setString(2, tblProductosAIngresar.getValueAt(i, 2).toString());
+                pstCorregir.setString(3, tblProductosAIngresar.getValueAt(i, 0).toString());
+                ResultSet rsCorregir = pstCorregir.executeQuery();
+
+                while (rsCorregir.next()) {
+                    cantidadSolicitada = rsCorregir.getInt("sum(stockIngresado)");
+                }
+                modeloIngresos.setValueAt(Integer.parseInt(modeloIngresos.getValueAt(i, 5).toString()) - cantidadSolicitada, i, 6);
+            }
+
             while (rs.next()) {
                 txtIDproductoIngreso.setText("");
                 txtSKUIngreso.setText(rs.getString(""));
@@ -1016,7 +1279,7 @@ public class Ingreso extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel) tblProductosAIngresar.getModel();
             int selectedRow = tblProductosAIngresar.getSelectedRow();
             String query = "Select * FROM inventario where idProducto = ?";
-            String param = model.getValueAt(selectedRow, 1).toString();
+            String param = model.getValueAt(selectedRow, 2).toString();
             PreparedStatement pst = cn.prepareStatement(query);
             pst.setString(1, param);
             ResultSet rs = pst.executeQuery();
@@ -1082,16 +1345,24 @@ public class Ingreso extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Ingreso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ingreso.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Ingreso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ingreso.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Ingreso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ingreso.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Ingreso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ingreso.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -1144,9 +1415,9 @@ public class Ingreso extends javax.swing.JFrame {
     public javax.swing.JTextField txtDistribuidor;
     private javax.swing.JTextField txtGuiaDespacho;
     private javax.swing.JTextField txtIDproductoIngreso;
+    public javax.swing.JTextField txtNC;
     private javax.swing.JTextField txtNombreProductoIngreso;
     private javax.swing.JTextField txtNumFactura;
-    public javax.swing.JTextField txtNumeroNotaVenta;
     private javax.swing.JTextField txtSKUIngreso;
     private javax.swing.JTextField txtStockIngresado;
     // End of variables declaration//GEN-END:variables

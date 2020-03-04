@@ -312,8 +312,8 @@ public class NotaCompra extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
             String queryActualizar = "SELECT \n"
-                    + "da.idOrden AS 'N° de nota de venta',\n"
                     + "a.numeroCotizacion AS 'N° de Cotización',\n"
+                    + "da.idOrden AS 'N° de nota de venta',\n"
                     + "a.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
                     + "a.distribuidor AS 'Distribuidor',\n"
                     + "a.fecha AS 'Fecha',\n"
@@ -322,15 +322,11 @@ public class NotaCompra extends javax.swing.JFrame {
                     + "a.estado AS 'Estado'\n"
                     + "FROM\n"
                     + "abastecimiento a\n"
-                    + "    LEFT JOIN\n"
+                    + "LEFT JOIN\n"
                     + "detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
                     + "WHERE\n"
-                    + "a.numeroCotizacion NOT IN (SELECT \n"
-                    + "        i.numeroCotizacion\n"
-                    + "    FROM\n"
-                    + "        ingreso i)\n"
-                    + "    AND a.estado  IN('Comprado','Nota de compra ingresada con productos faltantes', 'Enviado a Proveedor')\n"
-                    + "    GROUP BY a.numeroCotizacion;";
+                    + "a.estado  IN('Comprado','Nota de compra ingresada con productos faltantes', 'Enviado a Proveedor')\n"
+                    + "GROUP BY a.numeroCotizacion;";
             PreparedStatement pst = cn.prepareStatement(queryActualizar);
             ResultSet rs = pst.executeQuery();
             tblNC.setModel(DbUtils.resultSetToTableModel(rs));
@@ -342,8 +338,8 @@ public class NotaCompra extends javax.swing.JFrame {
     private void cmbDistribuidorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDistribuidorItemStateChanged
         try {
             String query = "SELECT \n"
-                    + "da.idOrden AS 'N° de nota de venta',\n"
                     + "a.numeroCotizacion AS 'N° de Cotización',\n"
+                    + "da.idOrden AS 'N° de nota de venta',\n"
                     + "a.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
                     + "a.distribuidor AS 'Distribuidor',\n"
                     + "a.fecha AS 'Fecha',\n"
@@ -352,16 +348,11 @@ public class NotaCompra extends javax.swing.JFrame {
                     + "a.estado AS 'Estado'\n"
                     + "FROM\n"
                     + "abastecimiento a\n"
-                    + "    LEFT JOIN\n"
+                    + "LEFT JOIN\n"
                     + "detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
                     + "WHERE\n"
-                    + "a.numeroCotizacion NOT IN (SELECT \n"
-                    + "        i.numeroCotizacion\n"
-                    + "    FROM\n"
-                    + "        ingreso i)\n"
-                    + "    AND a.estado  IN('Comprado','Nota de compra ingresada con productos faltantes', 'Enviado a Proveedor') "
-                    + "    AND a.distribuidor RLIKE ?\n"
-                    + "    GROUP BY a.numeroCotizacion;";
+                    + "a.estado  IN('Comprado','Nota de compra ingresada con productos faltantes', 'Enviado a Proveedor') and a.distribuidor RLIKE ?\n"
+                    + "GROUP BY a.numeroCotizacion;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             pst.setString(1, cmbDistribuidor.getSelectedItem().toString());
@@ -377,8 +368,8 @@ public class NotaCompra extends javax.swing.JFrame {
     private void btnBuscarOCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarOCActionPerformed
         try {
             String query = "SELECT \n"
-                    + "da.idOrden AS 'N° de nota de venta',\n"
                     + "a.numeroCotizacion AS 'N° de Cotización',\n"
+                    + "da.idOrden AS 'N° de nota de venta',\n"
                     + "a.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
                     + "a.distribuidor AS 'Distribuidor',\n"
                     + "a.fecha AS 'Fecha',\n"
@@ -387,16 +378,11 @@ public class NotaCompra extends javax.swing.JFrame {
                     + "a.estado AS 'Estado'\n"
                     + "FROM\n"
                     + "abastecimiento a\n"
-                    + "    LEFT JOIN\n"
+                    + "LEFT JOIN\n"
                     + "detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
                     + "WHERE\n"
-                    + "a.numeroCotizacion NOT IN (SELECT \n"
-                    + "        i.numeroCotizacion\n"
-                    + "    FROM\n"
-                    + "        ingreso i)\n"
-                    + "    AND a.estado  IN('Comprado','Nota de compra ingresada con productos faltantes', 'Enviado a Proveedor')"
-                    + "    AND a.codigoOrdenCompra RLIKE ?\n"
-                    + "    GROUP BY a.numeroCotizacion;";
+                    + "a.estado  IN('Comprado','Nota de compra ingresada con productos faltantes', 'Enviado a Proveedor') and a.codigoOrdenCompra RLIKE ?\n"
+                    + "GROUP BY a.numeroCotizacion;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             pst.setString(1, txtCodigoOrdenCompra.getText());
@@ -412,8 +398,8 @@ public class NotaCompra extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
             String query = "SELECT \n"
-                    + "da.idOrden AS 'N° de nota de venta',\n"
                     + "a.numeroCotizacion AS 'N° de Cotización',\n"
+                    + "da.idOrden AS 'N° de nota de venta',\n"
                     + "a.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
                     + "a.distribuidor AS 'Distribuidor',\n"
                     + "a.fecha AS 'Fecha',\n"
@@ -422,15 +408,11 @@ public class NotaCompra extends javax.swing.JFrame {
                     + "a.estado AS 'Estado'\n"
                     + "FROM\n"
                     + "abastecimiento a\n"
-                    + "    LEFT JOIN\n"
+                    + "LEFT JOIN\n"
                     + "detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
                     + "WHERE\n"
-                    + "a.numeroCotizacion NOT IN (SELECT \n"
-                    + "        i.numeroCotizacion\n"
-                    + "    FROM\n"
-                    + "        ingreso i)\n"
-                    + "    AND a.estado  IN('Comprado','Nota de compra ingresada con productos faltantes', 'Enviado a Proveedor') AND da.idOrden RLIKE ?\n"
-                    + "    GROUP BY a.numeroCotizacion;";
+                    + "a.estado  IN('Comprado','Nota de compra ingresada con productos faltantes', 'Enviado a Proveedor') and da.idOrden RLIKE ?\n"
+                    + "GROUP BY a.numeroCotizacion;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             pst.setInt(1, Integer.parseInt(txtNumNV.getText()));
@@ -454,7 +436,7 @@ public class NotaCompra extends javax.swing.JFrame {
             }
             int index = tblNC.getSelectedRow();
             //seleccionarComuna(jComboBox1, jComboBox1);
-            ingreso.txtNumeroNotaVenta.setText(tblNC.getValueAt(index, 0).toString());
+            ingreso.txtNC.setText(tblNC.getValueAt(index, 0).toString());
             ingreso.lblNC.setText(tblNC.getValueAt(index, 1).toString());
             ingreso.lblEmpresa.setText(tblNC.getValueAt(index, 3).toString());
             ingreso.lblOC.setText(tblNC.getValueAt(index, 2).toString());
@@ -470,8 +452,8 @@ public class NotaCompra extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try {
             String query = "SELECT \n"
-                    + "da.idOrden AS 'N° de nota de venta',\n"
                     + "a.numeroCotizacion AS 'N° de Cotización',\n"
+                    + "da.idOrden AS 'N° de nota de venta',\n"
                     + "a.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
                     + "a.distribuidor AS 'Distribuidor',\n"
                     + "a.fecha AS 'Fecha',\n"
@@ -480,15 +462,11 @@ public class NotaCompra extends javax.swing.JFrame {
                     + "a.estado AS 'Estado'\n"
                     + "FROM\n"
                     + "abastecimiento a\n"
-                    + "    LEFT JOIN\n"
+                    + "LEFT JOIN\n"
                     + "detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
                     + "WHERE\n"
-                    + "a.numeroCotizacion NOT IN (SELECT \n"
-                    + "        i.numeroCotizacion\n"
-                    + "    FROM\n"
-                    + "        ingreso i)\n"
-                    + "    AND a.estado  IN('Comprado','Nota de compra ingresada con productos faltantes', 'Enviado a Proveedor') AND a.numeroCotizacion RLIKE ?\n"
-                    + "    GROUP BY a.numeroCotizacion;";
+                    + "a.estado  IN('Comprado','Nota de compra ingresada con productos faltantes', 'Enviado a Proveedor') and a.numeroCotizacion RLIKE ?\n"
+                    + "GROUP BY a.numeroCotizacion;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             pst.setInt(1, Integer.parseInt(txtCotizacion.getText()));

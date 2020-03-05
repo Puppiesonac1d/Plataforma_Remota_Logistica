@@ -37,7 +37,7 @@ public class NotaCompra extends javax.swing.JFrame {
         btnSalir3 = new javax.swing.JButton();
         jScrollPane15 = new javax.swing.JScrollPane();
         tblNC = new javax.swing.JTable();
-        jButton3 = new javax.swing.JButton();
+        btnReiniciarFiltros = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         cmbDistribuidor = new javax.swing.JComboBox();
@@ -91,11 +91,11 @@ public class NotaCompra extends javax.swing.JFrame {
         });
         jScrollPane15.setViewportView(tblNC);
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jButton3.setText("Reiniciar Filtros");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnReiniciarFiltros.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        btnReiniciarFiltros.setText("Reiniciar Filtros");
+        btnReiniciarFiltros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnReiniciarFiltrosActionPerformed(evt);
             }
         });
 
@@ -108,7 +108,7 @@ public class NotaCompra extends javax.swing.JFrame {
                 .addComponent(jScrollPane15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
+                    .addComponent(btnReiniciarFiltros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
                     .addComponent(btnSalir3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -118,7 +118,7 @@ public class NotaCompra extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addComponent(jButton3)
+                        .addComponent(btnReiniciarFiltros)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSalir3)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -309,23 +309,27 @@ public class NotaCompra extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnSalir3ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnReiniciarFiltrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarFiltrosActionPerformed
         try {
             String queryActualizar = "SELECT \n"
-                    + "a.numeroCotizacion AS 'N° de Cotización',\n"
-                    + "da.idOrden AS 'N° de nota de venta',\n"
-                    + "a.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
-                    + "a.distribuidor AS 'Distribuidor',\n"
-                    + "a.fecha AS 'Fecha',\n"
-                    + "a.proveedor AS 'Proveedor',\n"
-                    + "a.contacto AS 'Contacto',\n"
-                    + "a.estado AS 'Estado'\n"
+                    + "    a.numeroCotizacion AS 'N° de Cotización',\n"
+                    + "    da.idOrden AS 'N° de nota de venta',\n"
+                    + "    a.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
+                    + "    a.distribuidor AS 'Distribuidor',\n"
+                    + "    CONCAT(SUBSTRING(a.fecha, 9, 2),\n"
+                    + "            '-',\n"
+                    + "            SUBSTRING(a.fecha, 6, 2),\n"
+                    + "            '-',\n"
+                    + "            SUBSTRING(a.fecha, 1, 4)) AS 'Fecha de cotización' , "
+                    + "    a.proveedor AS 'Proveedor',\n"
+                    + "    a.estado AS 'Estado'\n"
                     + "FROM\n"
-                    + "abastecimiento a\n"
-                    + "LEFT JOIN\n"
-                    + "detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
+                    + "    abastecimiento a\n"
+                    + "        LEFT JOIN\n"
+                    + "    detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
                     + "WHERE\n"
-                    + "a.estado  IN('Comprado','Nota de compra ingresada con productos faltantes', 'Enviado a Proveedor')\n"
+                    + "    a.estado IN ('Comprado' , 'Nota de compra ingresada con productos faltantes',\n"
+                    + "        'Enviado a Proveedor')\n"
                     + "GROUP BY a.numeroCotizacion;";
             PreparedStatement pst = cn.prepareStatement(queryActualizar);
             ResultSet rs = pst.executeQuery();
@@ -333,7 +337,7 @@ public class NotaCompra extends javax.swing.JFrame {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnReiniciarFiltrosActionPerformed
 
     private void cmbDistribuidorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDistribuidorItemStateChanged
         try {
@@ -355,7 +359,7 @@ public class NotaCompra extends javax.swing.JFrame {
                     + "    detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
                     + "WHERE\n"
                     + "    a.estado IN ('Comprado' , 'Nota de compra ingresada con productos faltantes',\n"
-                    + "    'Enviado a Proveedor') and a.distribuidor RLIKE ?\n"
+                    + "        'Enviado a Proveedor') and a.distribuidor RLIKE ?\n"
                     + "GROUP BY a.numeroCotizacion;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
@@ -372,20 +376,24 @@ public class NotaCompra extends javax.swing.JFrame {
     private void btnBuscarOCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarOCActionPerformed
         try {
             String query = "SELECT \n"
-                    + "a.numeroCotizacion AS 'N° de Cotización',\n"
-                    + "da.idOrden AS 'N° de nota de venta',\n"
-                    + "a.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
-                    + "a.distribuidor AS 'Distribuidor',\n"
-                    + "a.fecha AS 'Fecha',\n"
-                    + "a.proveedor AS 'Proveedor',\n"
-                    + "a.contacto AS 'Contacto',\n"
-                    + "a.estado AS 'Estado'\n"
+                    + "    a.numeroCotizacion AS 'N° de Cotización',\n"
+                    + "    da.idOrden AS 'N° de nota de venta',\n"
+                    + "    a.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
+                    + "    a.distribuidor AS 'Distribuidor',\n"
+                    + "    CONCAT(SUBSTRING(a.fecha, 9, 2),\n"
+                    + "            '-',\n"
+                    + "            SUBSTRING(a.fecha, 6, 2),\n"
+                    + "            '-',\n"
+                    + "            SUBSTRING(a.fecha, 1, 4)) AS 'Fecha de cotización' , "
+                    + "    a.proveedor AS 'Proveedor',\n"
+                    + "    a.estado AS 'Estado'\n"
                     + "FROM\n"
-                    + "abastecimiento a\n"
-                    + "LEFT JOIN\n"
-                    + "detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
+                    + "    abastecimiento a\n"
+                    + "        LEFT JOIN\n"
+                    + "    detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
                     + "WHERE\n"
-                    + "a.estado  IN('Comprado','Nota de compra ingresada con productos faltantes', 'Enviado a Proveedor') and a.codigoOrdenCompra RLIKE ?\n"
+                    + "    a.estado IN ('Comprado' , 'Nota de compra ingresada con productos faltantes',\n"
+                    + "        'Enviado a Proveedor') and a.codigoOrdenCompra RLIKE ? \n"
                     + "GROUP BY a.numeroCotizacion;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
@@ -402,21 +410,25 @@ public class NotaCompra extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
             String query = "SELECT \n"
-                    + "a.numeroCotizacion AS 'N° de Cotización',\n"
-                    + "da.idOrden AS 'N° de nota de venta',\n"
-                    + "a.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
-                    + "a.distribuidor AS 'Distribuidor',\n"
-                    + "a.fecha AS 'Fecha',\n"
-                    + "a.proveedor AS 'Proveedor',\n"
-                    + "a.contacto AS 'Contacto',\n"
-                    + "a.estado AS 'Estado'\n"
+                    + "    a.numeroCotizacion AS 'N° de Cotización',\n"
+                    + "    da.idOrden AS 'N° de nota de venta',\n"
+                    + "    a.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
+                    + "    a.distribuidor AS 'Distribuidor',\n"
+                    + "    CONCAT(SUBSTRING(a.fecha, 9, 2),\n"
+                    + "            '-',\n"
+                    + "            SUBSTRING(a.fecha, 6, 2),\n"
+                    + "            '-',\n"
+                    + "            SUBSTRING(a.fecha, 1, 4)) AS 'Fecha de cotización' , "
+                    + "    a.proveedor AS 'Proveedor',\n"
+                    + "    a.estado AS 'Estado'\n"
                     + "FROM\n"
-                    + "abastecimiento a\n"
-                    + "LEFT JOIN\n"
-                    + "detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
+                    + "    abastecimiento a\n"
+                    + "        LEFT JOIN\n"
+                    + "    detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
                     + "WHERE\n"
-                    + "a.estado  IN('Comprado','Nota de compra ingresada con productos faltantes', 'Enviado a Proveedor') and da.idOrden RLIKE ?\n"
-                    + "GROUP BY a.numeroCotizacion;";
+                    + "    a.estado IN ('Comprado' , 'Nota de compra ingresada con productos faltantes',\n"
+                    + "        'Enviado a Proveedor') and da.idOrden RLIKE ? \n"
+                    + "GROUP BY a.numeroCotizacion;\n";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             pst.setInt(1, Integer.parseInt(txtNumNV.getText()));
@@ -456,20 +468,24 @@ public class NotaCompra extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try {
             String query = "SELECT \n"
-                    + "a.numeroCotizacion AS 'N° de Cotización',\n"
-                    + "da.idOrden AS 'N° de nota de venta',\n"
-                    + "a.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
-                    + "a.distribuidor AS 'Distribuidor',\n"
-                    + "a.fecha AS 'Fecha',\n"
-                    + "a.proveedor AS 'Proveedor',\n"
-                    + "a.contacto AS 'Contacto',\n"
-                    + "a.estado AS 'Estado'\n"
+                    + "    a.numeroCotizacion AS 'N° de Cotización',\n"
+                    + "    da.idOrden AS 'N° de nota de venta',\n"
+                    + "    a.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
+                    + "    a.distribuidor AS 'Distribuidor',\n"
+                    + "    CONCAT(SUBSTRING(a.fecha, 9, 2),\n"
+                    + "            '-',\n"
+                    + "            SUBSTRING(a.fecha, 6, 2),\n"
+                    + "            '-',\n"
+                    + "            SUBSTRING(a.fecha, 1, 4)) AS 'Fecha de cotización' , "
+                    + "    a.proveedor AS 'Proveedor',\n"
+                    + "    a.estado AS 'Estado'\n"
                     + "FROM\n"
-                    + "abastecimiento a\n"
-                    + "LEFT JOIN\n"
-                    + "detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
+                    + "    abastecimiento a\n"
+                    + "        LEFT JOIN\n"
+                    + "    detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
                     + "WHERE\n"
-                    + "a.estado  IN('Comprado','Nota de compra ingresada con productos faltantes', 'Enviado a Proveedor') and a.numeroCotizacion RLIKE ?\n"
+                    + "    a.estado IN ('Comprado' , 'Nota de compra ingresada con productos faltantes',\n"
+                    + "        'Enviado a Proveedor') and a.numeroCotizacion RLIKE ?\n"
                     + "GROUP BY a.numeroCotizacion;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
@@ -519,11 +535,11 @@ public class NotaCompra extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarOC;
+    private javax.swing.JButton btnReiniciarFiltros;
     private javax.swing.JButton btnSalir3;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox cmbDistribuidor;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

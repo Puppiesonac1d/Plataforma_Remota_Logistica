@@ -407,10 +407,12 @@ public class HistorialNV extends javax.swing.JFrame {
                     + "    ot.idOrden AS 'N° de nota de venta',\n"
                     + "    ot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
                     + "    ot.nombre_Proveedor AS 'Empresa',\n"
-                    + "    ot.fechaEnvioOC AS 'Fecha de OC'\n"
-                    + "FROM ordenTrabajo ot"
-                    + " WHERE\n"
-                    + " ot.idOrden NOT IN (SELECT d.idOrden FROM detalleSalida d) AND codigoOrdenCompra = ?;";
+                    + "    ot.fechaEnvioOC AS 'Fecha de OC',"
+                    + "    ot.estadoSalida as 'Estado de Salida de Mercadería'\n"
+                    + "FROM\n"
+                    + "    ordenTrabajo ot \n"
+                    + "WHERE\n"
+                    + "     ot.estadoSalida in ('No despachado','Despachado (incompleto)') AND codigoOrdenCompra = ?;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             pst.setString(1, txtCodigoOC.getText());
@@ -430,14 +432,15 @@ public class HistorialNV extends javax.swing.JFrame {
             String fecha = anio + "-" + mes + "-" + dia;
             System.out.println(fecha);
             String query = "SELECT \n"
-                    + "    ot.idOrden AS 'N° de nota de venta',"
-                    + "    ot.codigoOrdenCompra AS 'Código de Orden de Compra',"
-                    + "    ot.nombre_Proveedor AS 'Empresa',"
-                    + "    ot.fechaEnvioOC AS 'Fecha de OC'"
-                    + " FROM"
-                    + " ordenTrabajo ot"
-                    + " WHERE"
-                    + " ot.idOrden NOT IN (SELECT d.idOrden FROM detalleSalida d) AND LEFT(fechaEnvioOC, 10) RLIKE ? ";
+                    + "    ot.idOrden AS 'N° de nota de venta',\n"
+                    + "    ot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
+                    + "    ot.nombre_Proveedor AS 'Empresa',\n"
+                    + "    ot.fechaEnvioOC AS 'Fecha de OC',"
+                    + "    ot.estadoSalida as 'Estado de Salida de Mercadería'\n"
+                    + "FROM\n"
+                    + "    ordenTrabajo ot \n"
+                    + "WHERE\n"
+                    + "     ot.estadoSalida in ('No despachado','Despachado (incompleto)') AND LEFT(fechaEnvioOC, 10) RLIKE ? ";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             pst.setString(1, fecha);
@@ -454,11 +457,12 @@ public class HistorialNV extends javax.swing.JFrame {
                     + "    ot.idOrden AS 'N° de nota de venta',\n"
                     + "    ot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
                     + "    ot.nombre_Proveedor AS 'Empresa',\n"
-                    + "    ot.fechaEnvioOC AS 'Fecha de OC'\n"
+                    + "    ot.fechaEnvioOC AS 'Fecha de OC',"
+                    + "    ot.estadoSalida as 'Estado de Salida de Mercadería'\n"
                     + "FROM\n"
-                    + "    ordenTrabajo ot       \n"
+                    + "    ordenTrabajo ot \n"
                     + "WHERE\n"
-                    + "    ot.idOrden NOT IN (SELECT d.idOrden FROM detalleSalida d);";
+                    + "     ot.estadoSalida in ('No despachado','Despachado (incompleto)');";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
@@ -558,15 +562,16 @@ public class HistorialNV extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         try {
-
             String query = "SELECT \n"
                     + "    ot.idOrden AS 'N° de nota de venta',\n"
                     + "    ot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
                     + "    ot.nombre_Proveedor AS 'Empresa',\n"
-                    + "    ot.fechaEnvioOC AS 'Fecha de OC'\n"
-                    + "FROM ordenTrabajo ot "
-                    + " WHERE\n"
-                    + " ot.idOrden NOT IN (SELECT d.idOrden FROM detalleSalida d) AND ot.idOrden = ?;";
+                    + "    ot.fechaEnvioOC AS 'Fecha de OC',"
+                    + "    ot.estadoSalida as 'Estado de Salida de Mercadería'\n"
+                    + "FROM\n"
+                    + "    ordenTrabajo ot \n"
+                    + "WHERE\n"
+                    + "     ot.estadoSalida in ('No despachado','Despachado (incompleto)')AND ot.idOrden = ?;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             pst.setString(1, txtNV.getText());

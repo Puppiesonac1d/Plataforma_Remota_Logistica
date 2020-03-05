@@ -191,7 +191,7 @@ public class Menu extends javax.swing.JFrame {
             contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contenedorLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(panelRojo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelRojo, javax.swing.GroupLayout.DEFAULT_SIZE, 1069, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
             .addGroup(contenedorLayout.createSequentialGroup()
                 .addContainerGap()
@@ -294,11 +294,12 @@ public class Menu extends javax.swing.JFrame {
                     + "    ot.idOrden AS 'N° de nota de venta',\n"
                     + "    ot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
                     + "    ot.nombre_Proveedor AS 'Empresa',\n"
-                    + "    ot.fechaEnvioOC AS 'Fecha de OC'\n"
+                    + "    ot.fechaEnvioOC AS 'Fecha de OC',"
+                    + "    ot.estadoSalida as 'Estado de Salida de Mercadería'\n"
                     + "FROM\n"
                     + "    ordenTrabajo ot \n"
                     + "WHERE\n"
-                    + "    ot.idOrden NOT IN (SELECT d.idOrden FROM detalleSalida d);";
+                    + "     ot.estadoSalida in ('No despachado','Despachado (incompleto)');";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();

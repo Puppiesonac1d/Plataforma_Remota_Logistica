@@ -1,19 +1,5 @@
 
 import clases.Conexion;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.BinaryBitmap;
-import com.google.zxing.EncodeHintType;
-import com.google.zxing.MultiFormatReader;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.NotFoundException;
-import com.google.zxing.Result;
-import com.google.zxing.WriterException;
-import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
-import com.google.zxing.client.j2se.MatrixToImageWriter;
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.common.HybridBinarizer;
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -26,12 +12,7 @@ import com.itextpdf.text.pdf.BarcodeQRCode;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import java.awt.HeadlessException;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -41,16 +22,11 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -663,10 +639,10 @@ public class Ingreso extends javax.swing.JFrame {
                 cellqr.setHorizontalAlignment(Element.ALIGN_LEFT);
 
                 //Crear Tabla
-                PdfPTable tableHeader = new PdfPTable(2);
+                PdfPTable tableHeader = new PdfPTable(1);
                 tableHeader.setWidthPercentage(100);
 
-                tableHeader.addCell(cellqr);
+                //tableHeader.addCell(cellqr);
                 tableHeader.addCell(cell1);
                 doc.add(tableHeader);
 
@@ -685,7 +661,8 @@ public class Ingreso extends javax.swing.JFrame {
                 tableInfoContacto.setWidthPercentage(100);
 
                 //Empresa
-                Paragraph empresa = new Paragraph("Empresa: " + lblEmpresa.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                Paragraph tituloEmpresa = new Paragraph("Empresa: ", FontFactory.getFont(FontFactory.HELVETICA, 9, Font.BOLD, null));
+                Paragraph empresa = new Paragraph(tituloEmpresa + lblEmpresa.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
                 empresa.setAlignment(Paragraph.ALIGN_LEFT);
                 doc.add(empresa);
                 //Orden de Compra
@@ -700,11 +677,11 @@ public class Ingreso extends javax.swing.JFrame {
                 doc.add(myTable);
 
                 //Nombre Producto
-                Paragraph nombreProducto = new Paragraph("Nombre de Producto: " + model.getValueAt(i, 2).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                Paragraph nombreProducto = new Paragraph("Nombre de Producto: " + model.getValueAt(i, 3).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
                 nombreProducto.setAlignment(Paragraph.ALIGN_LEFT);
                 doc.add(nombreProducto);
                 //Sku
-                Paragraph sku = new Paragraph("SKU: " + model.getValueAt(i, 1).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                Paragraph sku = new Paragraph("SKU: " + model.getValueAt(i, 2).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
                 sku.setAlignment(Paragraph.ALIGN_LEFT);
                 doc.add(sku);
 

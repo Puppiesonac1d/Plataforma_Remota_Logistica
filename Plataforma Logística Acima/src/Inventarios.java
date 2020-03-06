@@ -187,7 +187,7 @@ public class Inventarios extends javax.swing.JFrame {
             PreparedStatement pst4 = cn.prepareStatement(query4);
             ResultSet rs4 = pst4.executeQuery();
             while (rs4.next()) {
-                inventario.cmbDistribuidor.addItem(rs4.getString(1));
+                inventario.cmbDistribuidorStock0.addItem(rs4.getString(1));
             }
 
         } catch (Exception ex) {

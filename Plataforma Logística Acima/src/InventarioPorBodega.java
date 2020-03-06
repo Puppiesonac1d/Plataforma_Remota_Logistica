@@ -34,6 +34,80 @@ public class InventarioPorBodega extends javax.swing.JFrame {
 
     public InventarioPorBodega() {
         initComponents();
+        try {
+
+            cmbBodega2.removeAllItems();
+            cmbSeccionBodega1.removeAllItems();
+            String query2 = "select nombreBodega,seccion from bodega";
+            PreparedStatement pst2 = cn.prepareStatement(query2);
+            ResultSet rs2 = pst2.executeQuery();
+            while (rs2.next()) {
+                cmbBodega2.addItem(rs2.getString(1));
+                cmbSeccionBodega1.addItem(rs2.getString(2));
+            }
+            cmbConvenioMarco.removeAllItems();
+            String query3 = "select nombreConvenio FROM acimabasededatos.conveniomarco order by codigoConvenio desc;";
+            PreparedStatement pst3 = cn.prepareStatement(query3);
+            ResultSet rs3 = pst3.executeQuery();
+            while (rs3.next()) {
+                cmbConvenioMarco.addItem(rs3.getString(1));
+            }
+
+            cmbDistribuidorStock0.removeAllItems();
+            String query4 = "select nombreDistribuidor from distribuidor order by idDistribuidor;";
+            PreparedStatement pst4 = cn.prepareStatement(query4);
+            ResultSet rs4 = pst4.executeQuery();
+            while (rs4.next()) {
+                cmbDistribuidorStock0.addItem(rs4.getString(1));
+            }
+
+            cmbCM.removeAllItems();
+            String queryCM = "select subcategoria from categoria;";
+            PreparedStatement pstCM = cn.prepareStatement(queryCM);
+            ResultSet rsCM = pstCM.executeQuery();
+            while (rsCM.next()) {
+                cmbCM.addItem(rsCM.getString(1));
+            }
+
+            cmbMaterial.removeAllItems();
+            String queryMat = "select material from material;";
+            PreparedStatement pstMat = cn.prepareStatement(queryMat);
+            ResultSet rsMat = pstMat.executeQuery();
+            while (rsMat.next()) {
+                cmbMaterial.addItem(rsMat.getString(1));
+            }
+            cmbTalla.removeAllItems();
+            String queryTa = "select talla from talla;";
+            PreparedStatement pstTa = cn.prepareStatement(queryTa);
+            ResultSet rsTa = pstTa.executeQuery();
+            while (rsTa.next()) {
+                cmbTalla.addItem(rsTa.getString(1));
+            }
+
+            int idProducto = 0;
+            String queryprod = "SELECT \n"
+                    + "    CASE\n"
+                    + "        WHEN ID IS NULL THEN 1\n"
+                    + "        WHEN ID IS NOT NULL THEN MAX(ID)+1\n"
+                    + "    END\n"
+                    + "FROM\n"
+                    + "    acimabasededatos.inventario;";
+            PreparedStatement pstProd = cn.prepareStatement(queryprod);
+
+            ResultSet rsProd = pstProd.executeQuery();
+            while (rsProd.next()) {
+                idProducto = rsProd.getInt("CASE\n"
+                        + "        WHEN ID IS NULL THEN 1\n"
+                        + "        WHEN ID IS NOT NULL THEN MAX(ID)+1\n"
+                        + "    END");
+            }
+
+            txtID.setText(Integer.toString(idProducto));
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+
     }
 
     private void ReiniciarTablaProductos(JTable tblProducto) {
@@ -69,7 +143,6 @@ public class InventarioPorBodega extends javax.swing.JFrame {
         jLabel123 = new javax.swing.JLabel();
         txtStockIngresado1 = new javax.swing.JTextField();
         jLabel124 = new javax.swing.JLabel();
-        txtSKUIngreso1 = new javax.swing.JTextField();
         jLabel126 = new javax.swing.JLabel();
         jLabel127 = new javax.swing.JLabel();
         jLabel128 = new javax.swing.JLabel();
@@ -96,8 +169,12 @@ public class InventarioPorBodega extends javax.swing.JFrame {
         jLabel149 = new javax.swing.JLabel();
         jLabel150 = new javax.swing.JLabel();
         cmbSeccionBodega1 = new javax.swing.JComboBox();
-        cmbDistribuidor = new javax.swing.JComboBox();
+        cmbDistribuidorStock0 = new javax.swing.JComboBox();
         cmbConvenioMarco = new javax.swing.JComboBox();
+        cmbCM = new javax.swing.JComboBox<>();
+        cmbMaterial = new javax.swing.JComboBox<>();
+        cmbTalla = new javax.swing.JComboBox<>();
+        txtID = new javax.swing.JTextField();
         jPanel9 = new javax.swing.JPanel();
         jTabbedPane7 = new javax.swing.JTabbedPane();
         jTabbedPane8 = new javax.swing.JTabbedPane();
@@ -139,14 +216,16 @@ public class InventarioPorBodega extends javax.swing.JFrame {
         jPanel48.setBackground(new java.awt.Color(252, 252, 252));
         jPanel48.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        panelIngresoProducto1.setBackground(new java.awt.Color(252, 252, 252));
         panelIngresoProducto1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         panelIngresoProducto1.setEnabled(true);
+        panelIngresoProducto1.setMaximumSize(new java.awt.Dimension(1280, 740));
+        panelIngresoProducto1.setMinimumSize(new java.awt.Dimension(1280, 740));
 
         jLabel95.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jLabel95.setText("ID de Producto:");
 
         txtIDproductoIngreso1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        txtIDproductoIngreso1.setText("-");
 
         jLabel123.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jLabel123.setText("Stock a Ingresar:");
@@ -157,8 +236,6 @@ public class InventarioPorBodega extends javax.swing.JFrame {
 
         jLabel124.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
         jLabel124.setText("SKU:");
-
-        txtSKUIngreso1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
 
         jLabel126.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jLabel126.setText("Nombre de Producto:");
@@ -191,6 +268,7 @@ public class InventarioPorBodega extends javax.swing.JFrame {
         jLabel141.setText("Status del Producto:");
 
         txtNombreProductoIngreso1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        txtNombreProductoIngreso1.setText("-");
 
         txtPrecioVentaIngreso1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         txtPrecioVentaIngreso1.setText("0");
@@ -199,12 +277,20 @@ public class InventarioPorBodega extends javax.swing.JFrame {
         txtPrecioCostoIngreso1.setText("0");
 
         txtDescripcionIngreso1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        txtDescripcionIngreso1.setText("-");
+        txtDescripcionIngreso1.setEnabled(false);
 
         txtRegionesIngreso1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        txtRegionesIngreso1.setText("-");
+        txtRegionesIngreso1.setEnabled(false);
 
         txtCondicionDespachoIngreso1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        txtCondicionDespachoIngreso1.setText("-");
+        txtCondicionDespachoIngreso1.setEnabled(false);
 
         txtDiasHabilesIngreso1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        txtDiasHabilesIngreso1.setText("-");
+        txtDiasHabilesIngreso1.setEnabled(false);
 
         cmbStatusProdIngreso1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         cmbStatusProdIngreso1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sin Stock", "Habilitado" }));
@@ -237,10 +323,22 @@ public class InventarioPorBodega extends javax.swing.JFrame {
 
         cmbSeccionBodega1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
 
-        cmbDistribuidor.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        cmbDistribuidorStock0.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
 
         cmbConvenioMarco.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         cmbConvenioMarco.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar Convenio Marco" }));
+
+        cmbCM.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        cmbCM.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Convenio Marco" }));
+
+        cmbMaterial.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        cmbMaterial.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Material" }));
+
+        cmbTalla.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        cmbTalla.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Talla" }));
+
+        txtID.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        txtID.setText("0");
 
         javax.swing.GroupLayout panelIngresoProducto1Layout = new javax.swing.GroupLayout(panelIngresoProducto1);
         panelIngresoProducto1.setLayout(panelIngresoProducto1Layout);
@@ -249,27 +347,25 @@ public class InventarioPorBodega extends javax.swing.JFrame {
             .addGroup(panelIngresoProducto1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelIngresoProducto1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel148)
                     .addGroup(panelIngresoProducto1Layout.createSequentialGroup()
                         .addGroup(panelIngresoProducto1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel123)
-                            .addComponent(jLabel141)
-                            .addComponent(jLabel136)
-                            .addComponent(jLabel135)
-                            .addComponent(jLabel134)
-                            .addComponent(jLabel132)
-                            .addComponent(jLabel133)
-                            .addComponent(jLabel129)
-                            .addComponent(jLabel128)
-                            .addComponent(jLabel127)
-                            .addComponent(jLabel126)
-                            .addComponent(jLabel124)
                             .addComponent(jLabel95)
+                            .addComponent(jLabel124)
+                            .addComponent(jLabel126)
+                            .addComponent(jLabel127)
+                            .addComponent(jLabel128)
+                            .addComponent(jLabel129)
+                            .addComponent(jLabel133)
+                            .addComponent(jLabel132)
+                            .addComponent(jLabel134)
+                            .addComponent(jLabel135)
+                            .addComponent(jLabel136)
+                            .addComponent(jLabel141)
+                            .addComponent(jLabel123)
                             .addComponent(jLabel146)
                             .addComponent(jLabel149))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelIngresoProducto1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtSKUIngreso1)
                             .addComponent(txtNombreProductoIngreso1)
                             .addComponent(txtPrecioVentaIngreso1)
                             .addComponent(txtPrecioCostoIngreso1)
@@ -279,30 +375,38 @@ public class InventarioPorBodega extends javax.swing.JFrame {
                             .addComponent(txtDiasHabilesIngreso1)
                             .addComponent(cmbStatusProdIngreso1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtStockIngresado1)
-                            .addComponent(cmbDistribuidor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbDistribuidorStock0, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cmbConvenioMarco, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(panelIngresoProducto1Layout.createSequentialGroup()
-                                .addGroup(panelIngresoProducto1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(panelIngresoProducto1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panelIngresoProducto1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(panelIngresoProducto1Layout.createSequentialGroup()
+                                            .addComponent(cmbBodega2, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jLabel150)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(cmbSeccionBodega1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(txtIDproductoIngreso1)
+                                        .addComponent(cmbTransporte1, 0, 911, Short.MAX_VALUE))
                                     .addGroup(panelIngresoProducto1Layout.createSequentialGroup()
-                                        .addComponent(cmbBodega2, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cmbCM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel150)
+                                        .addComponent(cmbMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cmbSeccionBodega1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtIDproductoIngreso1, javax.swing.GroupLayout.DEFAULT_SIZE, 911, Short.MAX_VALUE)
-                                    .addComponent(cmbTransporte1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addGap(80, 80, 80))
-            .addGroup(panelIngresoProducto1Layout.createSequentialGroup()
-                .addComponent(btnConfirmarInfoProd1)
-                .addGap(0, 0, Short.MAX_VALUE))
+                                        .addComponent(cmbTalla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addComponent(jLabel148)
+                    .addComponent(btnConfirmarInfoProd1))
+                .addGap(349, 349, 349))
         );
         panelIngresoProducto1Layout.setVerticalGroup(
             panelIngresoProducto1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelIngresoProducto1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel148)
-                .addGap(20, 20, 20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelIngresoProducto1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbTransporte1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel149))
@@ -312,14 +416,17 @@ public class InventarioPorBodega extends javax.swing.JFrame {
                     .addComponent(jLabel150)
                     .addComponent(cmbSeccionBodega1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel146))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelIngresoProducto1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtIDproductoIngreso1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel95))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelIngresoProducto1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel124)
-                    .addComponent(txtSKUIngreso1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbCM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbTalla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelIngresoProducto1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel126)
@@ -339,7 +446,7 @@ public class InventarioPorBodega extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelIngresoProducto1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel133)
-                    .addComponent(cmbDistribuidor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbDistribuidorStock0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addGroup(panelIngresoProducto1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel132)
@@ -604,7 +711,7 @@ public class InventarioPorBodega extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel48Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1234, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane2)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel48Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -619,7 +726,7 @@ public class InventarioPorBodega extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(btnVolverMenu))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE)
+                .addComponent(jTabbedPane2)
                 .addGap(10, 10, 10))
         );
 
@@ -642,78 +749,6 @@ public class InventarioPorBodega extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnConfirmarInfoProd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarInfoProd1ActionPerformed
-        try {
-            int idBodega = 0;
-            String cm = "";
-
-            String query = "select * from bodega where nombreBodega = ?";
-            PreparedStatement pst3 = cn.prepareStatement(query);
-            pst3.setString(1, cmbBodega2.getSelectedItem().toString());
-            ResultSet rs3 = pst3.executeQuery();
-            while (rs3.next()) {
-                idBodega = rs3.getInt("idBodega");
-            }
-
-            String queryCM = "select * from convenioMarco where nombreConvenio = ?";
-            PreparedStatement pst4 = cn.prepareStatement(queryCM);
-            pst4.setString(1, cmbConvenioMarco.getSelectedItem().toString());
-            ResultSet rs4 = pst4.executeQuery();
-            while (rs4.next()) {
-                cm = rs4.getString("codigoConvenio");
-            }
-
-            System.out.println(cmbDistribuidor.getSelectedItem().toString());
-
-            try {
-                String queryINV = "INSERT INTO inventario(`idBodega`,`idProducto`,`sku`,`nombreProducto`,codigoConvenio,`categoria`,"
-                        + "`precioventa`,`precioCosto`,`iddistribuidor`,`descripcion`,`regiones`,`condiciondespacho`,`diashabiles`,"
-                        + "`statusproducto`,`stock`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-                PreparedStatement pstINV = cn.prepareStatement(queryINV);
-                pstINV.setInt(1, cmbBodega2.getSelectedIndex());
-                pstINV.setString(2, txtIDproductoIngreso1.getText());
-                pstINV.setString(3, txtSKUIngreso1.getText());
-                pstINV.setString(4, txtNombreProductoIngreso1.getText());
-                pstINV.setString(5, cm);
-                pstINV.setString(6, cmbConvenioMarco.getSelectedItem().toString());
-                pstINV.setInt(7, Integer.parseInt(txtPrecioVentaIngreso1.getText()));
-                pstINV.setInt(8, Integer.parseInt(txtPrecioCostoIngreso1.getText()));
-                pstINV.setInt(9, cmbConvenioMarco.getSelectedIndex() + 1);
-                pstINV.setString(10, txtDescripcionIngreso1.getText());
-                pstINV.setString(11, txtRegionesIngreso1.getText());
-                pstINV.setString(12, txtCondicionDespachoIngreso1.getText());
-                pstINV.setString(13, txtDiasHabilesIngreso1.getText());
-                pstINV.setString(14, cmbStatusProdIngreso1.getSelectedItem().toString());
-                pstINV.setInt(15, Integer.parseInt(txtStockIngresado1.getText()));
-
-                int upINV = pstINV.executeUpdate();
-                ReiniciarTablaProductos(tblProductoInventarioBodega);
-                JOptionPane.showMessageDialog(null, "Producto Ingresado");
-                txtIDproductoIngreso1.setText("");
-                txtSKUIngreso1.setText("");
-            } catch (SQLException | NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage());
-            }
-            cmbBodega2.setSelectedIndex(0);
-            txtIDproductoIngreso1.setText("");
-            txtSKUIngreso1.setText("");
-            txtNombreProductoIngreso1.setText("");
-            cmbConvenioMarco.setSelectedIndex(0);
-            txtPrecioVentaIngreso1.setText("");
-            txtPrecioCostoIngreso1.setText("");
-
-            txtDescripcionIngreso1.setText("");
-            txtRegionesIngreso1.setText("");
-            txtCondicionDespachoIngreso1.setText("");
-            txtDiasHabilesIngreso1.setText("");
-            cmbStatusProdIngreso1.setSelectedItem(0);
-            txtStockIngresado1.setText("");
-
-        } catch (SQLException | HeadlessException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
-    }//GEN-LAST:event_btnConfirmarInfoProd1ActionPerformed
 
     private void btnBuscarNombre2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarNombre2ActionPerformed
 
@@ -895,6 +930,108 @@ public class InventarioPorBodega extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnConfirmarInfoProd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarInfoProd1ActionPerformed
+        try {
+            int idBodega = 0;
+            String cm = "";
+
+            String query = "select * from bodega where nombreBodega = ?";
+            PreparedStatement pst3 = cn.prepareStatement(query);
+            pst3.setString(1, cmbBodega2.getSelectedItem().toString());
+            ResultSet rs3 = pst3.executeQuery();
+            while (rs3.next()) {
+                idBodega = rs3.getInt("idBodega");
+            }
+
+            String queryCM = "select * from convenioMarco where nombreConvenio = ?";
+            PreparedStatement pst4 = cn.prepareStatement(queryCM);
+            pst4.setString(1, cmbConvenioMarco.getSelectedItem().toString());
+            ResultSet rs4 = pst4.executeQuery();
+            while (rs4.next()) {
+                cm = rs4.getString("codigoConvenio");
+            }
+
+            int idMaterial = 0;
+            String queryMaterial = "select idMaterial from material where material = ?";
+            PreparedStatement pstMat = cn.prepareStatement(queryMaterial);
+            pstMat.setString(1, cmbMaterial.getSelectedItem().toString());
+            ResultSet rsMat = pstMat.executeQuery();
+            while (rsMat.next()) {
+                idMaterial = rsMat.getInt("idMaterial");
+            }
+            System.out.println("Id de material: " + idMaterial);
+
+            int idTalla = 0;
+            String queryTalla = "select id_talla from talla where talla = ?";
+            PreparedStatement pstTalla = cn.prepareStatement(queryTalla);
+            pstTalla.setString(1, cmbTalla.getSelectedItem().toString());
+            ResultSet rsTalla = pstTalla.executeQuery();
+            while (rsTalla.next()) {
+                idTalla = rsTalla.getInt("id_talla");
+            }
+            System.out.println("Id de Talla: " + idTalla);
+
+            int idCategoria = 0;
+            String queryCategoria = "select id from categoria where subcategoria = ?";
+            PreparedStatement pstCategoria = cn.prepareStatement(queryCategoria);
+            pstCategoria.setString(1, cmbCM.getSelectedItem().toString());
+            ResultSet rsCategoria = pstCategoria.executeQuery();
+            while (rsCategoria.next()) {
+                idCategoria = rsCategoria.getInt("id");
+            }
+            System.out.println("Id de Categoria: " + idCategoria);
+
+            System.out.println(cmbDistribuidorStock0.getSelectedItem().toString());
+
+            try {
+                String queryINV = "INSERT INTO inventario(`idBodega`,`idProducto`,`sku`,`nombreProducto`,codigoConvenio,`categoria`,"
+                        + "`precioventa`,`precioCosto`,`iddistribuidor`,`descripcion`,`regiones`,`condiciondespacho`,`diashabiles`,"
+                        + "`statusproducto`,`stock`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+                PreparedStatement pstINV = cn.prepareStatement(queryINV);
+                pstINV.setInt(1, cmbBodega2.getSelectedIndex());
+                pstINV.setString(2, txtIDproductoIngreso1.getText());
+                pstINV.setString(3, Integer.toString(idCategoria) + Integer.toString(idMaterial) + Integer.toString(idTalla) + txtID.getText());
+                pstINV.setString(4, txtNombreProductoIngreso1.getText());
+                pstINV.setString(5, cm);
+                pstINV.setString(6, cmbConvenioMarco.getSelectedItem().toString());
+                pstINV.setInt(7, Integer.parseInt(txtPrecioVentaIngreso1.getText()));
+                pstINV.setInt(8, Integer.parseInt(txtPrecioCostoIngreso1.getText()));
+                pstINV.setInt(9, cmbConvenioMarco.getSelectedIndex() + 1);
+                pstINV.setString(10, txtDescripcionIngreso1.getText());
+                pstINV.setString(11, txtRegionesIngreso1.getText());
+                pstINV.setString(12, txtCondicionDespachoIngreso1.getText());
+                pstINV.setString(13, txtDiasHabilesIngreso1.getText());
+                pstINV.setString(14, cmbStatusProdIngreso1.getSelectedItem().toString());
+                pstINV.setInt(15, Integer.parseInt(txtStockIngresado1.getText()));
+
+                int upINV = pstINV.executeUpdate();
+
+                JOptionPane.showMessageDialog(null, "Producto Ingresado");
+                txtIDproductoIngreso1.setText("");
+                //txtSKUIngreso1.setText("");
+            } catch (SQLException | NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+            cmbBodega2.setSelectedIndex(0);
+            txtIDproductoIngreso1.setText("");
+            //txtSKUIngreso1.setText("");
+            txtNombreProductoIngreso1.setText("");
+            cmbConvenioMarco.setSelectedIndex(0);
+            txtPrecioVentaIngreso1.setText("");
+            txtPrecioCostoIngreso1.setText("");
+
+            txtDescripcionIngreso1.setText("");
+            txtRegionesIngreso1.setText("");
+            txtCondicionDespachoIngreso1.setText("");
+            txtDiasHabilesIngreso1.setText("");
+            cmbStatusProdIngreso1.setSelectedItem(0);
+            txtStockIngresado1.setText("");
+
+        } catch (SQLException | HeadlessException ex) {
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_btnConfirmarInfoProd1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -947,11 +1084,14 @@ public class InventarioPorBodega extends javax.swing.JFrame {
     private javax.swing.JButton btnReiniciarTablaProducto5;
     private javax.swing.JButton btnVolverMenu;
     public javax.swing.JComboBox<String> cmbBodega2;
+    private javax.swing.JComboBox<String> cmbCM;
     public javax.swing.JComboBox cmbConvenioMarco;
-    public javax.swing.JComboBox cmbDistribuidor;
+    public javax.swing.JComboBox cmbDistribuidorStock0;
+    private javax.swing.JComboBox<String> cmbMaterial;
     public javax.swing.JComboBox cmbSeccionBodega1;
     private javax.swing.JComboBox<String> cmbStatusFiltrarInventario;
     public javax.swing.JComboBox cmbStatusProdIngreso1;
+    private javax.swing.JComboBox<String> cmbTalla;
     private javax.swing.JComboBox<String> cmbTransporte1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -992,12 +1132,12 @@ public class InventarioPorBodega extends javax.swing.JFrame {
     private javax.swing.JTextField txtDescripcionIngreso1;
     private javax.swing.JTextField txtDiasHabilesIngreso1;
     private javax.swing.JTextField txtFiltrarNombreInventario;
+    private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtIDproductoIngreso1;
     private javax.swing.JTextField txtNombreProductoIngreso1;
     private javax.swing.JTextField txtPrecioCostoIngreso1;
     private javax.swing.JTextField txtPrecioVentaIngreso1;
     private javax.swing.JTextField txtRegionesIngreso1;
-    private javax.swing.JTextField txtSKUIngreso1;
     private javax.swing.JTextField txtSKUInventarioBodega;
     private javax.swing.JTextField txtStockIngresado1;
     // End of variables declaration//GEN-END:variables

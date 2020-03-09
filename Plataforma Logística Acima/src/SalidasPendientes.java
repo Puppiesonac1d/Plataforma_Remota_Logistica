@@ -540,12 +540,28 @@ public class SalidasPendientes extends javax.swing.JFrame {
 
     private void btnBuscarSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarSalidaActionPerformed
         try {
-            String query = "Select s.idSalida as 'Número de Salida',s.idOrden as 'Número de Nota de Venta',s.codigoOrdenCompra as 'Codigo de Orden de Compra',\n"
-                    + "s.tipoTransporte as 'Transporte',s.netoTransporte as 'Neto',s.ivaTransporte as 'IVA',s.totalTransporte as 'Total',b.nombreBodega as 'Nombre de Bodega',\n"
-                    + "s.seccion as 'Sección',bu.codigoBulto as 'Bulto de Salida', s.fechaSalida as 'Fecha de Solicitud',ordenTransporte as 'Orden de Transporte'\n"
-                    + "from salida s join bodega b on s.idBodega=b.idBodega\n"
-                    + "join bulto bu on s.codigoOrdenCompra = bu.codigoOrdenCompra\n"
-                    + "where s.idSalida RLIKE ?;";
+            String query = "SELECT \n"
+                    + "    s.idSalida AS 'Número de Salida',\n"
+                    + "    s.idOrden AS 'Número de Nota de Venta',\n"
+                    + "    s.codigoOrdenCompra AS 'Codigo de Orden de Compra',\n"
+                    + "    s.tipoTransporte AS 'Transporte',\n"
+                    + "    s.netoTransporte AS 'Neto',\n"
+                    + "    s.ivaTransporte AS 'IVA',\n"
+                    + "    s.totalTransporte AS 'Total',\n"
+                    + "    b.nombreBodega AS 'Nombre de Bodega',\n"
+                    + "    s.seccion AS 'Sección',\n"
+                    + "    bu.codigoBulto AS 'Bulto de Salida',\n"
+                    + "    s.fechaSalida AS 'Fecha de Solicitud',\n"
+                    + "    ordenTransporte AS 'Orden de Transporte'\n"
+                    + "FROM\n"
+                    + "    salida s\n"
+                    + "        LEFT JOIN\n"
+                    + "    bodega b ON s.idBodega = b.idBodega\n"
+                    + "        LEFT JOIN\n"
+                    + "    bulto bu ON s.codigoOrdenCompra = bu.codigoOrdenCompra\n"
+                    + "WHERE\n"
+                    + "    s.tipoTransporte = 'Pendiente' and s.idSalida RLIKE ?\n"
+                    + "    group by s.idOrden;";
             PreparedStatement pst = cn.prepareStatement(query);
             pst.setString(1, txtIDSalida.getText());
             ResultSet rs = pst.executeQuery();
@@ -557,12 +573,28 @@ public class SalidasPendientes extends javax.swing.JFrame {
 
     private void btnReiniciarFiltrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarFiltrosActionPerformed
         try {
-            String query = "Select s.idSalida as 'Número de Salida',s.idOrden as 'Número de Nota de Venta',s.codigoOrdenCompra as 'Codigo de Orden de Compra',\n"
-                    + "s.tipoTransporte as 'Transporte',s.netoTransporte as 'Neto',s.ivaTransporte as 'IVA',s.totalTransporte as 'Total',b.nombreBodega as 'Nombre de Bodega',\n"
-                    + "s.seccion as 'Sección',bu.codigoBulto as 'Bulto de Salida', s.fechaSalida as 'Fecha de Solicitud',ordenTransporte as 'Orden de Transporte'\n"
-                    + "from salida s join bodega b on s.idBodega=b.idBodega\n"
-                    + "join bulto bu on s.codigoOrdenCompra = bu.codigoOrdenCompra\n"
-                    + "where s.tipoTransporte='Pendiente';";
+            String query = "SELECT \n"
+                    + "    s.idSalida AS 'Número de Salida',\n"
+                    + "    s.idOrden AS 'Número de Nota de Venta',\n"
+                    + "    s.codigoOrdenCompra AS 'Codigo de Orden de Compra',\n"
+                    + "    s.tipoTransporte AS 'Transporte',\n"
+                    + "    s.netoTransporte AS 'Neto',\n"
+                    + "    s.ivaTransporte AS 'IVA',\n"
+                    + "    s.totalTransporte AS 'Total',\n"
+                    + "    b.nombreBodega AS 'Nombre de Bodega',\n"
+                    + "    s.seccion AS 'Sección',\n"
+                    + "    bu.codigoBulto AS 'Bulto de Salida',\n"
+                    + "    s.fechaSalida AS 'Fecha de Solicitud',\n"
+                    + "    ordenTransporte AS 'Orden de Transporte'\n"
+                    + "FROM\n"
+                    + "    salida s\n"
+                    + "        LEFT JOIN\n"
+                    + "    bodega b ON s.idBodega = b.idBodega\n"
+                    + "        LEFT JOIN\n"
+                    + "    bulto bu ON s.codigoOrdenCompra = bu.codigoOrdenCompra\n"
+                    + "WHERE\n"
+                    + "    s.tipoTransporte = 'Pendiente'\n"
+                    + "    group by s.idOrden;";
             PreparedStatement pst = cn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
             tblSalidasPendientes.setModel(DbUtils.resultSetToTableModel(rs));
@@ -573,12 +605,28 @@ public class SalidasPendientes extends javax.swing.JFrame {
 
     private void btnNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNVActionPerformed
         try {
-            String query = "Select s.idSalida as 'Número de Salida',s.idOrden as 'Número de Nota de Venta',s.codigoOrdenCompra as 'Codigo de Orden de Compra',\\n\"\n"
-                    + " s.tipoTransporte as 'Transporte',s.netoTransporte as 'Neto',s.ivaTransporte as 'IVA',s.totalTransporte as 'Total',b.nombreBodega as 'Nombre de Bodega',\\n\"\n"
-                    + " s.seccion as 'Sección',bu.codigoBulto as 'Bulto de Salida', s.fechaSalida as 'Fecha de Solicitud',ordenTransporte as 'Orden de Transporte'\\n\"\n"
-                    + " from salida s join bodega b on s.idBodega=b.idBodega\\n\"\n"
-                    + " join bulto bu on s.codigoOrdenCompra = bu.codigoOrdenCompra\\n\"\n"
-                    + " where s.tipoTransporte='Pendiente' and s.idOrden RLIKE ?;";
+            String query = "SELECT \n"
+                    + "    s.idSalida AS 'Número de Salida',\n"
+                    + "    s.idOrden AS 'Número de Nota de Venta',\n"
+                    + "    s.codigoOrdenCompra AS 'Codigo de Orden de Compra',\n"
+                    + "    s.tipoTransporte AS 'Transporte',\n"
+                    + "    s.netoTransporte AS 'Neto',\n"
+                    + "    s.ivaTransporte AS 'IVA',\n"
+                    + "    s.totalTransporte AS 'Total',\n"
+                    + "    b.nombreBodega AS 'Nombre de Bodega',\n"
+                    + "    s.seccion AS 'Sección',\n"
+                    + "    bu.codigoBulto AS 'Bulto de Salida',\n"
+                    + "    s.fechaSalida AS 'Fecha de Solicitud',\n"
+                    + "    ordenTransporte AS 'Orden de Transporte'\n"
+                    + "FROM\n"
+                    + "    salida s\n"
+                    + "        LEFT JOIN\n"
+                    + "    bodega b ON s.idBodega = b.idBodega\n"
+                    + "        LEFT JOIN\n"
+                    + "    bulto bu ON s.codigoOrdenCompra = bu.codigoOrdenCompra\n"
+                    + "WHERE\n"
+                    + "    s.tipoTransporte='Pendiente' and s.idOrden RLIKE ?\n"
+                    + "    group by s.idOrden;";
             PreparedStatement pst = cn.prepareStatement(query);
             pst.setInt(1, Integer.parseInt(txtNotaVenta.getText()));
             ResultSet rs = pst.executeQuery();
@@ -590,12 +638,28 @@ public class SalidasPendientes extends javax.swing.JFrame {
 
     private void btnBuscarOTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarOTActionPerformed
         try {
-            String query = "Select s.idSalida as 'Número de Salida',s.idOrden as 'Número de Nota de Venta',s.codigoOrdenCompra as 'Codigo de Orden de Compra',\\n\"\n"
-                    + " s.tipoTransporte as 'Transporte',s.netoTransporte as 'Neto',s.ivaTransporte as 'IVA',s.totalTransporte as 'Total',b.nombreBodega as 'Nombre de Bodega',\\n\"\n"
-                    + " s.seccion as 'Sección',bu.codigoBulto as 'Bulto de Salida', s.fechaSalida as 'Fecha de Solicitud',ordenTransporte as 'Orden de Transporte'\\n\"\n"
-                    + " from salida s join bodega b on s.idBodega=b.idBodega\\n\"\n"
-                    + " join bulto bu on s.codigoOrdenCompra = bu.codigoOrdenCompra\\n\"\n"
-                    + " where s.ordenTransporte RLIKE ?;";
+            String query = "SELECT \n"
+                    + "    s.idSalida AS 'Número de Salida',\n"
+                    + "    s.idOrden AS 'Número de Nota de Venta',\n"
+                    + "    s.codigoOrdenCompra AS 'Codigo de Orden de Compra',\n"
+                    + "    s.tipoTransporte AS 'Transporte',\n"
+                    + "    s.netoTransporte AS 'Neto',\n"
+                    + "    s.ivaTransporte AS 'IVA',\n"
+                    + "    s.totalTransporte AS 'Total',\n"
+                    + "    b.nombreBodega AS 'Nombre de Bodega',\n"
+                    + "    s.seccion AS 'Sección',\n"
+                    + "    bu.codigoBulto AS 'Bulto de Salida',\n"
+                    + "    s.fechaSalida AS 'Fecha de Solicitud',\n"
+                    + "    ordenTransporte AS 'Orden de Transporte'\n"
+                    + "FROM\n"
+                    + "    salida s\n"
+                    + "        LEFT JOIN\n"
+                    + "    bodega b ON s.idBodega = b.idBodega\n"
+                    + "        LEFT JOIN\n"
+                    + "    bulto bu ON s.codigoOrdenCompra = bu.codigoOrdenCompra\n"
+                    + "WHERE\n"
+                    + "    s.tipoTransporte = 'Pendiente' and s.ordenTransporte RLIKE ?\n"
+                    + "    group by s.idOrden;";
             PreparedStatement pst = cn.prepareStatement(query);
             pst.setInt(1, Integer.parseInt(txtNotaVenta.getText()));
             ResultSet rs = pst.executeQuery();
@@ -608,12 +672,28 @@ public class SalidasPendientes extends javax.swing.JFrame {
     private void cmbSalidasPendientesFiltroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbSalidasPendientesFiltroItemStateChanged
         // cmbSalidasPendientesFiltro
         try {
-            String query = "Select s.idSalida as 'Número de Salida',s.idOrden as 'Número de Nota de Venta',s.codigoOrdenCompra as 'Codigo de Orden de Compra',\\n\"\n"
-                    + " s.tipoTransporte as 'Transporte',s.netoTransporte as 'Neto',s.ivaTransporte as 'IVA',s.totalTransporte as 'Total',b.nombreBodega as 'Nombre de Bodega',\\n\"\n"
-                    + " s.seccion as 'Sección',bu.codigoBulto as 'Bulto de Salida', s.fechaSalida as 'Fecha de Solicitud',ordenTransporte as 'Orden de Transporte'\\n\"\n"
-                    + " from salida s join bodega b on s.idBodega=b.idBodega\\n\"\n"
-                    + " join bulto bu on s.codigoOrdenCompra = bu.codigoOrdenCompra\\n\"\n"
-                    + " where s.tipoTransporte RLIKE ?;";
+            String query = "SELECT \n"
+                    + "    s.idSalida AS 'Número de Salida',\n"
+                    + "    s.idOrden AS 'Número de Nota de Venta',\n"
+                    + "    s.codigoOrdenCompra AS 'Codigo de Orden de Compra',\n"
+                    + "    s.tipoTransporte AS 'Transporte',\n"
+                    + "    s.netoTransporte AS 'Neto',\n"
+                    + "    s.ivaTransporte AS 'IVA',\n"
+                    + "    s.totalTransporte AS 'Total',\n"
+                    + "    b.nombreBodega AS 'Nombre de Bodega',\n"
+                    + "    s.seccion AS 'Sección',\n"
+                    + "    bu.codigoBulto AS 'Bulto de Salida',\n"
+                    + "    s.fechaSalida AS 'Fecha de Solicitud',\n"
+                    + "    ordenTransporte AS 'Orden de Transporte'\n"
+                    + "FROM\n"
+                    + "    salida s\n"
+                    + "        LEFT JOIN\n"
+                    + "    bodega b ON s.idBodega = b.idBodega\n"
+                    + "        LEFT JOIN\n"
+                    + "    bulto bu ON s.codigoOrdenCompra = bu.codigoOrdenCompra\n"
+                    + "WHERE\n"
+                    + "    s.tipoTransporte = 'Pendiente' and s.tipoTransporte RLIKE ?\n"
+                    + "    group by s.idOrden;";
             PreparedStatement pst = cn.prepareStatement(query);
             pst.setString(1, cmbSalidasPendientesFiltro.getSelectedItem().toString());
             ResultSet rs = pst.executeQuery();

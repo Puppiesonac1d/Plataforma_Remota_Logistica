@@ -135,6 +135,11 @@ public class NotaCompra extends javax.swing.JFrame {
                 cmbDistribuidorItemStateChanged(evt);
             }
         });
+        cmbDistribuidor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbDistribuidorActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -312,7 +317,7 @@ public class NotaCompra extends javax.swing.JFrame {
     private void btnReiniciarFiltrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarFiltrosActionPerformed
         try {
             String queryActualizar = "SELECT \n"
-                    + "    a.numeroCotizacion AS 'N° de Cotización',\n"
+                    + "    a.numeroCotizacion AS 'OC de Proveedor',\n"
                     + "    da.idOrden AS 'N° de nota de venta',\n"
                     + "    a.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
                     + "    a.distribuidor AS 'Distribuidor',\n"
@@ -342,7 +347,7 @@ public class NotaCompra extends javax.swing.JFrame {
     private void cmbDistribuidorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDistribuidorItemStateChanged
         try {
             String query = "SELECT \n"
-                    + "    a.numeroCotizacion AS 'N° de Cotización',\n"
+                    + "    a.numeroCotizacion AS 'OC de Proveedor',\n"
                     + "    da.idOrden AS 'N° de nota de venta',\n"
                     + "    a.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
                     + "    a.distribuidor AS 'Distribuidor',\n"
@@ -376,7 +381,7 @@ public class NotaCompra extends javax.swing.JFrame {
     private void btnBuscarOCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarOCActionPerformed
         try {
             String query = "SELECT \n"
-                    + "    a.numeroCotizacion AS 'N° de Cotización',\n"
+                    + "    a.numeroCotizacion AS 'OC de Proveedor',\n"
                     + "    da.idOrden AS 'N° de nota de venta',\n"
                     + "    a.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
                     + "    a.distribuidor AS 'Distribuidor',\n"
@@ -410,7 +415,7 @@ public class NotaCompra extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
             String query = "SELECT \n"
-                    + "    a.numeroCotizacion AS 'N° de Cotización',\n"
+                    + "    a.numeroCotizacion AS 'OC de Proveedor',\n"
                     + "    da.idOrden AS 'N° de nota de venta',\n"
                     + "    a.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
                     + "    a.distribuidor AS 'Distribuidor',\n"
@@ -468,7 +473,7 @@ public class NotaCompra extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try {
             String query = "SELECT \n"
-                    + "    a.numeroCotizacion AS 'N° de Cotización',\n"
+                    + "    a.numeroCotizacion AS 'OC de Proveedor',\n"
                     + "    da.idOrden AS 'N° de nota de venta',\n"
                     + "    a.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
                     + "    a.distribuidor AS 'Distribuidor',\n"
@@ -497,6 +502,10 @@ public class NotaCompra extends javax.swing.JFrame {
                     .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void cmbDistribuidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDistribuidorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbDistribuidorActionPerformed
 
     /**
      * @param args the command line arguments

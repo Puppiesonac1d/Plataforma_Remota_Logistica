@@ -731,7 +731,7 @@ public class Ingreso extends javax.swing.JFrame {
         System.out.println("Sumatoria de Stock :" + sumatoriaStock);
 
         //ACTUALIZAR SI SE HAN INGRESADO TODOS LOS PRODUCTOS O NO
-        if (sumatoriaStock == totalCantidadIngreso) {
+        if (totalCantidadIngreso >= sumatoriaStock) {
             try {
                 // create the java mysql update preparedstatement
                 String query = "update abastecimiento set estado = 'Nota de compra ingresada' where numerocotizacion = ?";

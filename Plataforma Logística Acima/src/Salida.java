@@ -395,7 +395,7 @@ public class Salida extends javax.swing.JFrame {
                                 .addComponent(btnConfirmarOperacionBultos)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton1)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 0, 0))))
         );
         jPanel20Layout.setVerticalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -834,14 +834,11 @@ public class Salida extends javax.swing.JFrame {
                     .addGap(12, 12, 12)
                     .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jTabbedPane15)
-                        .addGroup(jPanel23Layout.createSequentialGroup()
-                            .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnIngresarBultos)
-                                .addComponent(jLabel122)
-                                .addComponent(jLabel169)
-                                .addComponent(jLabel170)
-                                .addComponent(jLabel125))
-                            .addGap(0, 0, 0)))
+                        .addComponent(btnIngresarBultos)
+                        .addComponent(jLabel122)
+                        .addComponent(jLabel169)
+                        .addComponent(jLabel170)
+                        .addComponent(jLabel125))
                     .addGap(312, 312, 312)))
             .addGroup(jPanel23Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
@@ -954,25 +951,23 @@ public class Salida extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(10, 10, 10))
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane23, javax.swing.GroupLayout.DEFAULT_SIZE, 1232, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelGD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(11, 11, 11)
+                .addComponent(jLabel54))
             .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnSalida1))
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel131))
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(jLabel54))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnSalida1))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel131)))
-                .addGap(0, 0, 0))
+                        .addComponent(jScrollPane23, javax.swing.GroupLayout.DEFAULT_SIZE, 1232, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                        .addComponent(panelGD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1419,8 +1414,8 @@ public class Salida extends javax.swing.JFrame {
                 txtTotalOCSalida.setText(rs.getString("total"));
             }
             String queryProducto = "Select TRIM(doc.codigoProducto) as 'Código de Producto',\n"
-                    + "SUBSTRING_INDEX(doc.nombreProducto, ')', -1) as 'Nombre de Producto',"
-                    + "doc.cantidad as 'Cantidad Solicitada',"
+                    + "SUBSTRING_INDEX(doc.nombreProducto, ')', -1) as 'Nombre de Producto',\n"
+                    + "doc.cantidad as 'Cantidad Solicitada',\n"
                     + "0 as 'Cantidad Restante',doc.disponibilidad as 'Estado'\n"
                     + "from detalleordentrabajo doc\n"
                     + "where doc.idOrden = ?;";
@@ -1433,7 +1428,8 @@ public class Salida extends javax.swing.JFrame {
             DefaultTableModel modelo = (DefaultTableModel) tblMPSalida.getModel();
             for (int i = 0; i < tblMPSalida.getRowCount(); i++) {
                 int cantidad = 0;
-                String queryCantidad = "select stockRestado from detalleSalida where idOrden = ? and idProducto = ?;";
+                String queryCantidad = "select (dot.cantidad - ds.stockRestado) from detalleSalida ds join detalleordentrabajo dot on dot.idOrden = ds.idOrden "
+                        + "where dot.idOrden = ? and dot.codigoProducto = ?;";
                 PreparedStatement pstCantidad = cn.prepareStatement(queryCantidad);
                 pstCantidad.setString(1, txtCodigoOTSalida.getText());
                 pstCantidad.setString(2, tblMPSalida.getValueAt(i, 0).toString());
@@ -1707,6 +1703,9 @@ public class Salida extends javax.swing.JFrame {
                 String text = txtPeso.getText();
                 row2[4] = text;
             }
+
+            row2[5] = "-";
+            row2[6] = "-";
 
             modeloBultos.addRow(row2);
 

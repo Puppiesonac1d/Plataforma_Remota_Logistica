@@ -256,7 +256,7 @@ public class Menu extends javax.swing.JFrame {
             NotaCompra nota = new NotaCompra();
             nota.setVisible(true);
             String queryActualizar = "SELECT \n"
-                    + "    a.numeroCotizacion AS 'N° de Cotización',\n"
+                    + "    a.numeroCotizacion AS 'OC de Proveedor',\n"
                     + "    da.idOrden AS 'N° de nota de venta',\n"
                     + "    a.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
                     + "    a.distribuidor AS 'Distribuidor',\n"

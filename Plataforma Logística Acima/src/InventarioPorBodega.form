@@ -82,10 +82,10 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jTabbedPane2" max="32767" attributes="0"/>
+                      <Component id="jTabbedPane2" pref="0" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="1227" max="32767" attributes="0"/>
                           <Component id="btnVolverMenu" min="-2" pref="110" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -708,7 +708,7 @@
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Component id="jScrollPane12" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jTabbedPane7" alignment="1" pref="1209" max="32767" attributes="0"/>
+                                      <Component id="jTabbedPane7" alignment="1" pref="1522" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -825,6 +825,9 @@
                                   <Font name="Tahoma" size="20" style="1"/>
                                 </Property>
                               </Properties>
+                              <Events>
+                                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFiltrarNombreInventarioKeyPressed"/>
+                              </Events>
                             </Component>
                             <Component class="javax.swing.JButton" name="btnBuscarNombre2">
                               <Properties>
@@ -898,6 +901,9 @@
                                   <Font name="Tahoma" size="20" style="1"/>
                                 </Property>
                               </Properties>
+                              <Events>
+                                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSKUInventarioBodegaKeyPressed"/>
+                              </Events>
                             </Component>
                             <Component class="javax.swing.JButton" name="btnBuscarSKU2">
                               <Properties>

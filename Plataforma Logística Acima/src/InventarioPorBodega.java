@@ -112,10 +112,18 @@ public class InventarioPorBodega extends javax.swing.JFrame {
 
     private void ReiniciarTablaProductos(JTable tblProducto) {
         try {
-            String queryProducto = "Select idProducto as 'ID producto', SKU, categoria as 'Categoría', nombreProducto as 'Producto', descripcion as 'Descripción',\n"
-                    + "FORMAT( precioVenta, 'es_CL')as 'Precio Venta', FORMAT( precioCosto,'es_CL') as 'Precio Costo', d.nombreDistribuidor as 'Nombre de Distribuidor', regiones as 'Regiones',\n"
-                    + "CondicionDespacho as 'Condición de Despacho', diasHabiles as 'Días Hábiles', StatusProducto as 'Estado', stock as 'Stock'\n"
-                    + "FROM inventario r left join distribuidor d on r.IDDISTRIBUIDOR = d.idDistribuidor;";
+            String queryProducto = "SELECT \n"
+                    + "    idProducto AS 'ID producto',\n"
+                    + "    SKU,\n"
+                    + "    categoria AS 'Categoría',\n"
+                    + "    nombreProducto AS 'Producto',\n"
+                    + "    FORMAT(precioVenta, 'es_CL') AS 'Precio Venta',\n"
+                    + "    FORMAT(precioCosto, 'es_CL') AS 'Precio Costo',\n"
+                    + "    stock AS 'Stock'\n"
+                    + "FROM\n"
+                    + "    inventario r\n"
+                    + "        LEFT JOIN\n"
+                    + "    distribuidor d ON r.IDDISTRIBUIDOR = d.idDistribuidor;";
             PreparedStatement pstProducto = cn.prepareStatement(queryProducto);
             ResultSet rsProducto = pstProducto.executeQuery();
             tblProducto.setModel(DbUtils.resultSetToTableModel(rsProducto));
@@ -496,6 +504,11 @@ public class InventarioPorBodega extends javax.swing.JFrame {
         jLabel86.setToolTipText("");
 
         txtFiltrarNombreInventario.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        txtFiltrarNombreInventario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtFiltrarNombreInventarioKeyPressed(evt);
+            }
+        });
 
         btnBuscarNombre2.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         btnBuscarNombre2.setText("Buscar");
@@ -537,6 +550,11 @@ public class InventarioPorBodega extends javax.swing.JFrame {
         jLabel87.setText("Buscar por SKU:");
 
         txtSKUInventarioBodega.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        txtSKUInventarioBodega.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSKUInventarioBodegaKeyPressed(evt);
+            }
+        });
 
         btnBuscarSKU2.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         btnBuscarSKU2.setText("Buscar");
@@ -674,7 +692,7 @@ public class InventarioPorBodega extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane12, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTabbedPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 1209, Short.MAX_VALUE))
+                            .addComponent(jTabbedPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 1522, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         jPanel9Layout.setVerticalGroup(
@@ -711,10 +729,10 @@ public class InventarioPorBodega extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel48Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane2)
+                    .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel48Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1227, Short.MAX_VALUE)
                         .addComponent(btnVolverMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(10, 10, 10))
         );
@@ -753,10 +771,19 @@ public class InventarioPorBodega extends javax.swing.JFrame {
     private void btnBuscarNombre2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarNombre2ActionPerformed
 
         try {
-            String queryProducto = "Select idProducto as 'ID producto', SKU, categoria as 'Categoría', nombreProducto as 'Producto', descripcion as 'Descripción',\n"
-                    + "FORMAT( precioVenta, 'es_CL')as 'Precio Venta', FORMAT( precioCosto,'es_CL') as 'Precio Costo', d.nombreDistribuidor as 'Nombre de Distribuidor', regiones as 'Regiones',\n"
-                    + "CondicionDespacho as 'Condición de Despacho', diasHabiles as 'Días Hábiles', StatusProducto as 'Estado', stock as 'Stock'\n"
-                    + "FROM inventario r left join distribuidor d on r.IDDISTRIBUIDOR = d.idDistribuidor where r.nombreProducto RLIKE ? ";
+            String queryProducto = "SELECT \n"
+                    + "    idProducto AS 'ID producto',\n"
+                    + "    SKU,\n"
+                    + "    categoria AS 'Categoría',\n"
+                    + "    nombreProducto AS 'Producto',\n"
+                    + "    FORMAT(precioVenta, 'es_CL') AS 'Precio Venta',\n"
+                    + "    FORMAT(precioCosto, 'es_CL') AS 'Precio Costo',\n"
+                    + "    stock AS 'Stock'\n"
+                    + "FROM\n"
+                    + "    inventario r\n"
+                    + "        LEFT JOIN\n"
+                    + "    distribuidor d ON r.IDDISTRIBUIDOR = d.idDistribuidor "
+                    + "    where r.nombreProducto RLIKE ?;";
             String param = txtFiltrarNombreInventario.getText();
             PreparedStatement pst = cn.prepareStatement(queryProducto);
             pst.setString(1, param);
@@ -770,10 +797,18 @@ public class InventarioPorBodega extends javax.swing.JFrame {
     private void btnBuscarSKU2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarSKU2ActionPerformed
 
         try {
-            String queryProducto = "SSelect idProducto as 'ID producto', SKU, categoria as 'Categoría', nombreProducto as 'Producto', descripcion as 'Descripción',\n"
-                    + "FORMAT( precioVenta, 'es_CL')as 'Precio Venta', FORMAT( precioCosto,'es_CL') as 'Precio Costo', d.nombreDistribuidor as 'Nombre de Distribuidor', regiones as 'Regiones',\n"
-                    + "CondicionDespacho as 'Condición de Despacho', diasHabiles as 'Días Hábiles', StatusProducto as 'Estado', stock as 'Stock'\n"
-                    + "FROM inventario r left join distribuidor d on r.IDDISTRIBUIDOR = d.idDistribuidor where r.sku RLIKE ?";
+            String queryProducto = "SELECT \n"
+                    + "    idProducto AS 'ID producto',\n"
+                    + "    SKU,\n"
+                    + "    categoria AS 'Categoría',\n"
+                    + "    nombreProducto AS 'Producto',\n"
+                    + "    FORMAT(precioVenta, 'es_CL') AS 'Precio Venta',\n"
+                    + "    FORMAT(precioCosto, 'es_CL') AS 'Precio Costo',\n"
+                    + "    stock AS 'Stock'\n"
+                    + "FROM\n"
+                    + "    inventario r\n"
+                    + "        LEFT JOIN\n"
+                    + "    distribuidor d ON r.IDDISTRIBUIDOR = d.idDistribuidor where r.sku RLIKE ?;";
             String param = txtSKUInventarioBodega.getText();
             PreparedStatement pst = cn.prepareStatement(queryProducto);
             pst.setString(1, param);
@@ -787,10 +822,18 @@ public class InventarioPorBodega extends javax.swing.JFrame {
     private void btnBuscarStatus1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarStatus1ActionPerformed
 
         try {
-            String queryProducto = "Select idProducto as 'ID producto', SKU, categoria as 'Categoría', nombreProducto as 'Producto', descripcion as 'Descripción',\n"
-                    + "FORMAT( precioVenta, 'es_CL')as 'Precio Venta', FORMAT( precioCosto,'es_CL') as 'Precio Costo', d.nombreDistribuidor as 'Nombre de Distribuidor', regiones as 'Regiones',\n"
-                    + "CondicionDespacho as 'Condición de Despacho', diasHabiles as 'Días Hábiles', StatusProducto as 'Estado', stock as 'Stock'\n"
-                    + "FROM inventario r left join distribuidor d on r.IDDISTRIBUIDOR = d.idDistribuidor WHERE  r.statusproducto RLIKE ?";
+            String queryProducto = "SELECT \n"
+                    + "    idProducto AS 'ID producto',\n"
+                    + "    SKU,\n"
+                    + "    categoria AS 'Categoría',\n"
+                    + "    nombreProducto AS 'Producto',\n"
+                    + "    FORMAT(precioVenta, 'es_CL') AS 'Precio Venta',\n"
+                    + "    FORMAT(precioCosto, 'es_CL') AS 'Precio Costo',\n"
+                    + "    stock AS 'Stock'\n"
+                    + "FROM\n"
+                    + "    inventario r\n"
+                    + "        LEFT JOIN\n"
+                    + "    distribuidor d ON r.IDDISTRIBUIDOR = d.idDistribuidor WHERE  r.statusproducto RLIKE ?;";
             String param = cmbStatusFiltrarInventario.getSelectedItem().toString();
             PreparedStatement pst = cn.prepareStatement(queryProducto);
             pst.setString(1, param);
@@ -1031,6 +1074,55 @@ public class InventarioPorBodega extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex.getMessage());
         }
     }//GEN-LAST:event_btnConfirmarInfoProd1ActionPerformed
+
+    private void txtFiltrarNombreInventarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltrarNombreInventarioKeyPressed
+        try {
+            String queryProducto = "SELECT \n"
+                    + "    idProducto AS 'ID producto',\n"
+                    + "    SKU,\n"
+                    + "    categoria AS 'Categoría',\n"
+                    + "    nombreProducto AS 'Producto',\n"
+                    + "    FORMAT(precioVenta, 'es_CL') AS 'Precio Venta',\n"
+                    + "    FORMAT(precioCosto, 'es_CL') AS 'Precio Costo',\n"
+                    + "    stock AS 'Stock'\n"
+                    + "FROM\n"
+                    + "    inventario r\n"
+                    + "        LEFT JOIN\n"
+                    + "    distribuidor d ON r.IDDISTRIBUIDOR = d.idDistribuidor "
+                    + "    where r.nombreProducto RLIKE ?;";
+            String param = txtFiltrarNombreInventario.getText();
+            PreparedStatement pst = cn.prepareStatement(queryProducto);
+            pst.setString(1, param);
+            ResultSet rs = pst.executeQuery();
+            tblProductoInventarioBodega.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (Exception ex) {
+            //JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_txtFiltrarNombreInventarioKeyPressed
+
+    private void txtSKUInventarioBodegaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSKUInventarioBodegaKeyPressed
+        try {
+            String queryProducto = "SELECT \n"
+                    + "    idProducto AS 'ID producto',\n"
+                    + "    SKU,\n"
+                    + "    categoria AS 'Categoría',\n"
+                    + "    nombreProducto AS 'Producto',\n"
+                    + "    FORMAT(precioVenta, 'es_CL') AS 'Precio Venta',\n"
+                    + "    FORMAT(precioCosto, 'es_CL') AS 'Precio Costo',\n"
+                    + "    stock AS 'Stock'\n"
+                    + "FROM\n"
+                    + "    inventario r\n"
+                    + "        LEFT JOIN\n"
+                    + "    distribuidor d ON r.IDDISTRIBUIDOR = d.idDistribuidor where r.sku RLIKE ?;";
+            String param = txtSKUInventarioBodega.getText();
+            PreparedStatement pst = cn.prepareStatement(queryProducto);
+            pst.setString(1, param);
+            ResultSet rs = pst.executeQuery();
+            tblProductoInventarioBodega.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (Exception ex) {
+            // JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_txtSKUInventarioBodegaKeyPressed
 
     /**
      * @param args the command line arguments

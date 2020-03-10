@@ -1142,6 +1142,8 @@ public class Salida extends javax.swing.JFrame {
                                 updateProductoNV.setInt(1, Integer.parseInt(txtCodigoOTSalida.getText()));
                                 updateProductoNV.setString(2, tblResumenProductos.getValueAt(r, 0).toString());
                                 int upNV = updateProductoNV.executeUpdate();
+                            } else {
+                                System.out.println("Bulto no es igual");
                             }
                         }
 

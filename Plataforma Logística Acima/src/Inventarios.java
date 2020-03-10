@@ -160,35 +160,21 @@ public class Inventarios extends javax.swing.JFrame {
             InventarioPorBodega inventario = new InventarioPorBodega();
             inventario.setVisible(true);
 
-            String query = "Select idProducto as 'ID producto', SKU, categoria as 'Categoría', nombreProducto as 'Producto', descripcion as 'Descripción',\n"
-                    + "FORMAT( precioVenta, 'es_CL')as 'Precio Venta', FORMAT( precioCosto,'es_CL') as 'Precio Costo', d.nombreDistribuidor as 'Nombre de Distribuidor', regiones as 'Regiones',\n"
-                    + "CondicionDespacho as 'Condición de Despacho', diasHabiles as 'Días Hábiles', StatusProducto as 'Estado', stock as 'Stock'\n"
-                    + "FROM inventario r left join distribuidor d on r.IDDISTRIBUIDOR = d.idDistribuidor;";
+            String query = "SELECT \n"
+                    + "    idProducto AS 'ID producto',\n"
+                    + "    SKU,\n"
+                    + "    categoria AS 'Categoría',\n"
+                    + "    nombreProducto AS 'Producto',\n"
+                    + "    FORMAT(precioVenta, 'es_CL') AS 'Precio Venta',\n"
+                    + "    FORMAT(precioCosto, 'es_CL') AS 'Precio Costo',\n"
+                    + "    stock AS 'Stock'\n"
+                    + "FROM\n"
+                    + "    inventario r\n"
+                    + "        LEFT JOIN\n"
+                    + "    distribuidor d ON r.IDDISTRIBUIDOR = d.idDistribuidor;";
             PreparedStatement pst = cn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
             inventario.tblProductoInventarioBodega.setModel(DbUtils.resultSetToTableModel(rs));
-
-            String query2 = "select nombreBodega,seccion from bodega";
-            PreparedStatement pst2 = cn.prepareStatement(query2);
-            ResultSet rs2 = pst2.executeQuery();
-            while (rs2.next()) {
-                inventario.cmbBodega2.addItem(rs2.getString(1));
-                inventario.cmbSeccionBodega1.addItem(rs2.getString(2));
-            }
-
-            String query3 = "select nombreConvenio FROM acimabasededatos.conveniomarco order by codigoConvenio desc;";
-            PreparedStatement pst3 = cn.prepareStatement(query3);
-            ResultSet rs3 = pst3.executeQuery();
-            while (rs3.next()) {
-                inventario.cmbConvenioMarco.addItem(rs3.getString(1));
-            }
-
-            String query4 = "select nombreDistribuidor from distribuidor order by idDistribuidor;";
-            PreparedStatement pst4 = cn.prepareStatement(query4);
-            ResultSet rs4 = pst4.executeQuery();
-            while (rs4.next()) {
-                inventario.cmbDistribuidorStock0.addItem(rs4.getString(1));
-            }
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());

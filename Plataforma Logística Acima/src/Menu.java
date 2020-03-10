@@ -294,12 +294,27 @@ public class Menu extends javax.swing.JFrame {
                     + "    ot.idOrden AS 'N° de nota de venta',\n"
                     + "    ot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
                     + "    ot.nombre_Proveedor AS 'Empresa',\n"
-                    + "    ot.fechaEnvioOC AS 'Fecha de OC',"
-                    + "    ot.estadoSalida as 'Estado de Salida de Mercadería'\n"
+                    + "    CONCAT(SUBSTRING(ot.fechaEnvioOC, 9, 2),\n"
+                    + "            '-',\n"
+                    + "            SUBSTRING(ot.fechaEnvioOC, 6, 2),\n"
+                    + "            '-',\n"
+                    + "            SUBSTRING(ot.fechaEnvioOC, 1, 4)) AS 'Fecha de Envío de OC',\n"
+                    + "   CONCAT(SUBSTRING(ing.fechaIngreso, 9, 2),\n"
+                    + "            '-',\n"
+                    + "            SUBSTRING(ing.fechaIngreso, 6, 2),\n"
+                    + "            '-',\n"
+                    + "            SUBSTRING(ing.fechaIngreso, 1, 4)) AS 'Fecha de Ingreso',\n"
+                    + "    ot.estadoSalida AS 'Estado de Salida de Mercadería'\n"
                     + "FROM\n"
-                    + "    ordenTrabajo ot \n"
+                    + "    detalleordentrabajo dot\n"
+                    + "        LEFT JOIN\n"
+                    + "    ingreso ing ON ing.notaventa = dot.idOrden\n"
+                    + "        LEFT JOIN\n"
+                    + "    ordentrabajo ot ON ot.idOrden = dot.idOrden\n"
                     + "WHERE\n"
-                    + "     ot.estadoSalida in ('No despachado','Despachado (incompleto)');";
+                    + "    ot.estadoSalida IN ('No despachado' , 'Despachado (incompleto)')\n"
+                    + "        AND ing.notaVenta = ot.idOrden\n"
+                    + "GROUP BY dot.idOrden;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();

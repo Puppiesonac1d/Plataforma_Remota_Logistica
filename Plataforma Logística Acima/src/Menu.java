@@ -299,12 +299,14 @@ public class Menu extends javax.swing.JFrame {
                     + "            SUBSTRING(ot.fechaEnvioOC, 6, 2),\n"
                     + "            '-',\n"
                     + "            SUBSTRING(ot.fechaEnvioOC, 1, 4)) AS 'Fecha de Envío de OC',\n"
-                    + "   CONCAT(SUBSTRING(ing.fechaIngreso, 9, 2),\n"
+                    + "    CONCAT(SUBSTRING(ing.fechaIngreso, 9, 2),\n"
                     + "            '-',\n"
                     + "            SUBSTRING(ing.fechaIngreso, 6, 2),\n"
                     + "            '-',\n"
                     + "            SUBSTRING(ing.fechaIngreso, 1, 4)) AS 'Fecha de Ingreso',\n"
-                    + "    ot.estadoSalida AS 'Estado de Salida de Mercadería'\n"
+                    + "    ot.estadoSalida AS 'Estado de Salida de Mercadería',\n"
+                    + "    SUM(dot.cantidad) as 'Cantidad de Productos en NV',\n"
+                    + "    ing.StockIngresado as 'Cantidad Ingresada'\n"
                     + "FROM\n"
                     + "    detalleordentrabajo dot\n"
                     + "        LEFT JOIN\n"
@@ -313,7 +315,7 @@ public class Menu extends javax.swing.JFrame {
                     + "    ordentrabajo ot ON ot.idOrden = dot.idOrden\n"
                     + "WHERE\n"
                     + "    ot.estadoSalida IN ('No despachado' , 'Despachado (incompleto)')\n"
-                    + "        AND ing.notaVenta = ot.idOrden\n"
+                    + "    and ot.idOrden = ing.notaventa\n"
                     + "GROUP BY dot.idOrden;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);

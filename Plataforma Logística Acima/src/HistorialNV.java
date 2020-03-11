@@ -12,6 +12,7 @@ import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Component;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -37,6 +38,10 @@ import net.proteanit.sql.DbUtils;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
+import java.awt.Color;
+import java.text.ParseException;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -54,6 +59,30 @@ public class HistorialNV extends javax.swing.JFrame {
 
     public HistorialNV() {
         initComponents();
+        tblHistorialNV.setDefaultRenderer(Object.class, new MyTableCellRenderer());
+        this.repaint();
+    }
+
+    public class MyTableCellRenderer extends DefaultTableCellRenderer {
+
+        public Component getTableCellRendererComponent(
+                JTable table, Object value, boolean isSelected,
+                boolean hasFocus, int row, int col) {
+            Component comp = super.getTableCellRendererComponent(
+                    table, value, isSelected, hasFocus, row, col);
+
+            String s = table.getModel().getValueAt(row, 7).toString();
+
+            if (s.equalsIgnoreCase("Disponible para despacho")) {
+                comp.setBackground(Color.green);
+                comp.setForeground(Color.BLACK);
+            } else if (s.equalsIgnoreCase("No disponible para despacho")) {
+                comp.setBackground(Color.red);
+                comp.setForeground(Color.BLACK);
+            }
+
+            return (comp);
+        }
     }
 
     /**
@@ -449,17 +478,17 @@ public class HistorialNV extends javax.swing.JFrame {
             String query = "SELECT \n"
                     + "    ot.idOrden AS 'N° de nota de venta',\n"
                     + "    ot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
-                    + "    ot.nombre_Proveedor AS 'Empresa',\n"
-                    + "    CONCAT(SUBSTRING(ot.fechaEnvioOC, 9, 2),\n"
-                    + "            '-',\n"
-                    + "            SUBSTRING(ot.fechaEnvioOC, 6, 2),\n"
-                    + "            '-',\n"
-                    + "            SUBSTRING(ot.fechaEnvioOC, 1, 4)) AS 'Fecha de Envío de OC',\n"
-                    + "   CONCAT(SUBSTRING(ing.fechaIngreso, 9, 2),\n"
-                    + "            '-',\n"
-                    + "            SUBSTRING(ing.fechaIngreso, 6, 2),\n"
-                    + "            '-',\n"
-                    + "            SUBSTRING(ing.fechaIngreso, 1, 4)) AS 'Fecha de Ingreso',\n"
+                    + "    ot.nombre_Proveedor AS 'CONCAT(SUBSTRING(ot.fechaEnvioOC, 9, 2),\\n\"\n"
+                    + "                    + \"            '-',\\n\"\n"
+                    + "                    + \"            SUBSTRING(ot.fechaEnvioOC, 6, 2),\\n\"\n"
+                    + "                    + \"            '-',\\n\"\n"
+                    + "                    + \"            SUBSTRING(ot.fechaEnvioOC, 1, 4)) AS 'Fecha de Envío de OC',\\n\"\n"
+                    + "                    + \"   CONCAT(SUBSTRING(ing.fechaIngreso, 9, 2),\\n\"\n"
+                    + "                    + \"            '-',\\n\"\n"
+                    + "                    + \"            SUBSTRING(ing.fechaIngreso, 6, 2),\\n\"\n"
+                    + "                    + \"            '-',\\n\"\n"
+                    + "                    + \"            SUBSTRING(ing.fechaIngreso, 1, 4)) AS 'Fecha de Ingreso',Empresa',\n"
+                    + "    \n"
                     + "    ot.estadoSalida AS 'Estado de Salida de Mercadería'\n"
                     + "FROM\n"
                     + "    detalleordentrabajo dot\n"
@@ -484,32 +513,32 @@ public class HistorialNV extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         try {
             String query = "SELECT \n"
-                    + "    ot.idOrden AS 'N° de nota de venta',\n"
-                    + "    ot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
-                    + "    ot.nombre_Proveedor AS 'Empresa',\n"
+                    + "    dot.idOrden AS 'Número de Nota de Venta',\n"
                     + "    CONCAT(SUBSTRING(ot.fechaEnvioOC, 9, 2),\n"
-                    + "            '-',\n"
-                    + "            SUBSTRING(ot.fechaEnvioOC, 6, 2),\n"
-                    + "            '-',\n"
-                    + "            SUBSTRING(ot.fechaEnvioOC, 1, 4)) AS 'Fecha de Envío de OC',\n"
-                    + "    CONCAT(SUBSTRING(ing.fechaIngreso, 9, 2),\n"
-                    + "            '-',\n"
-                    + "            SUBSTRING(ing.fechaIngreso, 6, 2),\n"
-                    + "            '-',\n"
-                    + "            SUBSTRING(ing.fechaIngreso, 1, 4)) AS 'Fecha de Ingreso',\n"
-                    + "    ot.estadoSalida AS 'Estado de Salida de Mercadería',\n"
-                    + "    SUM(dot.cantidad) as 'Cantidad de Productos en NV',\n"
-                    + "    ing.StockIngresado as 'Cantidad Ingresada'\n"
+                    + "'-',\n"
+                    + "SUBSTRING(ot.fechaEnvioOC, 6, 2),\n"
+                    + "'-',\n"
+                    + "SUBSTRING(ot.fechaEnvioOC, 1, 4)) AS 'Fecha de Envío de OC',\n"
+                    + "CONCAT(SUBSTRING(ing.fechaIngreso, 9, 2),\n"
+                    + "'-',\n"
+                    + "SUBSTRING(ing.fechaIngreso, 6, 2),\n"
+                    + "'-',\n"
+                    + "SUBSTRING(ing.fechaIngreso, 1, 4)) AS 'Fecha de Ingreso',\n"
+                    + "    dot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
+                    + "    dot.nombreProducto,\n"
+                    + "    dot.CANTIDAD AS 'Cantidad solicitada en Nota de Venta',\n"
+                    + "    ing.StockIngresado AS 'Stock Ingresado',\n"
+                    + "    CASE\n"
+                    + "        WHEN dot.CANTIDAD <= ing.StockIngresado THEN 'Disponible para despacho'\n"
+                    + "        WHEN dot.CANTIDAD > ing.StockIngresado THEN 'No disponible para despacho'\n"
+                    + "    END AS 'Disponibilidad'\n"
                     + "FROM\n"
                     + "    detalleordentrabajo dot\n"
-                    + "        LEFT JOIN\n"
-                    + "    ingreso ing ON ing.notaventa = dot.idOrden\n"
-                    + "        LEFT JOIN\n"
-                    + "    ordentrabajo ot ON ot.idOrden = dot.idOrden\n"
+                    + "        JOIN\n"
+                    + "    ingreso ing ON dot.idOrden = ing.notaventa\n"
+                    + "    JOIN ordenTrabajo ot on ot.idOrden = dot.idOrden\n"
                     + "WHERE\n"
-                    + "    ot.estadoSalida IN ('No despachado' , 'Despachado (incompleto)')\n"
-                    + "    and ot.idOrden = ing.notaventa\n"
-                    + "GROUP BY dot.idOrden;";
+                    + "    dot.codigoProducto = ing.idProducto;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();

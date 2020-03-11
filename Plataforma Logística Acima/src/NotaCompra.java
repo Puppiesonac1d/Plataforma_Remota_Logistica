@@ -463,6 +463,7 @@ public class NotaCompra extends javax.swing.JFrame {
             ingreso.lblOC.setText(tblNC.getValueAt(index, 2).toString());
             ingreso.setVisible(true);
             ingreso.jButton6.doClick();
+            ingreso.ajusteTablaProductosNotaCompra();
             this.dispose();
 
         } catch (Exception ex) {

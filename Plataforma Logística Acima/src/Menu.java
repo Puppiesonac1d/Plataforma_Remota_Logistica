@@ -1,5 +1,7 @@
 
 import clases.Conexion;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -14,7 +16,10 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.Timer;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
 
 /*
@@ -290,7 +295,8 @@ public class Menu extends javax.swing.JFrame {
             nota.setVisible(true);
             nota.lblCodigo.setText(codigoAutorizacionMenuTag.getText());
 
-            String query = "SELECT \n"
+            /*
+            SELECT \n"
                     + "    ot.idOrden AS 'N° de nota de venta',\n"
                     + "    ot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
                     + "    ot.nombre_Proveedor AS 'Empresa',\n"
@@ -316,12 +322,41 @@ public class Menu extends javax.swing.JFrame {
                     + "WHERE\n"
                     + "    ot.estadoSalida IN ('No despachado' , 'Despachado (incompleto)')\n"
                     + "    and ot.idOrden = ing.notaventa\n"
-                    + "GROUP BY dot.idOrden;";
+                    + "GROUP BY dot.idOrden;
+             */
+            String query = "SELECT \n"
+                    + "    dot.idOrden AS 'Número de Nota de Venta',\n"
+                    + "    CONCAT(SUBSTRING(ot.fechaEnvioOC, 9, 2),\n"
+                    + "'-',\n"
+                    + "SUBSTRING(ot.fechaEnvioOC, 6, 2),\n"
+                    + "'-',\n"
+                    + "SUBSTRING(ot.fechaEnvioOC, 1, 4)) AS 'Fecha de Envío de OC',\n"
+                    + "CONCAT(SUBSTRING(ing.fechaIngreso, 9, 2),\n"
+                    + "'-',\n"
+                    + "SUBSTRING(ing.fechaIngreso, 6, 2),\n"
+                    + "'-',\n"
+                    + "SUBSTRING(ing.fechaIngreso, 1, 4)) AS 'Fecha de Ingreso',\n"
+                    + "    dot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
+                    + "    dot.nombreProducto,\n"
+                    + "    dot.CANTIDAD AS 'Cantidad solicitada en Nota de Venta',\n"
+                    + "    ing.StockIngresado AS 'Stock Ingresado',\n"
+                    + "    CASE\n"
+                    + "        WHEN dot.CANTIDAD <= ing.StockIngresado THEN 'Disponible para despacho'\n"
+                    + "        WHEN dot.CANTIDAD > ing.StockIngresado THEN 'No disponible para despacho'\n"
+                    + "    END AS 'Disponibilidad'\n"
+                    + "FROM\n"
+                    + "    detalleordentrabajo dot\n"
+                    + "        JOIN\n"
+                    + "    ingreso ing ON dot.idOrden = ing.notaventa\n"
+                    + "    JOIN ordenTrabajo ot on ot.idOrden = dot.idOrden\n"
+                    + "WHERE\n"
+                    + "    dot.codigoProducto = ing.idProducto;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
             nota.tblHistorialNV.setModel(DbUtils.resultSetToTableModel(rs));
             nota.lblIDUsuario.setText(idUsuarioMenuTag.getText());
+
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }

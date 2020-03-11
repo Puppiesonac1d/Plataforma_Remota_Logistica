@@ -27,6 +27,8 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -40,7 +42,48 @@ public class Ingreso extends javax.swing.JFrame {
 
     public Ingreso() {
         initComponents();
+        ajusteTablaProductosNotaCompra();
 
+    }
+
+    public void ajusteTablaProductosNotaCompra() {
+        TableColumnModel modeloColumnas = tblProductosAIngresar.getColumnModel();
+        TableModel modeloTabla = tblProductosAIngresar.getModel();
+        int total = modeloColumnas.getColumnCount();
+        for (int i = 0; i < total; i++) {
+            int tamanio = 0;
+            int total2 = modeloTabla.getRowCount();
+            for (int j = 0; j < total2; j++) {
+                if (modeloTabla.getValueAt(j, i) != null) {
+
+                    int tamanio2 = modeloTabla.getValueAt(j, i).toString().length() * 7;
+                    if (tamanio2 > tamanio) {
+                        tamanio = tamanio2;
+                    }
+                }
+                modeloColumnas.getColumn(i).setPreferredWidth(tamanio);
+            }
+        }
+    }
+
+    public void ajusteTablaProductosResumen() {
+        TableColumnModel modeloColumnas = tblProductosEnNC.getColumnModel();
+        TableModel modeloTabla = tblProductosEnNC.getModel();
+        int total = modeloColumnas.getColumnCount();
+        for (int i = 0; i < total; i++) {
+            int tamanio = 0;
+            int total2 = modeloTabla.getRowCount();
+            for (int j = 0; j < total2; j++) {
+                if (modeloTabla.getValueAt(j, i) != null) {
+
+                    int tamanio2 = modeloTabla.getValueAt(j, i).toString().length() * 7;
+                    if (tamanio2 > tamanio) {
+                        tamanio = tamanio2;
+                    }
+                }
+                modeloColumnas.getColumn(i).setPreferredWidth(tamanio);
+            }
+        }
     }
 
     /**
@@ -169,7 +212,7 @@ public class Ingreso extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Orden de Compra", "ID de Producto", "SKU", "Nombre de Producto", "Stock a Ingresar"
+                "N° de Nota de Venta", "Orden de Compra", "ID de Producto", "SKU", "Nombre de Producto", "Stock a Ingresar"
             }
         ));
         tblProductosEnNC.getTableHeader().setReorderingAllowed(false);
@@ -205,6 +248,7 @@ public class Ingreso extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelIngresoProductoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnConfirmarInfoProd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelIngresoProductoLayout.createSequentialGroup()
                         .addComponent(btnBorrar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -213,7 +257,7 @@ public class Ingreso extends javax.swing.JFrame {
                     .addComponent(jLabel50, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel52, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane8, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel61, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel61, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1189, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelIngresoProductoLayout.createSequentialGroup()
                         .addGroup(panelIngresoProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel48)
@@ -225,8 +269,7 @@ public class Ingreso extends javax.swing.JFrame {
                             .addComponent(txtSKUIngreso)
                             .addComponent(txtIDproductoIngreso)
                             .addComponent(txtNombreProductoIngreso)
-                            .addComponent(txtStockIngresado)
-                            .addComponent(btnConfirmarInfoProd, javax.swing.GroupLayout.DEFAULT_SIZE, 917, Short.MAX_VALUE))))
+                            .addComponent(txtStockIngresado))))
                 .addContainerGap())
         );
         panelIngresoProductoLayout.setVerticalGroup(
@@ -513,23 +556,26 @@ public class Ingreso extends javax.swing.JFrame {
         try {
             //Agregar los productos a la lista
             int i = tblProductosAIngresar.getSelectedRow();
-            int verificar = Integer.parseInt(tblProductosAIngresar.getValueAt(i, 5).toString());
-            String oc = tblProductosAIngresar.getValueAt(i, 0).toString();
+            int verificar = Integer.parseInt(tblProductosAIngresar.getValueAt(i, 6).toString());
+            String nv = tblProductosAIngresar.getValueAt(i, 0).toString();
+            String oc = tblProductosAIngresar.getValueAt(i, 1).toString();
             if (verificar <= 0) {
                 JOptionPane.showMessageDialog(null, "La cantidad de producto es 0, no puede restar mas de la lista");
             } else {
                 int indexs = tblProductosAIngresar.getRowCount();
-                Object[] row = new Object[5];
+                Object[] row = new Object[6];
                 DefaultTableModel modeloNuevo = (DefaultTableModel) tblProductosEnNC.getModel();
-                row[0] = oc;
-                row[1] = txtIDproductoIngreso.getText();
-                row[2] = txtSKUIngreso.getText();
-                row[3] = txtNombreProductoIngreso.getText();
-                row[4] = txtStockIngresado.getText();
+                row[0] = nv;
+                row[1] = oc;
+                row[2] = txtIDproductoIngreso.getText();
+                row[3] = txtSKUIngreso.getText();
+                row[4] = txtNombreProductoIngreso.getText();
+                row[5] = txtStockIngresado.getText();
                 modeloNuevo.addRow(row);
 
                 JOptionPane.showMessageDialog(null, "Producto Agregado a la lista");
             }
+            ajusteTablaProductosResumen();
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex.getMessage());
@@ -548,26 +594,26 @@ public class Ingreso extends javax.swing.JFrame {
                         + "`tipoTransporte`, `idBodega`,`IDProducto`,`SKU`,"
                         + "`codigoGeneradoQR`,`StockIngresado`,`tipoIngreso`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
                 PreparedStatement pst2 = cn.prepareStatement(query3);
-                pst2.setString(1, lblNC.getText());
-                pst2.setString(2, model.getValueAt(i, 0).toString());
-                pst2.setString(3, txtNC.getText());
+                pst2.setString(1, txtNC.getText());
+                pst2.setString(2, model.getValueAt(i, 1).toString());
+                pst2.setString(3, model.getValueAt(i, 0).toString());
                 pst2.setString(4, txtDistribuidor.getText());
                 pst2.setString(5, txtNumFactura.getText());
                 pst2.setString(6, txtGuiaDespacho.getText());
                 pst2.setString(7, cmbTransporte.getSelectedItem().toString());
                 pst2.setInt(8, cmbBodega.getSelectedIndex());
-                pst2.setString(9, model.getValueAt(i, 1).toString());
-                pst2.setString(10, model.getValueAt(i, 2).toString());
+                pst2.setString(9, model.getValueAt(i, 2).toString());
+                pst2.setString(10, model.getValueAt(i, 3).toString());
                 pst2.setString(11, "");
-                pst2.setString(12, model.getValueAt(i, 4).toString());
+                pst2.setString(12, model.getValueAt(i, 5).toString());
                 pst2.setString(13, "Ingreso realizado por 'Ingreso de Mercadería'");
                 int up = pst2.executeUpdate();
 
                 //Sumar Stock
                 String queryINV = "UPDATE INVENTARIO SET STOCK = stock + ? WHERE IDPRODUCTO = ?";
                 PreparedStatement pstINV = cn.prepareStatement(queryINV);
-                pstINV.setInt(1, Integer.parseInt(tblProductosEnNC.getValueAt(i, 4).toString()));
-                pstINV.setString(2, tblProductosEnNC.getValueAt(i, 1).toString());
+                pstINV.setInt(1, Integer.parseInt(tblProductosEnNC.getValueAt(i, 5).toString()));
+                pstINV.setString(2, tblProductosEnNC.getValueAt(i, 2).toString());
                 int upINV = pstINV.executeUpdate();
 
                 //Sacar el id de ingreso para el QR
@@ -586,11 +632,19 @@ public class Ingreso extends javax.swing.JFrame {
                     cantidad = rs.getInt(2);
                 }
 
+                //actualizar nota de venta
+                String queryActualizarNV = "update detalleordentrabajo set disponibilidad = 'Producto Ingresado' where idOrden = ? and codigoProducto = ?";
+                PreparedStatement actualizaNV = cn.prepareStatement(queryActualizarNV);
+                actualizaNV.setInt(1, Integer.parseInt(tblProductosEnNC.getValueAt(i, 0).toString()));
+                actualizaNV.setInt(2, Integer.parseInt(tblProductosEnNC.getValueAt(i, 2).toString()));
+                actualizaNV.executeUpdate();
+                System.out.println("actualizada la nota de venta " + tblProductosEnNC.getValueAt(i, 0).toString() + " y producto " + tblProductosEnNC.getValueAt(i, 2).toString());
+
                 String queryProductoIngresado = "update detalle_abastecimiento set estado = 'Ingresado' where numeroCotizacion = ? and codigoOrdenCompra = ? and codigoProducto = ?;";
                 PreparedStatement pstProductoIngresado = cn.prepareStatement(queryProductoIngresado);
                 pstProductoIngresado.setString(1, txtNC.getText());
-                pstProductoIngresado.setString(2, tblProductosEnNC.getValueAt(i, 0).toString());
-                pstProductoIngresado.setString(3, tblProductosEnNC.getValueAt(i, 1).toString());
+                pstProductoIngresado.setString(2, tblProductosEnNC.getValueAt(i, 1).toString());
+                pstProductoIngresado.setString(3, tblProductosEnNC.getValueAt(i, 2).toString());
                 int upProductoIngresado = pstProductoIngresado.executeUpdate();
 
                 String ruta = "";
@@ -677,11 +731,11 @@ public class Ingreso extends javax.swing.JFrame {
                 doc.add(myTable);
 
                 //Nombre Producto
-                Paragraph nombreProducto = new Paragraph("Nombre de Producto: " + model.getValueAt(i, 3).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                Paragraph nombreProducto = new Paragraph("Nombre de Producto: " + model.getValueAt(i, 4).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
                 nombreProducto.setAlignment(Paragraph.ALIGN_LEFT);
                 doc.add(nombreProducto);
                 //Sku
-                Paragraph sku = new Paragraph("SKU: " + model.getValueAt(i, 2).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                Paragraph sku = new Paragraph("SKU: " + model.getValueAt(i, 3).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
                 sku.setAlignment(Paragraph.ALIGN_LEFT);
                 doc.add(sku);
 
@@ -712,7 +766,7 @@ public class Ingreso extends javax.swing.JFrame {
 
         int totalCantidadIngreso = 0;
         try {
-            String queryCantIngreso = "SELECT sum(StockIngresado) FROM acimabasededatos.ingreso where notaVenta = ?;";
+            String queryCantIngreso = "SELECT sum(StockIngresado) FROM acimabasededatos.ingreso where numeroCotizacion = ?;";
             PreparedStatement pstCantIngreso = cn.prepareStatement(queryCantIngreso);
             pstCantIngreso.setString(1, txtNC.getText());
             ResultSet rsCantIngreso = pstCantIngreso.executeQuery();
@@ -726,7 +780,7 @@ public class Ingreso extends javax.swing.JFrame {
 
         int sumatoriaStock = 0;
         for (int x = 0; x < tblProductosAIngresar.getRowCount(); x++) {
-            sumatoriaStock = sumatoriaStock + Integer.parseInt(tblProductosAIngresar.getValueAt(x, 5).toString());
+            sumatoriaStock = sumatoriaStock + Integer.parseInt(tblProductosAIngresar.getValueAt(x, 6).toString());
         }
         System.out.println("Sumatoria de Stock :" + sumatoriaStock);
 
@@ -1200,21 +1254,22 @@ catch (Exception ex) {
                 txtDistribuidor.setText(rsProveedor.getString(1));
             }
 
-            String query = "SELECT \n"
-                    + "    da.codigoOrdenCompra AS 'CÓDIGO DE ORDEN DE COMPRA',\n"
-                    + "    da.SKU AS 'SKU de Proveedor',\n"
-                    + "    da.CODIGOPRODUCTO AS 'CODIGO DE PRODUCTO',\n"
-                    + "    da.CATEGORIA AS 'CATEGORÍA',\n"
-                    + "    da.NOMBRE AS 'NOMBRE DE PRODUCTO',\n"
-                    + "    da.CANTIDAD AS 'CANTIDAD',\n"
-                    + "    0 AS 'Cantidad Pendiente',\n"
-                    + "    da.PRECIOUNITARIO AS 'PRECIOUNITARIO',\n"
-                    + "    da.PRECIOTOTALNETO AS 'PRECIO TOTAL NETO',\n"
-                    + "    da.estado AS 'Estado'\n"
+            String query = "SELECT\n"
+                    + "da.idOrden as 'N° de Nota de Venta',\n"
+                    + "da.codigoOrdenCompra AS 'CÓDIGO DE ORDEN DE COMPRA',\n"
+                    + "da.SKU AS 'SKU de Proveedor',\n"
+                    + "da.CODIGOPRODUCTO AS 'CODIGO DE PRODUCTO',\n"
+                    + "da.CATEGORIA AS 'CATEGORÍA',\n"
+                    + "da.NOMBRE AS 'NOMBRE DE PRODUCTO',\n"
+                    + "da.CANTIDAD AS 'CANTIDAD',\n"
+                    + "0 AS 'Cantidad Pendiente',\n"
+                    + "da.PRECIOUNITARIO AS 'PRECIOUNITARIO',\n"
+                    + "da.PRECIOTOTALNETO AS 'PRECIO TOTAL NETO',\n"
+                    + "da.estado AS 'Estado'\n"
                     + "FROM\n"
-                    + "    detalle_abastecimiento da\n"
+                    + "detalle_abastecimiento da\n"
                     + "WHERE\n"
-                    + "    da.numeroCotizacion = ?;";
+                    + "da.numeroCotizacion = ?;";
             String param = txtNC.getText();
             PreparedStatement pst = cn.prepareStatement(query);
             pst.setString(1, param);
@@ -1226,25 +1281,19 @@ catch (Exception ex) {
             for (int i = 0; i < tblProductosAIngresar.getRowCount(); i++) {
                 int cantidadSolicitada = 0;
                 DefaultTableModel modeloIngresos = (DefaultTableModel) tblProductosAIngresar.getModel();
-                String queryCorregirCantidad = "select sum(stockIngresado) from ingreso where notaVenta = ? and idProducto = ? and codigoOrdenCompra = ?;";
+                String queryCorregirCantidad = "select ifnull(sum(stockIngresado),0) from ingreso where numerocotizacion = ? and idProducto = ? and codigoOrdenCompra = ?;";
                 PreparedStatement pstCorregir = cn.prepareStatement(queryCorregirCantidad);
                 pstCorregir.setString(1, txtNC.getText());
-                pstCorregir.setString(2, tblProductosAIngresar.getValueAt(i, 2).toString());
-                pstCorregir.setString(3, tblProductosAIngresar.getValueAt(i, 0).toString());
+                pstCorregir.setString(2, tblProductosAIngresar.getValueAt(i, 3).toString());
+                pstCorregir.setString(3, tblProductosAIngresar.getValueAt(i, 1).toString());
                 ResultSet rsCorregir = pstCorregir.executeQuery();
 
                 while (rsCorregir.next()) {
-                    cantidadSolicitada = rsCorregir.getInt("sum(stockIngresado)");
+                    cantidadSolicitada = rsCorregir.getInt("ifnull(sum(stockIngresado),0)");
                 }
-                modeloIngresos.setValueAt(Integer.parseInt(modeloIngresos.getValueAt(i, 5).toString()) - cantidadSolicitada, i, 6);
+                modeloIngresos.setValueAt(Integer.parseInt(modeloIngresos.getValueAt(i, 6).toString()) - cantidadSolicitada, i, 7);
             }
 
-            while (rs.next()) {
-                txtIDproductoIngreso.setText("");
-                txtSKUIngreso.setText(rs.getString(""));
-                txtNombreProductoIngreso.setText(rs.getString("Nombredelproducto"));
-                txtStockIngresado.setText(rs.getString("cantidadProducto"));
-            }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error:" + ex.getMessage());
         }
@@ -1256,7 +1305,7 @@ catch (Exception ex) {
             DefaultTableModel model = (DefaultTableModel) tblProductosAIngresar.getModel();
             int selectedRow = tblProductosAIngresar.getSelectedRow();
             String query = "Select * FROM inventario where idProducto = ?";
-            String param = model.getValueAt(selectedRow, 2).toString();
+            String param = model.getValueAt(selectedRow, 3).toString();
             PreparedStatement pst = cn.prepareStatement(query);
             pst.setString(1, param);
             ResultSet rs = pst.executeQuery();

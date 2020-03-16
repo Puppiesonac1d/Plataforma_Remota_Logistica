@@ -285,8 +285,8 @@ public class MantenedorBodega extends javax.swing.JFrame {
         txtNombreBodega = new javax.swing.JTextField();
         jLabel137 = new javax.swing.JLabel();
         btnIngresarBodega = new javax.swing.JButton();
-        cmbComunaBodega = new javax.swing.JComboBox<String>();
-        cmbRegionBodega = new javax.swing.JComboBox<String>();
+        cmbComunaBodega = new javax.swing.JComboBox<>();
+        cmbRegionBodega = new javax.swing.JComboBox<>();
         jLabel138 = new javax.swing.JLabel();
         jLabel139 = new javax.swing.JLabel();
         txtDireccion = new javax.swing.JTextField();
@@ -340,10 +340,10 @@ public class MantenedorBodega extends javax.swing.JFrame {
         });
 
         cmbComunaBodega.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        cmbComunaBodega.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione Comuna" }));
+        cmbComunaBodega.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Comuna" }));
 
         cmbRegionBodega.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        cmbRegionBodega.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione Región" }));
+        cmbRegionBodega.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Región" }));
         cmbRegionBodega.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbRegionBodegaItemStateChanged(evt);
@@ -474,6 +474,9 @@ public class MantenedorBodega extends javax.swing.JFrame {
 
         lblMantenedorBodega.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/menuTest.png"))); // NOI18N
 
+        jLayeredPane14.setLayer(jPanel50, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane14.setLayer(lblMantenedorBodega, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout jLayeredPane14Layout = new javax.swing.GroupLayout(jLayeredPane14);
         jLayeredPane14.setLayout(jLayeredPane14Layout);
         jLayeredPane14Layout.setHorizontalGroup(
@@ -494,8 +497,6 @@ public class MantenedorBodega extends javax.swing.JFrame {
                 .addComponent(jPanel50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jLayeredPane14.setLayer(jPanel50, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane14.setLayer(lblMantenedorBodega, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

@@ -283,9 +283,18 @@ public class Menu extends javax.swing.JFrame {
             PreparedStatement pst = cn.prepareStatement(queryActualizar);
             ResultSet rs = pst.executeQuery();
             nota.tblNC.setModel(DbUtils.resultSetToTableModel(rs));
+
+            String query2 = "select nombreDistribuidor from distribuidor;";
+            PreparedStatement pst2 = cn.prepareStatement(query2);
+            ResultSet rs2 = pst2.executeQuery();
+            while (rs2.next()) {
+                nota.cmbDistribuidor.addItem(rs2.getString(1));
+            }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
+
+
     }//GEN-LAST:event_btnNotaCompraActionPerformed
 
     private void btnNotaVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNotaVentaActionPerformed

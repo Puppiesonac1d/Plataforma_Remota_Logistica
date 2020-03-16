@@ -1,12 +1,36 @@
 
 import clases.Conexion;
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
 
@@ -38,6 +62,8 @@ public class NotaCompra extends javax.swing.JFrame {
         jScrollPane15 = new javax.swing.JScrollPane();
         tblNC = new javax.swing.JTable();
         btnReiniciarFiltros = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblProductosDesechable = new javax.swing.JTable();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         cmbDistribuidor = new javax.swing.JComboBox();
@@ -99,6 +125,21 @@ public class NotaCompra extends javax.swing.JFrame {
             }
         });
 
+        jScrollPane1.setVisible(false);
+
+        tblProductosDesechable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblProductosDesechable);
+
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
@@ -107,9 +148,11 @@ public class NotaCompra extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnReiniciarFiltros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
-                    .addComponent(btnSalir3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btnReiniciarFiltros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
+                        .addComponent(btnSalir3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
@@ -121,6 +164,8 @@ public class NotaCompra extends javax.swing.JFrame {
                         .addComponent(btnReiniciarFiltros)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSalir3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE))
                 .addContainerGap())
@@ -129,7 +174,6 @@ public class NotaCompra extends javax.swing.JFrame {
         jTabbedPane1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         cmbDistribuidor.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        cmbDistribuidor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Acima Global SPA", "Acima Soluciones", "Importadora Vive Mas" }));
         cmbDistribuidor.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbDistribuidorItemStateChanged(evt);
@@ -446,29 +490,776 @@ public class NotaCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void tblNCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNCMouseClicked
-        try {
-            Ingreso ingreso = new Ingreso();
-            String query = "select nombreBodega,seccion from bodega";
-            PreparedStatement pst = cn.prepareStatement(query);
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                ingreso.cmbBodega.addItem(rs.getString(1));
-                ingreso.cmbSeccionBodega.addItem(rs.getString(2));
-            }
-            int index = tblNC.getSelectedRow();
-            //seleccionarComuna(jComboBox1, jComboBox1);
-            ingreso.txtNC.setText(tblNC.getValueAt(index, 0).toString());
-            ingreso.lblNC.setText(tblNC.getValueAt(index, 1).toString());
-            ingreso.lblEmpresa.setText(tblNC.getValueAt(index, 3).toString());
-            ingreso.lblOC.setText(tblNC.getValueAt(index, 2).toString());
-            ingreso.setVisible(true);
-            ingreso.jButton6.doClick();
-            ingreso.ajusteTablaProductosNotaCompra();
-            this.dispose();
+        //Para cambiar el estado de una nota de venta
+        int index = tblNC.getSelectedRow();
+        String[] options1 = new String[]{"Ingresar Mercadería", "Imprimir Documentos de Nota de Compra"};
+        int resp1 = JOptionPane.showOptionDialog(null, "Elija una operación", null,
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                null, options1, options1[0]);
+        if (resp1 == 0) {
+            try {
+                Ingreso ingreso = new Ingreso();
+                String query = "select nombreBodega,seccion from bodega";
+                PreparedStatement pst = cn.prepareStatement(query);
+                ResultSet rs = pst.executeQuery();
+                while (rs.next()) {
+                    ingreso.cmbBodega.addItem(rs.getString(1));
+                    ingreso.cmbSeccionBodega.addItem(rs.getString(2));
+                }
+                int index2 = tblNC.getSelectedRow();
+                //seleccionarComuna(jComboBox1, jComboBox1);
+                ingreso.txtNC.setText(tblNC.getValueAt(index2, 0).toString());
+                ingreso.lblNC.setText(tblNC.getValueAt(index2, 1).toString());
+                ingreso.lblEmpresa.setText(tblNC.getValueAt(index2, 3).toString());
+                ingreso.lblOC.setText(tblNC.getValueAt(index2, 2).toString());
+                ingreso.setVisible(true);
+                ingreso.jButton6.doClick();
+                ingreso.ajusteTablaProductosNotaCompra();
+                this.dispose();
 
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Ha ocurrido un error " + ex);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Ha ocurrido un error " + ex);
+            }
+
+        } else if (resp1 == 1) {
+
+            try {
+
+                int index_tabla_nc = tblNC.getSelectedRow();
+                String notaCompra = tblNC.getValueAt(index_tabla_nc, 0).toString();
+                String proveedor = tblNC.getValueAt(index_tabla_nc, 3).toString();
+
+                //Fecha
+                java.util.Date sistFecha = new java.util.Date();
+                SimpleDateFormat formato = new SimpleDateFormat("dd-MMM-YYYY");
+                //PDF
+                String ruta = "";
+
+                JFileChooser dlg = new JFileChooser();
+                dlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+                int option = dlg.showOpenDialog(this);
+
+                if (option == JFileChooser.APPROVE_OPTION) {
+                    File f = dlg.getSelectedFile();
+                    ruta = f.toString();
+                }
+
+                try {
+
+                    double neto = 0;
+                    double iva = 0;
+                    double total_abastecimiento = 0;
+                    String demoraDespacho = "";
+                    String formaPago = "";
+                    String fecha = "";
+
+                    try {
+                        String query = "SELECT \n"
+                                + "   SUM( precioCosto * cantidad )\n"
+                                + "FROM\n"
+                                + "    detalle_abastecimiento\n"
+                                + "WHERE\n"
+                                + "    numeroCotizacion = ?;";
+                        PreparedStatement pst = cn.prepareStatement(query);
+                        pst.setString(1, notaCompra);
+                        ResultSet rs = pst.executeQuery();
+                        while (rs.next()) {
+                            neto = rs.getInt(1);
+                        }
+
+                    } catch (Exception ex) {
+                        System.out.println("Error: " + ex);
+                    }
+
+                    /*
+                            fecha = rs.getString("a.fecha");
+                                    demoraDespacho = rs.getString("a.demoraDespacho");
+                                    formaPago = rs.getString("a.FormaPago");
+                     */
+                    try {
+                        String query = "select fecha,demoraDespacho,FormaPago FROM abastecimiento WHERE numeroCotizacion = ? group by numeroCotizacion;";
+                        PreparedStatement pst = cn.prepareStatement(query);
+                        pst.setString(1, notaCompra);
+                        ResultSet rs = pst.executeQuery();
+                        while (rs.next()) {
+                            fecha = rs.getString("fecha");
+                            demoraDespacho = rs.getString("demoraDespacho");
+                            formaPago = rs.getString("FormaPago");
+                        }
+
+                    } catch (Exception ex) {
+                        System.out.println("Error: " + ex);
+                    }
+                    System.out.println("Fecha:" + fecha);
+
+                    String anio = Character.toString(fecha.charAt(0)) + Character.toString(fecha.charAt(1)) + Character.toString(fecha.charAt(2)) + Character.toString(fecha.charAt(3));
+                    String mes = Character.toString(fecha.charAt(5)) + Character.toString(fecha.charAt(6));
+                    String dia = Character.toString(fecha.charAt(8)) + Character.toString(fecha.charAt(9));
+
+                    fecha = dia + "-" + mes + "-" + anio;
+
+                    Document doc = new Document(PageSize.A4);
+                    try {
+                        java.util.Date sistHora = new java.util.Date();
+                        String pmAm = "hh:mm a";
+                        SimpleDateFormat format = new SimpleDateFormat(pmAm);
+                        Calendar hoy = Calendar.getInstance();
+                        String hora = (String.format(format.format(sistHora), hoy));
+                        hora = hora.replace(":", "-");
+                        PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(ruta + "\\" + "Nota_de_Compra_" + notaCompra + "_Fecha_" + fecha + "_hora_" + hora + ".pdf"));
+
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(NotaCompra.class
+                                .getName()).log(Level.SEVERE, null, ex);
+                    }
+                    doc.open();
+                    //Añadir la imagen
+                    try {
+                        //Establecer imagen y escala
+                        Image logoAcima = Image.getInstance("src\\Imagenes\\acima-logo-400p.png");
+                        logoAcima.scaleAbsolute(128, 68);
+                        //Establecer párrafo
+                        Paragraph nro = new Paragraph(tblNC.getValueAt(index_tabla_nc, 1).toString() + "\n"
+                                + "76.473.504-8 \n"
+                                + "AV. 5 de abril 4454, Oficina 31, Estación Central - Santiago de Chile \n"
+                                + "Venta de articulos al por menor \n"
+                                + "Fono: 232107900 \n"
+                                + "www.acima.cl", FontFactory
+                                        .getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null)
+                        );
+                        nro.setAlignment(Paragraph.ALIGN_JUSTIFIED);
+
+                        //Crear Tabla
+                        PdfPTable tableHeader = new PdfPTable(2);
+                        tableHeader.setWidthPercentage(100);
+
+                        PdfPCell cell1 = new PdfPCell(logoAcima, false);
+                        cell1.setBorder(Rectangle.NO_BORDER);
+                        cell1.setBackgroundColor(BaseColor.WHITE);
+                        cell1.setHorizontalAlignment(Element.ALIGN_RIGHT);
+
+                        PdfPCell cell2 = new PdfPCell(nro);
+                        cell2.setBorder(Rectangle.NO_BORDER);
+                        cell2.setBackgroundColor(BaseColor.WHITE);
+                        cell2.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+
+                        tableHeader.addCell(cell2);
+                        tableHeader.addCell(cell1);
+                        doc.add(tableHeader);
+                        Paragraph numeroNV = new Paragraph("N° de Orden de Compra: " + notaCompra, FontFactory.getFont(FontFactory.HELVETICA, 12, Font.BOLD, null));
+                        numeroNV.setAlignment(Paragraph.ALIGN_RIGHT);
+                        doc.add(numeroNV);
+                        Paragraph fechaEmision = new Paragraph("Fecha: " + fecha, FontFactory.getFont(FontFactory.HELVETICA, 12, Font.BOLD, null));
+                        fechaEmision.setAlignment(Paragraph.ALIGN_RIGHT);
+                        doc.add(fechaEmision);
+
+                    } catch (BadElementException | IOException ex) {
+                        Logger.getLogger(NotaCompra.class
+                                .getName()).log(Level.SEVERE, null, ex);
+
+                    }
+
+                    //Query
+                    String rut = "";
+                    String nombreProveedor = "";
+                    String direccionProveedor = "";
+                    String ciudadProveedor = "";
+                    String giro = "";
+                    String telefonoProveedor = "";
+
+                    String atencion = "";
+
+                    try {
+                        String query = "select rut_proveedor,nombre_proveedor,direccion_proveedor,ciudad_proveedor,giro,telefono,contacto from proveedores where nombre_proveedor = ?;";
+                        PreparedStatement pst = cn.prepareStatement(query);
+                        pst.setString(1, proveedor);
+                        ResultSet rs = pst.executeQuery();
+                        while (rs.next()) {
+                            if (rs.getString(1).isEmpty()) {
+                                rut = "información no disponible";
+                            } else {
+                                rut = rs.getString(1);
+                            }
+                            if (rs.getString(2).isEmpty()) {
+                                nombreProveedor = "información no disponible";
+                            } else {
+                                nombreProveedor = rs.getString(2);
+                            }
+                            if (rs.getString(3).isEmpty()) {
+                                direccionProveedor = "información no disponible";
+                            } else {
+                                direccionProveedor = rs.getString(3);
+                            }
+                            if (rs.getString(4).isEmpty()) {
+                                ciudadProveedor = "información no disponible";
+                            } else {
+                                ciudadProveedor = rs.getString(4);
+                            }
+                            if (rs.getString(5).isEmpty()) {
+                                giro = "información no disponible";
+                            } else {
+                                giro = rs.getString(5);
+                            }
+                            if (rs.getString(6).isEmpty()) {
+                                telefonoProveedor = "información no disponible";
+                            } else {
+                                telefonoProveedor = rs.getString(6);
+                            }
+                            if (rs.getString(7).isEmpty()) {
+                                atencion = "información no disponible";
+                            } else {
+                                atencion = rs.getString(7);
+                            }
+                        }
+                    } catch (Exception ex) {
+                        System.out.println("Error en query: " + ex);
+                    }
+
+                    //Añadir la información
+                    PdfPTable tableDatos = new PdfPTable(1);
+                    tableDatos.setWidthPercentage(100);
+                    PdfPCell cell1Proveedores = new PdfPCell(new Phrase("Proveedor", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10)));
+                    cell1Proveedores.setUseBorderPadding(true);
+                    // Setting cell's background color
+                    cell1Proveedores.setBackgroundColor(BaseColor.ORANGE);
+
+                    tableDatos.addCell(cell1Proveedores);
+                    tableDatos.addCell(new Phrase("Razón Social: " + proveedor, FontFactory.getFont(FontFactory.HELVETICA, 10)));
+                    tableDatos.addCell(new Phrase("Rut: " + rut, FontFactory.getFont(FontFactory.HELVETICA, 10)));
+                    tableDatos.addCell(new Phrase("Dirección: " + direccionProveedor, FontFactory.getFont(FontFactory.HELVETICA, 10)));
+                    tableDatos.addCell(new Phrase("Ciudad: " + ciudadProveedor, FontFactory.getFont(FontFactory.HELVETICA, 10)));
+                    tableDatos.addCell(new Phrase("Giro: " + giro, FontFactory.getFont(FontFactory.HELVETICA, 10)));
+                    tableDatos.addCell(new Phrase("Telefono: " + telefonoProveedor, FontFactory.getFont(FontFactory.HELVETICA, 10)));
+                    tableDatos.addCell(new Phrase("Atención a: " + atencion, FontFactory.getFont(FontFactory.HELVETICA, 10)));
+                    tableDatos.setSpacingBefore(15f);
+                    tableDatos.setWidthPercentage(100);
+                    tableDatos.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+
+                    doc.add(tableDatos);
+
+                    try {
+                        String query = "SELECT \n"
+                                + "    codigoOrdenCompra as 'Código de Orden de Compra',\n"
+                                + "    sku as 'SKU',\n"
+                                + "    nombre as 'Producto',\n"
+                                + "    cantidad as 'Cantidad',\n"
+                                + "    precioCosto AS 'Valor Unitario de Compra',\n"
+                                + "    precioCosto * cantidad AS 'Total de costo de Compra',\n"
+                                + "    precioTotalNeto AS 'Total de Nota de Venta',\n"
+                                + "    margen\n"
+                                + "FROM\n"
+                                + "    detalle_abastecimiento\n"
+                                + "    where numeroCotizacion = ?;";
+                        PreparedStatement pst;
+                        pst = cn.prepareStatement(query);
+                        pst.setString(1, notaCompra);
+                        ResultSet rs = pst.executeQuery();
+                        tblProductosDesechable.setModel(DbUtils.resultSetToTableModel(rs));
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, ex.getMessage());
+                    }
+
+                    Paragraph tablas = new Paragraph("Resumen de Productos ", FontFactory.getFont(FontFactory.HELVETICA, 12, Font.NORMAL, null));
+                    doc.add(tablas);
+                    try {
+                        PdfPTable pdfTable = new PdfPTable(5);
+                        //Parámetros de espaciado y ancho
+                        pdfTable.setSpacingBefore(15f);
+                        pdfTable.setWidthPercentage(100);
+                        //Añadir Valores
+
+                        PdfPCell cell1 = new PdfPCell(new Phrase(tblProductosDesechable.getColumnName(1), FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10)));
+                        cell1.setUseBorderPadding(true);
+                        // Setting cell's background color
+                        cell1.setBackgroundColor(BaseColor.ORANGE);
+
+                        PdfPCell cell2 = new PdfPCell(new Phrase(tblProductosDesechable.getColumnName(2), FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10)));
+                        cell2.setUseBorderPadding(true);
+                        // Setting cell's background color
+                        cell2.setBackgroundColor(BaseColor.ORANGE);
+
+                        PdfPCell cell3 = new PdfPCell(new Phrase(tblProductosDesechable.getColumnName(3), FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10)));
+                        cell3.setUseBorderPadding(true);
+                        // Setting cell's background color
+                        cell3.setBackgroundColor(BaseColor.ORANGE);
+
+                        PdfPCell cell4 = new PdfPCell(new Phrase(tblProductosDesechable.getColumnName(4), FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10)));
+                        cell4.setUseBorderPadding(true);
+                        // Setting cell's background color
+                        cell4.setBackgroundColor(BaseColor.ORANGE);
+
+                        PdfPCell cell5 = new PdfPCell(new Phrase(tblProductosDesechable.getColumnName(5), FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10)));
+                        cell5.setUseBorderPadding(true);
+                        // Setting cell's background color
+                        cell5.setBackgroundColor(BaseColor.ORANGE);
+
+                        pdfTable.addCell(cell1);
+                        pdfTable.addCell(cell2);
+                        pdfTable.addCell(cell3);
+                        pdfTable.addCell(cell4);
+                        pdfTable.addCell(cell5);
+
+                        //pdfTable.addCell(new Phrase(tblProductos.getColumnName(7), FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10)));
+                        //pdfTable.addCell(new Phrase(tblProductos.getColumnName(10), FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10)));
+                        //Extraer valores de la Jtable al PDF
+                        try {
+                            String queryProductosAgrupados = "SELECT\n"
+                                    + "sku, nombre, SUM(CANTIDAD), precioCosto , (SUM(CANTIDAD)*precioCosto)\n"
+                                    + "FROM\n"
+                                    + "acimabasededatos.detalle_abastecimiento\n"
+                                    + "where NUMEROCOTIZACION = ?\n"
+                                    + "GROUP BY nombre;";
+                            PreparedStatement pst2 = cn.prepareStatement(queryProductosAgrupados);
+
+                            pst2.setString(1, notaCompra);
+                            ResultSet rs2 = pst2.executeQuery();
+                            tblProductosDesechable.setModel(DbUtils.resultSetToTableModel(rs2));
+                        } catch (Exception ex) {
+                            System.out.println("Error: " + ex);
+                        }
+
+                        for (int rows = 0; rows < tblProductosDesechable.getRowCount(); rows++) {
+                            DecimalFormat formatea = new DecimalFormat("###,###.##");
+
+                            double p = Double.parseDouble(tblProductosDesechable.getModel().getValueAt(rows, 3).toString());
+
+                            double t = Double.parseDouble(tblProductosDesechable.getModel().getValueAt(rows, 4).toString());
+
+                            //pdfTable.addCell(new Phrase(tblProductos.getModel().getValueAt(rows, 1).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                            pdfTable.addCell(new Phrase(tblProductosDesechable.getModel().getValueAt(rows, 0).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                            pdfTable.addCell(new Phrase(tblProductosDesechable.getModel().getValueAt(rows, 1).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                            pdfTable.addCell(new Phrase(tblProductosDesechable.getModel().getValueAt(rows, 2).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                            pdfTable.addCell(new Phrase("$" + formatea.format(p), FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                            pdfTable.addCell(new Phrase("$" + formatea.format(t), FontFactory.getFont(FontFactory.HELVETICA, 9)));
+
+                            //pdfTable.addCell(new Phrase(tblProductos.getModel().getValueAt(rows, 7).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                            //pdfTable.addCell(new Phrase(tblProductos.getModel().getValueAt(rows, 10).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                        }
+                        doc.add(pdfTable);
+                    } catch (DocumentException ex) {
+                        JOptionPane.showMessageDialog(null, "Ha ocurrido un error: tabla" + ex.getMessage());
+                    }
+                    DecimalFormat formatea = new DecimalFormat("###,###.##");
+
+                    iva = (neto * 0.19);
+                    total_abastecimiento = neto + iva;
+
+                    Paragraph neto_par = new Paragraph("Neto: " + "$" + formatea.format(neto), FontFactory.getFont(FontFactory.HELVETICA, 10, Font.NORMAL, null));
+                    neto_par.setAlignment(Paragraph.ALIGN_RIGHT);
+                    Paragraph iva_par = new Paragraph("IVA: " + "$" + formatea.format(iva), FontFactory.getFont(FontFactory.HELVETICA, 10, Font.NORMAL, null));
+                    iva_par.setAlignment(Paragraph.ALIGN_RIGHT);
+                    Paragraph total_par = new Paragraph("Total: " + "$" + formatea.format(total_abastecimiento), FontFactory.getFont(FontFactory.HELVETICA, 10, Font.NORMAL, null));
+                    total_par.setAlignment(Paragraph.ALIGN_RIGHT);
+                    doc.add(neto_par);
+                    doc.add(iva_par);
+                    doc.add(total_par);
+
+                    //Nota
+                    Paragraph nota = new Paragraph("Nota: Forma de Pago "
+                            + formaPago, FontFactory.getFont(FontFactory.HELVETICA, 12, Font.BOLD, null));
+                    nota.setAlignment(Paragraph.ALIGN_JUSTIFIED);
+                    doc.add(nota);
+
+                    //Información de contacto
+                    Paragraph telefono = new Paragraph("Para cualquier duda, favor contactar a:\n"
+                            + "Ejecutivo Ronny Saa, Telefono +569 7288 8299 - Correo: abastecimiento@acima.cl", FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                    telefono.setAlignment(Paragraph.ALIGN_JUSTIFIED);
+                    doc.add(telefono);
+
+                    //Firma
+                    Image firma = Image.getInstance("src\\Imagenes\\firma_rony.png");
+                    firma.setAlignment(Paragraph.ALIGN_CENTER);
+                    doc.add(firma);
+
+                    //Finalizar documento
+                    doc.close();
+                    JOptionPane.showMessageDialog(null, "PDF Generado Correctamente");
+
+                } catch (DocumentException ex) {
+                    JOptionPane.showMessageDialog(null, "Ha ocurrido un error: sss" + ex.getMessage());
+
+                } catch (IOException ex) {
+                    Logger.getLogger(NotaCompra.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                }
+
+                //Orden de compra interna
+                double neto = 0;
+                double iva = 0;
+                double total_abastecimiento = 0;
+                String demoraDespacho = "";
+                String formaPago = "";
+                String fecha = "";
+
+                try {
+                    String query = "SELECT \n"
+                            + "   SUM( precioCosto * cantidad )\n"
+                            + "FROM\n"
+                            + "    detalle_abastecimiento\n"
+                            + "WHERE\n"
+                            + "    numeroCotizacion = ?;";
+                    PreparedStatement pst = cn.prepareStatement(query);
+                    pst.setString(1, notaCompra);
+                    ResultSet rs = pst.executeQuery();
+                    while (rs.next()) {
+                        neto = rs.getDouble(1);
+                    }
+
+                } catch (Exception ex) {
+                    System.out.println("Error: " + ex);
+                }
+
+                /*
+                            fecha = rs.getString("a.fecha");
+                                    demoraDespacho = rs.getString("a.demoraDespacho");
+                                    formaPago = rs.getString("a.FormaPago");
+                 */
+                try {
+                    String query = "select fecha,demoraDespacho,FormaPago FROM abastecimiento WHERE numeroCotizacion = ? group by numeroCotizacion;";
+                    PreparedStatement pst = cn.prepareStatement(query);
+                    pst.setString(1, notaCompra);
+                    ResultSet rs = pst.executeQuery();
+                    while (rs.next()) {
+
+                        fecha = rs.getString("fecha");
+                        demoraDespacho = rs.getString("demoraDespacho");
+                        formaPago = rs.getString("FormaPago");
+                    }
+
+                } catch (Exception ex) {
+                    System.out.println("Error: " + ex);
+                }
+
+                String anio = Character.toString(fecha.charAt(0)) + Character.toString(fecha.charAt(1)) + Character.toString(fecha.charAt(2)) + Character.toString(fecha.charAt(3));
+                String mes = Character.toString(fecha.charAt(5)) + Character.toString(fecha.charAt(6));
+                String dia = Character.toString(fecha.charAt(8)) + Character.toString(fecha.charAt(9));
+
+                fecha = dia + "-" + mes + "-" + anio;
+
+                Document doc = new Document(PageSize.A4);
+                try {
+                    java.util.Date sistHora = new java.util.Date();
+                    String pmAm = "hh:mm a";
+                    SimpleDateFormat format = new SimpleDateFormat(pmAm);
+                    Calendar hoy = Calendar.getInstance();
+                    String hora = (String.format(format.format(sistHora), hoy));
+                    hora = hora.replace(":", "-");
+                    try {
+                        PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(ruta + "\\" + "Nota_de_Compra_Interna_" + notaCompra + "_Fecha_" + fecha + "_hora_" + hora + ".pdf"));
+
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(NotaCompra.class
+                                .getName()).log(Level.SEVERE, null, ex);
+
+                    }
+                } catch (DocumentException ex) {
+                    Logger.getLogger(DetalleNotaCompra.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                }
+                doc.open();
+                //Añadir la imagen
+                try {
+                    //Establecer imagen y escala
+                    Image logoAcima = Image.getInstance("src\\Imagenes\\acima-logo-400p.png");
+                    logoAcima.scaleAbsolute(128, 68);
+                    //Establecer párrafo
+                    Paragraph nro = new Paragraph("Orden de compra interna, documento solo para uso interno de la empresa " + tblNC.getValueAt(index_tabla_nc, 1).toString(), FontFactory
+                            .getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null)
+                    );
+                    nro.setAlignment(Paragraph.ALIGN_JUSTIFIED);
+
+                    //Crear Tabla
+                    PdfPTable tableHeader = new PdfPTable(2);
+                    tableHeader.setWidthPercentage(100);
+
+                    PdfPCell cell1 = new PdfPCell(logoAcima, false);
+                    cell1.setBorder(Rectangle.NO_BORDER);
+                    cell1.setBackgroundColor(BaseColor.WHITE);
+                    cell1.setHorizontalAlignment(Element.ALIGN_RIGHT);
+
+                    PdfPCell cell2 = new PdfPCell(nro);
+                    cell2.setBorder(Rectangle.NO_BORDER);
+                    cell2.setBackgroundColor(BaseColor.WHITE);
+                    cell2.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+
+                    tableHeader.addCell(cell2);
+                    tableHeader.addCell(cell1);
+                    doc.add(tableHeader);
+
+                    Paragraph numeroFacturaVenta = new Paragraph("Número de factura de venta: ______________________", FontFactory.getFont(FontFactory.HELVETICA, 12, Font.BOLD, null));
+                    numeroFacturaVenta.setAlignment(Paragraph.ALIGN_LEFT);
+                    doc.add(numeroFacturaVenta);
+
+                    Paragraph numeroNV = new Paragraph("N° de Orden de Compra interna: " + notaCompra, FontFactory.getFont(FontFactory.HELVETICA, 12, Font.BOLD, null));
+                    numeroNV.setAlignment(Paragraph.ALIGN_RIGHT);
+                    doc.add(numeroNV);
+
+                    Paragraph fechaEmision = new Paragraph("Fecha: " + fecha, FontFactory.getFont(FontFactory.HELVETICA, 12, Font.BOLD, null));
+                    fechaEmision.setAlignment(Paragraph.ALIGN_RIGHT);
+                    doc.add(fechaEmision);
+
+                } catch (BadElementException | IOException ex) {
+                    Logger.getLogger(NotaCompra.class
+                            .getName()).log(Level.SEVERE, null, ex);
+
+                } catch (DocumentException ex) {
+                    Logger.getLogger(DetalleNotaCompra.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                }
+
+                //Query 
+                String rut = "";
+                String nombreProveedor = "";
+                String direccionProveedor = "";
+                String ciudadProveedor = "";
+                String giro = "";
+                String telefonoProveedor = "";
+
+                String atencion = "";
+
+                try {
+
+                    String query = "select rut_proveedor,nombre_proveedor,direccion_proveedor,ciudad_proveedor,giro,telefono,contacto from proveedores where nombre_proveedor = ?;";
+                    PreparedStatement pst = cn.prepareStatement(query);
+                    pst.setString(1, proveedor);
+                    ResultSet rs = pst.executeQuery();
+                    while (rs.next()) {
+                        if (rs.getString(1).isEmpty()) {
+                            rut = "información no disponible";
+                        } else {
+                            rut = rs.getString(1);
+                        }
+                        if (rs.getString(2).isEmpty()) {
+                            nombreProveedor = "información no disponible";
+                        } else {
+                            nombreProveedor = rs.getString(2);
+                        }
+                        if (rs.getString(3).isEmpty()) {
+                            direccionProveedor = "información no disponible";
+                        } else {
+                            direccionProveedor = rs.getString(3);
+                        }
+                        if (rs.getString(4).isEmpty()) {
+                            ciudadProveedor = "información no disponible";
+                        } else {
+                            ciudadProveedor = rs.getString(4);
+                        }
+                        if (rs.getString(5).isEmpty()) {
+                            giro = "información no disponible";
+                        } else {
+                            giro = rs.getString(5);
+                        }
+                        if (rs.getString(6).isEmpty()) {
+                            telefonoProveedor = "información no disponible";
+                        } else {
+                            telefonoProveedor = rs.getString(6);
+                        }
+                        if (rs.getString(7).isEmpty()) {
+                            atencion = "información no disponible";
+                        } else {
+                            atencion = rs.getString(7);
+                        }
+                    }
+                } catch (Exception ex) {
+                    System.out.println("Error en query: " + ex);
+                }
+
+                //Añadir la información
+                PdfPTable tableDatos = new PdfPTable(1);
+                tableDatos.setWidthPercentage(100);
+
+                PdfPCell cell1Proveedores = new PdfPCell(new Phrase("Proveedor", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10)));
+                cell1Proveedores.setUseBorderPadding(true);
+                // Setting cell's background color
+                cell1Proveedores.setBackgroundColor(BaseColor.ORANGE);
+
+                tableDatos.addCell(cell1Proveedores);
+                tableDatos.addCell(new Phrase("Razón Social: " + proveedor));
+                tableDatos.addCell(new Phrase("Rut: " + rut, FontFactory.getFont(FontFactory.HELVETICA, 10)));
+                tableDatos.addCell(new Phrase("Dirección: " + direccionProveedor, FontFactory.getFont(FontFactory.HELVETICA, 10)));
+                tableDatos.addCell(new Phrase("Ciudad: " + ciudadProveedor, FontFactory.getFont(FontFactory.HELVETICA, 10)));
+                tableDatos.addCell(new Phrase("Giro: " + giro, FontFactory.getFont(FontFactory.HELVETICA, 10)));
+                tableDatos.addCell(new Phrase("Telefono: " + telefonoProveedor, FontFactory.getFont(FontFactory.HELVETICA, 10)));
+                tableDatos.addCell(new Phrase("Atención a: " + atencion, FontFactory.getFont(FontFactory.HELVETICA, 10)));
+                tableDatos.setSpacingBefore(15f);
+                tableDatos.setWidthPercentage(100);
+                tableDatos.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+
+                try {
+                    doc.add(tableDatos);
+
+                } catch (DocumentException ex) {
+                    Logger.getLogger(DetalleNotaCompra.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                }
+
+                try {
+                    String query = "SELECT \n"
+                            + "    codigoOrdenCompra as 'Código de Orden de Compra',\n"
+                            + "    sku as 'SKU',\n"
+                            + "    nombre as 'Producto',\n"
+                            + "    cantidad as 'Cantidad',\n"
+                            + "    precioCosto AS 'Valor Unitario de Compra',\n"
+                            + "    precioCosto * cantidad AS 'Total de costo de Compra',\n"
+                            + "    precioTotalNeto AS 'Total de Nota de Venta',\n"
+                            + "    margen\n"
+                            + "FROM\n"
+                            + "    detalle_abastecimiento\n"
+                            + "    where numeroCotizacion = ?;";
+                    PreparedStatement pst;
+                    pst = cn.prepareStatement(query);
+                    pst.setString(1, notaCompra);
+                    ResultSet rs = pst.executeQuery();
+                    tblProductosDesechable.setModel(DbUtils.resultSetToTableModel(rs));
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
+
+                Paragraph tablas = new Paragraph("Resumen de Productos ", FontFactory.getFont(FontFactory.HELVETICA, 12, Font.NORMAL, null));
+                try {
+                    doc.add(tablas);
+
+                } catch (DocumentException ex) {
+                    Logger.getLogger(DetalleNotaCompra.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    PdfPTable pdfTable = new PdfPTable(8);
+                    //Parámetros de espaciado y ancho
+                    pdfTable.setSpacingBefore(15f);
+                    pdfTable.setWidthPercentage(100);
+                    //Añadir Valores
+
+                    PdfPCell cell1 = new PdfPCell(new Phrase(tblProductosDesechable.getColumnName(0), FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10)));
+                    cell1.setUseBorderPadding(true);
+                    // Setting cell's background color
+                    cell1.setBackgroundColor(BaseColor.ORANGE);
+
+                    PdfPCell cell2 = new PdfPCell(new Phrase(tblProductosDesechable.getColumnName(1), FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10)));
+                    cell2.setUseBorderPadding(true);
+                    // Setting cell's background color
+                    cell2.setBackgroundColor(BaseColor.ORANGE);
+
+                    PdfPCell cell3 = new PdfPCell(new Phrase(tblProductosDesechable.getColumnName(2), FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10)));
+                    cell3.setUseBorderPadding(true);
+                    // Setting cell's background color
+                    cell3.setBackgroundColor(BaseColor.ORANGE);
+
+                    PdfPCell cell4 = new PdfPCell(new Phrase(tblProductosDesechable.getColumnName(3), FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10)));
+                    cell4.setUseBorderPadding(true);
+                    // Setting cell's background color
+                    cell4.setBackgroundColor(BaseColor.ORANGE);
+
+                    PdfPCell cell5 = new PdfPCell(new Phrase("Valor Unitario de Compra", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10)));
+                    cell5.setUseBorderPadding(true);
+                    // Setting cell's background color
+                    cell5.setBackgroundColor(BaseColor.ORANGE);
+
+                    PdfPCell cell6 = new PdfPCell(new Phrase("Total de costo de compra", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10)));
+                    cell6.setUseBorderPadding(true);
+                    // Setting cell's background color
+                    cell6.setBackgroundColor(BaseColor.ORANGE);
+
+                    PdfPCell cell7 = new PdfPCell(new Phrase("Total de Nota de Venta", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10)));
+                    cell7.setUseBorderPadding(true);
+                    // Setting cell's background color
+                    cell7.setBackgroundColor(BaseColor.ORANGE);
+
+                    PdfPCell cell8 = new PdfPCell(new Phrase(tblProductosDesechable.getColumnName(7), FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10)));
+                    cell8.setUseBorderPadding(true);
+                    // Setting cell's background color
+                    cell8.setBackgroundColor(BaseColor.ORANGE);
+
+                    pdfTable.addCell(cell1);
+                    pdfTable.addCell(cell2);
+                    pdfTable.addCell(cell3);
+                    pdfTable.addCell(cell4);
+                    pdfTable.addCell(cell5);
+                    pdfTable.addCell(cell6);
+                    pdfTable.addCell(cell7);
+                    pdfTable.addCell(cell8);
+
+                    //Extraer valores de la Jtable al PDF
+                    for (int rows = 0; rows < tblProductosDesechable.getRowCount(); rows++) {
+
+                        DecimalFormat formatea = new DecimalFormat("###,###.##");
+
+                        double valorUnitario = Integer.parseInt(tblProductosDesechable.getModel().getValueAt(rows, 4).toString());
+                        double totalCosto = Integer.parseInt(tblProductosDesechable.getModel().getValueAt(rows, 5).toString());
+                        double totalNV = Integer.parseInt(tblProductosDesechable.getModel().getValueAt(rows, 6).toString());
+
+                        pdfTable.addCell(new Phrase(tblProductosDesechable.getModel().getValueAt(rows, 0).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                        pdfTable.addCell(new Phrase(tblProductosDesechable.getModel().getValueAt(rows, 1).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                        pdfTable.addCell(new Phrase(tblProductosDesechable.getModel().getValueAt(rows, 2).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                        pdfTable.addCell(new Phrase(tblProductosDesechable.getModel().getValueAt(rows, 3).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                        pdfTable.addCell(new Phrase("$" + formatea.format(valorUnitario), FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                        pdfTable.addCell(new Phrase("$" + formatea.format(totalCosto), FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                        pdfTable.addCell(new Phrase("$" + formatea.format(totalNV), FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                        pdfTable.addCell(new Phrase(tblProductosDesechable.getModel().getValueAt(rows, 7).toString() + "%", FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                    }
+
+                    doc.add(pdfTable);
+                } catch (DocumentException ex) {
+                    JOptionPane.showMessageDialog(null, "Ha ocurrido un error: tabla" + ex.getMessage());
+                }
+                DecimalFormat formatea = new DecimalFormat("###,###.##");
+
+                iva = (neto * 0.19);
+                total_abastecimiento = neto + iva;
+
+                Paragraph netoPar = new Paragraph("Neto: " + "$" + formatea.format(neto), FontFactory.getFont(FontFactory.HELVETICA, 10, Font.NORMAL, null));
+                netoPar.setAlignment(Paragraph.ALIGN_RIGHT);
+                Paragraph ivaPar = new Paragraph("IVA: " + "$" + formatea.format(iva), FontFactory.getFont(FontFactory.HELVETICA, 10, Font.NORMAL, null));
+                ivaPar.setAlignment(Paragraph.ALIGN_RIGHT);
+                Paragraph totalPar = new Paragraph("Total: " + "$" + formatea.format(total_abastecimiento), FontFactory.getFont(FontFactory.HELVETICA, 10, Font.NORMAL, null));
+                totalPar.setAlignment(Paragraph.ALIGN_RIGHT);
+                doc.add(netoPar);
+                doc.add(ivaPar);
+                doc.add(totalPar);
+
+                //Nota
+                Paragraph nota = new Paragraph("Nota: Forma de Pago "
+                        + formaPago + " - "
+                        + " "
+                        + "Tiempo de despacho: " + demoraDespacho, FontFactory.getFont(FontFactory.HELVETICA, 12, Font.BOLD, null));
+                nota.setAlignment(Paragraph.ALIGN_JUSTIFIED);
+                doc.add(nota);
+
+                //Información de contacto
+                Paragraph telefono = new Paragraph("Esta orden debe estar firmada por el responsable directo, de lo contrario, se prohibe la compra", FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                telefono.setAlignment(Paragraph.ALIGN_JUSTIFIED);
+                try {
+                    doc.add(telefono);
+
+                } catch (DocumentException ex) {
+                    Logger.getLogger(DetalleNotaCompra.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                }
+
+                //Firma
+                Image firma;
+
+                firma = Image.getInstance("src\\Imagenes\\firma_rony_vacia.png");
+                firma.setAlignment(Paragraph.ALIGN_CENTER);
+
+                doc.add(firma);
+
+                //Finalizar documento
+                doc.close();
+                JOptionPane.showMessageDialog(null, "PDF Generado Correctamente");
+
+            } catch (DocumentException ex) {
+                Logger.getLogger(NotaCompra.class
+                        .getName()).log(Level.SEVERE, null, ex);
+
+            } catch (IOException ex) {
+                Logger.getLogger(NotaCompra.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
+
     }//GEN-LAST:event_tblNCMouseClicked
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -498,6 +1289,7 @@ public class NotaCompra extends javax.swing.JFrame {
             pst.setInt(1, Integer.parseInt(txtCotizacion.getText()));
             ResultSet rs = pst.executeQuery();
             tblNC.setModel(DbUtils.resultSetToTableModel(rs));
+
         } catch (SQLException ex) {
             Logger.getLogger(Seguimiento.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -522,16 +1314,24 @@ public class NotaCompra extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NotaCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NotaCompra.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NotaCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NotaCompra.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NotaCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NotaCompra.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NotaCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NotaCompra.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -548,7 +1348,7 @@ public class NotaCompra extends javax.swing.JFrame {
     private javax.swing.JButton btnReiniciarFiltros;
     private javax.swing.JButton btnSalir3;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox cmbDistribuidor;
+    public javax.swing.JComboBox cmbDistribuidor;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
@@ -560,9 +1360,11 @@ public class NotaCompra extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane15;
     private javax.swing.JTabbedPane jTabbedPane1;
     public javax.swing.JTable tblNC;
+    private javax.swing.JTable tblProductosDesechable;
     private javax.swing.JTextField txtCodigoOrdenCompra;
     private javax.swing.JTextField txtCotizacion;
     private javax.swing.JTextField txtNumNV;

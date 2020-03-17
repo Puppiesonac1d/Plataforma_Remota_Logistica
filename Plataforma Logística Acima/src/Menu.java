@@ -269,7 +269,8 @@ public class Menu extends javax.swing.JFrame {
                     + "            '-',\n"
                     + "            SUBSTRING(a.fecha, 6, 2),\n"
                     + "            '-',\n"
-                    + "            SUBSTRING(a.fecha, 1, 4)) AS 'Fecha de cotización' , "
+                    + "            SUBSTRING(a.fecha, 1, 4)) AS 'Fecha de cotización',\n"
+                    + "    SUBSTRING(a.demoradespacho, 1, 2) AS 'Días Hábiles para arribo de mercadería',\n"
                     + "    a.proveedor AS 'Proveedor',\n"
                     + "    a.estado AS 'Estado'\n"
                     + "FROM\n"
@@ -290,6 +291,8 @@ public class Menu extends javax.swing.JFrame {
             while (rs2.next()) {
                 nota.cmbDistribuidor.addItem(rs2.getString(1));
             }
+
+            nota.btnReiniciarFiltros.doClick();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
@@ -336,30 +339,20 @@ public class Menu extends javax.swing.JFrame {
             String query = "SELECT \n"
                     + "    dot.idOrden AS 'Número de Nota de Venta',\n"
                     + "    CONCAT(SUBSTRING(ot.fechaEnvioOC, 9, 2),\n"
-                    + "'-',\n"
-                    + "SUBSTRING(ot.fechaEnvioOC, 6, 2),\n"
-                    + "'-',\n"
-                    + "SUBSTRING(ot.fechaEnvioOC, 1, 4)) AS 'Fecha de Envío de OC',\n"
-                    + "CONCAT(SUBSTRING(ing.fechaIngreso, 9, 2),\n"
-                    + "'-',\n"
-                    + "SUBSTRING(ing.fechaIngreso, 6, 2),\n"
-                    + "'-',\n"
-                    + "SUBSTRING(ing.fechaIngreso, 1, 4)) AS 'Fecha de Ingreso',\n"
+                    + "            '-',\n"
+                    + "            SUBSTRING(ot.fechaEnvioOC, 6, 2),\n"
+                    + "            '-',\n"
+                    + "            SUBSTRING(ot.fechaEnvioOC, 1, 4)) AS 'Fecha de Envío de OC',\n"
                     + "    dot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
-                    + "    dot.nombreProducto,\n"
-                    + "    dot.CANTIDAD AS 'Cantidad solicitada en Nota de Venta',\n"
-                    + "    ing.StockIngresado AS 'Stock Ingresado',\n"
-                    + "    CASE\n"
-                    + "        WHEN dot.CANTIDAD <= ing.StockIngresado THEN 'Disponible para despacho'\n"
-                    + "        WHEN dot.CANTIDAD > ing.StockIngresado THEN 'No disponible para despacho'\n"
-                    + "    END AS 'Disponibilidad'\n"
+                    + "    dot.disponibilidad AS 'Disponibilidad'\n"
                     + "FROM\n"
                     + "    detalleordentrabajo dot\n"
-                    + "        JOIN\n"
-                    + "    ingreso ing ON dot.idOrden = ing.notaventa\n"
-                    + "    JOIN ordenTrabajo ot on ot.idOrden = dot.idOrden\n"
-                    + "WHERE\n"
-                    + "    dot.codigoProducto = ing.idProducto;";
+                    + "        LEFT JOIN\n"
+                    + "    ordenTrabajo ot ON ot.idOrden = dot.idOrden\n"
+                    + "        LEFT JOIN\n"
+                    + "    detalle_abastecimiento a ON a.idOrden = ot.idOrden\n"
+                    + "GROUP BY OT.IDORDEN\n"
+                    + "ORDER BY OT.IDORDEN;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();

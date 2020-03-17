@@ -71,12 +71,15 @@ public class HistorialNV extends javax.swing.JFrame {
             Component comp = super.getTableCellRendererComponent(
                     table, value, isSelected, hasFocus, row, col);
 
-            String s = table.getModel().getValueAt(row, 7).toString();
+            String s = table.getModel().getValueAt(row, 3).toString();
 
-            if (s.equalsIgnoreCase("Disponible para despacho")) {
+            if (s.equalsIgnoreCase("Producto Ingresado")) {
                 comp.setBackground(Color.green);
                 comp.setForeground(Color.BLACK);
-            } else if (s.equalsIgnoreCase("No disponible para despacho")) {
+            } else if (s.equalsIgnoreCase("Producto en Nota de Compra")) {
+                comp.setBackground(Color.YELLOW);
+                comp.setForeground(Color.BLACK);
+            } else if (s.equalsIgnoreCase("Nota de Compra Pendiente")) {
                 comp.setBackground(Color.red);
                 comp.setForeground(Color.BLACK);
             }
@@ -95,18 +98,21 @@ public class HistorialNV extends javax.swing.JFrame {
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
-        txtFechaOC = new javax.swing.JFormattedTextField();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        txtCodigoOC = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         txtNV = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        txtCodigoOC = new javax.swing.JTextField();
+        jButton4 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
+        txtFechaOC = new javax.swing.JFormattedTextField();
+        jPanel4 = new javax.swing.JPanel();
+        cmbEstado = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
         jPanel43 = new javax.swing.JPanel();
         jScrollPane19 = new javax.swing.JScrollPane();
         tblHistorialNV = new javax.swing.JTable();
@@ -125,6 +131,84 @@ public class HistorialNV extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(247, 247, 247));
         setPreferredSize(new java.awt.Dimension(1280, 740));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jLabel4.setText("Número de Nota de Venta:");
+
+        txtNV.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+
+        btnBuscar.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtNV, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBuscar)
+                .addContainerGap(472, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar))
+                .addContainerGap(13, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Buscar por N° de Nota de Venta", jPanel3);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jLabel1.setText("Código de OC:");
+
+        txtCodigoOC.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+
+        jButton4.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jButton4.setText("Buscar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtCodigoOC, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4)
+                .addContainerGap(483, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(8, 8, 8)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtCodigoOC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4))
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Filtrar por Código de OC", jPanel1);
 
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -157,7 +241,7 @@ public class HistorialNV extends javax.swing.JFrame {
                 .addComponent(txtFechaOC, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton5)
-                .addContainerGap(478, Short.MAX_VALUE))
+                .addContainerGap(486, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,83 +256,44 @@ public class HistorialNV extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Filtrar por Fecha", jPanel2);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel1.setText("Código de OC:");
-
-        txtCodigoOC.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jButton4.setText("Buscar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        cmbEstado.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Estado", "Producto Ingresado", "Producto en Nota de Compra", "Nota de Compra Pendiente", "Producto en Existencia", "Sin Stock de Proveedor" }));
+        cmbEstado.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbEstadoItemStateChanged(evt);
+            }
+        });
+        cmbEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                cmbEstadoActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jLabel5.setText("Seleccione Estado de Disponibilidad:");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCodigoOC, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
-                .addContainerGap(475, Short.MAX_VALUE))
+                .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(332, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtCodigoOC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4))
-                .addContainerGap(16, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Filtrar por Código de OC", jPanel1);
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel4.setText("Número de Nota de Venta:");
-
-        txtNV.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-
-        btnBuscar.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        btnBuscar.setText("Buscar");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNV, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBuscar)
-                .addContainerGap(464, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Buscar por N° de Nota de Venta", jPanel3);
+        jTabbedPane1.addTab("Filtrar por Disponibilidad", jPanel4);
 
         tblHistorialNV = new javax.swing.JTable(){
             public boolean isCellEditable(int rowIndex, int celIndex){
@@ -433,30 +478,23 @@ public class HistorialNV extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try {
             String query = "SELECT \n"
-                    + "    ot.idOrden AS 'N° de nota de venta',\n"
-                    + "    ot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
-                    + "    ot.nombre_Proveedor AS 'Empresa',\n"
-                    + "    CONCAT(SUBSTRING(ot.fechaEnvioOC, 9, 2),\n"
-                    + "            '-',\n"
-                    + "            SUBSTRING(ot.fechaEnvioOC, 6, 2),\n"
-                    + "            '-',\n"
-                    + "            SUBSTRING(ot.fechaEnvioOC, 1, 4)) AS 'Fecha de Envío de OC',\n"
-                    + "   CONCAT(SUBSTRING(ing.fechaIngreso, 9, 2),\n"
-                    + "            '-',\n"
-                    + "            SUBSTRING(ing.fechaIngreso, 6, 2),\n"
-                    + "            '-',\n"
-                    + "            SUBSTRING(ing.fechaIngreso, 1, 4)) AS 'Fecha de Ingreso',\n"
-                    + "    ot.estadoSalida AS 'Estado de Salida de Mercadería'\n"
+                    + "dot.idOrden AS 'Número de Nota de Venta',\n"
+                    + "CONCAT(SUBSTRING(ot.fechaEnvioOC, 9, 2),\n"
+                    + "'-',\n"
+                    + "SUBSTRING(ot.fechaEnvioOC, 6, 2),\n"
+                    + "'-',\n"
+                    + "SUBSTRING(ot.fechaEnvioOC, 1, 4)) AS 'Fecha de Envío de OC',\n"
+                    + "dot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
+                    + "dot.disponibilidad AS 'Disponibilidad'\n"
                     + "FROM\n"
-                    + "    detalleordentrabajo dot\n"
-                    + "        LEFT JOIN\n"
-                    + "    ingreso ing ON ing.notaventa = dot.idOrden\n"
-                    + "        LEFT JOIN\n"
-                    + "    ordentrabajo ot ON ot.idOrden = dot.idOrden\n"
-                    + "WHERE\n"
-                    + "    ot.estadoSalida IN ('No despachado' , 'Despachado (incompleto)')\n"
-                    + "        AND ing.notaVenta = ot.idOrden AND codigoOrdenCompra = ?\n"
-                    + "GROUP BY dot.idOrden;";
+                    + "detalleordentrabajo dot\n"
+                    + "    LEFT JOIN\n"
+                    + "ordenTrabajo ot ON ot.idOrden = dot.idOrden\n"
+                    + "    LEFT JOIN\n"
+                    + "detalle_abastecimiento a ON a.idOrden = ot.idOrden\n"
+                    + "WHERE ot.codigoOrdenCompra = ?\n"
+                    + "GROUP BY OT.IDORDEN\n"
+                    + "ORDER BY OT.IDORDEN;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             pst.setString(1, txtCodigoOC.getText());
@@ -476,30 +514,23 @@ public class HistorialNV extends javax.swing.JFrame {
             String fecha = anio + "-" + mes + "-" + dia;
             System.out.println(fecha);
             String query = "SELECT \n"
-                    + "    ot.idOrden AS 'N° de nota de venta',\n"
-                    + "    ot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
-                    + "    ot.nombre_Proveedor AS 'CONCAT(SUBSTRING(ot.fechaEnvioOC, 9, 2),\\n\"\n"
-                    + "                    + \"            '-',\\n\"\n"
-                    + "                    + \"            SUBSTRING(ot.fechaEnvioOC, 6, 2),\\n\"\n"
-                    + "                    + \"            '-',\\n\"\n"
-                    + "                    + \"            SUBSTRING(ot.fechaEnvioOC, 1, 4)) AS 'Fecha de Envío de OC',\\n\"\n"
-                    + "                    + \"   CONCAT(SUBSTRING(ing.fechaIngreso, 9, 2),\\n\"\n"
-                    + "                    + \"            '-',\\n\"\n"
-                    + "                    + \"            SUBSTRING(ing.fechaIngreso, 6, 2),\\n\"\n"
-                    + "                    + \"            '-',\\n\"\n"
-                    + "                    + \"            SUBSTRING(ing.fechaIngreso, 1, 4)) AS 'Fecha de Ingreso',Empresa',\n"
-                    + "    \n"
-                    + "    ot.estadoSalida AS 'Estado de Salida de Mercadería'\n"
+                    + "dot.idOrden AS 'Número de Nota de Venta',\n"
+                    + "CONCAT(SUBSTRING(ot.fechaEnvioOC, 9, 2),\n"
+                    + "'-',\n"
+                    + "SUBSTRING(ot.fechaEnvioOC, 6, 2),\n"
+                    + "'-',\n"
+                    + "SUBSTRING(ot.fechaEnvioOC, 1, 4)) AS 'Fecha de Envío de OC',\n"
+                    + "dot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
+                    + "dot.disponibilidad AS 'Disponibilidad'\n"
                     + "FROM\n"
-                    + "    detalleordentrabajo dot\n"
-                    + "        LEFT JOIN\n"
-                    + "    ingreso ing ON ing.notaventa = dot.idOrden\n"
-                    + "        LEFT JOIN\n"
-                    + "    ordentrabajo ot ON ot.idOrden = dot.idOrden\n"
-                    + "WHERE\n"
-                    + "    ot.estadoSalida IN ('No despachado' , 'Despachado (incompleto)')\n"
-                    + "    AND ing.notaVenta = ot.idOrden AND LEFT(ot.fechaEnvioOC, 10) RLIKE ? \n"
-                    + "GROUP BY dot.idOrden;";
+                    + "detalleordentrabajo dot\n"
+                    + "    LEFT JOIN\n"
+                    + "ordenTrabajo ot ON ot.idOrden = dot.idOrden\n"
+                    + "    LEFT JOIN\n"
+                    + "detalle_abastecimiento a ON a.idOrden = ot.idOrden\n"
+                    + "WHERE LEFT(ot.fechaEnvioOC, 10) RLIKE ?\n"
+                    + "GROUP BY OT.IDORDEN\n"
+                    + "ORDER BY OT.IDORDEN;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             pst.setString(1, fecha);
@@ -515,30 +546,20 @@ public class HistorialNV extends javax.swing.JFrame {
             String query = "SELECT \n"
                     + "    dot.idOrden AS 'Número de Nota de Venta',\n"
                     + "    CONCAT(SUBSTRING(ot.fechaEnvioOC, 9, 2),\n"
-                    + "'-',\n"
-                    + "SUBSTRING(ot.fechaEnvioOC, 6, 2),\n"
-                    + "'-',\n"
-                    + "SUBSTRING(ot.fechaEnvioOC, 1, 4)) AS 'Fecha de Envío de OC',\n"
-                    + "CONCAT(SUBSTRING(ing.fechaIngreso, 9, 2),\n"
-                    + "'-',\n"
-                    + "SUBSTRING(ing.fechaIngreso, 6, 2),\n"
-                    + "'-',\n"
-                    + "SUBSTRING(ing.fechaIngreso, 1, 4)) AS 'Fecha de Ingreso',\n"
+                    + "            '-',\n"
+                    + "            SUBSTRING(ot.fechaEnvioOC, 6, 2),\n"
+                    + "            '-',\n"
+                    + "            SUBSTRING(ot.fechaEnvioOC, 1, 4)) AS 'Fecha de Envío de OC',\n"
                     + "    dot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
-                    + "    dot.nombreProducto,\n"
-                    + "    dot.CANTIDAD AS 'Cantidad solicitada en Nota de Venta',\n"
-                    + "    ing.StockIngresado AS 'Stock Ingresado',\n"
-                    + "    CASE\n"
-                    + "        WHEN dot.CANTIDAD <= ing.StockIngresado THEN 'Disponible para despacho'\n"
-                    + "        WHEN dot.CANTIDAD > ing.StockIngresado THEN 'No disponible para despacho'\n"
-                    + "    END AS 'Disponibilidad'\n"
+                    + "    dot.disponibilidad AS 'Disponibilidad'\n"
                     + "FROM\n"
                     + "    detalleordentrabajo dot\n"
-                    + "        JOIN\n"
-                    + "    ingreso ing ON dot.idOrden = ing.notaventa\n"
-                    + "    JOIN ordenTrabajo ot on ot.idOrden = dot.idOrden\n"
-                    + "WHERE\n"
-                    + "    dot.codigoProducto = ing.idProducto;";
+                    + "        LEFT JOIN\n"
+                    + "    ordenTrabajo ot ON ot.idOrden = dot.idOrden\n"
+                    + "        LEFT JOIN\n"
+                    + "    detalle_abastecimiento a ON a.idOrden = ot.idOrden\n"
+                    + "GROUP BY OT.IDORDEN\n"
+                    + "ORDER BY OT.IDORDEN;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
@@ -639,30 +660,23 @@ public class HistorialNV extends javax.swing.JFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         try {
             String query = "SELECT \n"
-                    + "    ot.idOrden AS 'N° de nota de venta',\n"
-                    + "    ot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
-                    + "    ot.nombre_Proveedor AS 'Empresa',\n"
+                    + "    dot.idOrden AS 'Número de Nota de Venta',\n"
                     + "    CONCAT(SUBSTRING(ot.fechaEnvioOC, 9, 2),\n"
                     + "            '-',\n"
                     + "            SUBSTRING(ot.fechaEnvioOC, 6, 2),\n"
                     + "            '-',\n"
                     + "            SUBSTRING(ot.fechaEnvioOC, 1, 4)) AS 'Fecha de Envío de OC',\n"
-                    + "   CONCAT(SUBSTRING(ing.fechaIngreso, 9, 2),\n"
-                    + "            '-',\n"
-                    + "            SUBSTRING(ing.fechaIngreso, 6, 2),\n"
-                    + "            '-',\n"
-                    + "            SUBSTRING(ing.fechaIngreso, 1, 4)) AS 'Fecha de Ingreso',\n"
-                    + "    ot.estadoSalida AS 'Estado de Salida de Mercadería'\n"
+                    + "    dot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
+                    + "    dot.disponibilidad AS 'Disponibilidad'\n"
                     + "FROM\n"
                     + "    detalleordentrabajo dot\n"
                     + "        LEFT JOIN\n"
-                    + "    ingreso ing ON ing.notaventa = dot.idOrden\n"
+                    + "    ordenTrabajo ot ON ot.idOrden = dot.idOrden\n"
                     + "        LEFT JOIN\n"
-                    + "    ordentrabajo ot ON ot.idOrden = dot.idOrden\n"
-                    + "WHERE\n"
-                    + "    ot.estadoSalida IN ('No despachado' , 'Despachado (incompleto)')\n"
-                    + "        AND ing.notaVenta = ot.idOrden AND ot.idOrden = ?\n"
-                    + "GROUP BY dot.idOrden;";
+                    + "    detalle_abastecimiento a ON a.idOrden = ot.idOrden "
+                    + "WHERE ot.idOrden = ?\n"
+                    + "GROUP BY OT.IDORDEN\n"
+                    + "ORDER BY OT.IDORDEN;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             pst.setString(1, txtNV.getText());
@@ -678,7 +692,7 @@ public class HistorialNV extends javax.swing.JFrame {
         try {
             int index = tblHistorialNV.getSelectedRow();
             //código de orden de compra
-            String oc = tblHistorialNV.getValueAt(index, 1).toString();
+            String oc = tblHistorialNV.getValueAt(index, 2).toString();
             //Variables
             String fechaEnvioOC = "";
             String estadoOC = "";
@@ -1118,6 +1132,40 @@ public class HistorialNV extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnGenerarPDFNVActionPerformed
 
+    private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed
+
+    }//GEN-LAST:event_cmbEstadoActionPerformed
+
+    private void cmbEstadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbEstadoItemStateChanged
+        try {
+            String query = "SELECT \n"
+                    + "    dot.idOrden AS 'Número de Nota de Venta',\n"
+                    + "    CONCAT(SUBSTRING(ot.fechaEnvioOC, 9, 2),\n"
+                    + "            '-',\n"
+                    + "            SUBSTRING(ot.fechaEnvioOC, 6, 2),\n"
+                    + "            '-',\n"
+                    + "            SUBSTRING(ot.fechaEnvioOC, 1, 4)) AS 'Fecha de Envío de OC',\n"
+                    + "    dot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
+                    + "    dot.disponibilidad AS 'Disponibilidad'\n"
+                    + "FROM\n"
+                    + "    detalleordentrabajo dot\n"
+                    + "        LEFT JOIN\n"
+                    + "    ordenTrabajo ot ON ot.idOrden = dot.idOrden\n"
+                    + "        LEFT JOIN\n"
+                    + "    detalle_abastecimiento a ON a.idOrden = ot.idOrden\n"
+                    + "WHERE dot.disponibilidad = ?"
+                    + "GROUP BY OT.IDORDEN\n"
+                    + "ORDER BY OT.IDORDEN;";
+            PreparedStatement pst;
+            pst = cn.prepareStatement(query);
+            pst.setString(1, cmbEstado.getSelectedItem().toString());
+            ResultSet rs = pst.executeQuery();
+            tblHistorialNV.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }//GEN-LAST:event_cmbEstadoItemStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -1158,6 +1206,7 @@ public class HistorialNV extends javax.swing.JFrame {
     private javax.swing.JButton btnGenerarPDFNV;
     private javax.swing.JButton btnSalida;
     private javax.swing.JButton btnVolverMenu9;
+    private javax.swing.JComboBox<String> cmbEstado;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -1165,9 +1214,11 @@ public class HistorialNV extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel43;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane19;

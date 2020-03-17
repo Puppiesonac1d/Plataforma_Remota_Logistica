@@ -277,7 +277,7 @@ public class NotaCompra extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(txtNumNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Buscar por N° de nota de venta", jPanel1);
@@ -316,7 +316,7 @@ public class NotaCompra extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(txtCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Buscar por N° de Cotización", jPanel2);
@@ -343,9 +343,9 @@ public class NotaCompra extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTabbedPane1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
@@ -369,7 +369,8 @@ public class NotaCompra extends javax.swing.JFrame {
                     + "            '-',\n"
                     + "            SUBSTRING(a.fecha, 6, 2),\n"
                     + "            '-',\n"
-                    + "            SUBSTRING(a.fecha, 1, 4)) AS 'Fecha de cotización' , "
+                    + "            SUBSTRING(a.fecha, 1, 4)) AS 'Fecha de cotización',\n"
+                    + "    SUBSTRING(a.demoradespacho, 1, 2) AS 'Días Hábiles para arribo de mercadería',\n"
                     + "    a.proveedor AS 'Proveedor',\n"
                     + "    a.estado AS 'Estado'\n"
                     + "FROM\n"
@@ -399,7 +400,8 @@ public class NotaCompra extends javax.swing.JFrame {
                     + "            '-',\n"
                     + "            SUBSTRING(a.fecha, 6, 2),\n"
                     + "            '-',\n"
-                    + "            SUBSTRING(a.fecha, 1, 4)) AS 'Fecha de cotización' , "
+                    + "            SUBSTRING(a.fecha, 1, 4)) AS 'Fecha de cotización',\n"
+                    + "    SUBSTRING(a.demoradespacho, 1, 2) AS 'Días Hábiles para arribo de mercadería',\n"
                     + "    a.proveedor AS 'Proveedor',\n"
                     + "    a.estado AS 'Estado'\n"
                     + "FROM\n"
@@ -433,7 +435,8 @@ public class NotaCompra extends javax.swing.JFrame {
                     + "            '-',\n"
                     + "            SUBSTRING(a.fecha, 6, 2),\n"
                     + "            '-',\n"
-                    + "            SUBSTRING(a.fecha, 1, 4)) AS 'Fecha de cotización' , "
+                    + "            SUBSTRING(a.fecha, 1, 4)) AS 'Fecha de cotización',\n"
+                    + "    SUBSTRING(a.demoradespacho, 1, 2) AS 'Días Hábiles',\n"
                     + "    a.proveedor AS 'Proveedor',\n"
                     + "    a.estado AS 'Estado'\n"
                     + "FROM\n"
@@ -442,7 +445,7 @@ public class NotaCompra extends javax.swing.JFrame {
                     + "    detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
                     + "WHERE\n"
                     + "    a.estado IN ('Comprado' , 'Nota de compra ingresada con productos faltantes',\n"
-                    + "        'Enviado a Proveedor') and a.codigoOrdenCompra RLIKE ? \n"
+                    + "        'Enviado a Proveedor') and a.codigoOrdenCompra RLIKE ?\n"
                     + "GROUP BY a.numeroCotizacion;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
@@ -467,7 +470,8 @@ public class NotaCompra extends javax.swing.JFrame {
                     + "            '-',\n"
                     + "            SUBSTRING(a.fecha, 6, 2),\n"
                     + "            '-',\n"
-                    + "            SUBSTRING(a.fecha, 1, 4)) AS 'Fecha de cotización' , "
+                    + "            SUBSTRING(a.fecha, 1, 4)) AS 'Fecha de cotización',\n"
+                    + "    SUBSTRING(a.demoradespacho, 1, 2) AS 'Días Hábiles',\n"
                     + "    a.proveedor AS 'Proveedor',\n"
                     + "    a.estado AS 'Estado'\n"
                     + "FROM\n"
@@ -1273,7 +1277,8 @@ public class NotaCompra extends javax.swing.JFrame {
                     + "            '-',\n"
                     + "            SUBSTRING(a.fecha, 6, 2),\n"
                     + "            '-',\n"
-                    + "            SUBSTRING(a.fecha, 1, 4)) AS 'Fecha de cotización' , "
+                    + "            SUBSTRING(a.fecha, 1, 4)) AS 'Fecha de cotización',\n"
+                    + "    SUBSTRING(a.demoradespacho, 1, 2) AS 'Días Hábiles',\n"
                     + "    a.proveedor AS 'Proveedor',\n"
                     + "    a.estado AS 'Estado'\n"
                     + "FROM\n"
@@ -1283,7 +1288,7 @@ public class NotaCompra extends javax.swing.JFrame {
                     + "WHERE\n"
                     + "    a.estado IN ('Comprado' , 'Nota de compra ingresada con productos faltantes',\n"
                     + "        'Enviado a Proveedor') and a.numeroCotizacion RLIKE ?\n"
-                    + "GROUP BY a.numeroCotizacion;";
+                    + "GROUP BY a.numeroCotizacion;\n";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             pst.setInt(1, Integer.parseInt(txtCotizacion.getText()));
@@ -1345,7 +1350,7 @@ public class NotaCompra extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarOC;
-    private javax.swing.JButton btnReiniciarFiltros;
+    public javax.swing.JButton btnReiniciarFiltros;
     private javax.swing.JButton btnSalir3;
     private javax.swing.ButtonGroup buttonGroup1;
     public javax.swing.JComboBox cmbDistribuidor;

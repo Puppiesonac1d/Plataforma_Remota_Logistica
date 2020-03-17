@@ -3,6 +3,7 @@ import clases.Conexion;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
@@ -39,9 +40,13 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import java.awt.Color;
+import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.xml.parsers.ParserConfigurationException;
+import org.xml.sax.SAXException;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -690,10 +695,12 @@ public class HistorialNV extends javax.swing.JFrame {
     private void btnGenerarPDFNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarPDFNVActionPerformed
 
         try {
+
             int index = tblHistorialNV.getSelectedRow();
             //código de orden de compra
             String oc = tblHistorialNV.getValueAt(index, 2).toString();
             //Variables
+            String notaVenta = tblHistorialNV.getValueAt(index, 0).toString();
             String fechaEnvioOC = "";
             String estadoOC = "";
             String unidadCompra = "";
@@ -834,32 +841,34 @@ public class HistorialNV extends javax.swing.JFrame {
                 modelo.removeRow(m);
             }
             modelo.setRowCount(num);
-            for (int x = 0; x < num; x++) {
-                System.out.println("Listado " + flowList1.getLength());
+            try {
+                for (int x = 0; x < num; x++) {
+                    System.out.println("Listado " + flowList1.getLength());
 
-                NodeList flowList = doc.getElementsByTagName("Item");
-                for (int i = 0; i < flowList.getLength(); i++) {
-                    Element err = (Element) flowList.item(x);
+                    NodeList flowList = doc.getElementsByTagName("Item");
+                    for (int i = 0; i < flowList.getLength(); i++) {
+                        Element err = (Element) flowList.item(x);
 
-                    String str = err.getElementsByTagName("EspecificacionComprador").item(0).getTextContent();
-                    if (str.contains("(") && str.contains(")")) {
-                        //Contiene o no
-                        String answer = str.substring(str.indexOf("(") + 1, str.indexOf(")"));
-                        modelo.setValueAt(answer, x, 0);
-                    } else {
-                        modelo.setValueAt("-", x, 0);
+                        String str = err.getElementsByTagName("EspecificacionComprador").item(0).getTextContent();
+                        if (str.contains("(") && str.contains(")")) {
+                            //Contiene o no
+                            String answer = str.substring(str.indexOf("(") + 1, str.indexOf(")"));
+                            modelo.setValueAt(answer, x, 0);
+                        } else {
+                            modelo.setValueAt("-", x, 0);
+                        }
+
+                        modelo.setValueAt(err.getElementsByTagName("EspecificacionComprador").item(0).getTextContent(), x, 1);
+                        modelo.setValueAt(err.getElementsByTagName("Cantidad").item(0).getTextContent(), x, 2);
+                        modelo.setValueAt(err.getElementsByTagName("Moneda").item(0).getTextContent(), x, 3);
+                        modelo.setValueAt(err.getElementsByTagName("PrecioNeto").item(0).getTextContent(), x, 4);
+                        modelo.setValueAt(err.getElementsByTagName("TotalDescuentos").item(0).getTextContent(), x, 5);
+                        modelo.setValueAt(err.getElementsByTagName("TotalCargos").item(0).getTextContent(), x, 6);
+                        modelo.setValueAt(err.getElementsByTagName("Total").item(0).getTextContent(), x, 7);
                     }
-
-                    modelo.setValueAt(err.getElementsByTagName("EspecificacionComprador").item(0).getTextContent(), x, 1);
-                    modelo.setValueAt(err.getElementsByTagName("Cantidad").item(0).getTextContent(), x, 2);
-                    modelo.setValueAt(err.getElementsByTagName("EspecificacionComprador").item(0).getTextContent(), x, 3);
-                    modelo.setValueAt(err.getElementsByTagName("EspecificacionProveedor").item(0).getTextContent(), x, 4);
-                    modelo.setValueAt(err.getElementsByTagName("Moneda").item(0).getTextContent(), x, 5);
-                    modelo.setValueAt(err.getElementsByTagName("PrecioNeto").item(0).getTextContent(), x, 6);
-                    modelo.setValueAt(err.getElementsByTagName("TotalDescuentos").item(0).getTextContent(), x, 7);
-                    modelo.setValueAt(err.getElementsByTagName("TotalCargos").item(0).getTextContent(), x, 8);
-                    modelo.setValueAt(err.getElementsByTagName("Total").item(0).getTextContent(), x, 9);
                 }
+            } catch (Exception ex) {
+                System.out.println("Error cargando tabla: " + ex);
             }
 
             NodeList detalleMontos = doc.getElementsByTagName("OrdenCompra");
@@ -870,7 +879,7 @@ public class HistorialNV extends javax.swing.JFrame {
                 netoOC = ("$" + err.getElementsByTagName("TotalNeto").item(0).getTextContent());
                 dctoOC = ("$" + err.getElementsByTagName("Descuentos").item(0).getTextContent());
                 cargosOC = ("$" + err.getElementsByTagName("Cargos").item(0).getTextContent());
-                subTotalOC = (Integer.toString(Integer.parseInt(netoOC.substring(1)) - Integer.parseInt(dctoOC.substring(1))));
+                subTotalOC = Double.toString((Double.parseDouble(netoOC.substring(1).replace(",", ".")) - Double.parseDouble(dctoOC.substring(1).replace(",", "."))));
                 ivaOC = ("$" + err.getElementsByTagName("Impuestos").item(0).getTextContent());
                 impuestoEspecificoOC = ("$" + err.getElementsByTagName("TotalImpuestos").item(0).getTextContent());
                 totalOC = ("$" + err.getElementsByTagName("Total").item(0).getTextContent());
@@ -897,8 +906,6 @@ public class HistorialNV extends javax.swing.JFrame {
                         + "nombreProducto as 'Producto',\n"
                         + "cantidad as 'Cantidad',\n"
                         + "moneda as 'Moneda',\n"
-                        + "'N/A' as 'Especificación Comprador',\n"
-                        + "'N/A' as 'Especificación Proveedor',\n"
                         + "precioUnitario as 'Precio Unitario',\n"
                         + "descuento as 'Descuento',\n"
                         + "cargos as 'Cargos',\n"
@@ -915,7 +922,7 @@ public class HistorialNV extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex);
             }
 
-            //Impresion del PDF
+            //Documento
             String ruta = "";
 
             JFileChooser dlg = new JFileChooser();
@@ -933,15 +940,16 @@ public class HistorialNV extends javax.swing.JFrame {
             SimpleDateFormat formato = new SimpleDateFormat("dd-MMM-YYYY");
             //Crear PDF
             try {
+
                 Document docPDF = new Document(PageSize.A4);
 
                 Date sistHora = new Date();
                 String pmAm = "hh:mm a";
-                SimpleDateFormat formatPDF = new SimpleDateFormat(pmAm);
+                SimpleDateFormat format2 = new SimpleDateFormat(pmAm);
                 Calendar hoy = Calendar.getInstance();
-                String horaPDF = (String.format(formatPDF.format(sistHora), hoy));
-                horaPDF = horaPDF.replace(":", "-");
-                PdfWriter writer = PdfWriter.getInstance(docPDF, new FileOutputStream(ruta + "\\" + oc + "_Fecha_" + formato.format(sistFecha) + "_hora_" + horaPDF + "_Nota_de_Venta_" + ".pdf"));
+                String hora = (String.format(format2.format(sistHora), hoy));
+                hora = hora.replace(":", "-");
+                PdfWriter writer = PdfWriter.getInstance(docPDF, new FileOutputStream(ruta + "\\" + notaVenta + "_Fecha_" + formato.format(sistFecha) + "_hora_" + hora + "_Nota_de_Venta_" + ".pdf"));
 
                 //Separador
                 PdfPTable myTable = new PdfPTable(1);
@@ -956,10 +964,38 @@ public class HistorialNV extends javax.swing.JFrame {
 
                 //Añadir la imagen
                 try {
+                    //Establecer imagen y escala
                     Image logoAcima = Image.getInstance("src\\Imagenes\\acima-logo-200p.png");
                     logoAcima.scaleAbsolute(126, 67);
                     logoAcima.setAlignment(Paragraph.ALIGN_RIGHT);
-                    docPDF.add(logoAcima);
+                    //Establecer párrafo
+                    Paragraph nro = new Paragraph(nombreProveedor + "\n"
+                            + rutProveedor + "\n"
+                            + "AV. 5 de abril 4454, Oficina 31, Estación Central - Santiago de Chile \n"
+                            + "Venta de articulos al por menor \n"
+                            + "Fono: 232107900 \n"
+                            + "www.acima.cl", FontFactory
+                                    .getFont(FontFactory.HELVETICA, 9, com.itextpdf.text.Font.NORMAL, null)
+                    );
+                    nro.setAlignment(Paragraph.ALIGN_JUSTIFIED);
+
+                    //Crear Tabla
+                    PdfPTable tableHeader = new PdfPTable(2);
+                    tableHeader.setWidthPercentage(100);
+
+                    PdfPCell cell1 = new PdfPCell(logoAcima, false);
+                    cell1.setBorder(Rectangle.NO_BORDER);
+                    cell1.setBackgroundColor(BaseColor.WHITE);
+                    cell1.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+
+                    PdfPCell cell2 = new PdfPCell(nro);
+                    cell2.setBorder(Rectangle.NO_BORDER);
+                    cell2.setBackgroundColor(BaseColor.WHITE);
+                    cell2.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_JUSTIFIED);
+
+                    tableHeader.addCell(cell2);
+                    tableHeader.addCell(cell1);
+                    docPDF.add(tableHeader);
 
                     docPDF.add(myTable);
 
@@ -971,6 +1007,12 @@ public class HistorialNV extends javax.swing.JFrame {
                     Logger.getLogger(OrdenTrabajo.class
                             .getName()).log(Level.SEVERE, null, ex);
                 }
+
+                Paragraph ordenCompra = new Paragraph("Código de Orden de Compra: " + oc, FontFactory.getFont(FontFactory.TIMES, 12, com.itextpdf.text.Font.BOLD, null));
+                ordenCompra.setAlignment(Paragraph.ALIGN_CENTER);
+                docPDF.add(ordenCompra);
+
+                docPDF.add(myTable);
 
                 Paragraph titulo = new Paragraph("Información del demandante", FontFactory.getFont(FontFactory.TIMES, 12, com.itextpdf.text.Font.BOLD, null));
                 docPDF.add(titulo);
@@ -994,63 +1036,138 @@ public class HistorialNV extends javax.swing.JFrame {
                 Paragraph titulo2 = new Paragraph("Información de la empresa", FontFactory.getFont(FontFactory.TIMES, 12, com.itextpdf.text.Font.BOLD, null));
                 docPDF.add(titulo2);
 
-                Paragraph proveedorParagraph = new Paragraph("Proveedor: " + nombreProveedor, FontFactory.getFont(FontFactory.TIMES, 12, com.itextpdf.text.Font.NORMAL, null));
-                proveedorParagraph.setAlignment(Paragraph.ALIGN_LEFT);
-                docPDF.add(proveedorParagraph);
+                Paragraph proveedor2 = new Paragraph("Proveedor: " + nombreProveedor, FontFactory.getFont(FontFactory.TIMES, 12, com.itextpdf.text.Font.NORMAL, null));
+                proveedor2.setAlignment(Paragraph.ALIGN_LEFT);
+                docPDF.add(proveedor2);
 
                 docPDF.add(myTable);
 
                 Paragraph titulo3 = new Paragraph("Información de orden", FontFactory.getFont(FontFactory.TIMES, 12, com.itextpdf.text.Font.NORMAL, null));
                 docPDF.add(titulo);
 
-                PdfPTable tableDatos2 = new PdfPTable(2);
-                tableDatos2.setWidthPercentage(100);
-                tableDatos2.addCell(new Phrase("Nombre de la Orden de Compra: " + nombreOC, FontFactory.getFont(FontFactory.TIMES, 12)));
-                tableDatos2.addCell(new Phrase("Metodo de Despacho: " + metodoDespacho, FontFactory.getFont(FontFactory.TIMES, 12)));
-                tableDatos2.addCell(new Phrase("Fecha de aceptación: " + fechaAceptacion, FontFactory.getFont(FontFactory.TIMES, 12)));
-                tableDatos2.addCell(new Phrase("Forma de Pago: " + formaPago, FontFactory.getFont(FontFactory.TIMES, 12)));
-                tableDatos2.addCell(new Phrase("Direcciones de despacho: " + direccionDespacho, FontFactory.getFont(FontFactory.TIMES, 12)));
-                tableDatos2.addCell(new Phrase("Contacto de pago: " + contactoPago, FontFactory.getFont(FontFactory.TIMES, 12)));
-                tableDatos2.addCell(new Phrase("Direcciones de envio de factura: " + direccionEnvioFactura, FontFactory.getFont(FontFactory.TIMES, 12)));
-                tableDatos2.addCell(new Phrase("Contacto de OC: " + contactoOC, FontFactory.getFont(FontFactory.TIMES, 12)));
-                tableDatos2.addCell(new Phrase("Mail de Envío de Factura: " + emailContacto, FontFactory.getFont(FontFactory.TIMES, 12)));
-                tableDatos2.addCell(new Phrase("Código de Orden de Compra: " + oc, FontFactory.getFont(FontFactory.TIMES, 12)));
-                tableDatos2.setSpacingBefore(15f);
-                tableDatos2.setWidthPercentage(100);
-                Paragraph alineaDatos2 = new Paragraph();
-                alineaDatos2.add(tableDatos2);
-                docPDF.add(alineaDatos2);
+                try {
+                    PdfPTable tableDatos2 = new PdfPTable(2);
+                    tableDatos2.setWidthPercentage(100);
+                    tableDatos2.addCell(new Phrase("Nombre de la Orden de Compra: " + nombreOC, FontFactory.getFont(FontFactory.TIMES, 12)));
+                    tableDatos2.addCell(new Phrase("Metodo de Despacho: " + metodoDespacho, FontFactory.getFont(FontFactory.TIMES, 12)));
+                    tableDatos2.addCell(new Phrase("Fecha de aceptación: " + fechaAceptacion, FontFactory.getFont(FontFactory.TIMES, 12)));
+                    tableDatos2.addCell(new Phrase("Forma de Pago: " + formaPago, FontFactory.getFont(FontFactory.TIMES, 12)));
+                    tableDatos2.addCell(new Phrase("Direcciones de despacho: " + direccionDespacho, FontFactory.getFont(FontFactory.TIMES, 12)));
+                    tableDatos2.addCell(new Phrase("Contacto de pago: " + contactoPago, FontFactory.getFont(FontFactory.TIMES, 12)));
+                    tableDatos2.addCell(new Phrase("Direcciones de envio de factura: " + direccionEnvioFactura, FontFactory.getFont(FontFactory.TIMES, 12)));
+                    tableDatos2.addCell(new Phrase("Contacto de OC: " + contactoOC, FontFactory.getFont(FontFactory.TIMES, 12)));
+                    tableDatos2.addCell(new Phrase("Mail de Envío de Factura: " + emailContacto, FontFactory.getFont(FontFactory.TIMES, 12)));
+                    tableDatos2.setSpacingBefore(15f);
+                    tableDatos2.setWidthPercentage(100);
+                    Paragraph alineaDatos2 = new Paragraph();
+                    alineaDatos2.add(tableDatos2);
+                    docPDF.add(alineaDatos2);
+                } catch (Exception ex) {
+                    System.out.println("Excepcion añadiendo información de cliente");
+                }
 
                 // doc.setPageSize(PageSize.A4.rotate());
                 //doc.newPage();
                 Paragraph tablas = new Paragraph("Información de productos en la orden ", FontFactory.getFont(FontFactory.TIMES, 12, com.itextpdf.text.Font.BOLD, null));
                 docPDF.add(tablas);
-                PdfPTable pdfTable = new PdfPTable(tblOC.getColumnCount());
+                PdfPTable pdfTable = new PdfPTable(8);
                 pdfTable.setSpacingBefore(15f);
                 pdfTable.setWidthPercentage(100);
-                for (int i = 0; i < tblOC.getColumnCount(); i++) {
-                    pdfTable.addCell(new Phrase(tblOC.getColumnName(i), FontFactory.getFont(FontFactory.HELVETICA, 8)));
-                }
-                for (int rows = 0; rows < tblOC.getRowCount(); rows++) {
-                    pdfTable.addCell(new Phrase(tblOC.getModel().getValueAt(rows, 0).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
-                    pdfTable.addCell(new Phrase(tblOC.getModel().getValueAt(rows, 1).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
-                    pdfTable.addCell(new Phrase(tblOC.getModel().getValueAt(rows, 2).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
-                    pdfTable.addCell(new Phrase(tblOC.getModel().getValueAt(rows, 3).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
-                    pdfTable.addCell(new Phrase(tblOC.getModel().getValueAt(rows, 4).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
-                    pdfTable.addCell(new Phrase(tblOC.getModel().getValueAt(rows, 5).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
-                    pdfTable.addCell(new Phrase(tblOC.getModel().getValueAt(rows, 6).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
-                    pdfTable.addCell(new Phrase(tblOC.getModel().getValueAt(rows, 7).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
-                    pdfTable.addCell(new Phrase(tblOC.getModel().getValueAt(rows, 8).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
-                    pdfTable.addCell(new Phrase(tblOC.getModel().getValueAt(rows, 9).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+
+                try {
+                    PdfPCell cellP0 = new PdfPCell(new Phrase(tblOC.getModel().getColumnName(0), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    cellP0.setUseBorderPadding(true);
+                    // Setting cell's background color
+                    cellP0.setBackgroundColor(BaseColor.ORANGE);
+
+                    PdfPCell cellP1 = new PdfPCell(new Phrase(tblOC.getModel().getColumnName(1), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    cellP1.setUseBorderPadding(true);
+                    // Setting cell's background color
+                    cellP1.setBackgroundColor(BaseColor.ORANGE);
+
+                    PdfPCell cellP2 = new PdfPCell(new Phrase(tblOC.getModel().getColumnName(2), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    cellP2.setUseBorderPadding(true);
+                    // Setting cell's background color
+                    cellP2.setBackgroundColor(BaseColor.ORANGE);
+
+                    PdfPCell cellP3 = new PdfPCell(new Phrase(tblOC.getModel().getColumnName(3), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    cellP3.setUseBorderPadding(true);
+                    // Setting cell's background color
+                    cellP3.setBackgroundColor(BaseColor.ORANGE);
+
+                    PdfPCell cellP4 = new PdfPCell(new Phrase(tblOC.getModel().getColumnName(4), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    cellP4.setUseBorderPadding(true);
+                    // Setting cell's background color
+                    cellP4.setBackgroundColor(BaseColor.ORANGE);
+
+                    PdfPCell cellP5 = new PdfPCell(new Phrase(tblOC.getModel().getColumnName(5), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    cellP5.setUseBorderPadding(true);
+                    // Setting cell's background color
+                    cellP5.setBackgroundColor(BaseColor.ORANGE);
+
+                    PdfPCell cellP6 = new PdfPCell(new Phrase(tblOC.getModel().getColumnName(6), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    cellP6.setUseBorderPadding(true);
+                    // Setting cell's background color
+                    cellP6.setBackgroundColor(BaseColor.ORANGE);
+
+                    PdfPCell cellP7 = new PdfPCell(new Phrase(tblOC.getModel().getColumnName(7), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    cellP7.setUseBorderPadding(true);
+                    // Setting cell's background color
+                    cellP7.setBackgroundColor(BaseColor.ORANGE);
+                    /*
+                PdfPCell cellP8 = new PdfPCell(new Phrase(tblOC.getModel().getColumnName(8), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                cellP8.setUseBorderPadding(true);
+                // Setting cell's background color
+                cellP8.setBackgroundColor(BaseColor.ORANGE);
+               
+                PdfPCell cellP9 = new PdfPCell(new Phrase(tblOC.getModel().getColumnName(9), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                cellP9.setUseBorderPadding(true);
+                // Setting cell's background color
+                cellP9.setBackgroundColor(BaseColor.ORANGE);
+                     */
+                    pdfTable.addCell(cellP0);
+                    pdfTable.addCell(cellP1);
+                    pdfTable.addCell(cellP2);
+                    pdfTable.addCell(cellP3);
+                    pdfTable.addCell(cellP4);
+                    pdfTable.addCell(cellP5);
+                    pdfTable.addCell(cellP6);
+                    pdfTable.addCell(cellP7);
+                    //pdfTable.addCell(cellP8);
+                    //pdfTable.addCell(cellP9);
+                } catch (Exception ex) {
+                    System.out.println("Error en tabla 1(creando celdas): " + ex);
                 }
 
-                docPDF.add(pdfTable);
+                try {
+                    for (int rows = 0; rows < tblOC.getRowCount(); rows++) {
+                        pdfTable.addCell(new Phrase(tblOC.getModel().getValueAt(rows, 0).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                        pdfTable.addCell(new Phrase(tblOC.getModel().getValueAt(rows, 1).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                        pdfTable.addCell(new Phrase(tblOC.getModel().getValueAt(rows, 2).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                        pdfTable.addCell(new Phrase(tblOC.getModel().getValueAt(rows, 3).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                        pdfTable.addCell(new Phrase(tblOC.getModel().getValueAt(rows, 4).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                        pdfTable.addCell(new Phrase(tblOC.getModel().getValueAt(rows, 5).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                        pdfTable.addCell(new Phrase(tblOC.getModel().getValueAt(rows, 6).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                        pdfTable.addCell(new Phrase(tblOC.getModel().getValueAt(rows, 7).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                        //pdfTable.addCell(new Phrase(tblOC.getModel().getValueAt(rows, 8).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                        //pdfTable.addCell(new Phrase(tblOC.getModel().getValueAt(rows, 9).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    }
+                    pdfTable.setWidths(new int[]{1, 2, 1, 1, 1, 1, 1, 1});
+                    docPDF.add(pdfTable);
+                } catch (Exception ex) {
+                    System.out.println("Error en tabla 1:" + ex);
+                }
 
-                Paragraph neto = new Paragraph("Neto: " + netoOC, FontFactory.getFont(FontFactory.TIMES, 12, com.itextpdf.text.Font.NORMAL, null));
+                DecimalFormat formatea = new DecimalFormat("###,###.##");
+                double neto_format = Double.parseDouble(netoOC.replace("$", "").replace(".", "").replace(",", "."));
+                double iva_format = Double.parseDouble(ivaOC.replace("$", "").replace(".", "").replace(",", "."));
+                double total_format = Double.parseDouble(totalOC.replace("$", "").replace(".", "").replace(",", "."));
+
+                Paragraph neto = new Paragraph("Neto: $" + formatea.format(neto_format), FontFactory.getFont(FontFactory.TIMES, 12, com.itextpdf.text.Font.NORMAL, null));
                 neto.setAlignment(Paragraph.ALIGN_RIGHT);
-                Paragraph iva = new Paragraph("IVA: " + ivaOC, FontFactory.getFont(FontFactory.TIMES, 12, com.itextpdf.text.Font.NORMAL, null));
+                Paragraph iva = new Paragraph("IVA: $" + formatea.format(iva_format), FontFactory.getFont(FontFactory.TIMES, 12, com.itextpdf.text.Font.NORMAL, null));
                 iva.setAlignment(Paragraph.ALIGN_RIGHT);
-                Paragraph total = new Paragraph("Total: " + totalOC, FontFactory.getFont(FontFactory.TIMES, 12, com.itextpdf.text.Font.NORMAL, null));
+                Paragraph total = new Paragraph("Total: $" + formatea.format(total_format), FontFactory.getFont(FontFactory.TIMES, 12, com.itextpdf.text.Font.NORMAL, null));
                 total.setAlignment(Paragraph.ALIGN_RIGHT);
                 docPDF.add(neto);
                 docPDF.add(iva);
@@ -1062,27 +1179,96 @@ public class HistorialNV extends javax.swing.JFrame {
                 //Para las notas de venta
                 Paragraph tablas2 = new Paragraph("Información de productos en notas de venta ", FontFactory.getFont(FontFactory.TIMES, 12, com.itextpdf.text.Font.BOLD, null));
                 docPDF.add(tablas2);
-                PdfPTable pdfTable2 = new PdfPTable(tblBDD.getColumnCount());
+                PdfPTable pdfTable2 = new PdfPTable(10);
                 pdfTable2.setSpacingBefore(15f);
                 pdfTable2.setWidthPercentage(100);
-                for (int i = 0; i < tblBDD.getColumnCount(); i++) {
-                    pdfTable2.addCell(new Phrase(tblBDD.getColumnName(i), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+
+                try {
+                    PdfPCell cell0 = new PdfPCell(new Phrase(tblBDD.getColumnName(0), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    cell0.setUseBorderPadding(true);
+                    // Setting cell's background color
+                    cell0.setBackgroundColor(BaseColor.ORANGE);
+
+                    PdfPCell cell1 = new PdfPCell(new Phrase(tblBDD.getColumnName(1), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    cell1.setUseBorderPadding(true);
+                    // Setting cell's background color
+                    cell1.setBackgroundColor(BaseColor.ORANGE);
+
+                    PdfPCell cell2 = new PdfPCell(new Phrase(tblBDD.getColumnName(2), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    cell2.setUseBorderPadding(true);
+                    // Setting cell's background color
+                    cell2.setBackgroundColor(BaseColor.ORANGE);
+
+                    PdfPCell cell3 = new PdfPCell(new Phrase(tblBDD.getColumnName(3), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    cell3.setUseBorderPadding(true);
+                    // Setting cell's background color
+                    cell3.setBackgroundColor(BaseColor.ORANGE);
+
+                    PdfPCell cell4 = new PdfPCell(new Phrase(tblBDD.getColumnName(4), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    cell4.setUseBorderPadding(true);
+                    // Setting cell's background color
+                    cell4.setBackgroundColor(BaseColor.ORANGE);
+
+                    PdfPCell cell5 = new PdfPCell(new Phrase(tblBDD.getColumnName(5), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    cell5.setUseBorderPadding(true);
+                    // Setting cell's background color
+                    cell5.setBackgroundColor(BaseColor.ORANGE);
+
+                    PdfPCell cell6 = new PdfPCell(new Phrase(tblBDD.getColumnName(6), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    cell6.setUseBorderPadding(true);
+                    // Setting cell's background color
+                    cell6.setBackgroundColor(BaseColor.ORANGE);
+
+                    PdfPCell cell7 = new PdfPCell(new Phrase(tblBDD.getColumnName(7), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    cell7.setUseBorderPadding(true);
+                    // Setting cell's background color
+                    cell7.setBackgroundColor(BaseColor.ORANGE);
+
+                    PdfPCell cell8 = new PdfPCell(new Phrase(tblBDD.getColumnName(8), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    cell8.setUseBorderPadding(true);
+                    // Setting cell's background color
+                    cell8.setBackgroundColor(BaseColor.ORANGE);
+
+                    PdfPCell cell9 = new PdfPCell(new Phrase(tblBDD.getColumnName(9), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                    cell9.setUseBorderPadding(true);
+                    // Setting cell's background color
+                    cell9.setBackgroundColor(BaseColor.ORANGE);
+
+                    pdfTable2.addCell(cell0);
+                    pdfTable2.addCell(cell1);
+                    pdfTable2.addCell(cell2);
+                    pdfTable2.addCell(cell3);
+                    pdfTable2.addCell(cell4);
+                    pdfTable2.addCell(cell5);
+                    pdfTable2.addCell(cell6);
+                    pdfTable2.addCell(cell7);
+                    pdfTable2.addCell(cell8);
+                    pdfTable2.addCell(cell9);
+                } catch (Exception ex) {
+                    System.out.println("Error en tabla 2(Creando celdas): " + ex);
                 }
-                for (int rows = 0; rows < tblBDD.getRowCount(); rows++) {
-                    pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 0).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
-                    pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 1).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
-                    pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 2).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
-                    pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 3).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
-                    pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 4).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
-                    pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 5).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
-                    pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 6).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
-                    pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 7).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
-                    pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 8).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
-                    pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 9).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
-                    pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 10).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
-                    pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 11).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+
+                try {
+                    for (int rows = 0; rows < tblBDD.getRowCount(); rows++) {
+                        pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 0).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                        pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 1).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                        pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 2).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                        pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 3).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                        pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 4).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                        pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 5).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                        pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 6).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                        pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 7).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                        pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 8).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                        pdfTable2.addCell(new Phrase(tblBDD.getModel().getValueAt(rows, 9).toString(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+
+                    }
+
+                    pdfTable2.setWidths(new int[]{1, 1, 1, 2, 1, 1, 1, 1, 1, 1});
+                    docPDF.add(pdfTable2);
+
+                } catch (Exception ex) {
+                    System.out.println("Error en tabla 2" + ex);
                 }
-                docPDF.add(pdfTable2);
 
                 docPDF.add(myTable);
                 //Iconos
@@ -1119,15 +1305,23 @@ public class HistorialNV extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "PDF Generado Correctamente");
 
                 } catch (BadElementException | IOException ex) {
-                    Logger.getLogger(HistorialOC.class
+                    Logger.getLogger(OrdenTrabajo.class
                             .getName()).log(Level.SEVERE, null, ex);
 
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(HistorialOC.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (DocumentException ex) {
+                JOptionPane.showMessageDialog(null, "Ha ocurrido un error: sss" + ex.getMessage());
+
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(OrdenTrabajo.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex);
+
+        } catch (IOException ex) {
+            Logger.getLogger(HistorialOC.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(HistorialOC.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SAXException ex) {
+            Logger.getLogger(HistorialOC.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_btnGenerarPDFNVActionPerformed

@@ -693,9 +693,7 @@ public class HistorialNV extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnGenerarPDFNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarPDFNVActionPerformed
-
         try {
-
             int index = tblHistorialNV.getSelectedRow();
             //código de orden de compra
             String oc = tblHistorialNV.getValueAt(index, 2).toString();

@@ -15,6 +15,8 @@ import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Color;
+import java.awt.Component;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -31,6 +33,8 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
 
@@ -45,6 +49,30 @@ public class NotaCompra extends javax.swing.JFrame {
 
     public NotaCompra() {
         initComponents();
+        tblNC.setDefaultRenderer(Object.class, new MyTableCellRenderer());
+        this.repaint();
+    }
+
+    public class MyTableCellRenderer extends DefaultTableCellRenderer {
+
+        public Component getTableCellRendererComponent(
+                JTable table, Object value, boolean isSelected,
+                boolean hasFocus, int row, int col) {
+            Component comp = super.getTableCellRendererComponent(
+                    table, value, isSelected, hasFocus, row, col);
+
+            String s = table.getModel().getValueAt(row, 7).toString();
+
+            if (s.equalsIgnoreCase("Comprado") || s.equalsIgnoreCase("Enviado a Proveedor")) {
+                comp.setBackground(Color.green);
+                comp.setForeground(Color.BLACK);
+            } else if (s.equalsIgnoreCase("Nota de compra ingresada con productos faltantes")) {
+                comp.setBackground(Color.YELLOW);
+                comp.setForeground(Color.BLACK);
+            }
+
+            return (comp);
+        }
     }
 
     /**
@@ -57,6 +85,7 @@ public class NotaCompra extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel11 = new javax.swing.JPanel();
         btnSalir3 = new javax.swing.JButton();
         jScrollPane15 = new javax.swing.JScrollPane();
@@ -64,6 +93,9 @@ public class NotaCompra extends javax.swing.JFrame {
         btnReiniciarFiltros = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProductosDesechable = new javax.swing.JTable();
+        jLabel4 = new javax.swing.JLabel();
+        rdbAntiguoNuevo = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         cmbDistribuidor = new javax.swing.JComboBox();
@@ -140,6 +172,28 @@ public class NotaCompra extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblProductosDesechable);
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Ordenar por:");
+
+        buttonGroup2.add(rdbAntiguoNuevo);
+        rdbAntiguoNuevo.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        rdbAntiguoNuevo.setText("Fecha Antiguo - Nuevo");
+        rdbAntiguoNuevo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rdbAntiguoNuevoItemStateChanged(evt);
+            }
+        });
+
+        buttonGroup2.add(jRadioButton2);
+        jRadioButton2.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jRadioButton2.setText("Fecha Nuevo - Antiguo");
+        jRadioButton2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jRadioButton2ItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
@@ -149,10 +203,22 @@ public class NotaCompra extends javax.swing.JFrame {
                 .addComponent(jScrollPane15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnReiniciarFiltros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
-                        .addComponent(btnSalir3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(rdbAntiguoNuevo)
+                    .addComponent(jRadioButton2))
+                .addGap(6, 6, 6))
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnSalir3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnReiniciarFiltros, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
+                .addGap(10, 10, 10))
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGap(993, 993, 993)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGap(993, 993, 993)
+                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
@@ -166,8 +232,14 @@ public class NotaCompra extends javax.swing.JFrame {
                         .addComponent(btnSalir3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rdbAntiguoNuevo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioButton2)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE))
+                    .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -192,7 +264,7 @@ public class NotaCompra extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(cmbDistribuidor, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(669, Short.MAX_VALUE))
+                .addContainerGap(645, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,7 +300,7 @@ public class NotaCompra extends javax.swing.JFrame {
                 .addComponent(txtCodigoOrdenCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBuscarOC)
-                .addContainerGap(367, Short.MAX_VALUE))
+                .addContainerGap(343, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,7 +339,7 @@ public class NotaCompra extends javax.swing.JFrame {
                 .addComponent(txtNumNV, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
-                .addContainerGap(567, Short.MAX_VALUE))
+                .addContainerGap(543, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -306,7 +378,7 @@ public class NotaCompra extends javax.swing.JFrame {
                 .addComponent(txtCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4)
-                .addContainerGap(531, Short.MAX_VALUE))
+                .addContainerGap(507, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -356,6 +428,7 @@ public class NotaCompra extends javax.swing.JFrame {
 
     private void btnSalir3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir3ActionPerformed
         this.dispose();
+
     }//GEN-LAST:event_btnSalir3ActionPerformed
 
     private void btnReiniciarFiltrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarFiltrosActionPerformed
@@ -487,6 +560,7 @@ public class NotaCompra extends javax.swing.JFrame {
             pst.setInt(1, Integer.parseInt(txtNumNV.getText()));
             ResultSet rs = pst.executeQuery();
             tblNC.setModel(DbUtils.resultSetToTableModel(rs));
+
         } catch (SQLException ex) {
             Logger.getLogger(Seguimiento.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -840,6 +914,7 @@ public class NotaCompra extends javax.swing.JFrame {
                             //pdfTable.addCell(new Phrase(tblProductos.getModel().getValueAt(rows, 7).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9)));
                             //pdfTable.addCell(new Phrase(tblProductos.getModel().getValueAt(rows, 10).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9)));
                         }
+                        pdfTable.setWidths(new int[]{1, 1, 2, 1, 1});
                         doc.add(pdfTable);
                     } catch (DocumentException ex) {
                         JOptionPane.showMessageDialog(null, "Ha ocurrido un error: tabla" + ex.getMessage());
@@ -1202,7 +1277,7 @@ public class NotaCompra extends javax.swing.JFrame {
                         pdfTable.addCell(new Phrase("$" + formatea.format(totalNV), FontFactory.getFont(FontFactory.HELVETICA, 9)));
                         pdfTable.addCell(new Phrase(tblProductosDesechable.getModel().getValueAt(rows, 7).toString() + "%", FontFactory.getFont(FontFactory.HELVETICA, 9)));
                     }
-
+                    pdfTable.setWidths(new int[]{1, 1, 2, 1, 1, 1, 1, 1});
                     doc.add(pdfTable);
                 } catch (DocumentException ex) {
                     JOptionPane.showMessageDialog(null, "Ha ocurrido un error: tabla" + ex.getMessage());
@@ -1305,6 +1380,70 @@ public class NotaCompra extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbDistribuidorActionPerformed
 
+    private void rdbAntiguoNuevoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbAntiguoNuevoItemStateChanged
+        try {
+            String queryActualizar = "SELECT \n"
+                    + "a.numeroCotizacion AS 'OC de Proveedor',\n"
+                    + "da.idOrden AS 'N° de nota de venta',\n"
+                    + "a.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
+                    + "a.distribuidor AS 'Distribuidor',\n"
+                    + "CONCAT(SUBSTRING(a.fecha, 9, 2),\n"
+                    + "        '-',\n"
+                    + "        SUBSTRING(a.fecha, 6, 2),\n"
+                    + "        '-',\n"
+                    + "        SUBSTRING(a.fecha, 1, 4)) AS 'Fecha de cotización',\n"
+                    + "SUBSTRING(a.demoradespacho, 1, 2) AS 'Días Hábiles para arribo de mercadería',\n"
+                    + "a.proveedor AS 'Proveedor',\n"
+                    + "a.estado AS 'Estado'\n"
+                    + "FROM\n"
+                    + "abastecimiento a\n"
+                    + "    LEFT JOIN\n"
+                    + "detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
+                    + "WHERE\n"
+                    + "a.estado IN ('Comprado' , 'Nota de compra ingresada con productos faltantes',\n"
+                    + "    'Enviado a Proveedor')\n"
+                    + "GROUP BY a.numeroCotizacion\n"
+                    + "ORDER BY a.fecha asc;";
+            PreparedStatement pst = cn.prepareStatement(queryActualizar);
+            ResultSet rs = pst.executeQuery();
+            tblNC.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }//GEN-LAST:event_rdbAntiguoNuevoItemStateChanged
+
+    private void jRadioButton2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButton2ItemStateChanged
+        try {
+            String queryActualizar = "SELECT \n"
+                    + "a.numeroCotizacion AS 'OC de Proveedor',\n"
+                    + "da.idOrden AS 'N° de nota de venta',\n"
+                    + "a.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
+                    + "a.distribuidor AS 'Distribuidor',\n"
+                    + "CONCAT(SUBSTRING(a.fecha, 9, 2),\n"
+                    + "        '-',\n"
+                    + "        SUBSTRING(a.fecha, 6, 2),\n"
+                    + "        '-',\n"
+                    + "        SUBSTRING(a.fecha, 1, 4)) AS 'Fecha de cotización',\n"
+                    + "SUBSTRING(a.demoradespacho, 1, 2) AS 'Días Hábiles para arribo de mercadería',\n"
+                    + "a.proveedor AS 'Proveedor',\n"
+                    + "a.estado AS 'Estado'\n"
+                    + "FROM\n"
+                    + "abastecimiento a\n"
+                    + "    LEFT JOIN\n"
+                    + "detalle_abastecimiento da ON a.codigoOrdenCompra = da.codigoOrdenCompra\n"
+                    + "WHERE\n"
+                    + "a.estado IN ('Comprado' , 'Nota de compra ingresada con productos faltantes',\n"
+                    + "    'Enviado a Proveedor')\n"
+                    + "GROUP BY a.numeroCotizacion\n"
+                    + "ORDER BY a.fecha desc;";
+            PreparedStatement pst = cn.prepareStatement(queryActualizar);
+            ResultSet rs = pst.executeQuery();
+            tblNC.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }//GEN-LAST:event_jRadioButton2ItemStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -1353,6 +1492,7 @@ public class NotaCompra extends javax.swing.JFrame {
     public javax.swing.JButton btnReiniciarFiltros;
     private javax.swing.JButton btnSalir3;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     public javax.swing.JComboBox cmbDistribuidor;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
@@ -1360,14 +1500,17 @@ public class NotaCompra extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane15;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JRadioButton rdbAntiguoNuevo;
     public javax.swing.JTable tblNC;
     private javax.swing.JTable tblProductosDesechable;
     private javax.swing.JTextField txtCodigoOrdenCompra;

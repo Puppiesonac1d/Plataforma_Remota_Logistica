@@ -78,17 +78,19 @@ public class HistorialNV extends javax.swing.JFrame {
 
             String s = table.getModel().getValueAt(row, 3).toString();
 
-            if (s.equalsIgnoreCase("Producto Ingresado")) {
+            if (s.equalsIgnoreCase("4.- DESPACHO FINALIZADO")) {
                 comp.setBackground(Color.green);
                 comp.setForeground(Color.BLACK);
-            } else if (s.equalsIgnoreCase("Producto en Nota de Compra")) {
+            } else if (s.equalsIgnoreCase("1.- DISPONIBLE PARA DESPACHO")) {
+                comp.setBackground(Color.cyan);
+                comp.setForeground(Color.BLACK);
+            } else if (s.equalsIgnoreCase("2.- DESPACHO INCOMPLETO")) {
                 comp.setBackground(Color.YELLOW);
                 comp.setForeground(Color.BLACK);
-            } else if (s.equalsIgnoreCase("Nota de Compra Pendiente")) {
+            } else if (s.equalsIgnoreCase("3.- NO DISPONIBLE PARA DESPACHO")) {
                 comp.setBackground(Color.red);
                 comp.setForeground(Color.BLACK);
             }
-
             return (comp);
         }
     }
@@ -135,7 +137,6 @@ public class HistorialNV extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(247, 247, 247));
-        setPreferredSize(new java.awt.Dimension(1280, 740));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jLabel4.setText("Número de Nota de Venta:");
@@ -262,7 +263,7 @@ public class HistorialNV extends javax.swing.JFrame {
         jTabbedPane1.addTab("Filtrar por Fecha", jPanel2);
 
         cmbEstado.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Estado", "Producto Ingresado", "Producto en Nota de Compra", "Nota de Compra Pendiente", "Producto en Existencia", "Sin Stock de Proveedor" }));
+        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Estado", "1.- DISPONIBLE PARA DESPACHO", "2.- DESPACHO INCOMPLETO", "3.- NO DISPONIBLE PARA DESPACHO", "4.- DESPACHO FINALIZADO" }));
         cmbEstado.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbEstadoItemStateChanged(evt);
@@ -286,7 +287,7 @@ public class HistorialNV extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(332, Short.MAX_VALUE))
+                .addContainerGap(246, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -519,23 +520,46 @@ public class HistorialNV extends javax.swing.JFrame {
             String fecha = anio + "-" + mes + "-" + dia;
             System.out.println(fecha);
             String query = "SELECT \n"
-                    + "dot.idOrden AS 'Número de Nota de Venta',\n"
-                    + "CONCAT(SUBSTRING(ot.fechaEnvioOC, 9, 2),\n"
-                    + "'-',\n"
-                    + "SUBSTRING(ot.fechaEnvioOC, 6, 2),\n"
-                    + "'-',\n"
-                    + "SUBSTRING(ot.fechaEnvioOC, 1, 4)) AS 'Fecha de Envío de OC',\n"
-                    + "dot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
-                    + "dot.disponibilidad AS 'Disponibilidad'\n"
+                    + "    dot.idOrden AS 'Número de Nota de Venta',\n"
+                    + "    CONCAT(SUBSTRING(ot.fechaEnvioOC, 9, 2),\n"
+                    + "            '-',\n"
+                    + "            SUBSTRING(ot.fechaEnvioOC, 6, 2),\n"
+                    + "            '-',\n"
+                    + "            SUBSTRING(ot.fechaEnvioOC, 1, 4)) AS 'Fecha de Envío de OC',\n"
+                    + "    dot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
+                    + "    CASE\n"
+                    + "        WHEN\n"
+                    + "            SUM(DOT.CANTIDAD) = (SELECT \n"
+                    + "                    SUM(stockrestado)\n"
+                    + "                FROM\n"
+                    + "                    detallesalida ds\n"
+                    + "                WHERE\n"
+                    + "                    ds.idorden = dot.idorden)\n"
+                    + "        THEN\n"
+                    + "            '4.- DESPACHO FINALIZADO'\n"
+                    + "        WHEN\n"
+                    + "            SUM(DOT.CANTIDAD) > (SELECT \n"
+                    + "                    SUM(stockrestado)\n"
+                    + "                FROM\n"
+                    + "                    detallesalida ds\n"
+                    + "                WHERE\n"
+                    + "                    ds.idorden = dot.idorden)\n"
+                    + "        THEN\n"
+                    + "            '2.- DESPACHO INCOMPLETO'\n"
+                    + "        WHEN\n"
+                    + "            COUNT(DOT.DISPONIBILIDAD) = COUNT(DOT.CODIGOPRODUCTO)\n"
+                    + "                AND DOT.DISPONIBILIDAD = 'Producto Ingresado'\n"
+                    + "        THEN\n"
+                    + "            '1.- DISPONIBLE PARA DESPACHO'\n"
+                    + "        ELSE '3.- NO DISPONIBLE PARA DESPACHO'\n"
+                    + "    END 'Estado'\n"
                     + "FROM\n"
-                    + "detalleordentrabajo dot\n"
-                    + "    LEFT JOIN\n"
-                    + "ordenTrabajo ot ON ot.idOrden = dot.idOrden\n"
-                    + "    LEFT JOIN\n"
-                    + "detalle_abastecimiento a ON a.idOrden = ot.idOrden\n"
-                    + "WHERE LEFT(ot.fechaEnvioOC, 10) RLIKE ?\n"
-                    + "GROUP BY OT.IDORDEN\n"
-                    + "ORDER BY OT.IDORDEN;";
+                    + "    detalleordentrabajo dot\n"
+                    + "        LEFT JOIN\n"
+                    + "    ordenTrabajo ot ON ot.idOrden = dot.idOrden\n"
+                    + "WHERE LEFT(ot.fechaEnvioOC, 10) RLIKE ? "
+                    + "GROUP BY DOT.IDORDEN\n"
+                    + "ORDER BY ESTADO ASC, ot.fechaenviooc asc;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             pst.setString(1, fecha);
@@ -556,15 +580,38 @@ public class HistorialNV extends javax.swing.JFrame {
                     + "            '-',\n"
                     + "            SUBSTRING(ot.fechaEnvioOC, 1, 4)) AS 'Fecha de Envío de OC',\n"
                     + "    dot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
-                    + "    dot.disponibilidad AS 'Disponibilidad'\n"
+                    + "    CASE\n"
+                    + "        WHEN\n"
+                    + "            SUM(DOT.CANTIDAD) = (SELECT \n"
+                    + "                    SUM(stockrestado)\n"
+                    + "                FROM\n"
+                    + "                    detallesalida ds\n"
+                    + "                WHERE\n"
+                    + "                    ds.idorden = dot.idorden)\n"
+                    + "        THEN\n"
+                    + "            '4.- DESPACHO FINALIZADO'\n"
+                    + "        WHEN\n"
+                    + "            SUM(DOT.CANTIDAD) > (SELECT \n"
+                    + "                    SUM(stockrestado)\n"
+                    + "                FROM\n"
+                    + "                    detallesalida ds\n"
+                    + "                WHERE\n"
+                    + "                    ds.idorden = dot.idorden)\n"
+                    + "        THEN\n"
+                    + "            '2.- DESPACHO INCOMPLETO'\n"
+                    + "        WHEN\n"
+                    + "            COUNT(DOT.DISPONIBILIDAD) = COUNT(DOT.CODIGOPRODUCTO)\n"
+                    + "                AND DOT.DISPONIBILIDAD = 'Producto Ingresado'\n"
+                    + "        THEN\n"
+                    + "            '1.- DISPONIBLE PARA DESPACHO'\n"
+                    + "        ELSE '3.- NO DISPONIBLE PARA DESPACHO'\n"
+                    + "    END 'Estado'\n"
                     + "FROM\n"
                     + "    detalleordentrabajo dot\n"
                     + "        LEFT JOIN\n"
                     + "    ordenTrabajo ot ON ot.idOrden = dot.idOrden\n"
-                    + "        LEFT JOIN\n"
-                    + "    detalle_abastecimiento a ON a.idOrden = ot.idOrden\n"
-                    + "GROUP BY OT.IDORDEN\n"
-                    + "ORDER BY OT.IDORDEN;";
+                    + "GROUP BY DOT.IDORDEN\n"
+                    + "ORDER BY ESTADO ASC, ot.fechaenviooc asc;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
@@ -672,16 +719,39 @@ public class HistorialNV extends javax.swing.JFrame {
                     + "            '-',\n"
                     + "            SUBSTRING(ot.fechaEnvioOC, 1, 4)) AS 'Fecha de Envío de OC',\n"
                     + "    dot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
-                    + "    dot.disponibilidad AS 'Disponibilidad'\n"
+                    + "    CASE\n"
+                    + "        WHEN\n"
+                    + "            SUM(DOT.CANTIDAD) = (SELECT \n"
+                    + "                    SUM(stockrestado)\n"
+                    + "                FROM\n"
+                    + "                    detallesalida ds\n"
+                    + "                WHERE\n"
+                    + "                    ds.idorden = dot.idorden)\n"
+                    + "        THEN\n"
+                    + "            '4.- DESPACHO FINALIZADO'\n"
+                    + "        WHEN\n"
+                    + "            SUM(DOT.CANTIDAD) > (SELECT \n"
+                    + "                    SUM(stockrestado)\n"
+                    + "                FROM\n"
+                    + "                    detallesalida ds\n"
+                    + "                WHERE\n"
+                    + "                    ds.idorden = dot.idorden)\n"
+                    + "        THEN\n"
+                    + "            '2.- DESPACHO INCOMPLETO'\n"
+                    + "        WHEN\n"
+                    + "            COUNT(DOT.DISPONIBILIDAD) = COUNT(DOT.CODIGOPRODUCTO)\n"
+                    + "                AND DOT.DISPONIBILIDAD = 'Producto Ingresado'\n"
+                    + "        THEN\n"
+                    + "            '1.- DISPONIBLE PARA DESPACHO'\n"
+                    + "        ELSE '3.- NO DISPONIBLE PARA DESPACHO'\n"
+                    + "    END 'Estado'\n"
                     + "FROM\n"
                     + "    detalleordentrabajo dot\n"
                     + "        LEFT JOIN\n"
                     + "    ordenTrabajo ot ON ot.idOrden = dot.idOrden\n"
-                    + "        LEFT JOIN\n"
-                    + "    detalle_abastecimiento a ON a.idOrden = ot.idOrden "
-                    + "WHERE ot.idOrden = ?\n"
-                    + "GROUP BY OT.IDORDEN\n"
-                    + "ORDER BY OT.IDORDEN;";
+                    + "WHERE ot.idOrden = ? \n"
+                    + "GROUP BY DOT.IDORDEN\n"
+                    + "ORDER BY ESTADO ASC, ot.fechaenviooc asc;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             pst.setString(1, txtNV.getText());
@@ -1338,16 +1408,39 @@ public class HistorialNV extends javax.swing.JFrame {
                     + "            '-',\n"
                     + "            SUBSTRING(ot.fechaEnvioOC, 1, 4)) AS 'Fecha de Envío de OC',\n"
                     + "    dot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
-                    + "    dot.disponibilidad AS 'Disponibilidad'\n"
+                    + "    CASE\n"
+                    + "        WHEN\n"
+                    + "            SUM(DOT.CANTIDAD) = (SELECT \n"
+                    + "                    SUM(stockrestado)\n"
+                    + "                FROM\n"
+                    + "                    detallesalida ds\n"
+                    + "                WHERE\n"
+                    + "                    ds.idorden = dot.idorden)\n"
+                    + "        THEN\n"
+                    + "            '4.- DESPACHO FINALIZADO'\n"
+                    + "        WHEN\n"
+                    + "            SUM(DOT.CANTIDAD) > (SELECT \n"
+                    + "                    SUM(stockrestado)\n"
+                    + "                FROM\n"
+                    + "                    detallesalida ds\n"
+                    + "                WHERE\n"
+                    + "                    ds.idorden = dot.idorden)\n"
+                    + "        THEN\n"
+                    + "            '2.- DESPACHO INCOMPLETO'\n"
+                    + "        WHEN\n"
+                    + "            COUNT(DOT.DISPONIBILIDAD) = COUNT(DOT.CODIGOPRODUCTO)\n"
+                    + "                AND DOT.DISPONIBILIDAD = 'Producto Ingresado'\n"
+                    + "        THEN\n"
+                    + "            '1.- DISPONIBLE PARA DESPACHO'\n"
+                    + "        ELSE '3.- NO DISPONIBLE PARA DESPACHO'\n"
+                    + "    END 'Estado'\n"
                     + "FROM\n"
                     + "    detalleordentrabajo dot\n"
                     + "        LEFT JOIN\n"
-                    + "    ordenTrabajo ot ON ot.idOrden = dot.idOrden\n"
-                    + "        LEFT JOIN\n"
-                    + "    detalle_abastecimiento a ON a.idOrden = ot.idOrden\n"
-                    + "WHERE dot.disponibilidad = ?"
-                    + "GROUP BY OT.IDORDEN\n"
-                    + "ORDER BY OT.IDORDEN;";
+                    + "    ordenTrabajo ot ON ot.idOrden = dot.idOrden \n"
+                    + "WHERE ESTADO = ?\n"
+                    + "GROUP BY DOT.IDORDEN\n"
+                    + "ORDER BY ESTADO ASC, ot.fechaenviooc asc;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             pst.setString(1, cmbEstado.getSelectedItem().toString());

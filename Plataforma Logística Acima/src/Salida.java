@@ -1430,16 +1430,19 @@ public class Salida extends javax.swing.JFrame {
             DefaultTableModel modelo = (DefaultTableModel) tblMPSalida.getModel();
             for (int i = 0; i < tblMPSalida.getRowCount(); i++) {
                 int cantidad = 0;
-                String queryCantidad = "select (dot.cantidad - ds.stockRestado) from detalleSalida ds join detalleordentrabajo dot on dot.idOrden = ds.idOrden "
-                        + "where dot.idOrden = ? and dot.codigoProducto = ?;";
+                String queryCantidad = "select sum(ds.stockRestado) from detalleSalida ds \n"
+                        + "WHERE ds.idOrden = ? and ds.idProducto = ?\n"
+                        + "group by ds.idProducto";
                 PreparedStatement pstCantidad = cn.prepareStatement(queryCantidad);
                 pstCantidad.setString(1, txtCodigoOTSalida.getText());
                 pstCantidad.setString(2, tblMPSalida.getValueAt(i, 0).toString());
                 ResultSet rsCantidad = pstCantidad.executeQuery();
                 while (rsCantidad.next()) {
-                    cantidad = rsCantidad.getInt("stockRestado");
+                    cantidad = rsCantidad.getInt("sum(ds.stockRestado)");
+                    System.out.println("Cantidad: " + cantidad);
+                    modelo.setValueAt(Integer.parseInt(modelo.getValueAt(i, 2).toString()) - cantidad, i, 3);
                 }
-                modelo.setValueAt((Integer.parseInt(tblMPSalida.getValueAt(i, 2).toString()) - cantidad), i, 3);
+
             }
 
         } catch (Exception ex) {

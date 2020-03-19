@@ -6,12 +6,18 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.Barcode;
+import com.itextpdf.text.pdf.Barcode128;
 import com.itextpdf.text.pdf.BarcodeQRCode;
+import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Color;
+import java.awt.Component;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -26,6 +32,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
@@ -45,6 +53,8 @@ public class Ingreso extends javax.swing.JFrame {
         ajusteTablaProductosNotaCompra();
 
     }
+    
+    
 
     public void ajusteTablaProductosNotaCompra() {
         TableColumnModel modeloColumnas = tblProductosAIngresar.getColumnModel();
@@ -715,8 +725,7 @@ public class Ingreso extends javax.swing.JFrame {
                 tableInfoContacto.setWidthPercentage(100);
 
                 //Empresa
-                Paragraph tituloEmpresa = new Paragraph("Empresa: ", FontFactory.getFont(FontFactory.HELVETICA, 9, Font.BOLD, null));
-                Paragraph empresa = new Paragraph(tituloEmpresa + lblEmpresa.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                Paragraph empresa = new Paragraph("Empresa: " + lblEmpresa.getText(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
                 empresa.setAlignment(Paragraph.ALIGN_LEFT);
                 doc.add(empresa);
                 //Orden de Compra
@@ -728,33 +737,31 @@ public class Ingreso extends javax.swing.JFrame {
                 fechaIngreso.setAlignment(Paragraph.ALIGN_LEFT);
                 doc.add(fechaIngreso);
 
+                //Numero de Ingreso
+                Paragraph numeroIngreso = new Paragraph("Número de Ingreso: " + maxId, FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+                numeroIngreso.setAlignment(Paragraph.ALIGN_LEFT);
+
+                doc.add(numeroIngreso);
+                doc.add(codeQrImage);
+
                 doc.add(myTable);
 
                 //Nombre Producto
                 Paragraph nombreProducto = new Paragraph("Nombre de Producto: " + model.getValueAt(i, 4).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
                 nombreProducto.setAlignment(Paragraph.ALIGN_LEFT);
                 doc.add(nombreProducto);
-                //Sku
-                Paragraph sku = new Paragraph("SKU: " + model.getValueAt(i, 3).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
-                sku.setAlignment(Paragraph.ALIGN_LEFT);
+
+                Paragraph sku = new Paragraph("SKU:", FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
+
+                PdfContentByte cb = writer.getDirectContent();
+                Barcode128 barcode128 = new Barcode128();
+                barcode128.setCode(model.getValueAt(i, 3).toString());
+                barcode128.setCodeType(Barcode.CODE128);
+                Image code128Image = barcode128.createImageWithBarcode(cb, null, null);
+
                 doc.add(sku);
+                doc.add(code128Image);
 
-                doc.add(myTable);
-
-                //Numero de Ingreso
-                Paragraph numeroIngreso = new Paragraph("Número de Ingreso: " + maxId, FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
-                numeroIngreso.setAlignment(Paragraph.ALIGN_LEFT);
-                doc.add(numeroIngreso);
-
-                doc.add(codeQrImage);
-                /*
-                        PdfContentByte cb = writer.getDirectContent();
-                        Barcode128 barcode128 = new Barcode128();
-                        barcode128.setCode("este es un codigo de barra muy largo...con mucha informacion innecesaria");
-                        barcode128.setCodeType(Barcode.CODE128);
-                        Image code128Image = barcode128.createImageWithBarcode(cb, null, null);
-                        doc.add(code128Image);
-                 */
                 doc.add(myTable);
 
                 doc.close();
@@ -1313,7 +1320,7 @@ catch (Exception ex) {
                 txtIDproductoIngreso.setText(rs.getString("IDPRODUCTO"));
                 txtSKUIngreso.setText(rs.getString("SKU"));
                 txtNombreProductoIngreso.setText(rs.getString("Nombreproducto"));
-                txtStockIngresado.setText("");
+                txtStockIngresado.setText(tblProductosAIngresar.getValueAt(selectedRow, 6).toString());
             }
             JOptionPane.showMessageDialog(null, "Ingrese la información del producto a ingresar en el formulario de abajo:");
         } catch (Exception ex) {

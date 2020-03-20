@@ -82,19 +82,14 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Component id="jLabel83" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="txtNumeroBultos" min="-2" pref="123" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="btnConfirmarOperacionBultos" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                                      <Component id="jLabel83" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="txtNumeroBultos" min="-2" pref="123" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="btnConfirmarOperacionBultos" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -1224,12 +1219,12 @@
                                               <Component id="txtNombreDemandanteOCSalida" alignment="0" max="32767" attributes="0"/>
                                               <Component id="txtFechaEnvioOcSalida" max="32767" attributes="0"/>
                                           </Group>
-                                          <EmptySpace max="32767" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jTabbedPane15" max="32767" attributes="0"/>
+                                              <Component id="jTabbedPane15" pref="952" max="32767" attributes="0"/>
                                               <Component id="btnIngresarBultos" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel122" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel169" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -1246,8 +1241,6 @@
                                           <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="jLabel178" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel155" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel180" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jLabel173" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jLabel171" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jLabel172" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -1255,15 +1248,13 @@
                                               <EmptySpace min="-2" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="txtContactoOCSalida" alignment="0" min="-2" pref="491" max="-2" attributes="0"/>
-                                                  <Component id="txtObservacionesGuiaDespacho" alignment="0" min="-2" pref="491" max="-2" attributes="0"/>
-                                                  <Component id="txtDescripcionOCSalida" alignment="0" min="-2" pref="491" max="-2" attributes="0"/>
                                                   <Component id="txtDireccionesDespachoOCSalida" alignment="0" min="-2" pref="491" max="-2" attributes="0"/>
                                                   <Component id="txtFechaEntregaProductoOCSalida" alignment="0" min="-2" pref="491" max="-2" attributes="0"/>
                                                   <Component id="txtNombreOrdenCompraSalida" alignment="0" min="-2" pref="491" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
-                                      <EmptySpace min="-2" pref="601" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1320,17 +1311,7 @@
                                           <Component id="txtDireccionesDespachoOCSalida" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel173" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="txtDescripcionOCSalida" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel180" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="txtObservacionesGuiaDespacho" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel155" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="jLabel178" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="txtContactoOCSalida" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1412,11 +1393,6 @@
                             <Component class="javax.swing.JLabel" name="jLabel178">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="Contacto OC:"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel180">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="Descripci&#xf3;n de Orden:"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel181">
@@ -1673,15 +1649,6 @@
                               </Events>
                             </Component>
                             <Component class="javax.swing.JTextField" name="txtContactoOCSalida">
-                            </Component>
-                            <Component class="javax.swing.JTextField" name="txtDescripcionOCSalida">
-                            </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel155">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="Observaciones:"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JTextField" name="txtObservacionesGuiaDespacho">
                             </Component>
                             <Component class="javax.swing.JButton" name="btnIngresarBultos">
                               <Properties>

@@ -1,8 +1,10 @@
 
 import clases.Conexion;
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -82,6 +84,7 @@ public class SalidasPendientes extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         lblTotalRendicion = new javax.swing.JLabel();
         btnBorrar = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnReiniciarFiltros = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
@@ -268,6 +271,11 @@ public class SalidasPendientes extends javax.swing.JFrame {
         jLabel72.setToolTipText("");
 
         txtCostoNetoTransporte.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
+        txtCostoNetoTransporte.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCostoNetoTransporteKeyPressed(evt);
+            }
+        });
 
         jLabel79.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jLabel79.setText("Costo Neto:");
@@ -372,6 +380,9 @@ public class SalidasPendientes extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel9.setText("Presione Enter para confirmar el monto.");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -385,11 +396,13 @@ public class SalidasPendientes extends javax.swing.JFrame {
                     .addComponent(jLabel79))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtIvaTransporte, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
+                    .addComponent(txtIvaTransporte, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
                     .addComponent(txtCostoNetoTransporte)
                     .addComponent(txtTotalTransporte)
                     .addComponent(txtOrdenTransporte))
-                .addGap(468, 468, 468))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9)
+                .addGap(430, 430, 430))
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -420,7 +433,7 @@ public class SalidasPendientes extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBorrar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblTotalRendicion)
+                .addComponent(lblTotalRendicion, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
@@ -446,7 +459,8 @@ public class SalidasPendientes extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel79)
-                    .addComponent(txtCostoNetoTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCostoNetoTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtIvaTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -603,7 +617,24 @@ public class SalidasPendientes extends javax.swing.JFrame {
             // execute the java preparedstatement
             preparedStmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Salida de mercadería: " + tblSalidasPendientes.getValueAt(index, 0).toString() + " actualizada");
-        } catch (Exception ex) {
+        } catch (HeadlessException | NumberFormatException | SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        try {
+            int rowCount = tblGastoRendicion.getRowCount();
+            int indexSalidas = tblSalidasPendientes.getSelectedRow();
+            for (int i = 0; i < rowCount; i++) {
+                String queryInsert = "insert into rendicion(idSalida,idOrden,descripcionGasto,documento,total) values(?,?,?,?,?);";
+                PreparedStatement pst = cn.prepareStatement(queryInsert);
+                pst.setInt(1, Integer.parseInt(tblSalidasPendientes.getValueAt(indexSalidas, 0).toString()));
+                pst.setInt(2, Integer.parseInt(tblSalidasPendientes.getValueAt(indexSalidas, 1).toString()));
+                pst.setString(3, tblGastoRendicion.getValueAt(i, 0).toString());
+                pst.setString(4, tblGastoRendicion.getValueAt(i, 1).toString());
+                pst.setString(5, tblGastoRendicion.getValueAt(i, 2).toString().replace("$", "").replace(".", ""));
+                pst.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Margen Registrado");
+            }
+        } catch (NumberFormatException | SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         try {
@@ -616,21 +647,10 @@ public class SalidasPendientes extends javax.swing.JFrame {
             PreparedStatement pst = cn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
             tblSalidasPendientes.setModel(DbUtils.resultSetToTableModel(rs));
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
-        try {
-            int rowCount = tblSalidasPendientes.getRowCount();
-            for (int i = 0; i < rowCount; i++) {
-                String queryInsert = "insert into rendicion(idSalida,idOrden,descripcionGasto,documento,total) values(?,?,?,?,?);";
-                PreparedStatement pst = cn.prepareStatement(queryInsert);
-                ResultSet rs = pst.executeQuery();
-                tblSalidasPendientes.setModel(DbUtils.resultSetToTableModel(rs));
 
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void btnAgregarTransporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarTransporteActionPerformed
@@ -892,7 +912,7 @@ public class SalidasPendientes extends javax.swing.JFrame {
         String opcion = (String) JOptionPane.showInputDialog(null, "Seleccione un tipo de documento", "", JOptionPane.QUESTION_MESSAGE, null, documento, documento[0]);
 
         JFrame ventanaTotal = new JFrame("Valor total de gasto");
-        String total = JOptionPane.showInputDialog(ventanaTotal, "Ingrese descripción de gasto");
+        String total = JOptionPane.showInputDialog(ventanaTotal, "Valor total de gasto");
 
         double formatearTotal = Double.parseDouble(total);
         DecimalFormat formatea = new DecimalFormat("###,###.##");
@@ -904,7 +924,6 @@ public class SalidasPendientes extends javax.swing.JFrame {
         double calculo = 0;
         for (int i = 0; i < rowCount; i++) {
             calculo = calculo + Double.parseDouble(tblGastoRendicion.getValueAt(i, 2).toString().replace("$", "").replace(".", "").replace(",", "."));
-
         }
         lblTotalRendicion.setText("Total: $" + formatea.format(calculo));
 
@@ -919,6 +938,24 @@ public class SalidasPendientes extends javax.swing.JFrame {
             model.removeRow(modelIndex);
         }
     }//GEN-LAST:event_btnBorrarActionPerformed
+
+    private void txtCostoNetoTransporteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCostoNetoTransporteKeyPressed
+        try {
+            if (txtCostoNetoTransporte.getText().equals("")) {
+                //hacer nada
+            } else {
+                double formatearNeto = Double.parseDouble(txtCostoNetoTransporte.getText().replace("$", "").replace(".", ""));
+                double formateaIva = formatearNeto * 0.19;
+                double formateaTotal = formateaIva + formatearNeto;
+                DecimalFormat formatea = new DecimalFormat("###,###.##");
+                txtCostoNetoTransporte.setText("$" + formatea.format(formatearNeto));
+                txtIvaTransporte.setText("$" + formatea.format(formateaIva));
+                txtTotalTransporte.setText("$" + formatea.format(formateaTotal));
+            }
+        } catch (Exception ex) {
+            System.out.println("String vacio");
+        }
+    }//GEN-LAST:event_txtCostoNetoTransporteKeyPressed
 
     /**
      * @param args the command line arguments
@@ -978,6 +1015,7 @@ public class SalidasPendientes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel72;
     private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel91;
     private javax.swing.JLabel jLabel92;
     private javax.swing.JPanel jPanel1;

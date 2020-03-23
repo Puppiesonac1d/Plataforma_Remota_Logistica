@@ -85,6 +85,7 @@ public class SalidasPendientes extends javax.swing.JFrame {
         lblTotalRendicion = new javax.swing.JLabel();
         btnBorrar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnReiniciarFiltros = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
@@ -292,7 +293,7 @@ public class SalidasPendientes extends javax.swing.JFrame {
 
         jButton11.setBackground(new java.awt.Color(0, 204, 51));
         jButton11.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jButton11.setText("Calcular los valores de transporte");
+        jButton11.setText("Guardar total de transporte y rendición");
         jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton11ActionPerformed(evt);
@@ -370,7 +371,7 @@ public class SalidasPendientes extends javax.swing.JFrame {
         });
 
         lblTotalRendicion.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        lblTotalRendicion.setText("Total: $0");
+        lblTotalRendicion.setText("0");
 
         btnBorrar.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         btnBorrar.setText("Borrar de la tabla");
@@ -382,6 +383,9 @@ public class SalidasPendientes extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel9.setText("Presione Enter para confirmar el monto.");
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jLabel10.setText("Total: $");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -433,6 +437,8 @@ public class SalidasPendientes extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBorrar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTotalRendicion, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel6Layout.createSequentialGroup()
@@ -481,7 +487,8 @@ public class SalidasPendientes extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTotalRendicion)
                     .addComponent(jButton1)
-                    .addComponent(btnBorrar))
+                    .addComponent(btnBorrar)
+                    .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton11)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -604,19 +611,25 @@ public class SalidasPendientes extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel) tblSalidasPendientes.getModel();
             int index = tblSalidasPendientes.getSelectedRow();
             int index_2 = tblTransportes.getSelectedRow();
-            // create the java mysql update preparedstatement
-            String query = "update salida set idTransporte = ?, tipoTransporte= ?, netoTransporte = ?, ivaTransporte = ?, totalTransporte = ?,ordenTransporte = ? where idSalida = ?";
-            PreparedStatement preparedStmt = cn.prepareStatement(query);
-            preparedStmt.setInt(1, Integer.parseInt(tblTransportes.getValueAt(index_2, 0).toString()));
-            preparedStmt.setString(2, tblTransportes.getValueAt(index_2, 1).toString());
-            preparedStmt.setString(3, txtCostoNetoTransporte.getText());
-            preparedStmt.setString(4, txtIvaTransporte.getText());
-            preparedStmt.setString(5, txtTotalTransporte.getText());
-            preparedStmt.setString(6, txtOrdenTransporte.getText());
-            preparedStmt.setInt(7, Integer.parseInt(tblSalidasPendientes.getValueAt(index, 0).toString()));
-            // execute the java preparedstatement
-            preparedStmt.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Salida de mercadería: " + tblSalidasPendientes.getValueAt(index, 0).toString() + " actualizada");
+
+            if (tblSalidasPendientes.getSelectionModel().isSelectionEmpty() && tblTransportes.getSelectionModel().isSelectionEmpty()) {
+                JOptionPane.showMessageDialog(null, "Debe seleccionar una salida pendiente y un transporte de la tabla");
+            } else {
+                // create the java mysql update preparedstatement
+                String query = "update salida set idTransporte = ?, tipoTransporte= ?, netoTransporte = ?, ivaTransporte = ?, totalTransporte = ?,ordenTransporte = ? where idSalida = ?";
+                PreparedStatement preparedStmt = cn.prepareStatement(query);
+                preparedStmt.setInt(1, Integer.parseInt(tblTransportes.getValueAt(index_2, 0).toString()));
+                preparedStmt.setString(2, tblTransportes.getValueAt(index_2, 1).toString());
+                preparedStmt.setString(3, txtCostoNetoTransporte.getText());
+                preparedStmt.setString(4, txtIvaTransporte.getText());
+                preparedStmt.setString(5, txtTotalTransporte.getText());
+                preparedStmt.setString(6, txtOrdenTransporte.getText());
+                preparedStmt.setInt(7, Integer.parseInt(tblSalidasPendientes.getValueAt(index, 0).toString()));
+                // execute the java preparedstatement
+                preparedStmt.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Salida de mercadería: " + tblSalidasPendientes.getValueAt(index, 0).toString() + " actualizada");
+            }
+
         } catch (HeadlessException | NumberFormatException | SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
@@ -638,16 +651,32 @@ public class SalidasPendientes extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         try {
-            String query = "Select s.idSalida as 'Número de Salida',s.idOrden as 'Número de Nota de Venta',s.codigoOrdenCompra as 'Codigo de Orden de Compra',\n"
-                    + "s.tipoTransporte as 'Transporte',s.netoTransporte as 'Neto',s.ivaTransporte as 'IVA',s.totalTransporte as 'Total',b.nombreBodega as 'Nombre de Bodega',\n"
-                    + "s.seccion as 'Sección',bu.codigoBulto as 'Bulto de Salida', s.fechaSalida as 'Fecha de Solicitud',ordenTransporte as 'Orden de Transporte'\n"
-                    + "from salida s join bodega b on s.idBodega=b.idBodega\n"
-                    + "join bulto bu on s.codigoOrdenCompra = bu.codigoOrdenCompra\n"
-                    + "where s.tipoTransporte='Pendiente';";
+            String query = "SELECT \n"
+                    + "    s.idSalida AS 'Número de Salida',\n"
+                    + "    s.idOrden AS 'Número de Nota de Venta',\n"
+                    + "    s.codigoOrdenCompra AS 'Codigo de Orden de Compra',\n"
+                    + "    s.tipoTransporte AS 'Transporte',\n"
+                    + "    s.netoTransporte AS 'Neto',\n"
+                    + "    s.ivaTransporte AS 'IVA',\n"
+                    + "    s.totalTransporte AS 'Total',\n"
+                    + "    b.nombreBodega AS 'Nombre de Bodega',\n"
+                    + "    s.seccion AS 'Sección',\n"
+                    + "    bu.codigoBulto AS 'Bulto de Salida',\n"
+                    + "    s.fechaSalida AS 'Fecha de Solicitud',\n"
+                    + "    ordenTransporte AS 'Orden de Transporte'\n"
+                    + "FROM\n"
+                    + "    salida s\n"
+                    + "        LEFT JOIN\n"
+                    + "    bodega b ON s.idBodega = b.idBodega\n"
+                    + "        LEFT JOIN\n"
+                    + "    bulto bu ON s.codigoOrdenCompra = bu.codigoOrdenCompra\n"
+                    + "WHERE\n"
+                    + "    s.tipoTransporte = 'Pendiente'\n"
+                    + "    group by s.idOrden;";
             PreparedStatement pst = cn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
             tblSalidasPendientes.setModel(DbUtils.resultSetToTableModel(rs));
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
@@ -905,29 +934,31 @@ public class SalidasPendientes extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReiniciarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        JFrame ventanaDescripcion = new JFrame("Descripción de Gasto");
-        String descripcion = JOptionPane.showInputDialog(ventanaDescripcion, "Ingrese descripción de gasto");
+        try {
+            JFrame ventanaDescripcion = new JFrame("Descripción de Gasto");
+            String descripcion = JOptionPane.showInputDialog(ventanaDescripcion, "Ingrese descripción de gasto");
 
-        Object[] documento = {"Boleta", "Factura"};
-        String opcion = (String) JOptionPane.showInputDialog(null, "Seleccione un tipo de documento", "", JOptionPane.QUESTION_MESSAGE, null, documento, documento[0]);
+            Object[] documento = {"Boleta", "Factura"};
+            String opcion = (String) JOptionPane.showInputDialog(null, "Seleccione un tipo de documento", "", JOptionPane.QUESTION_MESSAGE, null, documento, documento[0]);
 
-        JFrame ventanaTotal = new JFrame("Valor total de gasto");
-        String total = JOptionPane.showInputDialog(ventanaTotal, "Valor total de gasto");
+            JFrame ventanaTotal = new JFrame("Valor total de gasto");
+            String total = JOptionPane.showInputDialog(ventanaTotal, "Valor total de gasto");
 
-        double formatearTotal = Double.parseDouble(total);
-        DecimalFormat formatea = new DecimalFormat("###,###.##");
+            double formatearTotal = Double.parseDouble(total);
+            DecimalFormat formatea = new DecimalFormat("###,###.##");
 
-        DefaultTableModel model = (DefaultTableModel) tblGastoRendicion.getModel();
-        model.addRow(new Object[]{descripcion, opcion, "$" + formatea.format(formatearTotal)});
+            DefaultTableModel model = (DefaultTableModel) tblGastoRendicion.getModel();
+            model.addRow(new Object[]{descripcion, opcion, "$" + formatea.format(formatearTotal)});
 
-        int rowCount = tblGastoRendicion.getRowCount();
-        double calculo = 0;
-        for (int i = 0; i < rowCount; i++) {
-            calculo = calculo + Double.parseDouble(tblGastoRendicion.getValueAt(i, 2).toString().replace("$", "").replace(".", "").replace(",", "."));
+            int rowCount = tblGastoRendicion.getRowCount();
+            double calculo = 0;
+            for (int i = 0; i < rowCount; i++) {
+                calculo = calculo + Double.parseDouble(tblGastoRendicion.getValueAt(i, 2).toString().replace("$", "").replace(".", "").replace(",", "."));
+            }
+            lblTotalRendicion.setText(formatea.format(calculo));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error " + ex.getMessage());
         }
-        lblTotalRendicion.setText("Total: $" + formatea.format(calculo));
-
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
@@ -1005,6 +1036,7 @@ public class SalidasPendientes extends javax.swing.JFrame {
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel174;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

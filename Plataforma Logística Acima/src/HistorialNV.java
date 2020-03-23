@@ -275,6 +275,7 @@ public class HistorialNV extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblHistorialNV.getTableHeader().setReorderingAllowed(false);
         tblHistorialNV.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblHistorialNVMouseClicked(evt);
@@ -314,6 +315,7 @@ public class HistorialNV extends javax.swing.JFrame {
         lblIDUsuario.setVisible(false);
         lblIDUsuario.setText("-");
 
+        btnGenerarPDFNV.setVisible(false);
         btnGenerarPDFNV.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         btnGenerarPDFNV.setText("Imprimir OC / NV");
         btnGenerarPDFNV.addActionListener(new java.awt.event.ActionListener() {

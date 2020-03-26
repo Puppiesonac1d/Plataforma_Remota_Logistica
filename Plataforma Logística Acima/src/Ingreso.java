@@ -53,8 +53,6 @@ public class Ingreso extends javax.swing.JFrame {
         ajusteTablaProductosNotaCompra();
 
     }
-    
-    
 
     public void ajusteTablaProductosNotaCompra() {
         TableColumnModel modeloColumnas = tblProductosAIngresar.getColumnModel();
@@ -1348,15 +1346,6 @@ catch (Exception ex) {
         try {
             DefaultTableModel model = (DefaultTableModel) tblProductosEnNC.getModel();
             int SelectedRowIndex = tblProductosEnNC.getSelectedRow();
-
-            int indexTablaOriginal = tblProductosAIngresar.getSelectedRow();
-            int cantidadTablaOriginal = Integer.parseInt(tblProductosAIngresar.getValueAt(indexTablaOriginal, 4).toString());
-
-            int cantidadBorrada = Integer.parseInt(model.getValueAt(SelectedRowIndex, 3).toString());
-
-            cantidadBorrada = cantidadBorrada + cantidadTablaOriginal;
-            tblProductosAIngresar.setValueAt(cantidadBorrada, indexTablaOriginal, 4);
-
             model.removeRow(SelectedRowIndex);
             JOptionPane.showMessageDialog(null, "Producto Removido");
         } catch (Exception ex) {

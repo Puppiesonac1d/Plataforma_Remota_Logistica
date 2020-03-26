@@ -287,16 +287,15 @@
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="lblIDUsuario" min="-2" pref="52" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jScrollPane1" alignment="1" pref="0" max="32767" attributes="0"/>
-                          <Component id="jButton6" alignment="1" max="32767" attributes="0"/>
-                          <Component id="btnSalida" alignment="1" pref="237" max="32767" attributes="0"/>
-                          <Component id="btnGenerarPDFNV" alignment="1" max="32767" attributes="0"/>
-                          <Component id="btnVolverMenu9" alignment="1" pref="0" max="32767" attributes="0"/>
-                          <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="jScrollPane1" alignment="1" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButton6" alignment="1" max="32767" attributes="0"/>
+                      <Component id="btnSalida" alignment="1" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
+                      <Component id="btnRendiciones" max="32767" attributes="0"/>
+                      <Component id="btnGenerarPDFNV" alignment="1" max="32767" attributes="0"/>
+                      <Component id="btnVolverMenu9" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -313,10 +312,12 @@
                           <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                           <Component id="btnSalida" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btnRendiciones" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnGenerarPDFNV" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnVolverMenu9" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="133" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
                           <Component id="jScrollPane1" min="-2" pref="45" max="-2" attributes="0"/>
                           <EmptySpace min="26" pref="26" max="-2" attributes="0"/>
                           <Component id="jScrollPane2" min="-2" pref="59" max="-2" attributes="0"/>
@@ -515,6 +516,17 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JButton" name="btnRendiciones">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="20" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Rendiciones"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRendicionesActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
     <Component class="javax.swing.JLabel" name="jLabel3">

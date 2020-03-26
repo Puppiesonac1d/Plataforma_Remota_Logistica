@@ -41,6 +41,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import java.awt.Color;
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import javax.swing.JTable;
@@ -130,6 +131,7 @@ public class HistorialNV extends javax.swing.JFrame {
         tblOC = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblBDD = new javax.swing.JTable();
+        btnRendiciones = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -356,6 +358,14 @@ public class HistorialNV extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tblBDD);
 
+        btnRendiciones.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        btnRendiciones.setText("Rendiciones");
+        btnRendiciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRendicionesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel43Layout = new javax.swing.GroupLayout(jPanel43);
         jPanel43.setLayout(jPanel43Layout);
         jPanel43Layout.setHorizontalGroup(
@@ -369,15 +379,15 @@ public class HistorialNV extends javax.swing.JFrame {
                     .addGroup(jPanel43Layout.createSequentialGroup()
                         .addComponent(jScrollPane19)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblIDUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addComponent(jButton6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSalida, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
-                        .addComponent(btnGenerarPDFNV, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnVolverMenu9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSalida, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(btnRendiciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnGenerarPDFNV, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnVolverMenu9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel43Layout.setVerticalGroup(
@@ -391,10 +401,12 @@ public class HistorialNV extends javax.swing.JFrame {
                         .addGap(8, 8, 8)
                         .addComponent(btnSalida)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnRendiciones)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnGenerarPDFNV)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnVolverMenu9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(133, 133, 133)
+                        .addGap(104, 104, 104)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1382,6 +1394,33 @@ public class HistorialNV extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnGenerarPDFNVActionPerformed
 
+    private void btnRendicionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRendicionesActionPerformed
+        try {
+            Rendiciones rendicion = new Rendiciones();
+            rendicion.setVisible(true);
+            int montoAnterior = 0;
+            String queryMaximo = "SELECT monto FROM cajachica ORDER BY idMonto DESC LIMIT 1;";
+            PreparedStatement pstMax = cn.prepareStatement(queryMaximo);
+            ResultSet rsMax = pstMax.executeQuery();
+            while (rsMax.next()) {
+                montoAnterior = rsMax.getInt(1);
+            }
+            DecimalFormat formatea = new DecimalFormat("###,###.##");
+
+            rendicion.lblMontoCajaChica.setText("$" + formatea.format(montoAnterior));
+
+            //Cargar las rendiciones...
+            String queryRendiciones = "SELECT ordenCompra AS 'ORDEN DE COMPRA', nombreRendicion as 'RENDICIÓN', documento as 'TIPO DE DOCUMENTO',numeroDocumento as 'NÚMERO DE DOCUMENTO', fecha as 'FECHA',\n"
+                    + "OBSERVACION AS 'OBSERVACIONES', total as 'GASTO TOTAL' FROM rendicion;";
+            PreparedStatement pstRendiciones = cn.prepareStatement(queryRendiciones);
+            ResultSet rsRendiciones = pstRendiciones.executeQuery();
+            rendicion.tblRendicionesHistoricas.setModel(DbUtils.resultSetToTableModel(rsRendiciones));
+
+        } catch (SQLException ex) {
+            Logger.getLogger(HistorialNV.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnRendicionesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1420,6 +1459,7 @@ public class HistorialNV extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnGenerarPDFNV;
+    private javax.swing.JButton btnRendiciones;
     private javax.swing.JButton btnSalida;
     private javax.swing.JButton btnVolverMenu9;
     private javax.swing.JButton jButton4;

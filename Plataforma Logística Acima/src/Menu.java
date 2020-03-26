@@ -20,6 +20,7 @@ import javax.swing.JTable;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import net.proteanit.sql.DbUtils;
 
 /*
@@ -76,6 +77,7 @@ public class Menu extends javax.swing.JFrame {
         btnInventarioProductos = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         btnMantenedorBodegas = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         btnHistorialIngreso = new javax.swing.JButton();
         btnSeguimiento = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
@@ -91,6 +93,7 @@ public class Menu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(252, 252, 252));
+        setMaximumSize(new java.awt.Dimension(1920, 1080));
         setMinimumSize(new java.awt.Dimension(1280, 720));
         setPreferredSize(new java.awt.Dimension(1280, 720));
 
@@ -157,6 +160,10 @@ public class Menu extends javax.swing.JFrame {
         });
         panelRojo.add(btnMantenedorBodegas);
 
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jButton1.setText("Ingresar Facturas");
+        panelRojo.add(jButton1);
+
         btnHistorialIngreso.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         btnHistorialIngreso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Historial.png"))); // NOI18N
         btnHistorialIngreso.setText("Historial");
@@ -196,7 +203,7 @@ public class Menu extends javax.swing.JFrame {
             contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contenedorLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(panelRojo, javax.swing.GroupLayout.DEFAULT_SIZE, 1069, Short.MAX_VALUE)
+                .addComponent(panelRojo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
             .addGroup(contenedorLayout.createSequentialGroup()
                 .addContainerGap()
@@ -209,7 +216,7 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(58, 58, 58)
-                .addComponent(panelRojo, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
+                .addComponent(panelRojo, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
                 .addGap(84, 84, 84))
         );
 
@@ -411,19 +418,94 @@ public class Menu extends javax.swing.JFrame {
          */
         try {
             Seguimiento seguimiento = new Seguimiento();
+
             seguimiento.setVisible(true);
-            String query = "SELECT ot.CODIGOORDENCOMPRA AS 'Código de Orden de Compra', ot.nombre_proveedor as 'Empresa',\n"
-                    + "ot.idOrden as 'Número Nota de Venta', ab.idAbastecimiento as 'Número de Cotización',ing.idIngreso as 'Número de Ingreso',sal.idSalida as 'Número de Salida',\n"
-                    + "tr.transporte as 'Transporte',ordenTransporte as 'Orden de Transporte',sal.numFactura as 'Número de Factura' from ordenTrabajo ot\n"
-                    + "left join abastecimiento ab on ot.codigoOrdenCompra = ab.codigoOrdenCompra\n"
-                    + "left join ingreso ing on ing.numeroCotizacion = ot.codigoOrdenCompra\n"
-                    + "left join salida sal on sal.codigoOrdenCompra = ot.codigoOrdenCompra\n"
-                    + "left join transporte tr on tr.idTransporte = sal.idTransporte;";
+            String query = "    \n"
+                    + "SELECT \n"
+                    + "    ot.idOrden AS 'Nota de Venta',\n"
+                    + "    ot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
+                    + "    ot.nombre_proveedor AS 'Empresa',\n"
+                    + "    CASE\n"
+                    + "        WHEN\n"
+                    + "            EXISTS( SELECT \n"
+                    + "                    idOrden\n"
+                    + "                FROM\n"
+                    + "                    detalle_Abastecimiento\n"
+                    + "                WHERE\n"
+                    + "                    idOrden = ot.idOrden)\n"
+                    + "        THEN\n"
+                    + "            'NOTA DE COMPRA CREADA'\n"
+                    + "        WHEN\n"
+                    + "            NOT EXISTS( SELECT \n"
+                    + "                    idOrden\n"
+                    + "                FROM\n"
+                    + "                    detalle_Abastecimiento\n"
+                    + "                WHERE\n"
+                    + "                    idOrden = ot.idOrden)\n"
+                    + "        THEN\n"
+                    + "            'NOTA DE COMPRA NO CREADA'\n"
+                    + "    END 'NOTAS DE COMPRA',\n"
+                    + "    IFNULL(a.estado, '-') AS 'ESTADO DE PAGO',\n"
+                    + "    CASE\n"
+                    + "        WHEN\n"
+                    + "            EXISTS( SELECT \n"
+                    + "                    notaVenta\n"
+                    + "                FROM\n"
+                    + "                   ingreso\n"
+                    + "                WHERE\n"
+                    + "                    notaVenta = ot.idOrden)\n"
+                    + "        THEN\n"
+                    + "            'MERCADERÍA INGRESADA'\n"
+                    + "        WHEN\n"
+                    + "            NOT EXISTS( SELECT \n"
+                    + "                    notaVenta\n"
+                    + "                FROM\n"
+                    + "                   ingreso\n"
+                    + "                WHERE\n"
+                    + "                    notaVenta = ot.idOrden)\n"
+                    + "        THEN\n"
+                    + "            'MERCADERÍA NO INGRESADA'\n"
+                    + "    END 'INGRESO DE MERCADERIA',\n"
+                    + "    CASE\n"
+                    + "        WHEN\n"
+                    + "            EXISTS( SELECT \n"
+                    + "                    idOrden\n"
+                    + "                FROM\n"
+                    + "                    salida\n"
+                    + "                WHERE\n"
+                    + "                    idOrden = ot.idOrden)\n"
+                    + "        THEN\n"
+                    + "            'SALIDA DE MERCADERÍA REALIZADA'\n"
+                    + "        WHEN\n"
+                    + "            NOT EXISTS( SELECT \n"
+                    + "                    idOrden\n"
+                    + "                FROM\n"
+                    + "                    salida\n"
+                    + "                WHERE\n"
+                    + "                    idOrden = ot.idOrden)\n"
+                    + "        THEN\n"
+                    + "            'SALIDA DE MERCADERÍA NO REALIZADA'\n"
+                    + "    END 'SALIDA DE MERCADERÍA',\n"
+                    + "    IFNULL(sa.numFactura,\n"
+                    + "            'NO SE HA ASIGNADO UNA FACTURA') AS 'FACTURA',\n"
+                    + "    IFNULL(sa.ordenTransporte,\n"
+                    + "            'NO SE HA ASIGNADO UNA ORDEN DE TRANSPORTE') AS 'ORDEN DE TRANSPORTE'\n"
+                    + "FROM\n"
+                    + "    ordenTrabajo ot\n"
+                    + "        LEFT JOIN\n"
+                    + "    salida sa ON sa.idOrden = ot.idOrden\n"
+                    + "        LEFT JOIN\n"
+                    + "    detalle_abastecimiento da ON da.idOrden = ot.idOrden\n"
+                    + "        LEFT JOIN\n"
+                    + "    abastecimiento a ON a.numeroCotizacion = da.numeroCotizacion\n"
+                    + "GROUP BY ot.idOrden\n"
+                    + "ORDER BY ot.idOrden ASC;\n";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
             seguimiento.tblNV.setModel(DbUtils.resultSetToTableModel(rs));
-        } catch (Exception ex) {
+
+        } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex.getMessage()
             );
         }
@@ -477,6 +559,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JPanel contenedor;
     public javax.swing.JMenu fonoMenuTag;
     public javax.swing.JMenu idUsuarioMenuTag;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;

@@ -22,11 +22,11 @@ import javax.swing.JOptionPane;
  * @author The_S
  */
 public class Rendiciones extends javax.swing.JFrame {
-    
+
     Conexion con = new Conexion();
     Connection cn = con.conecta();
     LocalDate sistFecha = LocalDate.now();
-    
+
     public Rendiciones() {
         initComponents();
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/YYYY", Locale.ENGLISH);
@@ -263,9 +263,9 @@ public class Rendiciones extends javax.swing.JFrame {
             while (rsMax.next()) {
                 montoAnterior = rsMax.getInt(1);
             }
-            
+
             montoNuevo = montoAnterior + Integer.parseInt(txtMonto.getText());
-            
+
             String query = "INSERT INTO cajaChica (monto,movimiento,razon) VALUES (?,?,?)";
             PreparedStatement pst = cn.prepareStatement(query);
             pst.setInt(1, montoNuevo);
@@ -273,7 +273,7 @@ public class Rendiciones extends javax.swing.JFrame {
             pst.setString(3, "Abono");
             int up = pst.executeUpdate();
             JOptionPane.showMessageDialog(null, "Abono Ingresado");
-            
+
             int recargarMonto = 0;
             String queryRefresh = "SELECT monto FROM cajachica ORDER BY idMonto DESC LIMIT 1;";
             PreparedStatement pstRefresh = cn.prepareStatement(queryRefresh);
@@ -282,7 +282,7 @@ public class Rendiciones extends javax.swing.JFrame {
                 recargarMonto = rsRefresh.getInt(1);
             }
             DecimalFormat formatea = new DecimalFormat("###,###.##");
-            
+
             lblMontoCajaChica.setText("$" + formatea.format(recargarMonto));
             txtMonto.setText("");
             abonarFrame.dispose();
@@ -302,7 +302,7 @@ public class Rendiciones extends javax.swing.JFrame {
                 montoAnterior = rsMax.getInt(1);
             }
             DecimalFormat formatea = new DecimalFormat("###,###.##");
-            
+
             lblMontoReferencia.setText("$" + formatea.format(montoAnterior));
         } catch (SQLException ex) {
             Logger.getLogger(Rendiciones.class.getName()).log(Level.SEVERE, null, ex);
@@ -311,15 +311,16 @@ public class Rendiciones extends javax.swing.JFrame {
 
     private void btnCerrarAbonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarAbonoActionPerformed
         try {
-            int montoAnterior = 0;
-            String queryMaximo = "SELECT monto FROM cajachica ORDER BY idMonto DESC LIMIT 1;";
-            PreparedStatement pstMax = cn.prepareStatement(queryMaximo);
-            ResultSet rsMax = pstMax.executeQuery();
-            while (rsMax.next()) {
-                montoAnterior = rsMax.getInt(1);
+            int recargarMonto = 0;
+            String queryRefresh = "SELECT monto FROM cajachica ORDER BY idMonto DESC LIMIT 1;";
+            PreparedStatement pstRefresh = cn.prepareStatement(queryRefresh);
+            ResultSet rsRefresh = pstRefresh.executeQuery();
+            while (rsRefresh.next()) {
+                recargarMonto = rsRefresh.getInt(1);
             }
-            lblMontoCajaChica.setText(Integer.toString(montoAnterior));
-            txtMonto.setText("");
+            DecimalFormat formatea = new DecimalFormat("###,###.##");
+
+            lblMontoCajaChica.setText("$" + formatea.format(recargarMonto));
             abonarFrame.dispose();
         } catch (SQLException ex) {
             Logger.getLogger(Rendiciones.class.getName()).log(Level.SEVERE, null, ex);

@@ -360,6 +360,26 @@ public class formularioRendicion extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(null, "Rendición Ingresada");
 
+            int input = JOptionPane.showConfirmDialog(null, "¿Ingresar otra rendición?");
+            if (input == 0) {
+                txtCodigoOrdenCompra.setText("");
+                txtFecha.setText("");
+                txtNombreRendicion.setText("");
+                txtObservacion.setText("");
+                txtOrdenCompra.setText("");
+                txtTotal.setText("");
+                txtCodigoOrdenCompra.setText("");
+            } else {
+                txtCodigoOrdenCompra.setText("");
+                txtFecha.setText("");
+                txtNombreRendicion.setText("");
+                txtObservacion.setText("");
+                txtOrdenCompra.setText("");
+                txtTotal.setText("");
+                txtCodigoOrdenCompra.setText("");
+                this.dispose();
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(formularioRendicion.class.getName()).log(Level.SEVERE, null, ex);
         }

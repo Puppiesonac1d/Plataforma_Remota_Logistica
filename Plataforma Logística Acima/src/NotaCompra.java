@@ -76,11 +76,8 @@ public class NotaCompra extends javax.swing.JFrame {
                 if (tblNC.getValueAt(row, 7).toString().equals("Nota de compra ingresada con productos faltantes")) {
                     c.setBackground(Color.YELLOW);
                     c.setForeground(Color.BLACK);
-
                 }
-
             }
-
             return c;
         }
     }

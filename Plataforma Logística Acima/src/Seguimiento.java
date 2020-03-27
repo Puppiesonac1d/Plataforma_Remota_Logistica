@@ -629,7 +629,6 @@ public class Seguimiento extends javax.swing.JFrame {
         );
 
         DetalleNotaCompra.setMinimumSize(new java.awt.Dimension(1324, 740));
-        DetalleNotaCompra.setPreferredSize(new java.awt.Dimension(1324, 740));
         DetalleNotaCompra.setSize(new java.awt.Dimension(1324, 740));
 
         jScrollPane5.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -1057,7 +1056,6 @@ public class Seguimiento extends javax.swing.JFrame {
                 .addGap(49, 49, 49))
         );
 
-        detalleSalida.setMaximumSize(new java.awt.Dimension(1280, 740));
         detalleSalida.setMinimumSize(new java.awt.Dimension(1280, 740));
 
         jPanel15.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -1620,7 +1618,7 @@ public class Seguimiento extends javax.swing.JFrame {
                     .addComponent(jTabbedPane9)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
                         .addGap(583, 583, 583)
-                        .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, 578, Short.MAX_VALUE))
+                        .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE))
                     .addGroup(jPanel21Layout.createSequentialGroup()
                         .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel21Layout.createSequentialGroup()

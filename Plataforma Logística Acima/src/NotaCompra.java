@@ -35,6 +35,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
 
@@ -49,29 +50,38 @@ public class NotaCompra extends javax.swing.JFrame {
 
     public NotaCompra() {
         initComponents();
-        tblNC.setDefaultRenderer(Object.class, new MyTableCellRenderer());
+        TableColorCellRenderer renderer = new TableColorCellRenderer();
+        tblNC.setDefaultRenderer(Object.class, renderer);
         this.repaint();
     }
 
-    public class MyTableCellRenderer extends DefaultTableCellRenderer {
+    public class TableColorCellRenderer implements TableCellRenderer {
 
-        public Component getTableCellRendererComponent(
-                JTable table, Object value, boolean isSelected,
-                boolean hasFocus, int row, int col) {
-            Component comp = super.getTableCellRendererComponent(
-                    table, value, isSelected, hasFocus, row, col);
+        private final TableCellRenderer RENDERER = new DefaultTableCellRenderer();
 
-            String s = table.getModel().getValueAt(row, 7).toString();
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            Component c = RENDERER.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
-            if (s.equalsIgnoreCase("Comprado") || s.equalsIgnoreCase("Enviado a Proveedor")) {
-                comp.setBackground(Color.green);
-                comp.setForeground(Color.BLACK);
-            } else if (s.equalsIgnoreCase("Nota de compra ingresada con productos faltantes")) {
-                comp.setBackground(Color.YELLOW);
-                comp.setForeground(Color.BLACK);
+            if (column != 7) {
+                c.setBackground(Color.WHITE);
+                c.setForeground(Color.BLACK);
+
+            }
+            if (column == 7) {
+                if (tblNC.getValueAt(row, 7).toString().equals("Comprado") || tblNC.getValueAt(row, 7).toString().equals("Enviado a Proveedor")) {
+                    c.setBackground(Color.green);
+                    c.setForeground(Color.BLACK);
+                }
+                if (tblNC.getValueAt(row, 7).toString().equals("Nota de compra ingresada con productos faltantes")) {
+                    c.setBackground(Color.YELLOW);
+                    c.setForeground(Color.BLACK);
+
+                }
+
             }
 
-            return (comp);
+            return c;
         }
     }
 

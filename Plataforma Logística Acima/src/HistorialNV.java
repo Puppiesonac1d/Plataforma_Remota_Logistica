@@ -46,6 +46,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
@@ -65,34 +66,48 @@ public class HistorialNV extends javax.swing.JFrame {
 
     public HistorialNV() {
         initComponents();
-        tblHistorialNV.setDefaultRenderer(Object.class, new MyTableCellRenderer());
+
+        TableColorCellRenderer renderer = new TableColorCellRenderer();
+        tblHistorialNV.setDefaultRenderer(Object.class, renderer);
         this.repaint();
     }
 
-    public class MyTableCellRenderer extends DefaultTableCellRenderer {
+    public class TableColorCellRenderer implements TableCellRenderer {
 
-        public Component getTableCellRendererComponent(
-                JTable table, Object value, boolean isSelected,
-                boolean hasFocus, int row, int col) {
-            Component comp = super.getTableCellRendererComponent(
-                    table, value, isSelected, hasFocus, row, col);
+        private final TableCellRenderer RENDERER = new DefaultTableCellRenderer();
 
-            String s = table.getModel().getValueAt(row, 3).toString();
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            Component c = RENDERER.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
-            if (s.equalsIgnoreCase("4.- DESPACHO FINALIZADO")) {
-                comp.setBackground(Color.green);
-                comp.setForeground(Color.BLACK);
-            } else if (s.equalsIgnoreCase("1.- DISPONIBLE PARA DESPACHO")) {
-                comp.setBackground(Color.cyan);
-                comp.setForeground(Color.BLACK);
-            } else if (s.equalsIgnoreCase("2.- DESPACHO INCOMPLETO")) {
-                comp.setBackground(Color.YELLOW);
-                comp.setForeground(Color.BLACK);
-            } else if (s.equalsIgnoreCase("3.- NO DISPONIBLE PARA DESPACHO")) {
-                comp.setBackground(Color.red);
-                comp.setForeground(Color.BLACK);
+            if (column != 3) {
+                c.setBackground(Color.WHITE);
+                c.setForeground(Color.BLACK);
+
             }
-            return (comp);
+            if (column == 3) {
+                if (tblHistorialNV.getValueAt(row, 3).toString().equals("1.- DISPONIBLE PARA DESPACHO")) {
+                    c.setBackground(Color.cyan);
+                    c.setForeground(Color.BLACK);
+                }
+                if (tblHistorialNV.getValueAt(row, 3).toString().equals("2.- DESPACHO INCOMPLETO")) {
+                    c.setBackground(Color.YELLOW);
+                    c.setForeground(Color.BLACK);
+
+                }
+                if (tblHistorialNV.getValueAt(row, 3).toString().equals("3.- NO DISPONIBLE PARA DESPACHO")) {
+                    c.setBackground(Color.RED);
+                    c.setForeground(Color.BLACK);
+
+                }
+                if (tblHistorialNV.getValueAt(row, 3).toString().equals("4.- DESPACHO FINALIZADO")) {
+                    c.setBackground(Color.green);
+                    c.setForeground(Color.BLACK);
+
+                }
+            }
+
+            return c;
         }
     }
 

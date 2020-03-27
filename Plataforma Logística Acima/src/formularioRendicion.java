@@ -73,7 +73,6 @@ public class formularioRendicion extends javax.swing.JFrame {
 
         ordenesCompraFrame.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         ordenesCompraFrame.setMinimumSize(new java.awt.Dimension(658, 443));
-        ordenesCompraFrame.setPreferredSize(new java.awt.Dimension(658, 443));
         ordenesCompraFrame.setSize(new java.awt.Dimension(658, 443));
 
         jLabel9.setText("Buscar Orden de Compra:");

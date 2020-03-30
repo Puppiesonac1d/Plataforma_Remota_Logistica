@@ -13,33 +13,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
-import com.itextpdf.text.BadElementException;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.Image;
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Color;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
@@ -92,20 +71,20 @@ public class Seguimiento extends javax.swing.JFrame {
                     + "    CASE\n"
                     + "        WHEN\n"
                     + "            EXISTS( SELECT \n"
-                    + "                    idOrden\n"
+                    + "                    notaVenta\n"
                     + "                FROM\n"
-                    + "                    detalle_Abastecimiento\n"
+                    + "                   ingreso\n"
                     + "                WHERE\n"
-                    + "                    idOrden = ot.idOrden)\n"
+                    + "                    notaVenta = ot.idOrden)\n"
                     + "        THEN\n"
                     + "            'MERCADERÍA INGRESADA'\n"
                     + "        WHEN\n"
                     + "            NOT EXISTS( SELECT \n"
-                    + "                    idOrden\n"
+                    + "                    notaVenta\n"
                     + "                FROM\n"
-                    + "                    detalle_Abastecimiento\n"
+                    + "                   ingreso\n"
                     + "                WHERE\n"
-                    + "                    idOrden = ot.idOrden)\n"
+                    + "                    notaVenta = ot.idOrden)\n"
                     + "        THEN\n"
                     + "            'MERCADERÍA NO INGRESADA'\n"
                     + "    END 'INGRESO DE MERCADERIA',\n"
@@ -164,81 +143,164 @@ public class Seguimiento extends javax.swing.JFrame {
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             Component c = RENDERER.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            int index = tblNV.getSelectedRow();
 
-            if (column == 0 || column == 1 || column == 2) {
+            if (row == index) {
+                c.setBackground(new Color(57, 105, 138));
+                c.setForeground(Color.WHITE);
+            } else if (row % 2 == 0) {
                 c.setBackground(Color.WHITE);
                 c.setForeground(Color.BLACK);
+                if (column == 3) {
+                    if (tblNV.getValueAt(row, 3).toString().equals("NOTA DE COMPRA CREADA")) {
+                        c.setBackground(Color.green);
+                        c.setForeground(Color.BLACK);
+                    }
+                    if (tblNV.getValueAt(row, 3).toString().equals("NOTA DE COMPRA NO CREADA")) {
+                        c.setBackground(Color.RED);
+                        c.setForeground(Color.BLACK);
 
+                    }
+                }
+                if (column == 4) {
+                    if (tblNV.getValueAt(row, 4).toString().equals("Comprado")) {
+                        c.setBackground(Color.green);
+                        c.setForeground(Color.BLACK);
+                    } else if (tblNV.getValueAt(row, 4).toString().equals("Nota de compra ingresada con productos faltantes")) {
+                        c.setBackground(Color.YELLOW);
+                        c.setForeground(Color.BLACK);
+                    } else if (tblNV.getValueAt(row, 4).toString().equals("Nota de compra ingresada")) {
+                        c.setBackground(Color.CYAN);
+                        c.setForeground(Color.BLACK);
+                    } else {
+                        c.setBackground(Color.WHITE);
+                        c.setForeground(Color.BLACK);
+                    }
+                }
+                if (column == 5) {
+
+                    if (tblNV.getValueAt(row, 5).toString().equals("MERCADERÍA INGRESADA")) {
+                        c.setBackground(Color.green);
+                        c.setForeground(Color.BLACK);
+
+                    }
+                    if (tblNV.getValueAt(row, 5).toString().equals("MERCADERÍA NO INGRESADA")) {
+                        c.setBackground(Color.RED);
+                        c.setForeground(Color.BLACK);
+                    }
+                }
+
+                if (column == 6) {
+
+                    if (tblNV.getValueAt(row, 6).toString().equals("SALIDA DE MERCADERÍA REALIZADA")) {
+                        c.setBackground(Color.green);
+                        c.setForeground(Color.BLACK);
+
+                    }
+                    if (tblNV.getValueAt(row, 6).toString().equals("SALIDA DE MERCADERÍA NO REALIZADA")) {
+                        c.setBackground(Color.RED);
+                        c.setForeground(Color.BLACK);
+                    }
+                }
+
+                if (column == 7) {
+
+                    if (!"NO SE HA ASIGNADO UNA FACTURA".equals(tblNV.getValueAt(row, 7).toString())) {
+                        c.setBackground(Color.green);
+                        c.setForeground(Color.BLACK);
+                    } else {
+                        c.setBackground(Color.RED);
+                        c.setForeground(Color.BLACK);
+                    }
+                }
+
+                if (column == 8) {
+
+                    if (!"NO SE HA ASIGNADO UNA ORDEN DE TRANSPORTE".equals(tblNV.getValueAt(row, 8).toString())) {
+                        c.setBackground(Color.green);
+                        c.setForeground(Color.BLACK);
+                    } else {
+                        c.setBackground(Color.RED);
+                        c.setForeground(Color.BLACK);
+                    }
+                }
+            } else {
+                c.setBackground(new Color(242, 242, 242));
+                c.setForeground(Color.BLACK);
+                if (column == 3) {
+                    if (tblNV.getValueAt(row, 3).toString().equals("NOTA DE COMPRA CREADA")) {
+                        c.setBackground(Color.green);
+                        c.setForeground(Color.BLACK);
+                    }
+                    if (tblNV.getValueAt(row, 3).toString().equals("NOTA DE COMPRA NO CREADA")) {
+                        c.setBackground(Color.RED);
+                        c.setForeground(Color.BLACK);
+
+                    }
+                }
+                if (column == 4) {
+                    if (tblNV.getValueAt(row, 4).toString().equals("Comprado")) {
+                        c.setBackground(Color.green);
+                        c.setForeground(Color.BLACK);
+                    } else if (tblNV.getValueAt(row, 4).toString().equals("Nota de compra ingresada con productos faltantes")) {
+                        c.setBackground(Color.YELLOW);
+                        c.setForeground(Color.BLACK);
+                    } else if (tblNV.getValueAt(row, 4).toString().equals("Nota de compra ingresada")) {
+                        c.setBackground(Color.CYAN);
+                        c.setForeground(Color.BLACK);
+                    } else {
+                        c.setBackground(Color.WHITE);
+                        c.setForeground(Color.BLACK);
+                    }
+                }
+                if (column == 5) {
+
+                    if (tblNV.getValueAt(row, 5).toString().equals("MERCADERÍA INGRESADA")) {
+                        c.setBackground(Color.green);
+                        c.setForeground(Color.BLACK);
+
+                    }
+                    if (tblNV.getValueAt(row, 5).toString().equals("MERCADERÍA NO INGRESADA")) {
+                        c.setBackground(Color.RED);
+                        c.setForeground(Color.BLACK);
+                    }
+                }
+
+                if (column == 6) {
+
+                    if (tblNV.getValueAt(row, 6).toString().equals("SALIDA DE MERCADERÍA REALIZADA")) {
+                        c.setBackground(Color.green);
+                        c.setForeground(Color.BLACK);
+
+                    }
+                    if (tblNV.getValueAt(row, 6).toString().equals("SALIDA DE MERCADERÍA NO REALIZADA")) {
+                        c.setBackground(Color.RED);
+                        c.setForeground(Color.BLACK);
+                    }
+                }
+
+                if (column == 7) {
+
+                    if (!"NO SE HA ASIGNADO UNA FACTURA".equals(tblNV.getValueAt(row, 7).toString())) {
+                        c.setBackground(Color.green);
+                        c.setForeground(Color.BLACK);
+                    } else {
+                        c.setBackground(Color.RED);
+                        c.setForeground(Color.BLACK);
+                    }
+                }
+
+                if (column == 8) {
+
+                    if (!"NO SE HA ASIGNADO UNA ORDEN DE TRANSPORTE".equals(tblNV.getValueAt(row, 8).toString())) {
+                        c.setBackground(Color.green);
+                        c.setForeground(Color.BLACK);
+                    } else {
+                        c.setBackground(Color.RED);
+                        c.setForeground(Color.BLACK);
+                    }
+                }
             }
-            if (column == 3) {
-                if (tblNV.getValueAt(row, 3).toString().equals("NOTA DE COMPRA CREADA")) {
-                    c.setBackground(Color.green);
-                    c.setForeground(Color.BLACK);
-                }
-                if (tblNV.getValueAt(row, 3).toString().equals("NOTA DE COMPRA NO CREADA")) {
-                    c.setBackground(Color.RED);
-                    c.setForeground(Color.BLACK);
-
-                }
-            }
-            if (column == 4) {
-                if (tblNV.getValueAt(row, 4).toString().equals("Comprado")) {
-                    c.setBackground(Color.green);
-                    c.setForeground(Color.BLACK);
-                } else {
-                    c.setBackground(Color.WHITE);
-                    c.setForeground(Color.BLACK);
-                }
-            }
-            if (column == 5) {
-
-                if (tblNV.getValueAt(row, 5).toString().equals("MERCADERÍA INGRESADA")) {
-                    c.setBackground(Color.green);
-                    c.setForeground(Color.BLACK);
-
-                }
-                if (tblNV.getValueAt(row, 5).toString().equals("MERCADERÍA NO INGRESADA")) {
-                    c.setBackground(Color.RED);
-                    c.setForeground(Color.BLACK);
-                }
-            }
-
-            if (column == 6) {
-
-                if (tblNV.getValueAt(row, 6).toString().equals("SALIDA DE MERCADERÍA REALIZADA")) {
-                    c.setBackground(Color.green);
-                    c.setForeground(Color.BLACK);
-
-                }
-                if (tblNV.getValueAt(row, 6).toString().equals("SALIDA DE MERCADERÍA NO REALIZADA")) {
-                    c.setBackground(Color.RED);
-                    c.setForeground(Color.BLACK);
-                }
-            }
-
-            if (column == 7) {
-
-                if (!"NO SE HA ASIGNADO UNA FACTURA".equals(tblNV.getValueAt(row, 7).toString())) {
-                    c.setBackground(Color.green);
-                    c.setForeground(Color.BLACK);
-                } else {
-                    c.setBackground(Color.RED);
-                    c.setForeground(Color.BLACK);
-                }
-            }
-
-            if (column == 8) {
-
-                if (!"NO SE HA ASIGNADO UNA ORDEN DE TRANSPORTE".equals(tblNV.getValueAt(row, 8).toString())) {
-                    c.setBackground(Color.green);
-                    c.setForeground(Color.BLACK);
-                } else {
-                    c.setBackground(Color.RED);
-                    c.setForeground(Color.BLACK);
-                }
-            }
-
-            int fila = tblNV.getSelectedRow();
 
             return c;
         }
@@ -2426,6 +2488,9 @@ public class Seguimiento extends javax.swing.JFrame {
 
             int index = tblNV.getSelectedRow();
 
+            TableColorCellRenderer renderer = new TableColorCellRenderer();
+            tblNV.setDefaultRenderer(Object.class, renderer);
+            tblNV.repaint();
             int notaVenta = Integer.parseInt(tblNV.getValueAt(index, 0).toString());
 
             int nv = 0;
@@ -2507,7 +2572,7 @@ public class Seguimiento extends javax.swing.JFrame {
             try {
                 String queryIngreso = "select notaventa, LEFT(fechaIngreso,10) from ingreso i where NOTAVENTA = ?";
                 PreparedStatement pstIngreso = cn.prepareStatement(queryIngreso);
-                pstIngreso.setInt(1, notaVenta);
+                pstIngreso.setString(1, Integer.toString(notaVenta));
                 ResultSet rsIngreso = pstIngreso.executeQuery();
                 while (rsIngreso.next()) {
                     ingreso = rsIngreso.getInt(1);
@@ -2582,18 +2647,19 @@ public class Seguimiento extends javax.swing.JFrame {
             barraProgreso.setValue(0);
             lblPorcentaje.setText(Integer.toString(barraProgreso.getValue()));
             if (boolnv == true) {
-                barraProgreso.setValue((int) (barraProgreso.getValue() + 16.6666666667));
+                barraProgreso.setValue((int) (barraProgreso.getValue() + 20));
             }
             if (boolcotizacion == true) {
-                barraProgreso.setValue((int) (barraProgreso.getValue() + 16.6666666667));
+                barraProgreso.setValue((int) (barraProgreso.getValue() + 20));
             }
             if (boolingreso == true) {
-                barraProgreso.setValue((int) (barraProgreso.getValue() + 16.6666666667));
+                barraProgreso.setValue((int) (barraProgreso.getValue() + 20));
             }
             if (boolsalida == true) {
-                barraProgreso.setValue((int) (barraProgreso.getValue() + 16.6666666667));
+                barraProgreso.setValue((int) (barraProgreso.getValue() + 40));
             }
-            lblPorcentaje.setText(Integer.toString(barraProgreso.getValue()));
+
+            lblPorcentaje.setText(barraProgreso.getValue() + "%");
 
         } catch (HeadlessException | NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());

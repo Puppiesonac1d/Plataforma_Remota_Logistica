@@ -159,7 +159,6 @@ public class Seguimiento extends javax.swing.JFrame {
                     if (tblNV.getValueAt(row, 3).toString().equals("NOTA DE COMPRA NO CREADA")) {
                         c.setBackground(Color.RED);
                         c.setForeground(Color.BLACK);
-
                     }
                 }
                 if (column == 4) {

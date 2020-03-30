@@ -32,11 +32,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -62,22 +60,48 @@ public class NotaCompra extends javax.swing.JFrame {
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             Component c = RENDERER.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-            if (column != 7) {
+            int index = tblNC.getSelectedRow();
+            if (row == index) {
+                c.setBackground(new Color(57, 105, 138));
+                c.setForeground(Color.WHITE);
+            } else if (row % 2 == 0) {
                 c.setBackground(Color.WHITE);
                 c.setForeground(Color.BLACK);
+                if (column != 7) {
+                    c.setBackground(Color.WHITE);
+                    c.setForeground(Color.BLACK);
 
-            }
-            if (column == 7) {
-                if (tblNC.getValueAt(row, 7).toString().equals("Comprado") || tblNC.getValueAt(row, 7).toString().equals("Enviado a Proveedor")) {
-                    c.setBackground(Color.green);
-                    c.setForeground(Color.BLACK);
                 }
-                if (tblNC.getValueAt(row, 7).toString().equals("Nota de compra ingresada con productos faltantes")) {
-                    c.setBackground(Color.YELLOW);
+                if (column == 7) {
+                    if (tblNC.getValueAt(row, 7).toString().equals("Comprado") || tblNC.getValueAt(row, 7).toString().equals("Enviado a Proveedor")) {
+                        c.setBackground(Color.green);
+                        c.setForeground(Color.BLACK);
+                    }
+                    if (tblNC.getValueAt(row, 7).toString().equals("Nota de compra ingresada con productos faltantes")) {
+                        c.setBackground(Color.YELLOW);
+                        c.setForeground(Color.BLACK);
+                    }
+                }
+            } else {
+                c.setBackground(new Color(242, 242, 242));
+                c.setForeground(Color.BLACK);
+                if (column != 7) {
+                    c.setBackground(Color.WHITE);
                     c.setForeground(Color.BLACK);
+
+                }
+                if (column == 7) {
+                    if (tblNC.getValueAt(row, 7).toString().equals("Comprado") || tblNC.getValueAt(row, 7).toString().equals("Enviado a Proveedor")) {
+                        c.setBackground(Color.green);
+                        c.setForeground(Color.BLACK);
+                    }
+                    if (tblNC.getValueAt(row, 7).toString().equals("Nota de compra ingresada con productos faltantes")) {
+                        c.setBackground(Color.YELLOW);
+                        c.setForeground(Color.BLACK);
+                    }
                 }
             }
+
             return c;
         }
     }
@@ -577,6 +601,10 @@ public class NotaCompra extends javax.swing.JFrame {
 
     private void tblNCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNCMouseClicked
         //Para cambiar el estado de una nota de venta
+        TableColorCellRenderer renderer = new TableColorCellRenderer();
+        tblNC.setDefaultRenderer(Object.class, renderer);
+        this.repaint();
+
         int index = tblNC.getSelectedRow();
         String[] options1 = new String[]{"Ingresar Mercadería", "Imprimir Documentos de Nota de Compra"};
         int resp1 = JOptionPane.showOptionDialog(null, "Elija una operación", null,

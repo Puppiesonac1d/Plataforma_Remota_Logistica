@@ -80,30 +80,69 @@ public class HistorialNV extends javax.swing.JFrame {
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             Component c = RENDERER.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
-            if (column != 3) {
+            int index = tblHistorialNV.getSelectedRow();
+
+            if (row == index) {
+                c.setBackground(new Color(57, 105, 138));
+                c.setForeground(Color.WHITE);
+            } else if (row % 2 == 0) {
                 c.setBackground(Color.WHITE);
                 c.setForeground(Color.BLACK);
-
-            }
-            if (column == 3) {
-                if (tblHistorialNV.getValueAt(row, 3).toString().equals("1.- DISPONIBLE PARA DESPACHO")) {
-                    c.setBackground(Color.cyan);
+                if (column != 3) {
+                    c.setBackground(Color.WHITE);
                     c.setForeground(Color.BLACK);
                 }
-                if (tblHistorialNV.getValueAt(row, 3).toString().equals("2.- DESPACHO INCOMPLETO")) {
-                    c.setBackground(Color.YELLOW);
+                if (column
+                        == 3) {
+                    if (tblHistorialNV.getValueAt(row, 3).toString().equals("1.- DISPONIBLE PARA DESPACHO")) {
+                        c.setBackground(Color.cyan);
+                        c.setForeground(Color.BLACK);
+                    }
+                    if (tblHistorialNV.getValueAt(row, 3).toString().equals("2.- DESPACHO INCOMPLETO")) {
+                        c.setBackground(Color.YELLOW);
+                        c.setForeground(Color.BLACK);
+
+                    }
+                    if (tblHistorialNV.getValueAt(row, 3).toString().equals("3.- NO DISPONIBLE PARA DESPACHO")) {
+                        c.setBackground(Color.RED);
+                        c.setForeground(Color.BLACK);
+
+                    }
+                    if (tblHistorialNV.getValueAt(row, 3).toString().equals("4.- DESPACHO FINALIZADO")) {
+                        c.setBackground(Color.green);
+                        c.setForeground(Color.BLACK);
+
+                    }
+                }
+            } else {
+                c.setBackground(new Color(242, 242, 242));
+                c.setForeground(Color.BLACK);
+                if (column != 3) {
+                    c.setBackground(Color.WHITE);
                     c.setForeground(Color.BLACK);
 
                 }
-                if (tblHistorialNV.getValueAt(row, 3).toString().equals("3.- NO DISPONIBLE PARA DESPACHO")) {
-                    c.setBackground(Color.RED);
-                    c.setForeground(Color.BLACK);
+                if (column
+                        == 3) {
+                    if (tblHistorialNV.getValueAt(row, 3).toString().equals("1.- DISPONIBLE PARA DESPACHO")) {
+                        c.setBackground(Color.cyan);
+                        c.setForeground(Color.BLACK);
+                    }
+                    if (tblHistorialNV.getValueAt(row, 3).toString().equals("2.- DESPACHO INCOMPLETO")) {
+                        c.setBackground(Color.YELLOW);
+                        c.setForeground(Color.BLACK);
 
-                }
-                if (tblHistorialNV.getValueAt(row, 3).toString().equals("4.- DESPACHO FINALIZADO")) {
-                    c.setBackground(Color.green);
-                    c.setForeground(Color.BLACK);
+                    }
+                    if (tblHistorialNV.getValueAt(row, 3).toString().equals("3.- NO DISPONIBLE PARA DESPACHO")) {
+                        c.setBackground(Color.RED);
+                        c.setForeground(Color.BLACK);
 
+                    }
+                    if (tblHistorialNV.getValueAt(row, 3).toString().equals("4.- DESPACHO FINALIZADO")) {
+                        c.setBackground(Color.green);
+                        c.setForeground(Color.BLACK);
+
+                    }
                 }
             }
 
@@ -632,6 +671,9 @@ public class HistorialNV extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void tblHistorialNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHistorialNVMouseClicked
+        TableColorCellRenderer renderer = new TableColorCellRenderer();
+        tblHistorialNV.setDefaultRenderer(Object.class, renderer);
+        this.repaint();
 
         String[] options = new String[]{"Salida de Mercadería", "Imprimir Nota de Venta", "Cancelar"};
         int resp = JOptionPane.showOptionDialog(null, "Elija una operación", null,
@@ -641,7 +683,7 @@ public class HistorialNV extends javax.swing.JFrame {
             try {
                 int index = tblHistorialNV.getSelectedRow();
                 String nv = tblHistorialNV.getValueAt(index, 0).toString();
-                String oc = tblHistorialNV.getValueAt(index, 1).toString();
+                String oc = tblHistorialNV.getValueAt(index, 2).toString();
                 Salida salida = new Salida();
                 salida.txtCodigoOTSalida.setText(nv);
                 salida.lblOC.setText(oc);
@@ -837,9 +879,11 @@ public class HistorialNV extends javax.swing.JFrame {
                     response = new StringBuffer();
                     while ((inputLine = in.readLine()) != null) {
                         response.append(inputLine);
+
                     }
                 } catch (IOException ex) {
-                    Logger.getLogger(HistorialOC.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(HistorialOC.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
                 //print in String
                 // System.out.println(response.toString());
@@ -1393,18 +1437,25 @@ public class HistorialNV extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Ha ocurrido un error: sss" + ex.getMessage());
 
                 } catch (FileNotFoundException ex) {
-                    Logger.getLogger(OrdenTrabajo.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(OrdenTrabajo.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "No hay una nota de venta seleccionada");
+
             }
 
         } catch (IOException ex) {
-            Logger.getLogger(HistorialOC.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HistorialOC.class
+                    .getName()).log(Level.SEVERE, null, ex);
+
         } catch (ParserConfigurationException ex) {
-            Logger.getLogger(HistorialOC.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HistorialOC.class
+                    .getName()).log(Level.SEVERE, null, ex);
+
         } catch (SAXException ex) {
-            Logger.getLogger(HistorialOC.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HistorialOC.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_btnGenerarPDFNVActionPerformed
@@ -1432,7 +1483,8 @@ public class HistorialNV extends javax.swing.JFrame {
             rendicion.tblRendicionesHistoricas.setModel(DbUtils.resultSetToTableModel(rsRendiciones));
 
         } catch (SQLException ex) {
-            Logger.getLogger(HistorialNV.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HistorialNV.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnRendicionesActionPerformed
 
@@ -1450,16 +1502,24 @@ public class HistorialNV extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HistorialNV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HistorialNV.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HistorialNV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HistorialNV.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HistorialNV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HistorialNV.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HistorialNV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HistorialNV.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 

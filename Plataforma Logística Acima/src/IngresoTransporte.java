@@ -282,6 +282,7 @@ public class IngresoTransporte extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblTransportes.getTableHeader().setReorderingAllowed(false);
         jScrollPane25.setViewportView(tblTransportes);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/acima-logo-200p.png"))); // NOI18N

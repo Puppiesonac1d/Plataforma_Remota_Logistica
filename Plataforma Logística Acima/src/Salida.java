@@ -87,6 +87,30 @@ public class Salida extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel53 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
+        caracteristicasBulto = new javax.swing.JFrame();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        pesoKG = new javax.swing.JRadioButton();
+        altoM = new javax.swing.JRadioButton();
+        jLabel7 = new javax.swing.JLabel();
+        btnConfirmarCaracteristicasBulto = new javax.swing.JButton();
+        largoM = new javax.swing.JRadioButton();
+        jLabel8 = new javax.swing.JLabel();
+        anchoM = new javax.swing.JRadioButton();
+        txtPeso = new javax.swing.JTextField();
+        txtAlto = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        altoCM = new javax.swing.JRadioButton();
+        pesoG = new javax.swing.JRadioButton();
+        anchoCM = new javax.swing.JRadioButton();
+        jLabel9 = new javax.swing.JLabel();
+        largoCM = new javax.swing.JRadioButton();
+        txtLargo = new javax.swing.JTextField();
+        txtAncho = new javax.swing.JTextField();
+        btnGroupAlto = new javax.swing.ButtonGroup();
+        btnGroupLargo = new javax.swing.ButtonGroup();
+        btnGroupAncho = new javax.swing.ButtonGroup();
+        btnGroupPeso = new javax.swing.ButtonGroup();
         jPanel5 = new javax.swing.JPanel();
         jTabbedPane4 = new javax.swing.JTabbedPane();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -442,6 +466,161 @@ public class Salida extends javax.swing.JFrame {
         );
 
         jCheckBox1.setText("jCheckBox1");
+
+        caracteristicasBulto.setMaximumSize(new java.awt.Dimension(673, 311));
+        caracteristicasBulto.setMinimumSize(new java.awt.Dimension(673, 311));
+        caracteristicasBulto.setPreferredSize(new java.awt.Dimension(673, 311));
+        caracteristicasBulto.setSize(new java.awt.Dimension(673, 311));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Ingrese dimensiones de bulto");
+
+        btnGroupPeso.add(pesoKG);
+        pesoKG.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pesoKG.setText("KG");
+
+        btnGroupAlto.add(altoM);
+        altoM.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        altoM.setText("M");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel7.setText("Largo:");
+
+        btnConfirmarCaracteristicasBulto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnConfirmarCaracteristicasBulto.setText("Confirmar");
+        btnConfirmarCaracteristicasBulto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarCaracteristicasBultoActionPerformed(evt);
+            }
+        });
+
+        btnGroupLargo.add(largoM);
+        largoM.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        largoM.setText("M");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel8.setText("Ancho:");
+
+        btnGroupAncho.add(anchoM);
+        anchoM.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        anchoM.setText("M");
+
+        txtPeso.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        txtAlto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel6.setText("Alto:");
+
+        btnGroupAlto.add(altoCM);
+        altoCM.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        altoCM.setText("CM");
+
+        btnGroupPeso.add(pesoG);
+        pesoG.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pesoG.setText("G");
+
+        btnGroupAncho.add(anchoCM);
+        anchoCM.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        anchoCM.setText("CM");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel9.setText("Peso:");
+
+        btnGroupLargo.add(largoCM);
+        largoCM.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        largoCM.setText("CM");
+
+        txtLargo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        txtAncho.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnConfirmarCaracteristicasBulto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 633, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel9))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtLargo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtAlto, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtAncho, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pesoG)
+                            .addComponent(anchoCM)
+                            .addComponent(largoCM)
+                            .addComponent(altoCM))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pesoKG)
+                            .addComponent(anchoM)
+                            .addComponent(largoM)
+                            .addComponent(altoM))))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtAlto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(altoCM)
+                    .addComponent(altoM))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtLargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(largoCM)
+                    .addComponent(largoM))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(txtAncho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(anchoCM)
+                    .addComponent(anchoM))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
+                    .addComponent(pesoG)
+                    .addComponent(pesoKG))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnConfirmarCaracteristicasBulto)
+                .addContainerGap(41, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout caracteristicasBultoLayout = new javax.swing.GroupLayout(caracteristicasBulto.getContentPane());
+        caracteristicasBulto.getContentPane().setLayout(caracteristicasBultoLayout);
+        caracteristicasBultoLayout.setHorizontalGroup(
+            caracteristicasBultoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, caracteristicasBultoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        caracteristicasBultoLayout.setVerticalGroup(
+            caracteristicasBultoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(caracteristicasBultoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1280, 740));
@@ -1620,102 +1799,7 @@ public class Salida extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBorrarBultoActionPerformed
 
     private void btnConfirmarBultosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarBultosActionPerformed
-        try {
-            if (tblProdsAgregadosBulto.getRowCount() != 0) {
-                //Información de Productos
-                DefaultTableModel modeloProductos = (DefaultTableModel) tblProdsAgregadosBulto.getModel();
-                DefaultTableModel modeloProductosDefinitivos = (DefaultTableModel) tblProductosDefinitivosBultos.getModel();
-                Object[] row1 = new Object[14];
-                int rowCount = tblProdsAgregadosBulto.getRowCount();
-                for (int i = 0; i < rowCount; i++) {
-                    row1[0] = modeloProductos.getValueAt(i, 0).toString();
-                    row1[1] = modeloProductos.getValueAt(i, 1).toString();
-                    row1[2] = modeloProductos.getValueAt(i, 2).toString();
-                    row1[3] = modeloProductos.getValueAt(i, 3).toString();
-                    modeloProductosDefinitivos.addRow(row1);
-                }
-
-                //Información de Bultos
-                DefaultTableModel modeloBultos = (DefaultTableModel) tblBultos.getModel();
-                Object[] row2 = new Object[14];
-                row2[0] = txtNumeroBultos.getText();
-
-                Object[] optionsalto = {"Aceptar"};
-                JPanel panelAlto = new JPanel();
-                JLabel lblAlto = new JLabel("Ingrese Altitud de bulto: ");
-                JTextField txtAlto = new JTextField(10);
-                panelAlto.add(lblAlto);
-                panelAlto.add(txtAlto);
-                int selectedOptionAlto = JOptionPane.showOptionDialog(null, panelAlto, "Ingrese valor para altitud de bulto - cm para centrimetros y m para metros", JOptionPane.NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, optionsalto, optionsalto[0]);
-
-                if (selectedOptionAlto == 0) {
-                    String text = txtAlto.getText();
-                    row2[1] = text;
-                }
-
-                Object[] optionslargo = {"Aceptar"};
-                JPanel panelLargo = new JPanel();
-                JLabel lblLargo = new JLabel("Ingrese Longitud de bulto: ");
-                JTextField txtLargo = new JTextField(10);
-                panelLargo.add(lblLargo);
-                panelLargo.add(txtLargo);
-                int selectedOptionLargo = JOptionPane.showOptionDialog(null, panelLargo, "Ingrese valor para longitud de bulto - cm para centrimetros y m para metros", JOptionPane.NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, optionslargo, optionslargo[0]);
-
-                if (selectedOptionLargo == 0) {
-                    String text = txtLargo.getText();
-                    row2[2] = text;
-                }
-
-                Object[] optionsAncho = {"Aceptar"};
-                JPanel panelAncho = new JPanel();
-                JLabel lblAncho = new JLabel("Ingrese Ancho de bulto: ");
-                JTextField txtAncho = new JTextField(10);
-                panelAncho.add(lblAncho);
-                panelAncho.add(txtAncho);
-                int selectedOptionAncho = JOptionPane.showOptionDialog(null, panelAncho, "Ingrese valor para anchura de bulto - cm para centrimetros y m para metros", JOptionPane.NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, optionsAncho, optionsAncho[0]);
-
-                if (selectedOptionAncho == 0) {
-                    String text = txtAncho.getText();
-                    row2[3] = text;
-                }
-
-                Object[] optionsPeso = {"Aceptar"};
-                JPanel panelPeso = new JPanel();
-                JLabel lblPeso = new JLabel("Ingrese Peso de bulto: ");
-                JTextField txtPeso = new JTextField(10);
-                panelPeso.add(lblPeso);
-                panelPeso.add(txtPeso);
-                int selectedOptionPeso = JOptionPane.showOptionDialog(null, panelPeso, "Ingrese valor para peso de bulto - kg para kilogramos y g para gramos", JOptionPane.NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, optionsPeso, optionsPeso[0]);
-
-                if (selectedOptionPeso == 0) {
-                    String text = txtPeso.getText();
-                    row2[4] = text;
-                }
-
-                row2[5] = "-";
-                row2[6] = "-";
-
-                modeloBultos.addRow(row2);
-
-                JOptionPane.showMessageDialog(null, "Se registró la información de bulto");
-
-                btnConfirmarBultos.setEnabled(false);
-
-                int index_borrar = tblProdsAgregadosBulto.getRowCount();
-                DefaultTableModel modelo_paso = (DefaultTableModel) tblProdsAgregadosBulto.getModel();
-                for (int i = index_borrar - 1; i >= 0; i--) {
-                    modelo_paso.removeRow(i);
-                }
-
-                int bulto = Integer.parseInt(txtNumeroBultos.getText());
-                bulto = bulto + 1;
-                txtNumeroBultos.setText(Integer.toString(bulto));
-            } else {
-                JOptionPane.showMessageDialog(null, "No hay productos en la lista");
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error: " + ex);
-        }
+        caracteristicasBulto.setVisible(true);
 
     }//GEN-LAST:event_btnConfirmarBultosActionPerformed
 
@@ -1776,6 +1860,84 @@ public class Salida extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnConfirmarCaracteristicasBultoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarCaracteristicasBultoActionPerformed
+        try {
+            if (tblProdsAgregadosBulto.getRowCount() != 0) {
+                //Información de Productos
+                DefaultTableModel modeloProductos = (DefaultTableModel) tblProdsAgregadosBulto.getModel();
+                DefaultTableModel modeloProductosDefinitivos = (DefaultTableModel) tblProductosDefinitivosBultos.getModel();
+                Object[] row1 = new Object[14];
+                int rowCount = tblProdsAgregadosBulto.getRowCount();
+                for (int i = 0; i < rowCount; i++) {
+                    row1[0] = modeloProductos.getValueAt(i, 0).toString();
+                    row1[1] = modeloProductos.getValueAt(i, 1).toString();
+                    row1[2] = modeloProductos.getValueAt(i, 2).toString();
+                    row1[3] = modeloProductos.getValueAt(i, 3).toString();
+                    modeloProductosDefinitivos.addRow(row1);
+                }
+
+                //Información de Bultos
+                DefaultTableModel modeloBultos = (DefaultTableModel) tblBultos.getModel();
+                Object[] row2 = new Object[14];
+                row2[0] = txtNumeroBultos.getText();
+
+                if (altoCM.isSelected()) {
+                    row2[1] = txtAlto.getText() + altoCM.getText();
+                } else {
+                    row2[1] = txtAlto.getText() + altoM.getText();
+                }
+
+                if (largoCM.isSelected()) {
+                    row2[2] = txtLargo.getText() + largoCM.getText();
+                } else {
+                    row2[2] = txtLargo.getText() + largoM.getText();
+                }
+
+                if (anchoCM.isSelected()) {
+                    row2[3] = txtAncho.getText() + anchoCM.getText();
+                } else {
+                    row2[3] = txtAncho.getText() + anchoM.getText();;
+                }
+
+                if (pesoG.isSelected()) {
+                    row2[4] = txtPeso.getText() + pesoG.getText();
+                } else {
+                    row2[4] = txtPeso.getText() + pesoKG.getText();
+                }
+
+                row2[5] = "-";
+                row2[6] = "-";
+
+                modeloBultos.addRow(row2);
+
+                JOptionPane.showMessageDialog(null, "Se registró la información de bulto");
+
+                btnConfirmarBultos.setEnabled(false);
+
+                int index_borrar = tblProdsAgregadosBulto.getRowCount();
+                DefaultTableModel modelo_paso = (DefaultTableModel) tblProdsAgregadosBulto.getModel();
+                for (int i = index_borrar - 1; i >= 0; i--) {
+                    modelo_paso.removeRow(i);
+                }
+
+                int bulto = Integer.parseInt(txtNumeroBultos.getText());
+                bulto = bulto + 1;
+                txtNumeroBultos.setText(Integer.toString(bulto));
+
+                txtAlto.setText("");
+                txtLargo.setText("");
+                txtAncho.setText("");
+                txtPeso.setText("");
+                caracteristicasBulto.dispose();
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay productos en la lista");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex);
+        }
+    }//GEN-LAST:event_btnConfirmarCaracteristicasBultoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1820,17 +1982,27 @@ public class Salida extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton altoCM;
+    private javax.swing.JRadioButton altoM;
+    private javax.swing.JRadioButton anchoCM;
+    private javax.swing.JRadioButton anchoM;
     private javax.swing.JButton btnAgregarABulto;
     private javax.swing.JButton btnAsignarConductor;
     private javax.swing.JButton btnBorrarBulto;
     public javax.swing.JButton btnBuscarOTSalida;
     private javax.swing.JButton btnConfirmarBultos;
+    private javax.swing.JButton btnConfirmarCaracteristicasBulto;
     private javax.swing.JButton btnConfirmarOperacionBultos;
+    private javax.swing.ButtonGroup btnGroupAlto;
+    private javax.swing.ButtonGroup btnGroupAncho;
+    private javax.swing.ButtonGroup btnGroupLargo;
+    private javax.swing.ButtonGroup btnGroupPeso;
     private javax.swing.JButton btnGuiaDespacho;
     private javax.swing.JButton btnIngresarBultos;
     private javax.swing.JButton btnSalida1;
     private javax.swing.JButton btnVolver2;
     private javax.swing.JFrame bultos;
+    private javax.swing.JFrame caracteristicasBulto;
     public javax.swing.JComboBox cmbBodegaSalida;
     private javax.swing.JComboBox cmbTipoDespacho;
     private javax.swing.JButton jButton1;
@@ -1863,14 +2035,20 @@ public class Salida extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel69;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel83;
     private javax.swing.JLabel jLabel84;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel24;
@@ -1889,6 +2067,8 @@ public class Salida extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane15;
     private javax.swing.JTabbedPane jTabbedPane4;
+    private javax.swing.JRadioButton largoCM;
+    private javax.swing.JRadioButton largoM;
     public javax.swing.JLabel lblCodigo;
     public javax.swing.JLabel lblContacto;
     public javax.swing.JLabel lblFono;
@@ -1896,6 +2076,8 @@ public class Salida extends javax.swing.JFrame {
     public javax.swing.JLabel lblOC;
     private javax.swing.JLabel lblStock;
     private javax.swing.JPanel panelGD;
+    private javax.swing.JRadioButton pesoG;
+    private javax.swing.JRadioButton pesoKG;
     private javax.swing.JTable tblBultos;
     private javax.swing.JTable tblBultosResumen;
     private javax.swing.JTable tblMPSalida;
@@ -1903,6 +2085,8 @@ public class Salida extends javax.swing.JFrame {
     private javax.swing.JTable tblProdsAgregadosBulto;
     private javax.swing.JTable tblProductosDefinitivosBultos;
     private javax.swing.JTable tblResumenProductos;
+    private javax.swing.JTextField txtAlto;
+    private javax.swing.JTextField txtAncho;
     private javax.swing.JTextField txtCargosOCSalida;
     public javax.swing.JTextField txtCodigoOTSalida;
     private javax.swing.JTextField txtContactoOCSalida;
@@ -1912,11 +2096,13 @@ public class Salida extends javax.swing.JFrame {
     private javax.swing.JTextField txtFechaEnvioOcSalida;
     private javax.swing.JTextField txtIVAOCSalida;
     private javax.swing.JTextField txtImpuestoEspecificoSalida;
+    private javax.swing.JTextField txtLargo;
     private javax.swing.JTextField txtNetoOCSalida;
     private javax.swing.JTextField txtNombreDemandanteOCSalida;
     private javax.swing.JTextField txtNombreOrdenCompraSalida;
     private javax.swing.JTextField txtNumeroBultos;
     private javax.swing.JTextField txtNumeroFactura;
+    private javax.swing.JTextField txtPeso;
     private javax.swing.JTextField txtProveedorOCSalida;
     private javax.swing.JTextField txtQty;
     private javax.swing.JTextField txtRutCompradorSalida;

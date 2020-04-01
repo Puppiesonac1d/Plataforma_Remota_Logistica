@@ -392,8 +392,9 @@ public class HistorialSalida extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolver1ActionPerformed
 
     private void btnDetalleSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalleSalidaActionPerformed
-        int index = tblHistorialSalida.getSelectedRow();
+
         try {
+            int index = tblHistorialSalida.getSelectedRow();
             detalleSalida.setVisible(true);
             String querySalida = "select idOrden, DATE_FORMAT(DATE(fechaSalida), '%d/%m/%Y'), direccionDespacho,numFactura from salida where idOrden = ? GROUP BY idOrden;";
             PreparedStatement pst;

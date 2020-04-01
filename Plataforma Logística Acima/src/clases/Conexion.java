@@ -7,7 +7,6 @@ package clases;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,10 +29,10 @@ public class Conexion {
      Connection con = null;
      */
     private String driver = "com.mysql.jdbc.Driver";
-     private String cadenaConeccion = "jdbc:mysql://localhost:3306/acimabasededatos";
-     private String usuario = "root";
-     private String pass = "admin";
-     Connection con = null;
+    private String cadenaConeccion = "jdbc:mysql://localhost:3306/acimabasededatos";
+    private String usuario = "root";
+    private String pass = "admin";
+    Connection con = null;
 
     public Connection conecta() {
         try {

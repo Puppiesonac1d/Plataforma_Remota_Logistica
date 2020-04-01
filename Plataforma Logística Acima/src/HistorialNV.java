@@ -679,31 +679,34 @@ public class HistorialNV extends javax.swing.JFrame {
         int resp = JOptionPane.showOptionDialog(null, "Elija una operación", null,
                 JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
                 null, options, options[0]);
-        if (resp == 0) {
-            try {
-                int index = tblHistorialNV.getSelectedRow();
-                String nv = tblHistorialNV.getValueAt(index, 0).toString();
-                String oc = tblHistorialNV.getValueAt(index, 2).toString();
-                Salida salida = new Salida();
-                salida.txtCodigoOTSalida.setText(nv);
-                salida.lblOC.setText(oc);
-                salida.setVisible(true);
-                String queryBodega = "select nombreBodega from bodega ORDER BY nombreBodega";
-                PreparedStatement pstBodega = cn.prepareStatement(queryBodega);
-                ResultSet rsBodega = pstBodega.executeQuery();
-                while (rsBodega.next()) {
-                    salida.cmbBodegaSalida.addItem(rsBodega.getString(1));
+        switch (resp) {
+            case 0:
+                try {
+                    int index = tblHistorialNV.getSelectedRow();
+                    String nv = tblHistorialNV.getValueAt(index, 0).toString();
+                    String oc = tblHistorialNV.getValueAt(index, 2).toString();
+                    Salida salida = new Salida();
+                    salida.txtCodigoOTSalida.setText(nv);
+                    salida.lblOC.setText(oc);
+                    salida.setVisible(true);
+                    String queryBodega = "select nombreBodega from bodega ORDER BY nombreBodega";
+                    PreparedStatement pstBodega = cn.prepareStatement(queryBodega);
+                    ResultSet rsBodega = pstBodega.executeQuery();
+                    while (rsBodega.next()) {
+                        salida.cmbBodegaSalida.addItem(rsBodega.getString(1));
+                    }
+                    salida.btnBuscarOTSalida.doClick();
+                    salida.lblID.setText(lblIDUsuario.getText());
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "No hay una nota seleccionada" + ex.getMessage());
                 }
-                salida.btnBuscarOTSalida.doClick();
-                salida.lblID.setText(lblIDUsuario.getText());
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "No hay una nota seleccionada" + ex.getMessage());
-            }
-
-        } else if (resp == 1) {
-            btnGenerarPDFNV.doClick();
-        } else {
-            JOptionPane.showMessageDialog(null, "No se realizará una acción");
+                break;
+            case 1:
+                btnGenerarPDFNV.doClick();
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "No se realizará una acción");
+                break;
         }
 
     }//GEN-LAST:event_tblHistorialNVMouseClicked

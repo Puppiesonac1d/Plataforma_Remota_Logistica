@@ -420,8 +420,7 @@ public class Menu extends javax.swing.JFrame {
             Seguimiento seguimiento = new Seguimiento();
 
             seguimiento.setVisible(true);
-            String query = "    \n"
-                    + "SELECT \n"
+            String query = "SELECT \n"
                     + "    ot.idOrden AS 'Nota de Venta',\n"
                     + "    ot.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
                     + "    ot.nombre_proveedor AS 'Empresa',\n"

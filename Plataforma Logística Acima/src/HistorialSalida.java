@@ -395,43 +395,47 @@ public class HistorialSalida extends javax.swing.JFrame {
 
         try {
             int index = tblHistorialSalida.getSelectedRow();
-            detalleSalida.setVisible(true);
-            String querySalida = "select idOrden, DATE_FORMAT(DATE(fechaSalida), '%d/%m/%Y'), direccionDespacho,numFactura from salida where idOrden = ? GROUP BY idOrden;";
-            PreparedStatement pst;
-            pst = cn.prepareStatement(querySalida);
-            pst.setInt(1, Integer.parseInt(tblHistorialSalida.getValueAt(index, 1).toString()));
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                lblNumeroNotaVenta.setText(rs.getString(1));
-                lblFechaSalida.setText(rs.getString(2));
-                lblDireccionDespacho.setText(rs.getString(3));
-                lblNumFactura.setText(Integer.toString(rs.getInt(4)));
+            if (index > 0) {
+                detalleSalida.setVisible(true);
+                String querySalida = "select idOrden, DATE_FORMAT(DATE(fechaSalida), '%d/%m/%Y'), direccionDespacho,numFactura from salida where idOrden = ? GROUP BY idOrden;";
+                PreparedStatement pst;
+                pst = cn.prepareStatement(querySalida);
+                pst.setInt(1, Integer.parseInt(tblHistorialSalida.getValueAt(index, 1).toString()));
+                ResultSet rs = pst.executeQuery();
+                while (rs.next()) {
+                    lblNumeroNotaVenta.setText(rs.getString(1));
+                    lblFechaSalida.setText(rs.getString(2));
+                    lblDireccionDespacho.setText(rs.getString(3));
+                    lblNumFactura.setText(Integer.toString(rs.getInt(4)));
+                }
+
+                String queryOC = "select codigoOrdenCompra from salida where idOrden = ? GROUP BY idOrden;";
+                PreparedStatement pstOC;
+                pstOC = cn.prepareStatement(queryOC);
+                pstOC.setInt(1, Integer.parseInt(tblHistorialSalida.getValueAt(index, 1).toString()));
+                ResultSet rsOC = pstOC.executeQuery();
+                tblNVAsociadas.setModel(DbUtils.resultSetToTableModel(rsOC));
+
+                String queryBulto = "Select codigoBulto as 'Número de Bulto' , largo as 'Largo', alto as 'Alto', ancho as 'Ancho',\n"
+                        + "chofer as 'Conductor', guiaDespacho as 'Guía de Despacho', u.NombreUsuario as 'Encargado' \n"
+                        + "from bulto b join usuario u on b.encargado = u.codigo_autorizacion  where idOrden = ?;";
+                PreparedStatement pstBulto;
+                pstBulto = cn.prepareStatement(queryBulto);
+                pstBulto.setInt(1, Integer.parseInt(tblHistorialSalida.getValueAt(index, 1).toString()));
+                ResultSet rsBulto = pstBulto.executeQuery();
+                tblBultos.setModel(DbUtils.resultSetToTableModel(rsBulto));
+
+                String queryProductos = "select codigoBulto as 'Número de Bulto' , idProducto as 'Código de Producto',"
+                        + " nombreProducto as 'Nombre de Producto', stockRestado as 'Cantidad de Producto'\n"
+                        + "from detalleSalida where idOrden = ?;";
+                PreparedStatement pstProd;
+                pstProd = cn.prepareStatement(queryProductos);
+                pstProd.setInt(1, Integer.parseInt(tblHistorialSalida.getValueAt(index, 1).toString()));
+                ResultSet rsProd = pstProd.executeQuery();
+                tblProductosBulto.setModel(DbUtils.resultSetToTableModel(rsProd));
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay una salida seleccionada");
             }
-
-            String queryOC = "select codigoOrdenCompra from salida where idOrden = ? GROUP BY idOrden;";
-            PreparedStatement pstOC;
-            pstOC = cn.prepareStatement(queryOC);
-            pstOC.setInt(1, Integer.parseInt(tblHistorialSalida.getValueAt(index, 1).toString()));
-            ResultSet rsOC = pstOC.executeQuery();
-            tblNVAsociadas.setModel(DbUtils.resultSetToTableModel(rsOC));
-
-            String queryBulto = "Select codigoBulto as 'Número de Bulto' , largo as 'Largo', alto as 'Alto', ancho as 'Ancho',\n"
-                    + "chofer as 'Conductor', guiaDespacho as 'Guía de Despacho', u.NombreUsuario as 'Encargado' \n"
-                    + "from bulto b join usuario u on b.encargado = u.codigo_autorizacion  where idOrden = ?;";
-            PreparedStatement pstBulto;
-            pstBulto = cn.prepareStatement(queryBulto);
-            pstBulto.setInt(1, Integer.parseInt(tblHistorialSalida.getValueAt(index, 1).toString()));
-            ResultSet rsBulto = pstBulto.executeQuery();
-            tblBultos.setModel(DbUtils.resultSetToTableModel(rsBulto));
-
-            String queryProductos = "select codigoBulto as 'Número de Bulto' , idProducto as 'Código de Producto',"
-                    + " nombreProducto as 'Nombre de Producto', stockRestado as 'Cantidad de Producto'\n"
-                    + "from detalleSalida where idOrden = ?;";
-            PreparedStatement pstProd;
-            pstProd = cn.prepareStatement(queryProductos);
-            pstProd.setInt(1, Integer.parseInt(tblHistorialSalida.getValueAt(index, 1).toString()));
-            ResultSet rsProd = pstProd.executeQuery();
-            tblProductosBulto.setModel(DbUtils.resultSetToTableModel(rsProd));
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex.getMessage());

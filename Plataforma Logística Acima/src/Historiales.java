@@ -132,10 +132,19 @@ public class Historiales extends javax.swing.JFrame {
             //this.dispose();
             HistorialSalida histSalida = new HistorialSalida();
             histSalida.setVisible(true);
-            String query = "Select s.idSalida as 'ID de Salida',s.idOrden as 'ID de Orden', s.codigoOrdenCompra as 'Código de Orden de Compra',\n"
-                    + "tipoTransporte as 'Tipo de Transporte', b.nombreBodega as 'Nombre de Bodega',s.seccion as 'Sección', bu.codigoBulto as 'Codigo de Bulto',\n"
-                    + "fechaSalida as 'Fecha de Salida',\n"
-                    + "s.ordenTransporte as 'Orden de Transporte' from salida s join bodega b on s.idBodega = b.idBodega join bulto bu on bu.codigoOrdenCompra = s.codigoOrdenCompra\n"
+            String query = "SELECT \n"
+                    + "    s.idSalida AS 'ID de Salida',\n"
+                    + "    s.idOrden AS 'ID de Orden',\n"
+                    + "    s.codigoOrdenCompra AS 'Código de Orden de Compra',\n"
+                    + "    s.numFactura AS 'Número de Factura',\n"
+                    + "    s.fechaSalida AS 'Fecha de Salida',\n"
+                    + "    s.ordenTransporte AS 'Orden de Transporte'\n"
+                    + "FROM\n"
+                    + "    salida s\n"
+                    + "        JOIN\n"
+                    + "    bodega b ON s.idBodega = b.idBodega\n"
+                    + "        JOIN\n"
+                    + "    bulto bu ON bu.codigoOrdenCompra = s.codigoOrdenCompra\n"
                     + "GROUP BY s.idOrden;";
             PreparedStatement pst = cn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();

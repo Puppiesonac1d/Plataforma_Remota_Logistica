@@ -5,7 +5,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import clases.Conexion;
 import java.awt.Component;
 import java.awt.HeadlessException;
@@ -317,6 +316,7 @@ public class Seguimiento extends javax.swing.JFrame {
     private void initComponents() {
 
         detalleIngreso = new javax.swing.JFrame();
+        jScrollPane3 = new javax.swing.JScrollPane();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -516,7 +516,9 @@ public class Seguimiento extends javax.swing.JFrame {
         btnOrdenTransporte = new javax.swing.JButton();
 
         detalleIngreso.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        detalleIngreso.setMaximumSize(new java.awt.Dimension(1920, 1080));
         detalleIngreso.setMinimumSize(new java.awt.Dimension(1280, 740));
+        detalleIngreso.setSize(new java.awt.Dimension(1280, 740));
 
         jPanel4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -620,12 +622,12 @@ public class Seguimiento extends javax.swing.JFrame {
                                     .addComponent(lblFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lblTipoIngreso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(jLabel13))
-                        .addGap(443, 443, 443))
+                        .addGap(10, 10, 10))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jScrollPane2)
+                        .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(1145, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -663,11 +665,13 @@ public class Seguimiento extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addContainerGap())
+                .addGap(10, 10, 10))
         );
+
+        jScrollPane3.setViewportView(jPanel4);
 
         javax.swing.GroupLayout detalleIngresoLayout = new javax.swing.GroupLayout(detalleIngreso.getContentPane());
         detalleIngreso.getContentPane().setLayout(detalleIngresoLayout);
@@ -675,14 +679,14 @@ public class Seguimiento extends javax.swing.JFrame {
             detalleIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(detalleIngresoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane3)
                 .addContainerGap())
         );
         detalleIngresoLayout.setVerticalGroup(
             detalleIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(detalleIngresoLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 718, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2333,7 +2337,10 @@ public class Seguimiento extends javax.swing.JFrame {
                 neto = neto + (Integer.parseInt(tblProductos.getValueAt(i, 6).toString().substring(1).replace(".", "")) * Integer.parseInt(tblProductos.getValueAt(i, 3).toString()));
 
             }
-            lblPromedio.setText(promedioMargen + "%");
+            DecimalFormat df = new DecimalFormat("#.00");
+
+            lblPromedio.setText(df.format(promedioMargen / tblProductos.getRowCount()) + "%");
+
             double descuento = Double.parseDouble(txtDescuento.getText().replace("$", "").replace(".", "").replace(",", "."));
             neto = neto - descuento;
             iva = (int) (neto * 0.19);
@@ -2372,8 +2379,8 @@ public class Seguimiento extends javax.swing.JFrame {
                 lblTipoIngreso.setText(rs.getString("ing.tipoIngreso"));
             }
             String queryProducto = "SELECT \n"
-                    + "    ing.notaVenta,\n"
-                    + "    ing.codigoOrdenCompra,\n"
+                    + "    ing.notaVenta as 'ID de Orden de Compra',\n"
+                    + "    ing.codigoOrdenCompra as 'Código de orden de compra',\n"
                     + "    ot.codigoProducto as 'ID de Producto',\n"
                     + "    inv.SKU,\n"
                     + "    ot.nombreProducto AS 'Nombre de Producto',\n"
@@ -3326,6 +3333,7 @@ public class Seguimiento extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;

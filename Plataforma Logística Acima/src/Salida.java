@@ -467,9 +467,7 @@ public class Salida extends javax.swing.JFrame {
 
         jCheckBox1.setText("jCheckBox1");
 
-        caracteristicasBulto.setMaximumSize(new java.awt.Dimension(673, 311));
         caracteristicasBulto.setMinimumSize(new java.awt.Dimension(673, 311));
-        caracteristicasBulto.setPreferredSize(new java.awt.Dimension(673, 311));
         caracteristicasBulto.setSize(new java.awt.Dimension(673, 311));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -985,12 +983,15 @@ public class Salida extends javax.swing.JFrame {
                     .addGroup(jPanel23Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel122)
                             .addComponent(jLabel169)
                             .addComponent(jLabel170)
                             .addComponent(jLabel125)
-                            .addComponent(btnIngresarBultos, javax.swing.GroupLayout.PREFERRED_SIZE, 1090, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(btnIngresarBultos, javax.swing.GroupLayout.PREFERRED_SIZE, 1090, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel23Layout.createSequentialGroup()
+                                .addComponent(jLabel122, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtProveedorOCSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 1135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(10, 10, 10))
                     .addGroup(jPanel23Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1004,7 +1005,7 @@ public class Salida extends javax.swing.JFrame {
                             .addComponent(txtRutCompradorSalida)
                             .addComponent(txtNombreDemandanteOCSalida)
                             .addComponent(txtTelefonoCompradorSalida)
-                            .addComponent(txtUnidadCompraClienteSalida, javax.swing.GroupLayout.DEFAULT_SIZE, 1107, Short.MAX_VALUE)
+                            .addComponent(txtUnidadCompraClienteSalida)
                             .addComponent(txtFechaEnvioOcSalida)))
                     .addGroup(jPanel23Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
@@ -1022,9 +1023,6 @@ public class Salida extends javax.swing.JFrame {
                 .addGap(10, 10, 10))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel23Layout.createSequentialGroup()
                 .addComponent(jTabbedPane15)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel23Layout.createSequentialGroup()
-                .addComponent(txtProveedorOCSalida)
                 .addContainerGap())
         );
         jPanel23Layout.setVerticalGroup(
@@ -1552,7 +1550,7 @@ public class Salida extends javax.swing.JFrame {
         try {
             String tipoOrden = "";
             //  int seleccion = Integer.parseInt(model.getValueAt(index, 0).toString());
-            String query = "SELECT * from ordenTrabajo ot LEFT JOIN facturaventa fv on ot.idOrden = fv.idOrden where ot.idOrden = ?;";
+            String query = "SELECT * from ordenTrabajo ot LEFT JOIN facturaventa fv on ot.codigoOrdenCompra = fv.ordendeCompra where ot.idOrden = ?;";
             PreparedStatement pst = cn.prepareStatement(query);
             pst.setString(1, txtCodigoOTSalida.getText());
             ResultSet rs = pst.executeQuery();

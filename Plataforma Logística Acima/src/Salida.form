@@ -562,13 +562,7 @@
     </Component>
     <Container class="javax.swing.JFrame" name="caracteristicasBulto">
       <Properties>
-        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[673, 311]"/>
-        </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[673, 311]"/>
-        </Property>
-        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[673, 311]"/>
         </Property>
         <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -693,9 +687,6 @@
             </Component>
             <Component class="javax.swing.JRadioButton" name="pesoKG">
               <Properties>
-                <Property name="model" type="javax.swing.ButtonModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                  <ComponentRef name="default"/>
-                </Property>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="btnGroupPeso"/>
                 </Property>
@@ -800,9 +791,6 @@
             </Component>
             <Component class="javax.swing.JRadioButton" name="pesoG">
               <Properties>
-                <Property name="model" type="javax.swing.ButtonModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                  <ComponentRef name="default"/>
-                </Property>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="btnGroupPeso"/>
                 </Property>
@@ -1513,13 +1501,17 @@
                                           <Group type="102" alignment="0" attributes="0">
                                               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel122" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jLabel169" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jLabel170" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jLabel125" min="-2" max="-2" attributes="0"/>
                                                   <Component id="btnIngresarBultos" alignment="0" min="-2" pref="1090" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jLabel122" min="-2" pref="62" max="-2" attributes="0"/>
+                                                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                                                      <Component id="txtProveedorOCSalida" min="-2" pref="1135" max="-2" attributes="0"/>
+                                                  </Group>
                                               </Group>
-                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" attributes="0">
                                               <EmptySpace max="-2" attributes="0"/>
@@ -1535,7 +1527,7 @@
                                                   <Component id="txtRutCompradorSalida" alignment="0" max="32767" attributes="0"/>
                                                   <Component id="txtNombreDemandanteOCSalida" alignment="0" max="32767" attributes="0"/>
                                                   <Component id="txtTelefonoCompradorSalida" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="txtUnidadCompraClienteSalida" alignment="0" pref="1107" max="32767" attributes="0"/>
+                                                  <Component id="txtUnidadCompraClienteSalida" alignment="0" max="32767" attributes="0"/>
                                                   <Component id="txtFechaEnvioOcSalida" alignment="0" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
@@ -1560,10 +1552,6 @@
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="jTabbedPane15" max="32767" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="txtProveedorOCSalida" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                               </Group>

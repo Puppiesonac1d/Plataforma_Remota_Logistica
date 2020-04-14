@@ -44,16 +44,16 @@ import net.proteanit.sql.DbUtils;
  * @author The_S
  */
 public class Ingreso extends javax.swing.JFrame {
-
+    
     Conexion con = new Conexion();
     Connection cn = con.conecta();
-
+    
     public Ingreso() {
         initComponents();
         ajusteTablaProductosNotaCompra();
-
+        
     }
-
+    
     public void ajusteTablaProductosNotaCompra() {
         TableColumnModel modeloColumnas = tblProductosAIngresar.getColumnModel();
         TableModel modeloTabla = tblProductosAIngresar.getModel();
@@ -63,7 +63,7 @@ public class Ingreso extends javax.swing.JFrame {
             int total2 = modeloTabla.getRowCount();
             for (int j = 0; j < total2; j++) {
                 if (modeloTabla.getValueAt(j, i) != null) {
-
+                    
                     int tamanio2 = modeloTabla.getValueAt(j, i).toString().length() * 7;
                     if (tamanio2 > tamanio) {
                         tamanio = tamanio2;
@@ -73,7 +73,7 @@ public class Ingreso extends javax.swing.JFrame {
             }
         }
     }
-
+    
     public void ajusteTablaProductosResumen() {
         TableColumnModel modeloColumnas = tblProductosEnNC.getColumnModel();
         TableModel modeloTabla = tblProductosEnNC.getModel();
@@ -83,7 +83,7 @@ public class Ingreso extends javax.swing.JFrame {
             int total2 = modeloTabla.getRowCount();
             for (int j = 0; j < total2; j++) {
                 if (modeloTabla.getValueAt(j, i) != null) {
-
+                    
                     int tamanio2 = modeloTabla.getValueAt(j, i).toString().length() * 7;
                     if (tamanio2 > tamanio) {
                         tamanio = tamanio2;
@@ -580,11 +580,11 @@ public class Ingreso extends javax.swing.JFrame {
                 row[4] = txtNombreProductoIngreso.getText();
                 row[5] = txtStockIngresado.getText();
                 modeloNuevo.addRow(row);
-
+                
                 JOptionPane.showMessageDialog(null, "Producto Agregado a la lista");
             }
             ajusteTablaProductosResumen();
-
+            
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex.getMessage());
         }
@@ -632,9 +632,9 @@ public class Ingreso extends javax.swing.JFrame {
                 ResultSet rs = pstIngreso.executeQuery();
                 // iterate through the java resultset
                 int maxId = 0;
-
+                
                 int cantidad = 0;
-
+                
                 while (rs.next()) {
                     maxId = rs.getInt(1);
                     cantidad = rs.getInt(2);
@@ -647,26 +647,26 @@ public class Ingreso extends javax.swing.JFrame {
                 actualizaNV.setInt(2, Integer.parseInt(tblProductosEnNC.getValueAt(i, 2).toString()));
                 actualizaNV.executeUpdate();
                 System.out.println("actualizada la nota de venta " + tblProductosEnNC.getValueAt(i, 0).toString() + " y producto " + tblProductosEnNC.getValueAt(i, 2).toString());
-
+                
                 String queryProductoIngresado = "update detalle_abastecimiento set estado = 'Ingresado' where numeroCotizacion = ? and codigoOrdenCompra = ? and codigoProducto = ?;";
                 PreparedStatement pstProductoIngresado = cn.prepareStatement(queryProductoIngresado);
                 pstProductoIngresado.setString(1, txtNC.getText());
                 pstProductoIngresado.setString(2, tblProductosEnNC.getValueAt(i, 1).toString());
                 pstProductoIngresado.setString(3, tblProductosEnNC.getValueAt(i, 2).toString());
                 int upProductoIngresado = pstProductoIngresado.executeUpdate();
-
+                
                 String ruta = "";
-
+                
                 JFileChooser dlg = new JFileChooser();
                 dlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-
+                
                 int option = dlg.showOpenDialog(this);
-
+                
                 if (option == JFileChooser.APPROVE_OPTION) {
                     File f = dlg.getSelectedFile();
                     ruta = f.toString();
                 }
-
+                
                 Date sistHora = new Date();
                 String pmAm = "hh:mm a";
                 SimpleDateFormat format = new SimpleDateFormat(pmAm);
@@ -676,9 +676,9 @@ public class Ingreso extends javax.swing.JFrame {
                 SimpleDateFormat formato = new SimpleDateFormat("dd-MMM-YYYY");
                 Date sistFecha = new Date();
                 Document doc = new Document(new Rectangle(282, 424));
-
+                
                 PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(ruta + "\\" + "ingreso_" + txtNC.getText() + "_producto_" + model.getValueAt(i, 1).toString() + "_" + formato.format(sistFecha) + ".pdf"));
-
+                
                 doc.open();
 
                 //Establecer imagen y escala
@@ -686,15 +686,15 @@ public class Ingreso extends javax.swing.JFrame {
                 BarcodeQRCode barcodeQRCode = new BarcodeQRCode("Acima Group - Ingreso " + maxId, 1000, 1000, null);
                 com.itextpdf.text.Image codeQrImage = barcodeQRCode.getImage();
                 codeQrImage.scaleAbsolute(50, 50);
-
+                
                 com.itextpdf.text.Image logoAcima = com.itextpdf.text.Image.getInstance("src\\imagenes\\acima-logo-400p.png");
                 logoAcima.scaleAbsolute(64, 34);
-
+                
                 PdfPCell cell1 = new PdfPCell(logoAcima, false);
                 cell1.setBorder(Rectangle.NO_BORDER);
                 cell1.setBackgroundColor(BaseColor.WHITE);
                 cell1.setHorizontalAlignment(Element.ALIGN_RIGHT);
-
+                
                 PdfPCell cellqr = new PdfPCell(codeQrImage, false);
                 cellqr.setBorder(Rectangle.NO_BORDER);
                 cellqr.setBackgroundColor(BaseColor.WHITE);
@@ -738,37 +738,37 @@ public class Ingreso extends javax.swing.JFrame {
                 //Numero de Ingreso
                 Paragraph numeroIngreso = new Paragraph("Número de Ingreso: " + maxId, FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
                 numeroIngreso.setAlignment(Paragraph.ALIGN_LEFT);
-
+                
                 doc.add(numeroIngreso);
                 doc.add(codeQrImage);
-
+                
                 doc.add(myTable);
 
                 //Nombre Producto
                 Paragraph nombreProducto = new Paragraph("Nombre de Producto: " + model.getValueAt(i, 4).toString(), FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
                 nombreProducto.setAlignment(Paragraph.ALIGN_LEFT);
                 doc.add(nombreProducto);
-
+                
                 Paragraph sku = new Paragraph("SKU:", FontFactory.getFont(FontFactory.HELVETICA, 9, Font.NORMAL, null));
-
+                
                 PdfContentByte cb = writer.getDirectContent();
                 Barcode128 barcode128 = new Barcode128();
                 barcode128.setCode(model.getValueAt(i, 3).toString());
                 barcode128.setCodeType(Barcode.CODE128);
                 Image code128Image = barcode128.createImageWithBarcode(cb, null, null);
-
+                
                 doc.add(sku);
                 doc.add(code128Image);
-
+                
                 doc.add(myTable);
-
+                
                 doc.close();
             } catch (SQLException | DocumentException | IOException ex) {
                 Logger.getLogger(Ingreso.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+            
         }
-
+        
         int totalCantidadIngreso = 0;
         try {
             String queryCantIngreso = "SELECT sum(StockIngresado) FROM acimabasededatos.ingreso where numeroCotizacion = ?;";
@@ -782,7 +782,7 @@ public class Ingreso extends javax.swing.JFrame {
             System.out.println("error realizando la suma" + ex);
         }
         System.out.println("Cantidad de Productos Ingresados: " + totalCantidadIngreso);
-
+        
         int sumatoriaStock = 0;
         for (int x = 0; x < tblProductosAIngresar.getRowCount(); x++) {
             sumatoriaStock = sumatoriaStock + Integer.parseInt(tblProductosAIngresar.getValueAt(x, 6).toString());
@@ -1248,17 +1248,18 @@ catch (Exception ex) {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         try {
-
-            String queryProveedor = "SELECT proveedor FROM abastecimiento\n"
-                    + "WHERE numeroCotizacion = ?";
+            
+            String queryProveedor = "SELECT ab.proveedor,ing.numeroFactura FROM abastecimiento ab LEFT JOIN ingreso ing ON ab.numeroCotizacion = ing.numeroCotizacion\n"
+                    + "WHERE ab.numeroCotizacion = ?";
             String paramProveedor = txtNC.getText();
             PreparedStatement pstProveedor = cn.prepareStatement(queryProveedor);
             pstProveedor.setString(1, paramProveedor);
             ResultSet rsProveedor = pstProveedor.executeQuery();
             while (rsProveedor.next()) {
                 txtDistribuidor.setText(rsProveedor.getString(1));
+                txtNumFactura.setText(rsProveedor.getString(2));
             }
-
+            
             String query = "SELECT\n"
                     + "da.idOrden as 'N° de Nota de Venta',\n"
                     + "da.codigoOrdenCompra AS 'CÓDIGO DE ORDEN DE COMPRA',\n"
@@ -1278,7 +1279,7 @@ catch (Exception ex) {
             String param = txtNC.getText();
             PreparedStatement pst = cn.prepareStatement(query);
             pst.setString(1, param);
-
+            
             ResultSet rs = pst.executeQuery();
             tblProductosAIngresar.setModel(DbUtils.resultSetToTableModel(rs));
 
@@ -1292,13 +1293,13 @@ catch (Exception ex) {
                 pstCorregir.setString(2, tblProductosAIngresar.getValueAt(i, 3).toString());
                 pstCorregir.setString(3, tblProductosAIngresar.getValueAt(i, 1).toString());
                 ResultSet rsCorregir = pstCorregir.executeQuery();
-
+                
                 while (rsCorregir.next()) {
                     cantidadSolicitada = rsCorregir.getInt("ifnull(sum(stockIngresado),0)");
                 }
                 modeloIngresos.setValueAt(Integer.parseInt(modeloIngresos.getValueAt(i, 6).toString()) - cantidadSolicitada, i, 7);
             }
-
+            
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error:" + ex.getMessage());
         }
@@ -1367,21 +1368,21 @@ catch (Exception ex) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
+                    
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(Ingreso.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(Ingreso.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(Ingreso.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Ingreso.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);

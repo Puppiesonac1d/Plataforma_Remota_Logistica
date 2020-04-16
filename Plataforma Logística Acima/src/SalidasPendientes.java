@@ -77,15 +77,8 @@ public class SalidasPendientes extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtBuscarTransporte = new javax.swing.JTextField();
         btnReiniciar = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tblGastoRendicion = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        lblTotalRendicion = new javax.swing.JLabel();
-        btnBorrar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnReiniciarFiltros = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
@@ -276,6 +269,9 @@ public class SalidasPendientes extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtCostoNetoTransporteKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCostoNetoTransporteKeyReleased(evt);
+            }
         });
 
         jLabel79.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
@@ -344,48 +340,12 @@ public class SalidasPendientes extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Rendición");
-
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Costes de Transporte");
 
-        tblGastoRendicion.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Descripción de Gasto", "Tipo de Documento", "Total"
-            }
-        ));
-        jScrollPane3.setViewportView(tblGastoRendicion);
-
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jButton1.setText("Agregar Gasto");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        lblTotalRendicion.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        lblTotalRendicion.setText("0");
-
-        btnBorrar.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        btnBorrar.setText("Borrar de la tabla");
-        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBorrarActionPerformed(evt);
-            }
-        });
-
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel9.setText("Presione Enter para confirmar el monto.");
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel10.setText("Total: $");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -412,8 +372,6 @@ public class SalidasPendientes extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(10, 10, 10))
@@ -430,16 +388,6 @@ public class SalidasPendientes extends javax.swing.JFrame {
                 .addComponent(txtBuscarTransporte)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnReiniciar)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBorrar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblTotalRendicion, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
@@ -480,16 +428,6 @@ public class SalidasPendientes extends javax.swing.JFrame {
                     .addComponent(jLabel174)
                     .addComponent(txtOrdenTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTotalRendicion)
-                    .addComponent(jButton1)
-                    .addComponent(btnBorrar)
-                    .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton11)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -616,7 +554,7 @@ public class SalidasPendientes extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Debe seleccionar una salida pendiente y un transporte de la tabla");
             } else {
                 // create the java mysql update preparedstatement
-                String query = "update salida set idTransporte = ?, tipoTransporte= ?, netoTransporte = ?, ivaTransporte = ?, totalTransporte = ?,ordenTransporte = ? where idSalida = ?";
+                String query = "update salida set idTransporte = ?, tipoTransporte= ?, netoTransporte = ?, ivaTransporte = ?, totalTransporte = ?,ordenTransporte = ? where idOrden = ?";
                 PreparedStatement preparedStmt = cn.prepareStatement(query);
                 preparedStmt.setInt(1, Integer.parseInt(tblTransportes.getValueAt(index_2, 0).toString()));
                 preparedStmt.setString(2, tblTransportes.getValueAt(index_2, 1).toString());
@@ -624,7 +562,7 @@ public class SalidasPendientes extends javax.swing.JFrame {
                 preparedStmt.setString(4, txtIvaTransporte.getText());
                 preparedStmt.setString(5, txtTotalTransporte.getText());
                 preparedStmt.setString(6, txtOrdenTransporte.getText());
-                preparedStmt.setInt(7, Integer.parseInt(tblSalidasPendientes.getValueAt(index, 0).toString()));
+                preparedStmt.setInt(7, Integer.parseInt(tblSalidasPendientes.getValueAt(index, 1).toString()));
                 // execute the java preparedstatement
                 preparedStmt.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Salida de mercadería: " + tblSalidasPendientes.getValueAt(index, 0).toString() + " actualizada");
@@ -633,23 +571,7 @@ public class SalidasPendientes extends javax.swing.JFrame {
         } catch (HeadlessException | NumberFormatException | SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
-        try {
-            int rowCount = tblGastoRendicion.getRowCount();
-            int indexSalidas = tblSalidasPendientes.getSelectedRow();
-            for (int i = 0; i < rowCount; i++) {
-                String queryInsert = "insert into rendicion(idSalida,idOrden,descripcionGasto,documento,total) values(?,?,?,?,?);";
-                PreparedStatement pst = cn.prepareStatement(queryInsert);
-                pst.setInt(1, Integer.parseInt(tblSalidasPendientes.getValueAt(indexSalidas, 0).toString()));
-                pst.setInt(2, Integer.parseInt(tblSalidasPendientes.getValueAt(indexSalidas, 1).toString()));
-                pst.setString(3, tblGastoRendicion.getValueAt(i, 0).toString());
-                pst.setString(4, tblGastoRendicion.getValueAt(i, 1).toString());
-                pst.setString(5, tblGastoRendicion.getValueAt(i, 2).toString().replace("$", "").replace(".", ""));
-                pst.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Margen Registrado");
-            }
-        } catch (NumberFormatException | SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
+
         try {
             String query = "SELECT \n"
                     + "    s.idSalida AS 'Número de Salida',\n"
@@ -933,43 +855,6 @@ public class SalidasPendientes extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnReiniciarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            JFrame ventanaDescripcion = new JFrame("Descripción de Gasto");
-            String descripcion = JOptionPane.showInputDialog(ventanaDescripcion, "Ingrese descripción de gasto");
-
-            Object[] documento = {"Boleta", "Factura"};
-            String opcion = (String) JOptionPane.showInputDialog(null, "Seleccione un tipo de documento", "", JOptionPane.QUESTION_MESSAGE, null, documento, documento[0]);
-
-            JFrame ventanaTotal = new JFrame("Valor total de gasto");
-            String total = JOptionPane.showInputDialog(ventanaTotal, "Valor total de gasto");
-
-            double formatearTotal = Double.parseDouble(total);
-            DecimalFormat formatea = new DecimalFormat("###,###.##");
-
-            DefaultTableModel model = (DefaultTableModel) tblGastoRendicion.getModel();
-            model.addRow(new Object[]{descripcion, opcion, "$" + formatea.format(formatearTotal)});
-
-            int rowCount = tblGastoRendicion.getRowCount();
-            double calculo = 0;
-            for (int i = 0; i < rowCount; i++) {
-                calculo = calculo + Double.parseDouble(tblGastoRendicion.getValueAt(i, 2).toString().replace("$", "").replace(".", "").replace(",", "."));
-            }
-            lblTotalRendicion.setText(formatea.format(calculo));
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Ha ocurrido un error " + ex.getMessage());
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        int viewIndex = tblGastoRendicion.getSelectedRow();
-        if (viewIndex != -1) {
-            int modelIndex = tblGastoRendicion.convertRowIndexToModel(viewIndex); // converts the row index in the view to the appropriate index in the model
-            DefaultTableModel model = (DefaultTableModel) tblGastoRendicion.getModel();
-            model.removeRow(modelIndex);
-        }
-    }//GEN-LAST:event_btnBorrarActionPerformed
-
     private void txtCostoNetoTransporteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCostoNetoTransporteKeyPressed
         try {
             if (txtCostoNetoTransporte.getText().equals("")) {
@@ -987,6 +872,24 @@ public class SalidasPendientes extends javax.swing.JFrame {
             System.out.println("String vacio");
         }
     }//GEN-LAST:event_txtCostoNetoTransporteKeyPressed
+
+    private void txtCostoNetoTransporteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCostoNetoTransporteKeyReleased
+        try {
+            if (txtCostoNetoTransporte.getText().equals("")) {
+                //hacer nada
+            } else {
+                double formatearNeto = Double.parseDouble(txtCostoNetoTransporte.getText().replace("$", "").replace(".", ""));
+                double formateaIva = formatearNeto * 0.19;
+                double formateaTotal = formateaIva + formatearNeto;
+                DecimalFormat formatea = new DecimalFormat("###,###.##");
+                txtCostoNetoTransporte.setText("$" + formatea.format(formatearNeto));
+                txtIvaTransporte.setText("$" + formatea.format(formateaIva));
+                txtTotalTransporte.setText("$" + formatea.format(formateaTotal));
+            }
+        } catch (Exception ex) {
+            System.out.println("String vacio");
+        }
+    }//GEN-LAST:event_txtCostoNetoTransporteKeyReleased
 
     /**
      * @param args the command line arguments
@@ -1025,25 +928,21 @@ public class SalidasPendientes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarTransporte;
-    private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnBuscarOT;
     private javax.swing.JButton btnBuscarSalida;
     private javax.swing.JButton btnNV;
     private javax.swing.JButton btnReiniciar;
     private javax.swing.JButton btnReiniciarFiltros;
     public javax.swing.JComboBox cmbSalidasPendientesFiltro;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel174;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel72;
     private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
@@ -1060,11 +959,8 @@ public class SalidasPendientes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JLabel lblTotalRendicion;
-    private javax.swing.JTable tblGastoRendicion;
     public javax.swing.JTable tblSalidasPendientes;
     public javax.swing.JTable tblTransportes;
     private javax.swing.JTextField txtBuscarTransporte;

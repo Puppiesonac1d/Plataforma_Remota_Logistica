@@ -2,7 +2,7 @@
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -25,7 +25,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-              <Component id="jPanel2" max="32767" attributes="0"/>
+              <Component id="jPanel1" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -34,14 +34,14 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel2" max="32767" attributes="0"/>
+              <Component id="jPanel1" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="jPanel2">
+    <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="fc" green="fc" red="fc" type="rgb"/>
@@ -62,7 +62,7 @@
                       <Component id="jTabbedPane1" alignment="0" pref="1234" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="btnCerrar1" min="-2" pref="141" max="-2" attributes="0"/>
+                          <Component id="btnCerrar" min="-2" pref="141" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -75,14 +75,14 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jTabbedPane1" pref="662" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnCerrar1" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnCerrar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="btnCerrar1">
+        <Component class="javax.swing.JButton" name="btnCerrar">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="11" style="1"/>
@@ -90,7 +90,7 @@
             <Property name="text" type="java.lang.String" value="Salir"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCerrar1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCerrarActionPerformed"/>
           </Events>
         </Component>
         <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
@@ -665,579 +665,6 @@
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
-                      </Events>
-                    </Component>
-                  </SubComponents>
-                </Container>
-              </SubComponents>
-            </Container>
-            <Container class="javax.swing.JScrollPane" name="panelFactura2">
-              <Properties>
-                <Property name="horizontalScrollBarPolicy" type="int" value="32"/>
-                <Property name="verticalScrollBarPolicy" type="int" value="22"/>
-              </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Factura de Insumos">
-                    <Property name="tabTitle" type="java.lang.String" value="Factura de Insumos"/>
-                  </JTabbedPaneConstraints>
-                </Constraint>
-              </Constraints>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-              <SubComponents>
-                <Container class="javax.swing.JPanel" name="panelFacturaInsumos">
-                  <Properties>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="fc" green="fc" red="fc" type="rgb"/>
-                    </Property>
-                  </Properties>
-
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel54" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jLabel53" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jSeparator5" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jSeparator6" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jSeparator7" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="jSeparator8" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="btnIngresarInsumos" alignment="0" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jLabel21" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel20" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel19" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel31" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel32" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel33" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel34" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel35" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel36" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel37" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel38" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel39" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel40" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel41" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel42" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel43" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel44" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel45" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel46" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel47" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel48" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel49" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel50" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel51" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel52" alignment="0" max="32767" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="txtNumeroFactura1" alignment="1" max="32767" attributes="0"/>
-                                          <Component id="txtNumeroNotaVenta1" alignment="1" max="32767" attributes="0"/>
-                                          <Component id="txtNumeroCotizacion1" alignment="1" max="32767" attributes="0"/>
-                                          <Component id="txtRutEmpresa1" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txtGiroEmpresa1" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txtDireccionEmpresa1" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txtCorreoEmpresa1" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txtContactoEmpresa1" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txtTipoVenta1" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txtOrganizacion1" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txtRutCliente1" alignment="1" max="32767" attributes="0"/>
-                                          <Component id="txtGiroCliente1" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txtDireccionCliente1" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="cmbComunaFactura2" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="cmbRegionFactura2" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txtContactoCliente1" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txtTipoCompra1" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txtReferencia1" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txtPagos1" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txtFormaPago1" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txtMontoNeto1" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txtIvaDebito1" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txtImpuestoAdicional1" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txtExtento1" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txtTotal1" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jComboBox2" alignment="0" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Component id="jScrollPane2" alignment="1" pref="1190" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      <Component id="btnBorrarInsumos" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="btnInsumos" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                              <Component id="jLabel54" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtNumeroCotizacion1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtNumeroFactura1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtNumeroNotaVenta1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jSeparator5" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jComboBox2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel31" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtRutEmpresa1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel32" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtGiroEmpresa1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel33" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtDireccionEmpresa1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel34" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtCorreoEmpresa1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel35" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtContactoEmpresa1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jSeparator6" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel36" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtTipoVenta1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel37" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtOrganizacion1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel38" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtRutCliente1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel39" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtGiroCliente1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel40" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtDireccionCliente1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel41" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cmbComunaFactura2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel42" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cmbRegionFactura2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel43" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtContactoCliente1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jSeparator7" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel44" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtTipoCompra1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel53" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" max="-2" attributes="0"/>
-                              <Component id="jScrollPane2" min="-2" pref="234" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="btnInsumos" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnBorrarInsumos" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel45" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtReferencia1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel46" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtPagos1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel47" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtFormaPago1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel48" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtMontoNeto1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel49" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtIvaDebito1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel50" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtImpuestoAdicional1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel51" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtExtento1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel52" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtTotal1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jSeparator8" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnIngresarInsumos" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
-                    <Component class="javax.swing.JLabel" name="jLabel19">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="N&#xfa;mero de Nota de Compra:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel20">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="N&#xfa;mero de Factura:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel21">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="N&#xfa;mero de Nota de Venta:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel31">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Rut de Empresa:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel32">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Giro de Empresa:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel33">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Direcci&#xf3;n de Empresa:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel34">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Correo de Empresa:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel35">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Contacto de Empresa:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel36">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Tipo de Venta:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel37">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Organizaci&#xf3;n:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel38">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Rut de Cliente:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel39">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Giro de Cliente:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel40">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Direcci&#xf3;n de Cliente:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel41">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Comuna de Cliente:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel42">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Regi&#xf3;n de Cliente:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel43">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Contacto de Cliente:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel44">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Tipo de Compra:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel45">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Referencias:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel46">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Pagos:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel47">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Forma de Pago:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel48">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Monto Neto:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel49">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Iva d&#xe9;bito:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel50">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Impuesto Adicional:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel51">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Exento:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel52">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Total:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtNumeroNotaVenta1">
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtNumeroFactura1">
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtNumeroCotizacion1">
-                    </Component>
-                    <Component class="javax.swing.JSeparator" name="jSeparator5">
-                    </Component>
-                    <Component class="javax.swing.JSeparator" name="jSeparator6">
-                    </Component>
-                    <Component class="javax.swing.JFormattedTextField" name="txtRutEmpresa1">
-                      <Properties>
-                        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-                          <Format format="##.###.###-H" subtype="-1" type="5"/>
-                        </Property>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JSeparator" name="jSeparator7">
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtGiroEmpresa1">
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtDireccionEmpresa1">
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtCorreoEmpresa1">
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtContactoEmpresa1">
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtTipoVenta1">
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtOrganizacion1">
-                    </Component>
-                    <Component class="javax.swing.JFormattedTextField" name="txtRutCliente1">
-                      <Properties>
-                        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-                          <Format format="##.###.###-H" subtype="-1" type="5"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value=".   .   - "/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtGiroCliente1">
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtDireccionCliente1">
-                    </Component>
-                    <Component class="javax.swing.JComboBox" name="cmbComunaFactura2">
-                      <Properties>
-                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="1">
-                            <StringItem index="0" value="Seleccione Comuna"/>
-                          </StringArray>
-                        </Property>
-                      </Properties>
-                      <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                      </AuxValues>
-                    </Component>
-                    <Component class="javax.swing.JComboBox" name="cmbRegionFactura2">
-                      <Properties>
-                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="1">
-                            <StringItem index="0" value="Seleccione Regi&#xf3;n"/>
-                          </StringArray>
-                        </Property>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cmbRegionFactura2ItemStateChanged"/>
-                      </Events>
-                      <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                      </AuxValues>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtContactoCliente1">
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtTipoCompra1">
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtReferencia1">
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtPagos1">
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtFormaPago1">
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtMontoNeto1">
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtIvaDebito1">
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtImpuestoAdicional1">
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtExtento1">
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtTotal1">
-                    </Component>
-                    <Component class="javax.swing.JButton" name="btnIngresarInsumos">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Tahoma" size="11" style="1"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="Ingresar"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnIngresarInsumosActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JSeparator" name="jSeparator8">
-                    </Component>
-                    <Component class="javax.swing.JComboBox" name="jComboBox2">
-                      <Properties>
-                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="4">
-                            <StringItem index="0" value="Seleccione Empresa"/>
-                            <StringItem index="1" value="Acima Global SPA"/>
-                            <StringItem index="2" value="Acima Soluciones Integrales SPA"/>
-                            <StringItem index="3" value="Miancafs Consultores SPA"/>
-                          </StringArray>
-                        </Property>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jComboBox2ItemStateChanged"/>
-                      </Events>
-                      <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                      </AuxValues>
-                    </Component>
-                    <Container class="javax.swing.JScrollPane" name="jScrollPane2">
-                      <AuxValues>
-                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                      </AuxValues>
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                      <SubComponents>
-                        <Component class="javax.swing.JTable" name="tblInsumos">
-                          <Properties>
-                            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="4" rowCount="0">
-                                <Column editable="true" title="Producto" type="java.lang.Object"/>
-                                <Column editable="true" title="Cantidad" type="java.lang.Object"/>
-                                <Column editable="true" title="Precio" type="java.lang.Object"/>
-                                <Column editable="true" title="Total" type="java.lang.Object"/>
-                              </Table>
-                            </Property>
-                            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                              <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
-                            </Property>
-                          </Properties>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                    <Component class="javax.swing.JLabel" name="jLabel53">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Tahoma" size="11" style="1"/>
-                        </Property>
-                        <Property name="horizontalAlignment" type="int" value="0"/>
-                        <Property name="text" type="java.lang.String" value="Productos"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="btnInsumos">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Tahoma" size="11" style="1"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="Agregar Producto a la lista"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInsumosActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel54">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Tahoma" size="11" style="1"/>
-                        </Property>
-                        <Property name="horizontalAlignment" type="int" value="0"/>
-                        <Property name="text" type="java.lang.String" value="Factura de Insumos"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="btnBorrarInsumos">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Borrar Producto de Lista"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBorrarInsumosActionPerformed"/>
                       </Events>
                     </Component>
                   </SubComponents>

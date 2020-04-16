@@ -81,28 +81,15 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane15" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="rdbAntiguoNuevo" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jRadioButton2" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="btnSalir3" max="32767" attributes="0"/>
-                      <Component id="btnReiniciarFiltros" pref="249" max="32767" attributes="0"/>
+                      <Component id="rdbAntiguoNuevo" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jRadioButton2" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" alignment="1" min="-2" pref="108" max="-2" attributes="0"/>
+                      <Component id="jLabel4" max="32767" attributes="0"/>
+                      <Component id="btnSalir3" alignment="1" max="32767" attributes="0"/>
+                      <Component id="btnReiniciarFiltros" alignment="1" max="32767" attributes="0"/>
+                      <Component id="btnIngresarFactura" alignment="1" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" attributes="0">
-                  <EmptySpace min="993" pref="993" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="108" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
-              </Group>
-              <Group type="102" attributes="0">
-                  <EmptySpace min="-2" pref="993" max="-2" attributes="0"/>
-                  <Component id="jLabel4" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -113,9 +100,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="btnReiniciarFiltros" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnSalir3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnIngresarFactura" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jScrollPane1" min="-2" pref="24" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -124,11 +109,14 @@
                           <Component id="rdbAntiguoNuevo" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btnReiniciarFiltros" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btnSalir3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="jScrollPane15" pref="563" max="32767" attributes="0"/>
+                      <Component id="jScrollPane15" pref="574" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -272,6 +260,14 @@
           <Events>
             <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jRadioButton2ItemStateChanged"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnIngresarFactura">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="20" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Ingresar Facturas"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

@@ -229,6 +229,11 @@ public class NotaCompra extends javax.swing.JFrame {
 
         btnIngresarFactura.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         btnIngresarFactura.setText("Ingresar Facturas");
+        btnIngresarFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngresarFacturaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -1475,6 +1480,10 @@ public class NotaCompra extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_jRadioButton2ItemStateChanged
+
+    private void btnIngresarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarFacturaActionPerformed
+        IngresoFactura ingreso = new IngresoFactura();
+    }//GEN-LAST:event_btnIngresarFacturaActionPerformed
 
     /**
      * @param args the command line arguments

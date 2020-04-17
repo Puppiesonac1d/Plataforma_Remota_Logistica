@@ -11,7 +11,6 @@ import javax.swing.table.DefaultTableModel;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author The_S
@@ -64,7 +63,7 @@ public class IngresoFactura extends javax.swing.JFrame {
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
-        txtNumeroNotaVenta = new javax.swing.JTextField();
+        txtNumeroNotaCompra = new javax.swing.JTextField();
         txtNumeroFactura = new javax.swing.JTextField();
         txtNumeroCotizacion = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
@@ -125,7 +124,7 @@ public class IngresoFactura extends javax.swing.JFrame {
 
         jLabel2.setText("Número de Factura:");
 
-        jLabel3.setText("Número de Nota de Venta:");
+        jLabel3.setText("Número de Nota de Compra:");
 
         jLabel4.setText("Rut de Empresa:");
 
@@ -283,10 +282,10 @@ public class IngresoFactura extends javax.swing.JFrame {
                             .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(0, 0, 0)
                         .addGroup(panelMercaderiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNumeroFactura, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1074, Short.MAX_VALUE)
-                            .addComponent(txtNumeroNotaVenta, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtNumeroFactura, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1078, Short.MAX_VALUE)
+                            .addComponent(txtNumeroNotaCompra, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtNumeroCotizacion, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtRutEmpresa)
                             .addComponent(txtGiroEmpresa)
@@ -335,7 +334,7 @@ public class IngresoFactura extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelMercaderiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtNumeroNotaVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNumeroNotaCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -509,9 +508,9 @@ public class IngresoFactura extends javax.swing.JFrame {
 
             try {
                 String query = "select co.nombreComuna "
-                + "from Comuna co join Region re on co.IDRegion = re.IDRegion "
-                + "where re.NombreRegion = ?  "
-                + "order by co.nombreComuna asc";
+                        + "from Comuna co join Region re on co.IDRegion = re.IDRegion "
+                        + "where re.NombreRegion = ?  "
+                        + "order by co.nombreComuna asc";
                 String param = region;
                 PreparedStatement pst = cn.prepareStatement(query);
                 pst.setString(1, param);
@@ -534,16 +533,16 @@ public class IngresoFactura extends javax.swing.JFrame {
                 reply = JOptionPane.showConfirmDialog(null, "Confirma Factura", null, JOptionPane.YES_NO_OPTION);
                 if (reply == JOptionPane.YES_OPTION) {
                     String query = "INSERT INTO factura_compra_m (\n"
-                    + "idCotizacion,numeroFacturaCompra_m,idOrden,rutEmpresa,giroEmpresa,direccionEmpresa,correoEmpresa,\n"
-                    + "contactoEmpresa,tipoVenta,rutCliente,giroCliente,direccionCliente,idComuna,idRegion,\n"
-                    + "contactoCliente,tipoCompra,referencias,pagos,formaPago,\n"
-                    + "montoNeto,iva_debito,impuestoAdicional,extento,total )\n"
-                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+                            + "idCotizacion,numeroFacturaCompra_m,idOrden,rutEmpresa,giroEmpresa,direccionEmpresa,correoEmpresa,\n"
+                            + "contactoEmpresa,tipoVenta,rutCliente,giroCliente,direccionCliente,idComuna,idRegion,\n"
+                            + "contactoCliente,tipoCompra,referencias,pagos,formaPago,\n"
+                            + "montoNeto,iva_debito,impuestoAdicional,extento,total )\n"
+                            + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
                     PreparedStatement insert = cn.prepareStatement(query);
 
                     insert.setString(1, txtNumeroCotizacion.getText());
                     insert.setString(2, txtNumeroFactura.getText());
-                    insert.setString(3, txtNumeroNotaVenta.getText());
+                    insert.setString(3, txtNumeroNotaCompra.getText());
                     insert.setString(4, txtRutEmpresa.getText());
                     insert.setString(5, txtGiroEmpresa.getText());
                     insert.setString(6, txtDireccionEmpresa.getText());
@@ -570,12 +569,12 @@ public class IngresoFactura extends javax.swing.JFrame {
 
                     int id = 0;
                     String query1 = "SELECT \n"
-                    + "    CASE\n"
-                    + "        WHEN IDfactura_compra_m IS NULL THEN '1'\n"
-                    + "        ELSE max(IDfactura_compra_m)\n"
-                    + "    END \n"
-                    + "FROM\n"
-                    + "    factura_compra_m;";
+                            + "    CASE\n"
+                            + "        WHEN IDfactura_compra_m IS NULL THEN '1'\n"
+                            + "        ELSE max(IDfactura_compra_m)\n"
+                            + "    END \n"
+                            + "FROM\n"
+                            + "    factura_compra_m;";
                     PreparedStatement pst1 = cn.prepareStatement(query1);
                     ResultSet rs1 = pst1.executeQuery();
                     while (rs1.next()) {
@@ -585,7 +584,7 @@ public class IngresoFactura extends javax.swing.JFrame {
                     int rowCount = tblMercaderia.getRowCount();
                     for (int x = 0; x < rowCount; x++) {
                         String queryProductos = "INSERT INTO detalle_factura_m (idFactura,nombreProducto,cantidad,precio,total )\n"
-                        + "VALUES (?,?,?,?,?);";
+                                + "VALUES (?,?,?,?,?);";
                         PreparedStatement insertProductos = cn.prepareStatement(queryProductos);
 
                         insertProductos.setInt(1, id);
@@ -775,7 +774,7 @@ public class IngresoFactura extends javax.swing.JFrame {
     private javax.swing.JTextField txtMontoNeto;
     private javax.swing.JTextField txtNumeroCotizacion;
     private javax.swing.JTextField txtNumeroFactura;
-    private javax.swing.JTextField txtNumeroNotaVenta;
+    public javax.swing.JTextField txtNumeroNotaCompra;
     private javax.swing.JTextField txtOrganizacion;
     private javax.swing.JTextField txtPagos;
     private javax.swing.JTextField txtReferencia;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
@@ -161,10 +161,10 @@
                                           <Component id="jLabel28" alignment="0" max="32767" attributes="0"/>
                                           <Component id="jLabel29" alignment="0" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="txtNumeroFactura" alignment="1" pref="1074" max="32767" attributes="0"/>
-                                          <Component id="txtNumeroNotaVenta" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="txtNumeroFactura" alignment="1" pref="1078" max="32767" attributes="0"/>
+                                          <Component id="txtNumeroNotaCompra" alignment="1" max="32767" attributes="0"/>
                                           <Component id="txtNumeroCotizacion" alignment="1" max="32767" attributes="0"/>
                                           <Component id="txtRutEmpresa" alignment="0" max="32767" attributes="0"/>
                                           <Component id="txtGiroEmpresa" alignment="0" max="32767" attributes="0"/>
@@ -221,7 +221,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtNumeroNotaVenta" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtNumeroNotaCompra" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jSeparator2" min="-2" max="-2" attributes="0"/>
@@ -372,7 +372,7 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel3">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="N&#xfa;mero de Nota de Venta:"/>
+                        <Property name="text" type="java.lang.String" value="N&#xfa;mero de Nota de Compra:"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel4">
@@ -485,7 +485,10 @@
                         <Property name="text" type="java.lang.String" value="Total:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="txtNumeroNotaVenta">
+                    <Component class="javax.swing.JTextField" name="txtNumeroNotaCompra">
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                      </AuxValues>
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtNumeroFactura">
                     </Component>

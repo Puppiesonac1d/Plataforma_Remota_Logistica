@@ -1,20 +1,83 @@
+
+import clases.Conexion;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import net.proteanit.sql.DbUtils;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Acima Group
  */
 public class SeguimientoIngresos extends javax.swing.JFrame {
 
-    /**
-     * Creates new form SeguimientoIngresos
-     */
+    Conexion con = new Conexion();
+    Connection cn = con.conecta();
+
     public SeguimientoIngresos() {
         initComponents();
+        try {
+            String query = "SELECT \n"
+                    + "    a.numeroCotizacion AS 'OC de Proveedor',\n"
+                    + "    a.proveedor AS 'Proveedor',\n"
+                    + "    a.fecha AS 'Fecha',\n"
+                    + "    a.distribuidor AS 'Distribuidor'\n"
+                    + "FROM\n"
+                    + "    abastecimiento a\n"
+                    + "    group by numeroCotizacion;";
+            PreparedStatement pst;
+            pst = cn.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
+            tblIngresos.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+
+        tblIngresos.setRowSelectionInterval(0, 0);
+
+        try {
+            int index = tblIngresos.getSelectedRow();
+            String query = "Select numeroFactura from ingreso where numeroCotizacion = ?;";
+            PreparedStatement pst;
+            pst = cn.prepareStatement(query);
+            pst.setInt(1, Integer.parseInt(tblIngresos.getValueAt(index, 0).toString()));
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                lblNumeroFactura.setText(rs.getString(1));
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+
+        try {
+            int index = tblIngresos.getSelectedRow();
+            String query = "SELECT \n"
+                    + "    NOTAVENTA AS 'Nota de Venta',\n"
+                    + "    codigoOrdenCompra AS 'Orden de Compra',\n"
+                    + "    inv.idProducto AS 'ID Producto',\n"
+                    + "    inv.sku,\n"
+                    + "    inv.NOMBREPRODUCTO AS 'Nombre de Producto',\n"
+                    + "    ing.StockIngresado as 'Stock Ingresado'\n"
+                    + "FROM\n"
+                    + "    ingreso ing\n"
+                    + "        LEFT JOIN\n"
+                    + "    inventario inv ON ing.idProducto = inv.IDPRODUCTO\n"
+                    + "    WHERE ing.numeroCotizacion = ?;";
+            PreparedStatement pst;
+            pst = cn.prepareStatement(query);
+            pst.setInt(1, Integer.parseInt(tblIngresos.getValueAt(index, 0).toString()));
+            ResultSet rs = pst.executeQuery();
+            tblProductos.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+
     }
 
     /**
@@ -26,21 +89,129 @@ public class SeguimientoIngresos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblIngresos = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblProductos = new javax.swing.JTable();
+        lblNumeroFactura = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        tblIngresos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblIngresos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblIngresosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblIngresos);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Información de Ingreso:");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setText("Número de Factura:");
+
+        tblProductos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tblProductos);
+
+        lblNumeroFactura.setText("-");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1260, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblNumeroFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(lblNumeroFactura))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tblIngresosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblIngresosMouseClicked
+        try {
+            int index = tblIngresos.getSelectedRow();
+            String query = "Select numeroFactura from ingreso where numeroCotizacion = ?;";
+            PreparedStatement pst;
+            pst = cn.prepareStatement(query);
+            pst.setInt(1, Integer.parseInt(tblIngresos.getValueAt(index, 0).toString()));
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                lblNumeroFactura.setText(rs.getString(1));
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        try {
+            int index = tblIngresos.getSelectedRow();
+            String query = "SELECT \n"
+                    + "    NOTAVENTA AS 'Nota de Venta',\n"
+                    + "    codigoOrdenCompra AS 'Orden de Compra',\n"
+                    + "    inv.idProducto AS 'ID Producto',\n"
+                    + "    inv.sku,\n"
+                    + "    inv.NOMBREPRODUCTO AS 'Nombre de Producto',\n"
+                    + "    ing.StockIngresado as 'Stock Ingresado'\n"
+                    + "FROM\n"
+                    + "    ingreso ing\n"
+                    + "        LEFT JOIN\n"
+                    + "    inventario inv ON ing.idProducto = inv.IDPRODUCTO\n"
+                    + "    WHERE ing.numeroCotizacion = ?;";
+            PreparedStatement pst;
+            pst = cn.prepareStatement(query);
+            pst.setInt(1, Integer.parseInt(tblIngresos.getValueAt(index, 0).toString()));
+            ResultSet rs = pst.executeQuery();
+            tblProductos.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }//GEN-LAST:event_tblIngresosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -78,5 +249,12 @@ public class SeguimientoIngresos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblNumeroFactura;
+    private javax.swing.JTable tblIngresos;
+    private javax.swing.JTable tblProductos;
     // End of variables declaration//GEN-END:variables
 }

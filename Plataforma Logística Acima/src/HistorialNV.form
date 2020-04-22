@@ -296,6 +296,7 @@
                       <Component id="btnRendiciones" max="32767" attributes="0"/>
                       <Component id="btnGenerarPDFNV" alignment="1" max="32767" attributes="0"/>
                       <Component id="btnVolverMenu9" alignment="1" max="32767" attributes="0"/>
+                      <Component id="jButton1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -316,8 +317,10 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnGenerarPDFNV" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnVolverMenu9" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
                           <Component id="jScrollPane1" min="-2" pref="45" max="-2" attributes="0"/>
                           <EmptySpace min="26" pref="26" max="-2" attributes="0"/>
                           <Component id="jScrollPane2" min="-2" pref="59" max="-2" attributes="0"/>
@@ -525,6 +528,17 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRendicionesActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButton1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="20" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Seguimiento de Salidas"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

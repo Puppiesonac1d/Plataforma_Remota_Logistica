@@ -128,6 +128,7 @@ public class NotaCompra extends javax.swing.JFrame {
         rdbAntiguoNuevo = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         btnIngresarFactura = new javax.swing.JButton();
+        btnSeguimiento = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         cmbDistribuidor = new javax.swing.JComboBox();
@@ -235,6 +236,14 @@ public class NotaCompra extends javax.swing.JFrame {
             }
         });
 
+        btnSeguimiento.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        btnSeguimiento.setText("Seguimiento de Ingresos");
+        btnSeguimiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeguimientoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
@@ -250,7 +259,8 @@ public class NotaCompra extends javax.swing.JFrame {
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSalir3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnReiniciarFiltros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnIngresarFactura, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnIngresarFactura, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSeguimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
@@ -270,6 +280,8 @@ public class NotaCompra extends javax.swing.JFrame {
                         .addComponent(jRadioButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnReiniciarFiltros)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSeguimiento)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSalir3)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -1485,6 +1497,10 @@ public class NotaCompra extends javax.swing.JFrame {
         IngresoFactura ingreso = new IngresoFactura();
     }//GEN-LAST:event_btnIngresarFacturaActionPerformed
 
+    private void btnSeguimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeguimientoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSeguimientoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1533,6 +1549,7 @@ public class NotaCompra extends javax.swing.JFrame {
     private javax.swing.JButton btnIngresarFactura;
     public javax.swing.JButton btnReiniciarFiltros;
     private javax.swing.JButton btnSalir3;
+    private javax.swing.JButton btnSeguimiento;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     public javax.swing.JComboBox cmbDistribuidor;

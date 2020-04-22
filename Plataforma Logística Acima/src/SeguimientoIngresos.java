@@ -23,14 +23,44 @@ public class SeguimientoIngresos extends javax.swing.JFrame {
     public SeguimientoIngresos() {
         initComponents();
         try {
+            String query2 = "select nombreDistribuidor from distribuidor;";
+            PreparedStatement pst2 = cn.prepareStatement(query2);
+            ResultSet rs2 = pst2.executeQuery();
+            while (rs2.next()) {
+                cmbDistribuidor.addItem(rs2.getString(1));
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        try {
             String query = "SELECT \n"
                     + "    a.numeroCotizacion AS 'OC de Proveedor',\n"
                     + "    a.proveedor AS 'Proveedor',\n"
                     + "    a.fecha AS 'Fecha',\n"
-                    + "    a.distribuidor AS 'Distribuidor'\n"
+                    + "    a.distribuidor AS 'Distribuidor',\n"
+                    + "    CASE\n"
+                    + "        WHEN\n"
+                    + "            EXISTS( SELECT \n"
+                    + "                    numeroCotizacion\n"
+                    + "                FROM\n"
+                    + "                    ingreso\n"
+                    + "                WHERE\n"
+                    + "                    numeroCotizacion = a.numeroCotizacion)\n"
+                    + "        THEN\n"
+                    + "            'MERCADERÍA INGRESADA'\n"
+                    + "        WHEN\n"
+                    + "            NOT EXISTS( SELECT \n"
+                    + "                    numeroCotizacion\n"
+                    + "                FROM\n"
+                    + "                    ingreso\n"
+                    + "                WHERE\n"
+                    + "                    numeroCotizacion = a.numeroCotizacion)\n"
+                    + "        THEN\n"
+                    + "            'MERCADERÍA NO INGRESADA'\n"
+                    + "    END 'INGRESO DE MERCADERIA'\n"
                     + "FROM\n"
                     + "    abastecimiento a\n"
-                    + "    group by numeroCotizacion;";
+                    + "GROUP BY a.numeroCotizacion;";
             PreparedStatement pst;
             pst = cn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
@@ -91,11 +121,23 @@ public class SeguimientoIngresos extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblIngresos = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblProductos = new javax.swing.JTable();
         lblNumeroFactura = new javax.swing.JLabel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        txtOC = new javax.swing.JTextField();
+        btnFiltrarOC = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        cmbDistribuidor = new javax.swing.JComboBox<>();
+        btnReiniciar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -116,6 +158,10 @@ public class SeguimientoIngresos extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tblIngresos);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Ingreso de Mercadería - por Nota de Compra (Cotización)");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -139,6 +185,112 @@ public class SeguimientoIngresos extends javax.swing.JFrame {
 
         lblNumeroFactura.setText("-");
 
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1221, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblNumeroFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(lblNumeroFactura))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jScrollPane3.setViewportView(jPanel1);
+
+        jLabel4.setText("OC de Proveedor:");
+
+        btnFiltrarOC.setText("Buscar");
+        btnFiltrarOC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltrarOCActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtOC, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnFiltrarOC)
+                .addContainerGap(120, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtOC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFiltrarOC))
+                .addGap(10, 10, 10))
+        );
+
+        jTabbedPane1.addTab("Filtrar por OC de Proveedor", jPanel2);
+
+        jLabel5.setText("Proveedor:");
+
+        cmbDistribuidor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Proveedor" }));
+        cmbDistribuidor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbDistribuidorActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbDistribuidor, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(128, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(cmbDistribuidor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Filtrar por Proveedor", jPanel3);
+
+        btnReiniciar.setText("Reiniciar Filtros");
+        btnReiniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReiniciarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -146,30 +298,30 @@ public class SeguimientoIngresos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1260, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblNumeroFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnReiniciar)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1260, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnReiniciar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
+                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(lblNumeroFactura))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48))
         );
 
         pack();
@@ -213,6 +365,125 @@ public class SeguimientoIngresos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tblIngresosMouseClicked
 
+    private void cmbDistribuidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDistribuidorActionPerformed
+        try {
+            String query = "SELECT \n"
+                    + "    a.numeroCotizacion AS 'OC de Proveedor',\n"
+                    + "    a.proveedor AS 'Proveedor',\n"
+                    + "    a.fecha AS 'Fecha',\n"
+                    + "    a.distribuidor AS 'Distribuidor',\n"
+                    + "    CASE\n"
+                    + "        WHEN\n"
+                    + "            EXISTS( SELECT \n"
+                    + "                    numeroCotizacion\n"
+                    + "                FROM\n"
+                    + "                    ingreso\n"
+                    + "                WHERE\n"
+                    + "                    numeroCotizacion = a.numeroCotizacion)\n"
+                    + "        THEN\n"
+                    + "            'MERCADERÍA INGRESADA'\n"
+                    + "        WHEN\n"
+                    + "            NOT EXISTS( SELECT \n"
+                    + "                    numeroCotizacion\n"
+                    + "                FROM\n"
+                    + "                    ingreso\n"
+                    + "                WHERE\n"
+                    + "                    numeroCotizacion = a.numeroCotizacion)\n"
+                    + "        THEN\n"
+                    + "            'MERCADERÍA NO INGRESADA'\n"
+                    + "    END 'INGRESO DE MERCADERIA'\n"
+                    + "FROM\n"
+                    + "    abastecimiento a WHERE a.distribuidor = ?\n"
+                    + "GROUP BY a.numeroCotizacion;";
+            PreparedStatement pst;
+            pst = cn.prepareStatement(query);
+            pst.setString(1, cmbDistribuidor.getSelectedItem().toString());
+            ResultSet rs = pst.executeQuery();
+            tblIngresos.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }//GEN-LAST:event_cmbDistribuidorActionPerformed
+
+    private void btnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarActionPerformed
+        try {
+            String query = "SELECT \n"
+                    + "    a.numeroCotizacion AS 'OC de Proveedor',\n"
+                    + "    a.proveedor AS 'Proveedor',\n"
+                    + "    a.fecha AS 'Fecha',\n"
+                    + "    a.distribuidor AS 'Distribuidor',\n"
+                    + "    CASE\n"
+                    + "        WHEN\n"
+                    + "            EXISTS( SELECT \n"
+                    + "                    numeroCotizacion\n"
+                    + "                FROM\n"
+                    + "                    ingreso\n"
+                    + "                WHERE\n"
+                    + "                    numeroCotizacion = a.numeroCotizacion)\n"
+                    + "        THEN\n"
+                    + "            'MERCADERÍA INGRESADA'\n"
+                    + "        WHEN\n"
+                    + "            NOT EXISTS( SELECT \n"
+                    + "                    numeroCotizacion\n"
+                    + "                FROM\n"
+                    + "                    ingreso\n"
+                    + "                WHERE\n"
+                    + "                    numeroCotizacion = a.numeroCotizacion)\n"
+                    + "        THEN\n"
+                    + "            'MERCADERÍA NO INGRESADA'\n"
+                    + "    END 'INGRESO DE MERCADERIA'\n"
+                    + "FROM\n"
+                    + "    abastecimiento a\n"
+                    + "GROUP BY a.numeroCotizacion;";
+            PreparedStatement pst;
+            pst = cn.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
+            tblIngresos.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }//GEN-LAST:event_btnReiniciarActionPerformed
+
+    private void btnFiltrarOCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarOCActionPerformed
+        try {
+            String query = "SELECT \n"
+                    + "    a.numeroCotizacion AS 'OC de Proveedor',\n"
+                    + "    a.proveedor AS 'Proveedor',\n"
+                    + "    a.fecha AS 'Fecha',\n"
+                    + "    a.distribuidor AS 'Distribuidor',\n"
+                    + "    CASE\n"
+                    + "        WHEN\n"
+                    + "            EXISTS( SELECT \n"
+                    + "                    numeroCotizacion\n"
+                    + "                FROM\n"
+                    + "                    ingreso\n"
+                    + "                WHERE\n"
+                    + "                    numeroCotizacion = a.numeroCotizacion)\n"
+                    + "        THEN\n"
+                    + "            'MERCADERÍA INGRESADA'\n"
+                    + "        WHEN\n"
+                    + "            NOT EXISTS( SELECT \n"
+                    + "                    numeroCotizacion\n"
+                    + "                FROM\n"
+                    + "                    ingreso\n"
+                    + "                WHERE\n"
+                    + "                    numeroCotizacion = a.numeroCotizacion)\n"
+                    + "        THEN\n"
+                    + "            'MERCADERÍA NO INGRESADA'\n"
+                    + "    END 'INGRESO DE MERCADERIA'\n"
+                    + "FROM\n"
+                    + "    abastecimiento a where a.numeroCotizacion = ?\n"
+                    + "GROUP BY a.numeroCotizacion;";
+            PreparedStatement pst;
+            pst = cn.prepareStatement(query);
+            pst.setString(1, txtOC.getText());
+            ResultSet rs = pst.executeQuery();
+            tblIngresos.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }//GEN-LAST:event_btnFiltrarOCActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -249,12 +520,24 @@ public class SeguimientoIngresos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFiltrarOC;
+    private javax.swing.JButton btnReiniciar;
+    private javax.swing.JComboBox<String> cmbDistribuidor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblNumeroFactura;
     private javax.swing.JTable tblIngresos;
     private javax.swing.JTable tblProductos;
+    private javax.swing.JTextField txtOC;
     // End of variables declaration//GEN-END:variables
 }

@@ -78,7 +78,6 @@ public class Menu extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         btnMantenedorBodegas = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        btnHistorialIngreso = new javax.swing.JButton();
         btnSeguimiento = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -163,17 +162,6 @@ public class Menu extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jButton1.setText("Ingresar Facturas");
         panelRojo.add(jButton1);
-
-        btnHistorialIngreso.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        btnHistorialIngreso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Historial.png"))); // NOI18N
-        btnHistorialIngreso.setText("Historial");
-        btnHistorialIngreso.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnHistorialIngreso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHistorialIngresoActionPerformed(evt);
-            }
-        });
-        panelRojo.add(btnHistorialIngreso);
 
         btnSeguimiento.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         btnSeguimiento.setText("Seguimiento de OC");
@@ -390,12 +378,6 @@ public class Menu extends javax.swing.JFrame {
         mant.setVisible(true);
     }//GEN-LAST:event_btnMantenedorBodegasActionPerformed
 
-    private void btnHistorialIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialIngresoActionPerformed
-        Historiales historiales = new Historiales();
-        historiales.setVisible(true);
-        historiales.setTitle("Historial de Ingresos");
-    }//GEN-LAST:event_btnHistorialIngresoActionPerformed
-
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         try {
             String queryMovimiento = "UPDATE ACTIVIDAD SET ACCION2 = 'Cerrar Sesión', tiempoAccion2 = NOW() WHERE IDUSUARIO = ? and DATE(tiempoaccion) = ? and accion = 'Inicio de Sesión';";
@@ -546,7 +528,6 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnHistorialIngreso;
     private javax.swing.JButton btnInventarioProductos;
     private javax.swing.JButton btnMantenedorBodegas;
     private javax.swing.JButton btnNotaCompra;

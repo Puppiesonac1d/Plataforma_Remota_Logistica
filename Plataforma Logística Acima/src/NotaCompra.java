@@ -1498,7 +1498,8 @@ public class NotaCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIngresarFacturaActionPerformed
 
     private void btnSeguimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeguimientoActionPerformed
-        // TODO add your handling code here:
+        SeguimientoIngresos seguimiento = new SeguimientoIngresos();
+        seguimiento.setVisible(true);
     }//GEN-LAST:event_btnSeguimientoActionPerformed
 
     /**
